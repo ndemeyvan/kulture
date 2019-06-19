@@ -272,7 +272,6 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
         button_pop_up=myDialog.findViewById ( R.id.button_pop_up );
         text_pop_up=myDialog.findViewById ( R.id.text_pop_up );
         plus_tard_pop_up=myDialog.findViewById ( R.id.plus_tard_pop_up );
-//        Picasso.with ( this ).load ( image_profil_user ).into ( image_pop_up );
         plus_tard_pop_up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -522,7 +521,6 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
             asyncTask.cancel(true);
             mAuth=null;
             firebaseFirestore=null;
-            acceuille_image=null;
             content_floating_action_btn=null;
             tabLayout=null;
             tabsviewpager=null;
