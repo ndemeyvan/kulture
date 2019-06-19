@@ -6,6 +6,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.graphics.drawable.AnimationDrawable;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
@@ -25,6 +26,12 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -50,7 +57,8 @@ import cm.studio.devbee.communitymarket.login.RegisterActivity;
 import cm.studio.devbee.communitymarket.profile.ParametrePorfilActivity;
 
 public class ChoiceActivity extends AppCompatActivity {
-        private static Button gotoLogin;
+        private static GoogleSignInClient mGoogleSignInClient;
+        private static SignInButton gotoLogin;
         private static Button gotoRegister;
         private static ImageView devant;
         private static WeakReference<ChoiceActivity> choiceActivityWeakReference;
@@ -60,6 +68,7 @@ public class ChoiceActivity extends AppCompatActivity {
         private static   CallbackManager callbackManager;
         private static ImageView image_de_choix;
         private FirebaseUser user;
+        int RC_SIGN_IN = 0;
 
 
     @Override
@@ -71,9 +80,12 @@ public class ChoiceActivity extends AppCompatActivity {
         gotoRegister=findViewById ( R.id.gotoRegister );
         facebook_button=findViewById(R.id.facebook_button);
         //image_de_choix=findViewById(R.id.image_de_choix);
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(ChoiceActivity.this, gso);
         choiceActivityWeakReference=new WeakReference<>(this);
         login ();
-        register ();
         printkey();
         firebaseFirestore=FirebaseFirestore.getInstance();
         ConstraintLayout constraintLayout=findViewById(R.id.layout);
@@ -150,7 +162,6 @@ public class ChoiceActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if (task.isSuccessful ()){
                             if (!task.getResult ().exists ()){
-
                                 Map<String, String> donnees_utilisateur = new HashMap<>();
                                 Calendar calendar=Calendar.getInstance ();
                                 SimpleDateFormat currentDate=new SimpleDateFormat (" dd MMM yyyy" );
@@ -211,10 +222,17 @@ public class ChoiceActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode,resultCode,data);
+
+        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
+        if (requestCode == RC_SIGN_IN) {
+            // The Task returned from this call is always completed, no need to attach
+            // a listener.
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            handleSignInResult(task);
+        }
     }
 
     private void printkey() {
-
         try {
             PackageInfo info= getPackageManager().getPackageInfo("cm.studio.devbee.communitymarket",PackageManager.GET_SIGNATURES);
             for (Signature signature:info.signatures){
@@ -236,21 +254,92 @@ public class ChoiceActivity extends AppCompatActivity {
         gotoLogin.setOnClickListener ( new View.OnClickListener () {
             @Override
             public void onClick(View v) {
-                Intent gotoLogin=new Intent ( getApplicationContext(),LoginActivity.class );
-                startActivity ( gotoLogin );
-                finish ();
+               signIn ();
             }
         } );
     }
-    public void register(){
-        gotoRegister.setOnClickListener ( new View.OnClickListener () {
-            @Override
-            public void onClick(View v) {
-                Intent gotoRegister=new Intent ( getApplicationContext(),RegisterActivity.class );
-                startActivity ( gotoRegister );
-                finish ();
-            }
-        } );
+
+    private void signIn() {
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+        final GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(ChoiceActivity.this);
+        if (acct != null) {
+            final String personName = acct.getDisplayName();
+            final String personGivenName = acct.getGivenName();
+            final String personFamilyName = acct.getFamilyName();
+            String personEmail = acct.getEmail();
+            final String personId = acct.getId();
+            Uri personPhoto = acct.getPhotoUrl();
+
+            firebaseFirestore.collection ( "mes donnees utilisateur" ).document (personId).get ().addOnCompleteListener ( ChoiceActivity.this,new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful ()){
+                        if (!task.getResult ().exists ()){
+                            Map<String, String> donnees_utilisateur = new HashMap<>();
+                            Calendar calendar=Calendar.getInstance ();
+                            SimpleDateFormat currentDate=new SimpleDateFormat (" dd MMM yyyy" );
+                            String saveCurrentDate=currentDate.format ( calendar.getTime () );
+                            String randomKey=saveCurrentDate;
+                            donnees_utilisateur.put ( "user_name",personFamilyName);
+                            donnees_utilisateur.put ( "user_prenom",personName);
+                            donnees_utilisateur.put ( "user_telephone", user.getPhoneNumber() );
+                            donnees_utilisateur.put ( "user_residence", "...");
+                            donnees_utilisateur.put ( "user_mail","...");
+                            donnees_utilisateur.put ( "user_profil_image", String.valueOf(acct.getPhotoUrl()));
+                            donnees_utilisateur.put ( "id_utilisateur", personId);
+                            donnees_utilisateur.put ( "status","online" );
+                            donnees_utilisateur.put ( "search",personFamilyName);
+                            donnees_utilisateur.put ( "message","lu" );
+                            donnees_utilisateur.put ( "derniere_conection",randomKey);
+                            firebaseFirestore.collection ( "mes donnees utilisateur" ).document ( user.getUid()).set ( donnees_utilisateur ).addOnCompleteListener ( ChoiceActivity.this,new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful ()) {
+                                        Intent intent = new Intent ( getApplicationContext (), Accueil.class );
+                                        startActivity ( intent );
+                                        finish ();
+                                        Toast.makeText ( getApplicationContext (), getString(R.string.param_compte_enregister), Toast.LENGTH_LONG ).show ();
+                                    } else {
+                                        String error = task.getException ().getMessage ();
+                                        Toast.makeText ( getApplicationContext (), "ce compte existe deja ", Toast.LENGTH_LONG ).show ();
+                                        Intent intent = new Intent ( getApplicationContext (), Accueil.class );
+                                        startActivity ( intent );
+                                        finish ();
+                                    }
+                                }
+                            } );
+                        }else {
+
+                            Intent gotoparam=new Intent(getApplicationContext(),Accueil.class);
+                            startActivity ( gotoparam );
+                            finish();
+
+                        }
+                    }else{
+
+
+                    }
+                }
+            } );
+
+
+        }
+    }
+
+
+
+    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+        try {
+            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+            // Signed in successfully, show authenticated UI.
+            startActivity(new Intent(ChoiceActivity.this, Accueil.class));
+        } catch (ApiException e) {
+            // The ApiException status code indicates the detailed failure reason.
+            // Please refer to the GoogleSignInStatusCodes class reference for more information.
+            Log.w("Google Sign In Error", "signInResult:failed code=" + e.getStatusCode());
+            Toast.makeText(ChoiceActivity.this, "Failed", Toast.LENGTH_LONG).show();
+        }
     }
 
 

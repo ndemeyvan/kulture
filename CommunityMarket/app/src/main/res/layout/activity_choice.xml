@@ -38,7 +38,7 @@
         tools:ignore="Orientation"></LinearLayout>
 
 
-    <Button
+    <com.google.android.gms.common.SignInButton
         android:id="@+id/gotoLogin"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -47,9 +47,7 @@
         android:layout_marginEnd="@dimen/choice_button_width"
         android:background="@drawable/button_background"
         android:elevation="3dp"
-        android:text="@string/string_choice_email"
         android:textAllCaps="false"
-
         android:textSize="@dimen/button_param_text_size"
         android:textColor="@color/blanc"
         app:layout_constraintEnd_toEndOf="parent"
@@ -67,10 +65,11 @@
         android:background="@drawable/second_button_background"
         android:elevation="3dp"
 
-        android:textSize="@dimen/button_param_text_size"
         android:text="@string/enregister"
         android:textAllCaps="false"
         android:textColor="@color/blanc"
+        android:textSize="@dimen/button_param_text_size"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -84,8 +83,8 @@
         android:layout_marginTop="88dp"
         android:layout_marginEnd="@dimen/choice_button_width"
         android:fontFamily="sans-serif-condensed"
-        android:paddingTop="@dimen/choice_button_padding_top"
-        android:paddingBottom="@dimen/choice_button_padding_top"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
         android:text="@string/choice_enregistrer"
         android:textAlignment="center"
         android:textAllCaps="false"
