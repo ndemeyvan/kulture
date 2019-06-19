@@ -82,7 +82,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
         private AdView mAdView;
         String name;
         Dialog myDialog;
-    private String image_profil_user;
+
 
 
     @Override
@@ -114,7 +114,6 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
         SimpleDateFormat currentDate=new SimpleDateFormat (" dd MMM yyyy" );
         String saveCurrentDate=currentDate.format ( calendar.getTime () );
         String randomKey=saveCurrentDate;
-
         DocumentReference user = firebaseFirestore.collection("mes donnees utilisateur" ).document(current_user_id);
         user.update("derniere_conection", randomKey)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -246,12 +245,10 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                     if (task.isSuccessful ()){
                         if (task.getResult ().exists ()){
-                             image_profil_user =task.getResult ().getString ("user_profil_image");
+                            String  image_profil_user =task.getResult ().getString ("user_profil_image");
                             String nom_user = task.getResult ().getString ("user_name");
                             String prenomuser =task.getResult ().getString ("user_prenom");
                             drawer_user_name.setText ( nom_user + " " + prenomuser);
-
-
                             Picasso.with ( getApplicationContext()).load ( image_profil_user ).transform(new CircleTransform()).into ( acceuille_image );
                            // Picasso.with ( getApplicationContext()).load ( image_profil_user ).placeholder(R.drawable.boy).into ( profilbacck_image );
                         }
@@ -405,7 +402,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
     @Override
     public void onResume() {
             super.onResume ();
-            recup();
+
             vaTopost ();
         userstatus("online");
     }
