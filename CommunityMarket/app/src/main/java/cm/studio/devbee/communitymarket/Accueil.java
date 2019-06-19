@@ -87,6 +87,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //"..."
         super.onCreate ( savedInstanceState );
         setContentView ( R.layout.activity_accueil );
         Toolbar toolbar =findViewById ( R.id.toolbar );
@@ -190,7 +191,27 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
         myDialog = new Dialog (this);
         asyncTask=new AsyncTask();
         asyncTask.execute();
-        ShowPopup ();
+
+        firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user_id).get ().addOnCompleteListener ( new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful ()){
+                    if (task.getResult ().exists ()){
+                        String pop_up= task.getResult ().getString ( "user_residence" );
+                        if (pop_up.equals ( "..." )){
+                            ShowPopup ();
+                        }else{
+
+                        }
+                    }else {
+
+                    }
+                }else{
+
+
+                }
+            }
+        } );
 
     }
 
@@ -243,7 +264,6 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
     }
 
     public void ShowPopup() {
-        recup();
         TextView text_pop_up;
         CircleImageView image_pop_up;
         ImageView close_image;
@@ -501,6 +521,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
             asyncTask.cancel(true);
             super.onDestroy();
             userstatus("offline");
+            recup();
             asyncTask.cancel(true);
             mAuth=null;
             firebaseFirestore=null;
