@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/layout"
+    tools:context=".postActivity.PostActivityFinal"
+   android:background="@drawable/gradient_list">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/constrain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <android.support.v7.widget.Toolbar
+                    android:background="@color/blanc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:titleTextColor="@color/black"
+                    app:title="@string/post_info_sur_vente"
+                    android:id="@+id/final_toolbar"/>
+                <ImageView
+                    android:id="@+id/imageProduit"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/post_image_height"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/final_toolbar"
+                    app:srcCompat="@drawable/noir" />
+
+                <EditText
+                    android:id="@+id/post_product_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="16dp"
+                    android:alpha="0.5"
+                    android:background="@drawable/edit_text_background"
+                    android:elevation="1dp"
+                    android:ems="10"
+                    android:fontFamily="sans-serif-condensed"
+                    android:hint="@string/produc_name"
+                    android:inputType="textPersonName"
+                    android:maxLength="35"
+                    android:padding="@dimen/post_padding_edit_text"
+                    android:textColor="@color/blanc"
+                    android:textColorHint="@color/blanc"
+                    android:textSize="@dimen/parametre_text_size"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageProduit" />
+
+                <EditText
+                    android:id="@+id/post_product_description"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/edit_text_background"
+                    android:elevation="1dp"
+                    android:ems="10"
+                    android:fontFamily="sans-serif-condensed"
+                    android:hint="@string/post_description"
+                    android:inputType="textMultiLine"
+                    android:padding="@dimen/post_padding_edit_text"
+                    android:textSize="@dimen/parametre_text_size"
+                    android:text=""
+                    android:alpha="0.5"
+                    android:maxLength="400"
+                    android:textColor="@color/blanc"
+                    android:textColorHint="@color/blanc"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/post_product_name" />
+
+                <EditText
+                    android:id="@+id/post_production_prix"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/edit_text_background"
+                    android:elevation="1dp"
+                    android:ems="10"
+                    android:fontFamily="sans-serif-condensed"
+                    android:hint="@string/post_prix"
+                    android:inputType="number"
+                    android:padding="@dimen/post_padding_edit_text"
+                    android:alpha="0.5"
+                    android:textColor="@color/blanc"
+                    android:textColorHint="@color/blanc"
+                    android:textSize="@dimen/parametre_text_size"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/post_product_description"
+                    tools:ignore="LabelFor" />
+
+                <Button
+                    android:id="@+id/post_button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/second_button_background"
+                    android:text="mettre en vendre"
+                    android:textAllCaps="false"
+                    android:textColor="@color/blanc"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/post_production_prix"
+                    app:layout_constraintVertical_bias="0.155" />
+
+                <ProgressBar
+                    android:id="@+id/progressBar_post"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageProduit"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.498"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/imageProduit" />
+
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/post_new_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/post_actibity_final_float_button_top_margin"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="@dimen/post_padding_button_bottom"
+                    android:clickable="true"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/imageProduit"
+                    app:layout_constraintVertical_bias="0.361"
+                    app:srcCompat="@drawable/ic_ajouter" />
+            </android.support.constraint.ConstraintLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
+
+</android.support.constraint.ConstraintLayout>

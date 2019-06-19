@@ -1,0 +1,211 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="nav_header_vertical_spacing">8dp</dimen>
+    <dimen name="nav_header_height">176dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <!-- a propos activity. -->
+    <dimen name="a_propos_margin_top">200dp</dimen>
+    <dimen name="a_propos_text_size">20sp</dimen>
+    <dimen name="a_propos_contacter_nous">20sp</dimen>
+    <dimen name="a_propos_nuttoon_padding">140dp</dimen>
+    <dimen name="a_propos_button_size_text">14sp</dimen>
+    <dimen name="button_size_text">12sp</dimen>
+    <!-- choice activity. -->
+    <dimen name="choice_Logo_margin_top">120dp</dimen>
+    <dimen name="choice_Logo_text_size">50sp</dimen>
+    <dimen name="choice_button_top">200dp</dimen>
+    <dimen name="choice_button_padding_top">10dp</dimen>
+    <!-- profil activity. -->
+    <dimen name="profil_user_name">24sp</dimen>
+    <dimen name="profil_desc">18sp</dimen>
+    <dimen name="profil_phone">18sp</dimen>
+    <dimen name="profil_residence">18sp</dimen>
+    <dimen name="profil_image_weight">180dp</dimen>
+    <dimen name="profil_image_height">180dp</dimen>
+    <!-- general activity. -->
+    <dimen name="general_user_name">24sp</dimen>
+    <dimen name="general_desc">16sp</dimen>
+    <dimen name="general_phone">18sp</dimen>
+    <dimen name="general_residence">18sp</dimen>
+    <dimen name="general_image_weight">120dp</dimen>
+    <dimen name="general_image_end">140dp</dimen>
+    <dimen name="general_image_height">120dp</dimen>
+    <dimen name="general_button_margin_top">160dp</dimen>
+    <dimen name="general_margin_top">110dp</dimen>
+    <!-- vendeur activity. -->
+    <dimen name="vendeur_user_name">24sp</dimen>
+    <dimen name="vendeur_desc">18sp</dimen>
+    <dimen name="vendeur_phone">18sp</dimen>
+    <dimen name="vendeur_residence">14sp</dimen>
+    <dimen name="vendeur_image_weight">120dp</dimen>
+    <dimen name="vendeur_image_height">100dp</dimen>
+    <dimen name="activity_vendeur_end_image_button">150dp</dimen>
+    <!-- item layout principal-->
+    <dimen name="item_principal_image_dim_height_with">35dp</dimen>
+    <dimen name="item_principal_name">14sp</dimen>
+    <dimen name="item_principal_date">11sp</dimen>
+    <dimen name="item_principal_desc">14sp</dimen>
+    <dimen name="item_principal_prix">14sp</dimen>
+    <!-- item layout nvx-->
+    <dimen name="nvx_item_nvx_image_dim_height_with">35dp</dimen>
+    <dimen name="nvx_item_nvx_name">14sp</dimen>
+    <dimen name="nvx_item_nvx_date">11sp</dimen>
+    <dimen name="nvx_item_nvx_desc">14sp</dimen>
+    <dimen name="nvx_item_nvx_prix">14sp</dimen>
+    <dimen name="nvx_item_nvx_titre">12sp</dimen>
+    <dimen name="nvx_item_nvx_like_image">20sp</dimen>
+    <!-- item layout post-->
+    <dimen name="post_item_prix">12sp</dimen>
+    <dimen name="post_item_desc">14sp</dimen>
+    <dimen name="post_item_image">40dp</dimen>
+    <!-- login activty post-->
+    <dimen name="login_logo_margintop">96dp</dimen>
+    <!-- parametre profil activty post-->
+    <dimen name="parametre_actibity_image_w_n_h">120dp</dimen>
+    <dimen name="parametre_padding_edit_text">18dp</dimen>
+    <dimen name="parametre_image_button">40dp</dimen>
+
+    <!-- post activty final -->
+    <dimen name="post_actibity_final_float_button_top_margin">0dp</dimen>
+    <dimen name="post_padding_edit_text">20dp</dimen>
+    <dimen name="post_padding_edit_top">100dp</dimen>
+    <dimen name="post_padding_button_bottom">100dp</dimen>
+
+
+
+    <!-- profil activty  -->
+    <dimen name="profil_float_button_end">130dp</dimen>
+    <dimen name="profil_float_button_bottom">10dp</dimen>
+    <dimen name="profil_text_margin_top">24dp</dimen>
+    <dimen name="profil_text_size">18dp</dimen>
+    <dimen name="profil_text_bottom_residence_n_phone">150dp</dimen>
+    <!-- register activty  -->
+    <dimen name="register_text_float_button_end">25sp</dimen>
+    <dimen name="register_text_margin_top">130dp</dimen>
+    <!-- general activty  -->
+    <dimen name="general_image_w_n_h">120dp</dimen>
+    <dimen name="general_image_top">120dp</dimen>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="dots_height">30dp</dimen>
+    <dimen name="dots_margin_bottom">20dp</dimen>
+    <dimen name="img_width_height">120dp</dimen>
+    <dimen name="slide_title">35dp</dimen>
+    <dimen name="slide_desc">16dp</dimen>
+    <dimen name="desc_padding">40dp</dimen>
+    <dimen name="desc_margingTop">264dp</dimen>
+    <dimen name="desc_marginend">62dp</dimen>
+    <dimen name="desc_widh">400dp</dimen>
+    <dimen name="paraameetre_button_margin_end">16dp</dimen>
+    <dimen name="parametre_textt_two">350dp</dimen>
+    <dimen name="button_param_text_size">14sp</dimen>
+    <dimen name="param_button_padding">15dp</dimen>
+    <dimen name="choice_button_width">16dp</dimen>
+    <dimen name="image_detail_heigt">250dp</dimen>
+    <dimen name="image_user_detail_dimen">60dp</dimen>
+    <dimen name="image_detail_top">244dp</dimen>
+    <dimen name="detail_text_size">22sp</dimen>
+    <dimen name="prix_detail">22sp</dimen>
+    <dimen name="detail_top_text">20dp</dimen>
+    <dimen name="prix_detail_start">16dp</dimen>
+    <dimen name="detail_desc_top">8dp</dimen>
+    <dimen name="top_login_text">120dp</dimen>
+    <dimen name="message_height">150dp</dimen>
+    <dimen name="parametre_top">48dp</dimen>
+    <dimen name="parametre_text_size">22sp</dimen>
+    <dimen name="post_image_height">330dp</dimen>
+    <dimen name="profil_button_size">14sp</dimen>
+    <dimen name="margin_text_profil">88dp</dimen>
+    <dimen name="profil_margin_bottom">76dp</dimen>
+    <dimen name="profil_text_desc_width">250dp</dimen>
+    <dimen name="general_margin_start">40dp</dimen>
+    <dimen name="general_margin_top_residence">20dp</dimen>
+    <dimen name="profil_card_height">200dp</dimen>
+    <dimen name="vendeur_margin_top_image">8dp</dimen>
+    <dimen name="margin_end_vendeur_phone">120dp</dimen>
+    <dimen name="vendeur_desc_margin_top">168dp</dimen>
+    <dimen name="detail_profil_top">236dp</dimen>
+    //////////////////// new detail activity
+    <dimen name="new_detail_magin_top">16dp</dimen>
+    <dimen name="new_detail_text_size">24sp</dimen>
+    <dimen name="new_detail_prix_text_size">20sp</dimen>
+    <dimen name="new_detail_prix_margin_top">4dp</dimen>
+    <dimen name="new_detail_day_name_user">16sp</dimen>
+    <dimen name="new_detail_top_name_date">16dp</dimen>
+    <dimen name="new_detail_height_button">40dp</dimen>
+    <dimen name="new_detail_desc_margin_top">16dp</dimen>
+    <dimen name="new_detail_desc_text_size">16sp</dimen>
+    <dimen name="new_detail_height_image">36dp</dimen>
+    <dimen name="new_detail_add_button">60dp</dimen>
+    <dimen name="new_detail_add_height">40dp</dimen>
+    <dimen name="new_detail_supp_button_margin_start">32dp</dimen>
+    <dimen name="new_dimen_supp_button_end">8dp</dimen>
+    <dimen name="new_button_add_button_end">32dp</dimen>
+    <dimen name="new_detail_supp_butt_widht">40dp</dimen>
+    <dimen name="new_detail_supp_button_size_text">16sp</dimen>
+    <dimen name="new_desc_text_width">379dp</dimen>
+    <dimen name="new_detail_user_actual">32dp</dimen>
+    <dimen name="new_detail_top_actual_user">24dp</dimen>
+    <dimen name="new_detail_edit_start">16dp</dimen>
+    <dimen name="new_button_add_margin_start">8dp</dimen>
+    <dimen name="new_detail_edit_end">16dp</dimen>
+    <dimen name="new_button_add_size">18sp</dimen>
+    <dimen name="new_detail_edit_width">210dp</dimen>
+    <dimen name="new_detail_date_name_margin_start">50dp</dimen>
+    <dimen name="new_detail_edit_text_size">16sp</dimen>
+    //////////commentaire layout
+    <dimen name="commentaire_image">36dp</dimen>
+    <dimen name="commentaire_name_user">16sp</dimen>
+    <dimen name="commentaire_temps">12sp</dimen>
+    <dimen name="commentaire_text">14sp</dimen>
+    <dimen name="commentaire_image_margin_start">8dp</dimen>
+    <dimen name="commentaire_image_margin_end">8dp</dimen>
+    <dimen name="commentaire_image_margin_top">8dp</dimen>
+    <dimen name="commentaire_user_name_top">8dp</dimen>
+    <dimen name="commentaire_user_name_end">8dp</dimen>
+    <dimen name="commentaire_text_temps_top">8dp</dimen>
+    <dimen name="commentaire_text_temps_end">16dp</dimen>
+    <dimen name="commentaire_text_desc">16dp</dimen>
+    <dimen name="commentaire_text_end">8dp</dimen>
+    <dimen name="commentaire_text_bottom">8dp</dimen>
+    <dimen name="commentaire_circle_widht_height">12dp</dimen>
+    <dimen name="commentaire_name_start">16dp</dimen>
+    <dimen name="commentaire_text_desc_widht">250dp</dimen>
+
+    //////////profil Activity
+    <dimen name="margin_top_new_profil_design">80dp</dimen>
+    <dimen name="new_profil_image_dimen">120dp</dimen>
+    <dimen name="new_profil_margin_start">8dp</dimen>
+    <dimen name="new_profil_margin_end">8dp</dimen>
+    <dimen name="new_profil_user_name_top">8dp</dimen>
+    <dimen name="new_profil_name_text_size">18sp</dimen>
+    <dimen name="new_profil_desc_widht">300dp</dimen>
+    <dimen name="new_profil_margin_top">8dp</dimen>
+    <dimen name="image_enplacement_new_profil_margin_start">46dp</dimen>
+    <dimen name="dimen_new_profil_phone_marging">110dp</dimen>
+    <dimen name="new_profil_view_widht">300dp</dimen>
+    <dimen name="new_profil_view_height">1dp</dimen>
+    <dimen name="new_profil_view_margin_top">32dp</dimen>
+    <dimen name="new_profil_view_margin_end">8dp</dimen>
+    <dimen name="new_profil_button">16dp</dimen>
+    <dimen name="new_profil_button_margin_top">16dp</dimen>
+    <dimen name="new_profil_button_magin_end">16dp</dimen>
+    <dimen name="button_profil_text_size">14sp</dimen>
+    <dimen name="new_profil_text_margin_top">8dp</dimen>
+    <dimen name="new_profil_text_size">14sp</dimen>
+    <dimen name="new_profil_image_margin_top">16dp</dimen>
+    <dimen name="user_general_margin_start">235dp</dimen>
+    <dimen name="user_general_secon_button_top">16dp</dimen>
+    //fragment_home
+    <dimen name="fragment_home_image_slider">220dp</dimen>
+    <dimen name="post_detail_height">300dp</dimen>
+    /////item vendeur
+    <dimen name="height_item_vendeur">170dp</dimen>
+    <dimen name="item_vendeur_start">8dp</dimen>
+    <dimen name="item_margin_end">8dp</dimen>
+    <dimen name="item_card_height">230dp</dimen>
+    <dimen name="item_text_top">8dp</dimen>
+    <dimen name="item_profil_margin_top">30sp</dimen>
+</resources>
