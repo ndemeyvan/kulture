@@ -1,11 +1,14 @@
 package cm.studio.devbee.communitymarket;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -21,6 +24,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -61,6 +65,7 @@ import cm.studio.devbee.communitymarket.postActivity.PostActivity;
 import cm.studio.devbee.communitymarket.profile.ParametrePorfilActivity;
 import cm.studio.devbee.communitymarket.profile.ProfileActivity;
 import cm.studio.devbee.communitymarket.search.SearchActivity;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Accueil extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, RewardedVideoAdListener {
         private FirebaseAuth mAuth;
@@ -76,6 +81,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
         private Menu menu;
         private AdView mAdView;
         String name;
+        Dialog myDialog;
 
 
     @Override
@@ -180,10 +186,29 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
                 }
             }
         } );
-
+        myDialog = new Dialog (this);
         asyncTask=new AsyncTask();
         asyncTask.execute();
 
+    }
+
+    public void ShowPopup() {
+        TextView txtclose;
+        CircleImageView image_pop_up;
+        ImageView close_image;
+        Button button_pop_up;
+        myDialog.setContentView(R.layout.custum_pop_up);
+        close_image=findViewById ( R.id.close_image );
+        image_pop_up=findViewById ( R.id.image_pop_up );
+        button_pop_up=findViewById ( R.id.button_pop_up );
+        txtclose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myDialog.dismiss();
+            }
+        });
+        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable (Color.TRANSPARENT));
+        myDialog.show();
     }
 
     @Override
