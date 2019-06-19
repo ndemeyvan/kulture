@@ -285,25 +285,9 @@ public class ParametrePorfilActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed ();
-        firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user_id).get ().addOnCompleteListener ( ParametrePorfilActivity.this,new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful ()){
-                    if (task.getResult ().exists ()){
-                        Intent parametre=new Intent(getApplicationContext(),Accueil.class);
-                        startActivity(parametre);
-                        finish ();
-                    }else {
-
-                    }
-                }else{
-
-                    finish();
-                }
-            }
-        } );
-
-
+        Intent parametre=new Intent(getApplicationContext(),Accueil.class);
+        startActivity(parametre);
+        finish ();
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

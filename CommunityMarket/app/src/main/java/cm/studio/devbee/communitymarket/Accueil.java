@@ -82,6 +82,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
         private AdView mAdView;
         String name;
         Dialog myDialog;
+    private String image_profil_user;
 
 
     @Override
@@ -189,27 +190,11 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
         myDialog = new Dialog (this);
         asyncTask=new AsyncTask();
         asyncTask.execute();
+        ShowPopup ();
 
     }
 
-    public void ShowPopup() {
-        TextView txtclose;
-        CircleImageView image_pop_up;
-        ImageView close_image;
-        Button button_pop_up;
-        myDialog.setContentView(R.layout.custum_pop_up);
-        close_image=findViewById ( R.id.close_image );
-        image_pop_up=findViewById ( R.id.image_pop_up );
-        button_pop_up=findViewById ( R.id.button_pop_up );
-        txtclose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                myDialog.dismiss();
-            }
-        });
-        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable (Color.TRANSPARENT));
-        myDialog.show();
-    }
+
 
     @Override
     protected void onRestart() {
@@ -230,7 +215,6 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
         tabsAdapter.addFragment(new RobeFragment (),getString(R.string.robes));
         tabsAdapter.addFragment(new AccesoireFragment (),getString(R.string.accessoire));
         tabsAdapter.addFragment(new LingerieFragment (),"lingeries");
-
         tabsAdapter.addFragment(new LocationFragment(),getString(R.string.location));
         viewPager.setAdapter(tabsAdapter);
 
@@ -241,7 +225,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                     if (task.isSuccessful ()){
                         if (task.getResult ().exists ()){
-                            String image_profil_user =task.getResult ().getString ("user_profil_image");
+                             image_profil_user =task.getResult ().getString ("user_profil_image");
                             String nom_user = task.getResult ().getString ("user_name");
                             String prenomuser =task.getResult ().getString ("user_prenom");
                             drawer_user_name.setText ( nom_user + " " + prenomuser);
@@ -256,6 +240,38 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
                     }
                 }
             } );
+    }
+
+    public void ShowPopup() {
+        recup();
+        TextView text_pop_up;
+        CircleImageView image_pop_up;
+        ImageView close_image;
+        Button button_pop_up;
+        Button plus_tard_pop_up;
+        myDialog.setContentView(R.layout.custum_pop_up);
+        close_image=myDialog.findViewById ( R.id.close_image );
+        image_pop_up=myDialog.findViewById ( R.id.image_pop_up );
+        button_pop_up=myDialog.findViewById ( R.id.button_pop_up );
+        text_pop_up=myDialog.findViewById ( R.id.text_pop_up );
+        plus_tard_pop_up=myDialog.findViewById ( R.id.plus_tard_pop_up );
+//        Picasso.with ( this ).load ( image_profil_user ).into ( image_pop_up );
+        plus_tard_pop_up.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myDialog.dismiss();
+            }
+        });
+       button_pop_up.setOnClickListener ( new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+                Intent gotoparam = new Intent ( Accueil.this,ParametrePorfilActivity.class );
+                startActivity ( gotoparam );
+                finish ();
+            }
+        } );
+        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable (Color.TRANSPARENT));
+        myDialog.show();
     }
 
 
@@ -335,7 +351,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
     @Override
     protected void onStart() {
             super.onStart();
-            recup();
+
 
     }
     public void vaTopost(){
