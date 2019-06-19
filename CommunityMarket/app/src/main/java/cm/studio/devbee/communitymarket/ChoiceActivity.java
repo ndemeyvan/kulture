@@ -41,6 +41,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -68,7 +69,7 @@ public class ChoiceActivity extends AppCompatActivity {
         private static   CallbackManager callbackManager;
         private static ImageView image_de_choix;
         private FirebaseUser user;
-        int RC_SIGN_IN = 0;
+        int RC_SIGN_IN = 100;
 
 
     @Override
@@ -223,12 +224,18 @@ public class ChoiceActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode,resultCode,data);
 
-        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
+        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
-            // The Task returned from this call is always completed, no need to attach
-            // a listener.
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            handleSignInResult(task);
+            try {
+                // Google Sign In was successful, authenticate with Firebase
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+                firebaseAuthWithGoogle(account);
+            } catch (ApiException e) {
+                // Google Sign In failed, update UI appropriately
+
+                // ...
+            }
         }
     }
 
@@ -254,94 +261,119 @@ public class ChoiceActivity extends AppCompatActivity {
         gotoLogin.setOnClickListener ( new View.OnClickListener () {
             @Override
             public void onClick(View v) {
-               signIn ();
+                Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+                startActivityForResult(signInIntent, RC_SIGN_IN);
             }
         } );
     }
-
-    private void signIn() {
-        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent, RC_SIGN_IN);
-        final GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(ChoiceActivity.this);
-        if (acct != null) {
-            final String personName = acct.getDisplayName();
-            final String personGivenName = acct.getGivenName();
-            final String personFamilyName = acct.getFamilyName();
-            String personEmail = acct.getEmail();
-            final String personId = acct.getId();
-            Uri personPhoto = acct.getPhotoUrl();
-
-            firebaseFirestore.collection ( "mes donnees utilisateur" ).document (personId).get ().addOnCompleteListener ( ChoiceActivity.this,new OnCompleteListener<DocumentSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    if (task.isSuccessful ()){
-                        if (!task.getResult ().exists ()){
-                            Map<String, String> donnees_utilisateur = new HashMap<>();
-                            Calendar calendar=Calendar.getInstance ();
-                            SimpleDateFormat currentDate=new SimpleDateFormat (" dd MMM yyyy" );
-                            String saveCurrentDate=currentDate.format ( calendar.getTime () );
-                            String randomKey=saveCurrentDate;
-                            donnees_utilisateur.put ( "user_name",personFamilyName);
-                            donnees_utilisateur.put ( "user_prenom",personName);
-                            donnees_utilisateur.put ( "user_telephone", user.getPhoneNumber() );
-                            donnees_utilisateur.put ( "user_residence", "...");
-                            donnees_utilisateur.put ( "user_mail","...");
-                            donnees_utilisateur.put ( "user_profil_image", String.valueOf(acct.getPhotoUrl()));
-                            donnees_utilisateur.put ( "id_utilisateur", personId);
-                            donnees_utilisateur.put ( "status","online" );
-                            donnees_utilisateur.put ( "search",personFamilyName);
-                            donnees_utilisateur.put ( "message","lu" );
-                            donnees_utilisateur.put ( "derniere_conection",randomKey);
-                            firebaseFirestore.collection ( "mes donnees utilisateur" ).document ( user.getUid()).set ( donnees_utilisateur ).addOnCompleteListener ( ChoiceActivity.this,new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful ()) {
-                                        Intent intent = new Intent ( getApplicationContext (), Accueil.class );
-                                        startActivity ( intent );
-                                        finish ();
-                                        Toast.makeText ( getApplicationContext (), getString(R.string.param_compte_enregister), Toast.LENGTH_LONG ).show ();
-                                    } else {
-                                        String error = task.getException ().getMessage ();
-                                        Toast.makeText ( getApplicationContext (), "ce compte existe deja ", Toast.LENGTH_LONG ).show ();
-                                        Intent intent = new Intent ( getApplicationContext (), Accueil.class );
-                                        startActivity ( intent );
-                                        finish ();
-                                    }
-                                }
-                            } );
-                        }else {
-
-                            Intent gotoparam=new Intent(getApplicationContext(),Accueil.class);
-                            startActivity ( gotoparam );
-                            finish();
-
+    
+    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
+        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+        firebaseAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            FirebaseUser user = firebaseAuth.getCurrentUser();
+                            //updateUI(user);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                          // updateUI(null);
                         }
-                    }else{
+
+                        // ...
+                    }
+                });
+    }
+
+
+    /*public void firebaseAuthWithGoogle(final GoogleSignInAccount acct){
+        AuthCredential credential =GoogleAuthProvider.getCredential ( acct.getIdToken (),null );
+        firebaseAuth.signInWithCredential ( credential ).addOnCompleteListener ( this, new OnCompleteListener<AuthResult> () {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful ()){
+                   // FirebaseUser user = firebaseAuth.getCurrentUser ();
+                    if (acct != null) {
+                        final String personName = acct.getDisplayName();
+                        final String personGivenName = acct.getGivenName();
+                        final String personFamilyName = acct.getFamilyName();
+                        String personEmail = acct.getEmail();
+                        final String personId = acct.getId();
+                        Uri personPhoto = acct.getPhotoUrl();
+                        firebaseFirestore.collection ( "mes donnees utilisateur" ).document (personId).get ().addOnCompleteListener ( ChoiceActivity.this,new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful ()){
+                                    if (!task.getResult ().exists ()){
+                                        Map<String, String> donnees_utilisateur = new HashMap<>();
+                                        Calendar calendar=Calendar.getInstance ();
+                                        SimpleDateFormat currentDate=new SimpleDateFormat (" dd MMM yyyy" );
+                                        String saveCurrentDate=currentDate.format ( calendar.getTime () );
+                                        String randomKey=saveCurrentDate;
+                                        donnees_utilisateur.put ( "user_name",personFamilyName);
+                                        donnees_utilisateur.put ( "user_prenom",personName);
+                                        donnees_utilisateur.put ( "user_telephone", user.getPhoneNumber() );
+                                        donnees_utilisateur.put ( "user_residence", "...");
+                                        donnees_utilisateur.put ( "user_mail","...");
+                                        donnees_utilisateur.put ( "user_profil_image", String.valueOf(acct.getPhotoUrl()));
+                                        donnees_utilisateur.put ( "id_utilisateur", personId);
+                                        donnees_utilisateur.put ( "status","online" );
+                                        donnees_utilisateur.put ( "search",personFamilyName);
+                                        donnees_utilisateur.put ( "message","lu" );
+                                        donnees_utilisateur.put ( "derniere_conection",randomKey);
+                                        firebaseFirestore.collection ( "mes donnees utilisateur" ).document ( user.getUid()).set ( donnees_utilisateur ).addOnCompleteListener ( ChoiceActivity.this,new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful ()) {
+                                                    Intent intent = new Intent ( getApplicationContext (), Accueil.class );
+                                                    startActivity ( intent );
+                                                    finish ();
+                                                    Toast.makeText ( getApplicationContext (), getString(R.string.param_compte_enregister), Toast.LENGTH_LONG ).show ();
+                                                } else {
+                                                    String error = task.getException ().getMessage ();
+                                                    Toast.makeText ( getApplicationContext (), "ce compte existe deja ", Toast.LENGTH_LONG ).show ();
+                                                    Intent intent = new Intent ( getApplicationContext (), Accueil.class );
+                                                    startActivity ( intent );
+                                                    finish ();
+                                                }
+                                            }
+                                        } );
+                                    }else {
+
+                                        Intent gotoparam=new Intent(getApplicationContext(),Accueil.class);
+                                        startActivity ( gotoparam );
+                                        finish();
+                                    }
+                                }else{
+
+
+                                }
+                            }
+                        } );
 
 
                     }
+                    Intent intent =new Intent ( ChoiceActivity.this,Accueil.class );
+                    startActivity ( intent );
+                    finish ();
                 }
-            } );
+            }
+        } ).addOnFailureListener ( new OnFailureListener () {
+            @Override
+            public void onFailure(@NonNull Exception e) {
 
+            }
+        } );
+    }*/
 
-        }
+    @Override
+    protected void onStart() {
+        super.onStart ();
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+      //  updateUI(currentUser);
     }
-
-
-
-    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
-        try {
-            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-            // Signed in successfully, show authenticated UI.
-            startActivity(new Intent(ChoiceActivity.this, Accueil.class));
-        } catch (ApiException e) {
-            // The ApiException status code indicates the detailed failure reason.
-            // Please refer to the GoogleSignInStatusCodes class reference for more information.
-            Log.w("Google Sign In Error", "signInResult:failed code=" + e.getStatusCode());
-            Toast.makeText(ChoiceActivity.this, "Failed", Toast.LENGTH_LONG).show();
-        }
-    }
-
 
     @Override
     protected void onDestroy() {
