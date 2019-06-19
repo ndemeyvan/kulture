@@ -68,8 +68,7 @@ public class ChoiceActivity extends AppCompatActivity {
         private static FirebaseFirestore firebaseFirestore;
         private static   CallbackManager callbackManager;
         private static ImageView image_de_choix;
-        private FirebaseUser user;
-        int RC_SIGN_IN = 100;
+        int RC_SIGN_IN = 0;
 
 
     @Override
@@ -140,8 +139,6 @@ public class ChoiceActivity extends AppCompatActivity {
             }
         });
 
-
-
     }
 
     private void handleFacebookAccesToken(AccessToken loginResult) {
@@ -156,7 +153,7 @@ public class ChoiceActivity extends AppCompatActivity {
                 startActivity(gotoHome);
                  // finish();
                  */
-                 user = authResult.getUser();
+                 final FirebaseUser user = authResult.getUser();
 
                 firebaseFirestore.collection ( "mes donnees utilisateur" ).document (user.getUid()).get ().addOnCompleteListener ( ChoiceActivity.this,new OnCompleteListener<DocumentSnapshot>() {
                     @Override
@@ -223,7 +220,6 @@ public class ChoiceActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode,resultCode,data);
-
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
@@ -266,31 +262,12 @@ public class ChoiceActivity extends AppCompatActivity {
             }
         } );
     }
-    
-    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
-        firebaseAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            FirebaseUser user = firebaseAuth.getCurrentUser();
-                            //updateUI(user);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                          // updateUI(null);
-                        }
-
-                        // ...
-                    }
-                });
-    }
 
 
-    /*public void firebaseAuthWithGoogle(final GoogleSignInAccount acct){
+
+    public void firebaseAuthWithGoogle(final GoogleSignInAccount acct){
         AuthCredential credential =GoogleAuthProvider.getCredential ( acct.getIdToken (),null );
-        firebaseAuth.signInWithCredential ( credential ).addOnCompleteListener ( this, new OnCompleteListener<AuthResult> () {
+        firebaseAuth.signInWithCredential ( credential ).addOnCompleteListener ( ChoiceActivity.this, new OnCompleteListener<AuthResult> () {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful ()){
@@ -314,7 +291,7 @@ public class ChoiceActivity extends AppCompatActivity {
                                         String randomKey=saveCurrentDate;
                                         donnees_utilisateur.put ( "user_name",personFamilyName);
                                         donnees_utilisateur.put ( "user_prenom",personName);
-                                        donnees_utilisateur.put ( "user_telephone", user.getPhoneNumber() );
+                                        donnees_utilisateur.put ( "user_telephone", personId );
                                         donnees_utilisateur.put ( "user_residence", "...");
                                         donnees_utilisateur.put ( "user_mail","...");
                                         donnees_utilisateur.put ( "user_profil_image", String.valueOf(acct.getPhotoUrl()));
@@ -323,7 +300,7 @@ public class ChoiceActivity extends AppCompatActivity {
                                         donnees_utilisateur.put ( "search",personFamilyName);
                                         donnees_utilisateur.put ( "message","lu" );
                                         donnees_utilisateur.put ( "derniere_conection",randomKey);
-                                        firebaseFirestore.collection ( "mes donnees utilisateur" ).document ( user.getUid()).set ( donnees_utilisateur ).addOnCompleteListener ( ChoiceActivity.this,new OnCompleteListener<Void>() {
+                                        firebaseFirestore.collection ( "mes donnees utilisateur" ).document ( personId).set ( donnees_utilisateur ).addOnCompleteListener ( ChoiceActivity.this,new OnCompleteListener<Void>() {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
                                                 if (task.isSuccessful ()) {
@@ -352,8 +329,6 @@ public class ChoiceActivity extends AppCompatActivity {
                                 }
                             }
                         } );
-
-
                     }
                     Intent intent =new Intent ( ChoiceActivity.this,Accueil.class );
                     startActivity ( intent );
@@ -366,7 +341,7 @@ public class ChoiceActivity extends AppCompatActivity {
 
             }
         } );
-    }*/
+    }
 
     @Override
     protected void onStart() {
