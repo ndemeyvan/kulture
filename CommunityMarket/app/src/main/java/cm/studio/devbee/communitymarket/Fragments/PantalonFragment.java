@@ -151,7 +151,7 @@ public class PantalonFragment extends Fragment {
         });
     }
     public void imagePub(){
-        DocumentReference user = firebaseFirestore.collection("sliders").document("image_two");
+        DocumentReference user = firebaseFirestore.collection("sliders").document("image_pantalon");
         user.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {

@@ -1,11 +1,14 @@
 package cm.studio.devbee.communitymarket;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -66,6 +69,7 @@ public class ChoiceActivity extends AppCompatActivity {
         private static   CallbackManager callbackManager;
         private static ImageView image_de_choix;
         int RC_SIGN_IN = 0;
+         private Dialog myDialog;
 
 
     @Override
@@ -139,7 +143,16 @@ public class ChoiceActivity extends AppCompatActivity {
 
     }
 
+    public void showPopup() {
+        myDialog=new Dialog(this);
+        myDialog.setContentView(R.layout.load_pop_pup);
+        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        myDialog.setCancelable(false);
+        myDialog.show();
+    }
+
     private void handleFacebookAccesToken(AccessToken loginResult) {
+        showPopup();
         Toast.makeText(getApplicationContext(),getString(R.string.bienvenu),Toast.LENGTH_LONG).show();
         Toast.makeText(getApplicationContext(),getString(R.string.redirection),Toast.LENGTH_LONG).show();
         AuthCredential authCredential=FacebookAuthProvider.getCredential(loginResult.getToken());
@@ -152,7 +165,6 @@ public class ChoiceActivity extends AppCompatActivity {
                  // finish();
                  */
                  final FirebaseUser user = authResult.getUser();
-
                 firebaseFirestore.collection ( "mes donnees utilisateur" ).document (user.getUid()).get ().addOnCompleteListener ( ChoiceActivity.this,new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -178,11 +190,13 @@ public class ChoiceActivity extends AppCompatActivity {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful ()) {
+                                            myDialog.dismiss();
                                             Intent intent = new Intent ( getApplicationContext (), Accueil.class );
                                             startActivity ( intent );
                                             finish ();
                                             Toast.makeText ( getApplicationContext (), getString(R.string.param_compte_enregister), Toast.LENGTH_LONG ).show ();
                                         } else {
+                                            myDialog.dismiss();
                                             String error = task.getException ().getMessage ();
                                             Toast.makeText ( getApplicationContext (), "ce compte existe deja ", Toast.LENGTH_LONG ).show ();
                                             Intent intent = new Intent ( getApplicationContext (), Accueil.class );
@@ -329,6 +343,8 @@ public class ChoiceActivity extends AppCompatActivity {
                     Intent intent =new Intent ( ChoiceActivity.this,Accueil.class );
                     startActivity ( intent );
                     finish ();
+                }else{
+                    Toast.makeText ( getApplicationContext (),"failed",Toast.LENGTH_LONG ).show ();
                 }
             }
         } ).addOnFailureListener ( new OnFailureListener () {

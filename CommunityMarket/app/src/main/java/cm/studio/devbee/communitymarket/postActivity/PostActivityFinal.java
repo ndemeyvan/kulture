@@ -1,10 +1,13 @@
 package cm.studio.devbee.communitymarket.postActivity;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -75,7 +78,7 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
     private static ImageView imageProduit;
     private static String categoryName ,nom_du_produit,decription_du_produit,prix_du_produit,saveCurrentTime,saveCurrentDate;
     private static Button vendreButton;
-    private static ProgressBar progressBar_post;
+
     private static Uri mImageUri;
     private static String randomKey;
     private static String current_user_id;
@@ -89,6 +92,7 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
     private RewardedVideoAd mad;
     byte[] final_image;
     String id_document;
+    private Dialog myDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +112,7 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
                 finish ();
             }
         });
+
         imageProduit=findViewById ( R.id.imageProduit );
         nomProduit=findViewById ( R.id.post_product_name );
         post_new_button=findViewById ( R.id.post_new_button );
@@ -115,7 +120,6 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
         prixPorduit=findViewById ( R.id.post_production_prix );
         vendreButton=findViewById ( R.id.post_button );
         setSupportActionBar ( postfinaltoolbar );
-        progressBar_post=findViewById ( R.id.progressBar_post );
         categoryName=getIntent ().getExtras ().get ( "categoryName" ).toString ();
         Toast.makeText ( getApplicationContext(),categoryName,Toast.LENGTH_LONG ).show ();
         asyncTask=new AsyncTask();
@@ -154,17 +158,25 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
         return true;
     }
 
+    public void showPopup() {
+        myDialog=new Dialog(this);
+        myDialog.setContentView(R.layout.load_pop_pup);
+        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        myDialog.setCancelable(false);
+        myDialog.show();
+    }
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId ();
         if (id == R.id.send_article) {
-            progressBar_post.setVisibility ( View.VISIBLE );
             vendreButton.setEnabled ( false );
             if (TextUtils.isEmpty ( nom_du_produit )&&TextUtils.isEmpty ( decription_du_produit )&&TextUtils.isEmpty ( prix_du_produit )&&mImageUri==null){
-                progressBar_post.setVisibility (View.INVISIBLE);
                 Toast.makeText ( getApplicationContext(),getString(R.string.renplir_tous),Toast.LENGTH_LONG ).show ();
 
             }else{
+                showPopup();
                 prendreDonnerDevente ();
                 loadRewardedVideo();
                 if (mad.isLoaded()) {
@@ -206,10 +218,10 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
                     Bitmap compressedImage = new Compressor(this)
                             .setMaxWidth(250)
                             .setMaxHeight(250)
-                            .setQuality(80)
+                            .setQuality(90)
                             .compressToBitmap(actualImage);
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    compressedImage.compress(Bitmap.CompressFormat.JPEG, 80, baos);
+                    compressedImage.compress(Bitmap.CompressFormat.JPEG, 90, baos);
                     final_image = baos.toByteArray();
                 }catch (Exception e){
 
@@ -226,7 +238,7 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
         vendreButton.setOnClickListener ( new View.OnClickListener () {
             @Override
             public void onClick(View v) {
-                progressBar_post.setVisibility ( View.VISIBLE );
+
                 vendreButton.setEnabled ( false );
                 prendreDonnerDevente ();
             }
@@ -239,7 +251,6 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
         if (!TextUtils.isEmpty ( nom_du_produit )&&!TextUtils.isEmpty ( decription_du_produit )&&!TextUtils.isEmpty ( prix_du_produit )&&mImageUri!=null){
             stocker();
         }else{
-            progressBar_post.setVisibility (View.INVISIBLE);
             Toast.makeText ( getApplicationContext(),getString(R.string.renplir_tous),Toast.LENGTH_LONG ).show ();
         }
     }
@@ -269,7 +280,6 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
                                     if (task.isSuccessful()) {
                                         Uri downloadUri = task.getResult();
                                         //String download= taskSnapshot.getUploadSessionUri().toString();
-                                        progressBar_post.setVisibility (View.INVISIBLE);
                                         final Map <String,Object> user_post = new HashMap ();
                                         user_post.put ( "nom_du_produit",nom_du_produit );
                                         user_post.put ( "decription_du_produit",decription_du_produit );
@@ -299,6 +309,7 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
                                                         startActivity(gotoRecherche);
                                                         finish();
                                                         Toast.makeText(getApplicationContext(),"envoie effectuer",Toast.LENGTH_LONG).show();
+                                                        myDialog.dismiss();
 
                                                     }
                                                 });
@@ -456,7 +467,6 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
             saveCurrentTime=null;
             saveCurrentDate=null;;
             vendreButton=null;;
-            progressBar_post=null;;
             mImageUri=null;;
             randomKey=null;;
             current_user_id=null;

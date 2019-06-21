@@ -2,12 +2,15 @@ package cm.studio.devbee.communitymarket.postActivity;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -58,9 +61,11 @@ import java.util.Map;
 import javax.annotation.Nullable;
 
 import bolts.Bolts;
+import cm.studio.devbee.communitymarket.Accueil;
 import cm.studio.devbee.communitymarket.R;
 import cm.studio.devbee.communitymarket.commentaires.Commentaire_Adapter;
 import cm.studio.devbee.communitymarket.commentaires.Commentaires_Model;
+import cm.studio.devbee.communitymarket.profile.ParametrePorfilActivity;
 import cm.studio.devbee.communitymarket.utilsForNouveautes.CategoriesAdapteNouveaux;
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -87,6 +92,7 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
     private static String lien_image;
     private static Toolbar toolbarDetail;
     private RewardedVideoAd mad;
+    private Dialog myDialog;
 
     String categories;
     String prenom;
@@ -116,6 +122,7 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
         setSupportActionBar ( detail_image_post_toolbar );
        // toolbar_layout=findViewById ( R.id.toolbar_layout );
         getSupportActionBar ().setDisplayHomeAsUpEnabled ( true );
+
         detail_image_post_toolbar.setNavigationOnClickListener ( new View.OnClickListener () {
             @Override
             public void onClick(View v) {
@@ -123,6 +130,7 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
                 finish ();
             }
         } );
+        showPopup();
         firebaseAuth = FirebaseAuth.getInstance ();
         utilisateur_actuel = firebaseAuth.getCurrentUser ().getUid ();
         firebaseFirestore = FirebaseFirestore.getInstance ();
@@ -298,6 +306,14 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
         finish ();
     }
 
+    public void showPopup() {
+        myDialog=new Dialog(this);
+        myDialog.setContentView(R.layout.load_pop_pup);
+        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        myDialog.setCancelable(false);
+        myDialog.show();
+    }
+
     public void nomEtImageProfil() {
         firebaseFirestore.collection ( "mes donnees utilisateur" ).document ( current_user_id ).get ().addOnCompleteListener ( DetailActivity.this, new OnCompleteListener<DocumentSnapshot> () {
             @Override
@@ -348,12 +364,14 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
             supprime_detail_button.setOnClickListener ( new View.OnClickListener () {
                 @Override
                 public void onClick(View v) {
+
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder ( DetailActivity.this );
                     alertDialogBuilder.setMessage ( getString ( R.string.voulez_vous_supprimer ) );
                     alertDialogBuilder.setPositiveButton ( "oui",
                             new DialogInterface.OnClickListener () {
                                 @Override
                                 public void onClick(DialogInterface arg0, int arg1) {
+                                    showPopup();
                                     firebaseFirestore.collection ( "publication" ).document ( "categories" ).collection ( "nouveaux" ).document ( iddupost ).get ().addOnCompleteListener ( DetailActivity.this, new OnCompleteListener<DocumentSnapshot> () {
                                         @Override
                                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -364,6 +382,7 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
                                                     firebaseFirestore.collection ( "publication" ).document ( "categories" ).collection ( "nouveaux" ).document ( iddupost ).delete ();
                                                     firebaseFirestore.collection ( "publication" ).document ( "post utilisateur" ).collection ( current_user_id ).document ( iddupost ).delete ();
                                                     // Intent gtohome=new Intent ( getApplicationContext (),Accueil.class );
+                                                    myDialog.dismiss();
                                                     Toast.makeText ( getApplicationContext (), getString ( R.string.supprimer_desnvx ), Toast.LENGTH_LONG ).show ();
                                                     //startActivity ( gtohome );
                                                     finish ();
@@ -507,6 +526,7 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
                             vendeur_button.setAnimation ( AnimationUtils.loadAnimation ( getApplicationContext (), R.anim.fade_transition_animation ) );
                             detail_description.setText ( description );
                             detail_progress.setVisibility ( INVISIBLE );
+                            myDialog.dismiss();
 
                         }
                     } else {
@@ -518,7 +538,6 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
             vendeurActivity ();
             nomEtImageProfil ();
             supprime ();
-
             return null;
         }
 

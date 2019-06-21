@@ -153,7 +153,7 @@ public class PullFragment extends Fragment {
         userstatus("offline");
     }
     public void imagePub(){
-        DocumentReference user = firebaseFirestore.collection("sliders").document("image_two");
+        DocumentReference user = firebaseFirestore.collection("sliders").document("image_pull");
         user.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {

@@ -1,8 +1,16 @@
 package cm.studio.devbee.communitymarket.postActivity;
 
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapShader;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -24,6 +32,8 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
+
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
@@ -38,8 +48,8 @@ public class DetailActivityThree extends AppCompatActivity {
     private static FirebaseFirestore firebaseFirestore;
     private static ImageView detail_image_post;
     private static TextView detail_post_titre_produit;
-    private static CircleImageView detail_profil_image;
-    private static ImageButton vendeur_button;
+    private static ImageView detail_profil_image;
+    private static FloatingActionButton vendeur_button;
     private static TextView detail_user_name;
     private static TextView detail_prix_produit;
     private static TextView detail_description;
@@ -48,12 +58,12 @@ public class DetailActivityThree extends AppCompatActivity {
     private static String current_user_id;
     private static String utilisateur_actuel;
     private static AsyncTask asyncTask;
-    private static ProgressBar detail_progress;
     private  static Toolbar toolbarDetail;
     private  static String lien_image;
     private  static String current_user;
     String prenom;
     String name_user;
+    private Dialog myDialog;
 
     private static WeakReference<DetailActivityThree> detailActivityThreeWeakReference;
     @Override
@@ -85,7 +95,6 @@ public class DetailActivityThree extends AppCompatActivity {
 
             }
         });
-        detail_progress=findViewById ( R.id.detail_progress );
         detailActivityThreeWeakReference=new WeakReference<>(this);
         vendeur_button=findViewById(R.id.vendeur_button);
         vendeur_button.setEnabled ( false );
@@ -102,7 +111,16 @@ public class DetailActivityThree extends AppCompatActivity {
                 }
             }
         } );
-        detail_progress.setVisibility ( View.VISIBLE );
+        showPopup();
+
+    }
+
+    public void showPopup() {
+        myDialog=new Dialog(this);
+        myDialog.setContentView(R.layout.load_pop_pup);
+        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        myDialog.setCancelable(false);
+        myDialog.show();
     }
 
     @Override
@@ -147,7 +165,7 @@ public class DetailActivityThree extends AppCompatActivity {
                                             name_user= task.getResult ().getString ( "user_name" );
                                             String image_user=task.getResult ().getString ( "user_profil_image" );
                                             date_de_publication.setText(datedepublication + "  |  " + name_user+" "+prenom);
-                                            Picasso.with(getApplicationContext()).load(image_user).into(detail_profil_image);
+                                            Picasso.with(getApplicationContext()).load(image_user).transform(new CircleTransform()).into(detail_profil_image);
                                             date_de_publication.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_transition_animation));
                                             detail_profil_image.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_transition_animation));
 
@@ -163,7 +181,7 @@ public class DetailActivityThree extends AppCompatActivity {
                             date_de_publication.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_transition_animation));
                             detail_image_post.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_transition_animation));
                             detail_description.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_transition_animation));
-                            detail_progress.setVisibility ( View.INVISIBLE );
+                            myDialog.dismiss();
                         }
                     }else {
                         String error=task.getException().getMessage();
@@ -241,7 +259,43 @@ public class DetailActivityThree extends AppCompatActivity {
         firebaseAuth=null;
         current_user_id=null;
         utilisateur_actuel=null;
-        detail_progress=null;
+
+    }
+
+    public class CircleTransform implements Transformation {
+        @Override
+        public Bitmap transform(Bitmap source) {
+            int size = Math.min ( source.getWidth (), source.getHeight () );
+
+            int x = (source.getWidth () - size) / 2;
+            int y = (source.getHeight () - size) / 2;
+
+            Bitmap squaredBitmap = Bitmap.createBitmap ( source, x, y, size, size );
+            if (squaredBitmap != source) {
+                source.recycle ();
+            }
+
+            Bitmap bitmap = Bitmap.createBitmap ( size, size, source.getConfig () );
+
+            Canvas canvas = new Canvas ( bitmap );
+            Paint paint = new Paint ();
+            BitmapShader shader = new BitmapShader ( squaredBitmap,
+                    BitmapShader.TileMode.CLAMP, BitmapShader.TileMode.CLAMP );
+            paint.setShader ( shader );
+            paint.setAntiAlias ( true );
+
+            float r = size / 2f;
+            canvas.drawCircle ( r, r, r, paint );
+
+            squaredBitmap.recycle ();
+            return bitmap;
+        }
+
+        @Override
+        public String key() {
+            return "circle";
+        }
+
 
     }
 }

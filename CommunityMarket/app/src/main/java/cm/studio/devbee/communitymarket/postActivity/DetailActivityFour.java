@@ -1,9 +1,11 @@
 package cm.studio.devbee.communitymarket.postActivity;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -32,7 +34,7 @@ import cm.studio.devbee.communitymarket.R;
 import cm.studio.devbee.communitymarket.profile.ProfileActivity;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class DetailActivityFour extends AppCompatActivity {
+public class  DetailActivityFour extends AppCompatActivity {
 
     private  static String iddupost;
     private static FirebaseFirestore firebaseFirestore;
@@ -48,8 +50,7 @@ public class DetailActivityFour extends AppCompatActivity {
     private static String current_user_id;
     private static String utilisateur_actuel;
     private static AsyncTask asyncTask;
-    private static ProgressBar detail_progress;
-    private static ImageButton supprime_detail_button;
+    private static FloatingActionButton supprime_detail_button;
     private  static Toolbar toolbarDetail;
     private static String lien_image;
     String prenom;
@@ -76,7 +77,7 @@ public class DetailActivityFour extends AppCompatActivity {
         detail_description=findViewById(R.id.detail_description);
         date_de_publication=findViewById(R.id.date_de_publication);
         firebaseAuth=FirebaseAuth.getInstance();
-        detail_progress=findViewById ( R.id.detail_progress );
+
         toolbarDetail=findViewById(R.id.toolbarDetail);
         supprime_detail_button=findViewById ( R.id.supprime_detail_button );
         detailActivityFourWeakReference=new WeakReference<>(this);
@@ -106,7 +107,6 @@ public class DetailActivityFour extends AppCompatActivity {
                 }
             }
         } );
-        detail_progress.setVisibility ( View.VISIBLE );
 
     }
    /* public void nomEtImageProfil(){
@@ -130,6 +130,7 @@ public class DetailActivityFour extends AppCompatActivity {
             }
         });
     }*/
+    @SuppressLint("RestrictedApi")
     public void supprime(){
         if (current_user_id.equals ( utilisateur_actuel )){
             supprime_detail_button.setVisibility ( View.VISIBLE );
@@ -150,13 +151,11 @@ public class DetailActivityFour extends AppCompatActivity {
                                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                             if (task.getResult ().exists ()){
                                                 if (task.isSuccessful ()){
-                                                    detail_progress.setVisibility ( View.VISIBLE );
                                                     firebaseFirestore.collection ( "publication" ).document ("categories").collection ( categories ).document (iddupost).delete ();
                                                     firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "nouveaux" ).document (iddupost).delete ();
                                                     firebaseFirestore.collection ( "publication" ).document ("post utilisateur").collection ( current_user_id ).document(iddupost).delete ();
                                                     finish ();
                                                 }else {
-                                                    detail_progress.setVisibility ( View.INVISIBLE );
                                                     String error=task.getException ().getMessage ();
                                                     Toast.makeText ( getApplicationContext (),error,Toast.LENGTH_LONG ).show ();
 
@@ -223,7 +222,6 @@ public class DetailActivityFour extends AppCompatActivity {
                                             String image_user=task.getResult ().getString ( "user_profil_image" );
                                             date_de_publication.setText(datedepublication + "  |  " + name_user+" "+prenom);
                                             Picasso.with(getApplicationContext()).load(image_user).into(detail_profil_image);
-                                            detail_progress.setVisibility(View.INVISIBLE);
                                             detail_profil_image.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_transition_animation));
                                             //detail_user_name.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_transition_animation));
 
@@ -242,7 +240,6 @@ public class DetailActivityFour extends AppCompatActivity {
                             date_de_publication.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_transition_animation));
                             detail_image_post.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_transition_animation));
                             detail_description.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_transition_animation));
-                            detail_progress.setVisibility ( View.VISIBLE );
                         }
                     }else {
                         String error=task.getException().getMessage();
@@ -282,7 +279,7 @@ public class DetailActivityFour extends AppCompatActivity {
         current_user_id=null;
         utilisateur_actuel=null;
         supprime_detail_button=null;
-        detail_progress=null;
+
 
     }
 

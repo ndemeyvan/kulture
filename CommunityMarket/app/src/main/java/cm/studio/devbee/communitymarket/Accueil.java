@@ -287,6 +287,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
             }
         } );
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable (Color.TRANSPARENT));
+        myDialog.setCancelable(false);
         myDialog.show();
     }
 

@@ -2,12 +2,15 @@ package cm.studio.devbee.communitymarket.postActivity;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -98,6 +101,7 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
     android.support.v7.widget.Toolbar detail_image_post_toolbar;
     ProgressBar add_progressbar;
     String titre_produit;
+    private Dialog myDialog;
     String prix_produit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,6 +126,7 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
         current_user_id =getIntent().getExtras().getString("id de l'utilisateur");
         categories=getIntent().getExtras().getString("id_categories");
         detail_image_post=findViewById(R.id.detail_image_post);
+        showPopup();
         detail_post_titre_produit=findViewById(R.id.detail_prix_produit );
         detail_prix_produit=findViewById(R.id.detail_prix_produit);
         detail_profil_image=findViewById(R.id.detail_image_du_profil);
@@ -215,6 +220,14 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
 
 
         commentaire();
+    }
+
+    public void showPopup() {
+        myDialog=new Dialog(this);
+        myDialog.setContentView(R.layout.load_pop_pup);
+        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        myDialog.setCancelable(false);
+        myDialog.show();
     }
 
     public void commentaire(){
@@ -418,6 +431,7 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
                             detail_image_post.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_transition_animation));
                             detail_description.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_transition_animation));
                             detail_progress.setVisibility ( INVISIBLE );
+                            myDialog.dismiss();
                         }
 
                     }else {
