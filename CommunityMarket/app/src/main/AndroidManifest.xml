@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="cm.studio.devbee.communitymarket">
 
     <uses-permission android:name="android.permission.CALL_PHONE" />
@@ -45,8 +46,8 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-
-                <data android:scheme="@string/fb_login_protocol_scheme" />
+                <data android:scheme="@string/fb_login_protocol_scheme"
+                   />
             </intent-filter>
         </activity>
         <activity
@@ -139,20 +140,7 @@
         <activity
             android:name=".welcome.CursorActivity"
             android:screenOrientation="portrait" />
-
-        <!--
-        <service android:name=".MyFireBaseMessagingService">
-          <intent-filter>
-              <action android:name="com.google.firebase."
-          </intent-filter>
-        </service>
-        -->
-
         <activity android:name=".postActivity.SellActivityUser" />
-        <activity
-            android:name=".postActivity.TestDetailActivity"
-            android:label="@string/title_activity_test_detail"
-            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

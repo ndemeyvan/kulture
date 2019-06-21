@@ -45,8 +45,20 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.auth.TwitterAuthProvider;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.twitter.sdk.android.core.Callback;
+import com.twitter.sdk.android.core.DefaultLogger;
+import com.twitter.sdk.android.core.Result;
+import com.twitter.sdk.android.core.Twitter;
+import com.twitter.sdk.android.core.TwitterAuthConfig;
+import com.twitter.sdk.android.core.TwitterAuthToken;
+import com.twitter.sdk.android.core.TwitterConfig;
+import com.twitter.sdk.android.core.TwitterCore;
+import com.twitter.sdk.android.core.TwitterException;
+import com.twitter.sdk.android.core.TwitterSession;
+import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 
 import java.lang.ref.WeakReference;
 import java.security.MessageDigest;
@@ -56,11 +68,13 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
+import cm.studio.devbee.communitymarket.login.LoginActivity;
+
 
 public class ChoiceActivity extends AppCompatActivity {
         private static GoogleSignInClient mGoogleSignInClient;
         private static SignInButton gotoLogin;
-        private static Button gotoRegister;
+    private TwitterLoginButton mLoginButton;
         private static ImageView devant;
         private static WeakReference<ChoiceActivity> choiceActivityWeakReference;
         private static LoginButton facebook_button;
@@ -69,7 +83,8 @@ public class ChoiceActivity extends AppCompatActivity {
         private static   CallbackManager callbackManager;
         private static ImageView image_de_choix;
         int RC_SIGN_IN = 0;
-         private Dialog myDialog;
+        private Dialog myDialog;
+        TwitterLoginButton loginButton;
 
 
     @Override
@@ -78,13 +93,20 @@ public class ChoiceActivity extends AppCompatActivity {
         setContentView ( R.layout.activity_choice );
         gotoLogin=findViewById ( R.id.gotoLogin );
         firebaseAuth=FirebaseAuth.getInstance();
-        gotoRegister=findViewById ( R.id.gotoRegister );
+        mLoginButton=findViewById ( R.id.gotoRegister );
         facebook_button=findViewById(R.id.facebook_button);
         //image_de_choix=findViewById(R.id.image_de_choix);
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
+        TwitterConfig config = new TwitterConfig.Builder(this)
+                .logger(new DefaultLogger(Log.DEBUG))
+                .twitterAuthConfig(new TwitterAuthConfig("j4aBGkPUeofXkCjzJqVlQZJFa", "w8Xc6ilCGE6FXbkdkNlTw2ZNtX7GUgWy8Ph1hH46NUQ5vh8tZv"))
+                .debug(true)
+                .build();
+
+        setContentView(R.layout.activity_login);
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         choiceActivityWeakReference=new WeakReference<>(this);
         login ();
@@ -103,6 +125,7 @@ public class ChoiceActivity extends AppCompatActivity {
                 facebookSignIn();
             }
         });
+        twitterRecycler();
         firebaseAuth=FirebaseAuth.getInstance();
         /*if (firebaseAuth.getCurrentUser() != null) {
             // User is signed in (getCurrentUser() will be null if not signed in)
@@ -232,6 +255,7 @@ public class ChoiceActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode,resultCode,data);
+        mLoginButton.onActivityResult(requestCode, resultCode, data);
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
@@ -243,6 +267,41 @@ public class ChoiceActivity extends AppCompatActivity {
 
             }
         }
+    }
+    public void twitterRecycler(){
+        mLoginButton.setCallback(new Callback<TwitterSession>() {
+            @Override
+            public void success(Result<TwitterSession> result) {
+
+            }
+
+            @Override
+            public void failure(TwitterException exception) {
+
+            }
+        });
+    }
+
+    private void handleTwitterSession(TwitterSession session) {
+        AuthCredential credential = TwitterAuthProvider.getCredential(
+                session.getAuthToken().token,
+                session.getAuthToken().secret);
+
+        firebaseAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            FirebaseUser user = firebaseAuth.getCurrentUser();
+
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Toast.makeText(ChoiceActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                        }
+
+                        // ...
+                    }
+                });
     }
     //client secret xQuv99V0tWim5kGXzRsINGcw
     private void printkey() {
@@ -273,6 +332,7 @@ public class ChoiceActivity extends AppCompatActivity {
             }
         } );
     }
+
 
 
 
@@ -366,7 +426,6 @@ public class ChoiceActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         gotoLogin=null;
-        gotoRegister=null;
         devant=null;
     }
 }
