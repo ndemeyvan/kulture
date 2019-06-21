@@ -30,7 +30,7 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbarDetail" />
 
     <TextView
-        android:id="@+id/detail_titre_produit"
+        android:id="@+id/detail_prix_produit"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/new_detail_date_name_margin_start"
@@ -180,7 +180,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detail_titre_produit"
+        app:layout_constraintTop_toBottomOf="@+id/detail_prix_produit"
         />
 
     <TextView

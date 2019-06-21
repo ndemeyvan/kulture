@@ -53,9 +53,6 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
-import cm.studio.devbee.communitymarket.login.LoginActivity;
-import cm.studio.devbee.communitymarket.login.RegisterActivity;
-import cm.studio.devbee.communitymarket.profile.ParametrePorfilActivity;
 
 public class ChoiceActivity extends AppCompatActivity {
         private static GoogleSignInClient mGoogleSignInClient;
@@ -81,9 +78,10 @@ public class ChoiceActivity extends AppCompatActivity {
         facebook_button=findViewById(R.id.facebook_button);
         //image_de_choix=findViewById(R.id.image_de_choix);
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
-        mGoogleSignInClient = GoogleSignIn.getClient(ChoiceActivity.this, gso);
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         choiceActivityWeakReference=new WeakReference<>(this);
         login ();
         printkey();
@@ -224,17 +222,15 @@ public class ChoiceActivity extends AppCompatActivity {
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
-                // Google Sign In was successful, authenticate with Firebase
+
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 firebaseAuthWithGoogle(account);
             } catch (ApiException e) {
-                // Google Sign In failed, update UI appropriately
 
-                // ...
             }
         }
     }
-
+    //client secret xQuv99V0tWim5kGXzRsINGcw
     private void printkey() {
         try {
             PackageInfo info= getPackageManager().getPackageInfo("cm.studio.devbee.communitymarket",PackageManager.GET_SIGNATURES);
@@ -259,6 +255,7 @@ public class ChoiceActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent signInIntent = mGoogleSignInClient.getSignInIntent();
                 startActivityForResult(signInIntent, RC_SIGN_IN);
+
             }
         } );
     }
@@ -271,8 +268,7 @@ public class ChoiceActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful ()){
-                   // FirebaseUser user = firebaseAuth.getCurrentUser ();
-                    if (acct != null) {
+                        FirebaseUser userGmail = firebaseAuth.getCurrentUser ();
                         final String personName = acct.getDisplayName();
                         final String personGivenName = acct.getGivenName();
                         final String personFamilyName = acct.getFamilyName();
@@ -329,7 +325,7 @@ public class ChoiceActivity extends AppCompatActivity {
                                 }
                             }
                         } );
-                    }
+
                     Intent intent =new Intent ( ChoiceActivity.this,Accueil.class );
                     startActivity ( intent );
                     finish ();
@@ -338,7 +334,7 @@ public class ChoiceActivity extends AppCompatActivity {
         } ).addOnFailureListener ( new OnFailureListener () {
             @Override
             public void onFailure(@NonNull Exception e) {
-
+                Toast.makeText ( getApplicationContext (),"failed",Toast.LENGTH_LONG ).show ();
             }
         } );
     }

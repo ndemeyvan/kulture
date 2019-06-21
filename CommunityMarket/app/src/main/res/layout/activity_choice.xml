@@ -45,7 +45,6 @@
         android:layout_marginStart="@dimen/choice_button_width"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="@dimen/choice_button_width"
-        android:background="@drawable/button_background"
         android:elevation="3dp"
         android:textAllCaps="false"
         android:textSize="@dimen/button_param_text_size"

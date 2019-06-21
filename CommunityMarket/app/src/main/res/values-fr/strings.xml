@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Kulture</string>
-    <string name="title_activity_accueil">Kulture</string>
+    <string name="app_name">Open Market</string>
+    <string name="title_activity_accueil">O Market</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
@@ -110,6 +110,8 @@
     <string name="parametre_draw">parametre</string>
     <string name="publicite_drawer">publicite</string>
     <string name="pas_de_message">aucune conversation</string>
+    <string name="client_id">537391119843-njqfai8ka55g6doo947bnklqcap3ih8c.apps.googleusercontent.com</string>
+
     <string-array id="@+id/countries"
         name="countries">
         <item>Residence</item>

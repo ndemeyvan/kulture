@@ -90,7 +90,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
         //"..."
         super.onCreate ( savedInstanceState );
         setContentView ( R.layout.activity_accueil );
-        Toolbar toolbar =findViewById ( R.id.toolbar );
+        Toolbar toolbar =findViewById ( R.id.detail_image_post_toolbar );
         setSupportActionBar ( toolbar );
         NavigationView navigationView =findViewById ( R.id.nav_view );
         tabLayout=findViewById(R.id.tabslayout);

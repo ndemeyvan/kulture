@@ -85,9 +85,6 @@
         <activity
             android:name=".postActivity.DetailActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".vendeurContact.VendeurActivity"
-            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="preloaded_fonts"
@@ -151,7 +148,11 @@
         </service>
         -->
 
-        <activity android:name=".postActivity.SellActivityUser"></activity>
+        <activity android:name=".postActivity.SellActivityUser" />
+        <activity
+            android:name=".postActivity.TestDetailActivity"
+            android:label="@string/title_activity_test_detail"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

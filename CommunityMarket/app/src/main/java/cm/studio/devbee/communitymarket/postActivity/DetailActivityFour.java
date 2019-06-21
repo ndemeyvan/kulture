@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -19,7 +18,6 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -27,12 +25,9 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.squareup.picasso.Picasso;
 
 import java.lang.ref.WeakReference;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.annotation.Nullable;
 
-import cm.studio.devbee.communitymarket.Accueil;
 import cm.studio.devbee.communitymarket.R;
 import cm.studio.devbee.communitymarket.profile.ProfileActivity;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -74,7 +69,7 @@ public class DetailActivityFour extends AppCompatActivity {
         lien_image =getIntent().getExtras().getString("image_en_vente");
         categories=getIntent().getExtras().getString("id_categories");
         detail_image_post=findViewById(R.id.detail_image_post);
-        detail_post_titre_produit=findViewById(R.id.detail_titre_produit);
+        detail_post_titre_produit=findViewById(R.id.detail_prix_produit );
         detail_prix_produit=findViewById(R.id.detail_prix_produit);
         detail_profil_image=findViewById(R.id.detail_image_du_profil);
         //detail_user_name=findViewById(R.id.detail_user_name);

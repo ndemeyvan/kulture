@@ -1,9 +1,15 @@
 package cm.studio.devbee.communitymarket.postActivity;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapShader;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,7 +24,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.MobileAds;
@@ -39,6 +44,8 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
+
 import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -48,7 +55,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Nullable;
-import cm.studio.devbee.communitymarket.Accueil;
+
 import cm.studio.devbee.communitymarket.R;
 import cm.studio.devbee.communitymarket.commentaires.Commentaire_Adapter;
 import cm.studio.devbee.communitymarket.commentaires.Commentaires_Model;
@@ -62,8 +69,8 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
     private static FirebaseFirestore firebaseFirestore;
     private static ImageView detail_image_post;
     private static TextView detail_post_titre_produit;
-    private static CircleImageView detail_profil_image;
-    private static ImageButton vendeur_button;
+    private static ImageView detail_profil_image;
+    private static FloatingActionButton vendeur_button;
     private static TextView detail_user_name;
     private static TextView detail_prix_produit;
     private static TextView detail_description;
@@ -73,7 +80,7 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
     private static String utilisateur_actuel;
     private AsyncTask asyncTask;
     private static ProgressBar detail_progress;
-    private static ImageButton supprime_detail_button;
+    private static FloatingActionButton supprime_detail_button;
     private static  String  categories;
     private static  String lien_image;
     private RewardedVideoAd mad;
@@ -115,7 +122,7 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
         current_user_id =getIntent().getExtras().getString("id de l'utilisateur");
         categories=getIntent().getExtras().getString("id_categories");
         detail_image_post=findViewById(R.id.detail_image_post);
-        detail_post_titre_produit=findViewById(R.id.detail_titre_produit);
+        detail_post_titre_produit=findViewById(R.id.detail_prix_produit );
         detail_prix_produit=findViewById(R.id.detail_prix_produit);
         detail_profil_image=findViewById(R.id.detail_image_du_profil);
         vendeur_button=findViewById(R.id.vendeur_button);
@@ -256,6 +263,7 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
             }
         });
     }
+    @SuppressLint("RestrictedApi")
     public void supprime(){
         if (current_user_id.equals ( utilisateur_actuel )){
             vendeur_button.setVisibility ( INVISIBLE );
@@ -362,6 +370,7 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
         @Override
         protected Void doInBackground(Void... voids) {
             firebaseFirestore.collection ( "publication" ).document ("categories").collection ( categories ).document (iddupost).get().addOnCompleteListener(DetailActivityTwo.this,new OnCompleteListener<DocumentSnapshot>() {
+                @SuppressLint("RestrictedApi")
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                     if (task.isSuccessful()){
@@ -387,7 +396,7 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
                                             name_user= task.getResult ().getString ( "user_name" );
                                             String image_user=task.getResult ().getString ( "user_profil_image" );
                                             date_de_publication.setText(datedepublication + "  |  " + name_user+" "+prenom);
-                                            Picasso.with(getApplicationContext()).load(image_user).into(detail_profil_image);
+                                            Picasso.with ( getApplicationContext () ).load ( image_user ).transform(new CircleTransform ()).into ( detail_profil_image );
                                             date_de_publication.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_transition_animation));
                                             detail_profil_image.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_transition_animation));
                                             //detail_user_name.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_transition_animation));
@@ -481,6 +490,8 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
 
     }
 
+
+
     @Override
     protected void onDestroy() {
         asyncTask.cancel(true);
@@ -499,6 +510,43 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
         firebaseAuth=null;
         current_user_id=null;
         categories=null;
+
+    }
+
+    public class CircleTransform implements Transformation {
+        @Override
+        public Bitmap transform(Bitmap source) {
+            int size = Math.min ( source.getWidth (), source.getHeight () );
+
+            int x = (source.getWidth () - size) / 2;
+            int y = (source.getHeight () - size) / 2;
+
+            Bitmap squaredBitmap = Bitmap.createBitmap ( source, x, y, size, size );
+            if (squaredBitmap != source) {
+                source.recycle ();
+            }
+
+            Bitmap bitmap = Bitmap.createBitmap ( size, size, source.getConfig () );
+
+            Canvas canvas = new Canvas ( bitmap );
+            Paint paint = new Paint ();
+            BitmapShader shader = new BitmapShader ( squaredBitmap,
+                    BitmapShader.TileMode.CLAMP, BitmapShader.TileMode.CLAMP );
+            paint.setShader ( shader );
+            paint.setAntiAlias ( true );
+
+            float r = size / 2f;
+            canvas.drawCircle ( r, r, r, paint );
+
+            squaredBitmap.recycle ();
+            return bitmap;
+        }
+
+        @Override
+        public String key() {
+            return "circle";
+        }
+
 
     }
 }

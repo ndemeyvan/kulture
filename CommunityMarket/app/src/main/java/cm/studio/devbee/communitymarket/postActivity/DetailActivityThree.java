@@ -1,8 +1,6 @@
 package cm.studio.devbee.communitymarket.postActivity;
 
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -10,7 +8,6 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -31,7 +28,7 @@ import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.Nullable;
-import cm.studio.devbee.communitymarket.Accueil;
+
 import cm.studio.devbee.communitymarket.R;
 import cm.studio.devbee.communitymarket.messagerie.MessageActivity;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -70,7 +67,7 @@ public class DetailActivityThree extends AppCompatActivity {
         current_user_id =getIntent().getExtras().getString("id de l'utilisateur");
         lien_image =getIntent().getExtras().getString("image_en_vente");
         detail_image_post=findViewById(R.id.detail_image_post);
-        detail_post_titre_produit=findViewById(R.id.detail_titre_produit);
+        detail_post_titre_produit=findViewById(R.id.detail_prix_produit );
         detail_prix_produit=findViewById(R.id.detail_prix_produit);
         detail_profil_image=findViewById(R.id.detail_image_du_profil);
         //detail_user_name=findViewById(R.id.detail_user_name);

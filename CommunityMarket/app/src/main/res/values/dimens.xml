@@ -96,7 +96,7 @@
     <!-- general activty  -->
     <dimen name="general_image_w_n_h">120dp</dimen>
     <dimen name="general_image_top">56dp</dimen>
-    <dimen name="app_bar_height">180dp</dimen>
+    <dimen name="app_bar_height">500dp</dimen>
     <dimen name="text_margin">16dp</dimen>
 
     <!-- Default screen margins, per the Android Design guidelines. -->
