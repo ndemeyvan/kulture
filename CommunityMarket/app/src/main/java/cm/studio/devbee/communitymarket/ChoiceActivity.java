@@ -49,9 +49,12 @@ import com.google.firebase.auth.TwitterAuthProvider;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.twitter.sdk.android.core.Callback;
+import com.twitter.sdk.android.core.DefaultLogger;
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.Twitter;
+import com.twitter.sdk.android.core.TwitterAuthConfig;
 import com.twitter.sdk.android.core.TwitterAuthToken;
+import com.twitter.sdk.android.core.TwitterConfig;
 import com.twitter.sdk.android.core.TwitterCore;
 import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
@@ -85,9 +88,16 @@ public class ChoiceActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate ( savedInstanceState );
-        Twitter.initialize(this);
+        //Twitter.initialize(this);
+        TwitterConfig config = new TwitterConfig.Builder(this)
+                .logger(new DefaultLogger(Log.DEBUG))
+                .twitterAuthConfig(new TwitterAuthConfig("VrPx1FzdX0e0MZ4ZQJP9cu1qa", "J2b5B2IgQRHTQOEd6p0E2Kwb5IjhDzBDaSAgO4LAakc8TFGcuf"))
+                .debug(true)
+                .build();
+        Twitter.initialize(config);
         setContentView ( R.layout.activity_choice );
         gotoLogin=findViewById ( R.id.gotoLogin );
+
         firebaseAuth=FirebaseAuth.getInstance();
         mLoginButton=findViewById ( R.id.gotoRegister );
         facebook_button=findViewById(R.id.facebook_button);
@@ -96,6 +106,7 @@ public class ChoiceActivity extends AppCompatActivity {
             @Override
             public void success(Result<TwitterSession> result) {
                 handleTwitterSession(result.data);
+                loginTwo(result.data);
             }
 
             @Override
@@ -103,11 +114,11 @@ public class ChoiceActivity extends AppCompatActivity {
 
             }
         });
+
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestIdToken("537391119843-njqfai8ka55g6doo947bnklqcap3ih8c.apps.googleusercontent.com")
                 .requestEmail()
                 .build();
-
 
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
@@ -192,11 +203,6 @@ public class ChoiceActivity extends AppCompatActivity {
         firebaseAuth.signInWithCredential(authCredential).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
             public void onSuccess(AuthResult authResult) {
-                /*
-                Intent gotoHome=new Intent(getApplicationContext(),Accueil.class);
-                startActivity(gotoHome);
-                 // finish();
-                 */
                  final FirebaseUser user = authResult.getUser();
                 firebaseFirestore.collection ( "mes donnees utilisateur" ).document (user.getUid()).get ().addOnCompleteListener ( ChoiceActivity.this,new OnCompleteListener<DocumentSnapshot>() {
                     @Override
@@ -239,7 +245,7 @@ public class ChoiceActivity extends AppCompatActivity {
                                     }
                                 } );
                             }else {
-
+                                myDialog.dismiss();
                                 Intent gotoparam=new Intent(getApplicationContext(),Accueil.class);
                                 startActivity ( gotoparam );
                                 finish();
@@ -256,6 +262,7 @@ public class ChoiceActivity extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
+                myDialog.dismiss();
                 Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_LONG).show();
             }
         });
@@ -265,9 +272,8 @@ public class ChoiceActivity extends AppCompatActivity {
         AuthCredential credential = TwitterAuthProvider.getCredential(
                 session.getAuthToken().token,
                 session.getAuthToken().secret);
-
         firebaseAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener(ChoiceActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
@@ -278,14 +284,13 @@ public class ChoiceActivity extends AppCompatActivity {
                         } else {
                             // If sign in fails, display a message to the user.
                         Toast.makeText(getApplicationContext(),"failed",Toast.LENGTH_LONG).show();
-
-
                         }
 
                         // ...
                     }
                 });
     }
+
 
 
     @Override
@@ -335,8 +340,9 @@ public class ChoiceActivity extends AppCompatActivity {
     }
 
     public void firebaseAuthWithGoogle(final GoogleSignInAccount acct){
+        Log.d("id_user_google", "firebaseAuthWithGoogle:" + acct.getId());
         AuthCredential credential =GoogleAuthProvider.getCredential ( acct.getIdToken (),null );
-        firebaseAuth.signInWithCredential ( credential ).addOnCompleteListener ( ChoiceActivity.this, new OnCompleteListener<AuthResult> () {
+        firebaseAuth.signInWithCredential ( credential ).addOnCompleteListener ( this, new OnCompleteListener<AuthResult> () {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful ()){
@@ -393,7 +399,7 @@ public class ChoiceActivity extends AppCompatActivity {
                                     }
                                 }else{
 
-
+                                    Toast.makeText ( getApplicationContext (),"failed",Toast.LENGTH_LONG ).show ();
                                 }
                             }
                         } );
@@ -416,8 +422,7 @@ public class ChoiceActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart ();
-        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-      //  updateUI(currentUser);
+
     }
 
     @Override

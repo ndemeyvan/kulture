@@ -107,8 +107,8 @@
     <string name="acceuil">Acceuil</string>
     <string name="pas_de_message">aucune conversation</string>
     <string name="client_id">537391119843-njqfai8ka55g6doo947bnklqcap3ih8c.apps.googleusercontent.com</string>
-    <string name="com.twitter.sdk.android.CONSUMER_KEY" tools:ignore="ExtraTranslation">j4aBGkPUeofXkCjzJqVlQZJFa</string>
-    <string name="com.twitter.sdk.android.CONSUMER_SECRET" tools:ignore="ExtraTranslation">w8Xc6ilCGE6FXbkdkNlTw2ZNtX7GUgWy8Ph1hH46NUQ5vh8tZv</string>
+    <string name="com.twitter.sdk.android.CONSUMER_KEY" >VrPx1FzdX0e0MZ4ZQJP9cu1qa</string>
+    <string name="com.twitter.sdk.android.CONSUMER_SECRET" >J2b5B2IgQRHTQOEd6p0E2Kwb5IjhDzBDaSAgO4LAakc8TFGcuf</string>
     <string-array name="countries" id="@+id/countries">
         <item>Residence</item>
         <item>Douala</item>
