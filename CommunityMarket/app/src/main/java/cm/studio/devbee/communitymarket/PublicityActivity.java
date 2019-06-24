@@ -76,27 +76,14 @@ public class PublicityActivity extends AppCompatActivity {
                 intent.setData(Uri.parse(uri));
                 startActivity(intent);
             }
-        } );
-
-
+         } );
         }
 
     public void ShowPopup(){
-        Button button_pop_up;
-        Button plus_tard_pop_up;
+        myDialog=new Dialog(this);
         myDialog.setContentView(R.layout.load_pop_pup);
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         myDialog.setCancelable(false);
         myDialog.show();
-
-
-
-
-
-
-
-
-
-
     }
 }
