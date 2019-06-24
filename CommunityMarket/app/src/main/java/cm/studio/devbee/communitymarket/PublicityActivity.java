@@ -41,7 +41,7 @@ public class PublicityActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_publicity);
-        rise_toolbar=findViewById(R.id.toolbarDetail);
+        rise_toolbar=findViewById(R.id.entreprise_toolbar);
         setSupportActionBar(rise_toolbar);
         getSupportActionBar ().setDisplayHomeAsUpEnabled ( true );
         rise_toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -52,6 +52,7 @@ public class PublicityActivity extends AppCompatActivity {
 
             }
         });
+        getSupportActionBar ().setTitle(name);
         viewFlipper=findViewById(R.id.viewFlipper);
         viewFlipper.setOutAnimation(getApplicationContext(),android.R.anim.slide_out_right);
         viewFlipper.setInAnimation(getApplicationContext(),android.R.anim.slide_in_left);
