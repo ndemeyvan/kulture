@@ -52,7 +52,6 @@ public class PublicityActivity extends AppCompatActivity {
 
             }
         });
-        getSupportActionBar ().setTitle(name);
         viewFlipper=findViewById(R.id.viewFlipper);
         viewFlipper.setOutAnimation(getApplicationContext(),android.R.anim.slide_out_right);
         viewFlipper.setInAnimation(getApplicationContext(),android.R.anim.slide_in_left);
@@ -63,6 +62,7 @@ public class PublicityActivity extends AppCompatActivity {
         lieu =getIntent().getExtras().getString("lieu");
         contact =getIntent().getExtras().getString("contact");
         name =getIntent().getExtras().getString("name");
+        getSupportActionBar ().setTitle(name);
         desc =getIntent().getExtras().getString("desc");
         imageOnee=findViewById(R.id.imageSlideOne);
         Picasso.with(getApplicationContext()).load(imageOne).into(imageOnee);
