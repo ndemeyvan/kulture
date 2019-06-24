@@ -311,7 +311,7 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
                                             gotoPublicity.putExtra("imageOne",iinageOne);
                                             gotoPublicity.putExtra("contact",contact);
                                             gotoPublicity.putExtra("desc",desc);
-                                            gotoPublicity.putExtra("imageThre",imageThree);
+                                            gotoPublicity.putExtra("imageThree",imageThree);
                                             gotoPublicity.putExtra("imageTwo",imageTwo);
                                             gotoPublicity.putExtra("lieu",lieu);
                                             gotoPublicity.putExtra("name",name);
@@ -344,7 +344,7 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
                                             gotoPublicity.putExtra("imageOne",iinageOne);
                                             gotoPublicity.putExtra("contact",contact);
                                             gotoPublicity.putExtra("desc",desc);
-                                            gotoPublicity.putExtra("imageThre",imageThree);
+                                            gotoPublicity.putExtra("imageThree",imageThree);
                                             gotoPublicity.putExtra("imageTwo",imageTwoo);
                                             gotoPublicity.putExtra("lieu",lieu);
                                             gotoPublicity.putExtra("name",name);
@@ -376,7 +376,7 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
                                             gotoPublicity.putExtra("imageOne",iinageOne);
                                             gotoPublicity.putExtra("contact",contact);
                                             gotoPublicity.putExtra("desc",desc);
-                                            gotoPublicity.putExtra("imageThre",imageThreee);
+                                            gotoPublicity.putExtra("imageThree",imageThreee);
                                             gotoPublicity.putExtra("imageTwo",imageTwoo);
                                             gotoPublicity.putExtra("lieu",lieu);
                                             gotoPublicity.putExtra("name",name);
@@ -409,7 +409,7 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
                                             gotoPublicity.putExtra("imageOne",imageOne);
                                             gotoPublicity.putExtra("contact",contact);
                                             gotoPublicity.putExtra("desc",desc);
-                                            gotoPublicity.putExtra("imageThre",imageThreee);
+                                            gotoPublicity.putExtra("imageThree",imageThreee);
                                             gotoPublicity.putExtra("imageTwo",imageTwoo);
                                             gotoPublicity.putExtra("lieu",lieu);
                                             gotoPublicity.putExtra("name",name);
