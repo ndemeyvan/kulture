@@ -28,8 +28,8 @@
                 <ImageView
                     android:id="@+id/imageView5"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/app_bar_height"
-                    android:visibility="invisible"
+                    android:layout_height="100dp"
+                    android:visibility="visible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/detail_image_post_toolbar"
@@ -42,13 +42,14 @@
                     android:layout_margin="@dimen/fab_margin"
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/view"
+                    android:src="@drawable/ic_send_message_detail"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="@+id/detail_image_post"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.945"
+                    app:layout_constraintHorizontal_bias="0.923"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView5"
-                   android:src="@drawable/ic_send_message_detail" />
+                    app:layout_constraintTop_toBottomOf="@+id/detail_image_post"
+                    app:layout_constraintVertical_bias="0.475" />
 
                 <android.support.design.widget.FloatingActionButton
                     android:id="@+id/supprime_detail_button"
@@ -56,11 +57,13 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/fab_margin"
                     android:src="@drawable/ic_trsah"
-                    app:layout_constraintBottom_toBottomOf="@+id/view"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="@+id/detail_image_post"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.945"
+                    app:layout_constraintHorizontal_bias="0.921"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+                    app:layout_constraintTop_toBottomOf="@+id/detail_image_post"
+                    app:layout_constraintVertical_bias="0.475" />
 
                 <TextView
                     android:id="@+id/detail_prix_produit"
@@ -102,14 +105,15 @@
                     android:id="@+id/detail_progress"
                     style="?android:attr/progressBarStyle"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="48dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView5"
+                    app:layout_constraintBottom_toBottomOf="@+id/detail_image_post"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.515"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/imageView5" />
+                    app:layout_constraintTop_toBottomOf="@+id/view" />
 
                 <android.support.v7.widget.Toolbar
                     android:id="@+id/detail_image_post_toolbar"

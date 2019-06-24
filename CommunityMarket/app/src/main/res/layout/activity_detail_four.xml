@@ -36,17 +36,20 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/detail_image_post_toolbar"
                     app:srcCompat="@drawable/background_detail" />
+
                 <android.support.design.widget.FloatingActionButton
                     android:id="@+id/supprime_detail_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/fab_margin"
                     android:src="@drawable/ic_trsah"
-                    app:layout_constraintBottom_toBottomOf="@+id/view"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="@+id/detail_image_post"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.945"
+                    app:layout_constraintHorizontal_bias="0.921"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+                    app:layout_constraintTop_toBottomOf="@+id/detail_image_post"
+                    app:layout_constraintVertical_bias="0.475" />
 
                 <TextView
                     android:id="@+id/detail_prix_produit"
