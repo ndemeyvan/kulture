@@ -9,7 +9,8 @@
         android:id="@+id/entreprise_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:titleTextColor="@color/black">
+        app:titleTextColor="@color/black"
+        android:theme="@style/ToolbarTheme">
 
     </android.support.v7.widget.Toolbar>
 
@@ -104,8 +105,8 @@
                     android:id="@+id/imageView7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="148dp"
+                    android:layout_marginTop="12dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/publicity_description"
                     app:srcCompat="@drawable/ic_map" />
@@ -114,9 +115,11 @@
                     android:id="@+id/publicity_location_entreprise"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="32dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView7"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/imageView7"
                     app:layout_constraintTop_toTopOf="@+id/imageView7" />
 
@@ -139,8 +142,8 @@
                     android:id="@+id/imageView8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="148dp"
+                    android:layout_marginTop="8dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/imageView7"
                     app:srcCompat="@drawable/ic_phone_black_24dp" />
@@ -149,7 +152,7 @@
                     android:id="@+id/publicity_contact"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="32dp"
+                    android:layout_marginStart="8dp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView8"
                     app:layout_constraintStart_toEndOf="@+id/imageView8"
