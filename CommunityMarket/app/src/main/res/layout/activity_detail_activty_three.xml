@@ -31,6 +31,7 @@
                     android:id="@+id/imageView5"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/app_bar_height"
+                    android:visibility="invisible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/detail_image_post"
@@ -49,7 +50,7 @@
                     app:layout_constraintHorizontal_bias="0.945"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/imageView5"
-                    app:srcCompat="@android:drawable/ic_dialog_email" />
+                    android:src="@drawable/ic_send_message_detail" />
 
                 <TextView
                     android:id="@+id/detail_prix_produit"

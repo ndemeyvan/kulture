@@ -218,10 +218,10 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
                     Bitmap compressedImage = new Compressor(this)
                             .setMaxWidth(250)
                             .setMaxHeight(250)
-                            .setQuality(90)
+                            .setQuality(95)
                             .compressToBitmap(actualImage);
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    compressedImage.compress(Bitmap.CompressFormat.JPEG, 90, baos);
+                    compressedImage.compress(Bitmap.CompressFormat.JPEG, 95, baos);
                     final_image = baos.toByteArray();
                 }catch (Exception e){
 

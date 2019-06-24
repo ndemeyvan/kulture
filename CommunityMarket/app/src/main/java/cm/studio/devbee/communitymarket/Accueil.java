@@ -1,5 +1,6 @@
 package cm.studio.devbee.communitymarket;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -98,6 +99,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
         setupViewPager(tabsviewpager);
         tabLayout.setupWithViewPager(tabsviewpager);
         mAuth=FirebaseAuth.getInstance ();
+        content_floating_action_btn=findViewById ( R.id.content_floating_action_btn );
         current_user_id=mAuth.getCurrentUser ().getUid ();
         firebaseFirestore=FirebaseFirestore.getInstance ();
         accueilWeakReference=new WeakReference<>(this);
@@ -192,12 +194,14 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
         asyncTask.execute();
 
         firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user_id).get ().addOnCompleteListener ( new OnCompleteListener<DocumentSnapshot>() {
+            @SuppressLint("RestrictedApi")
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful ()){
                     if (task.getResult ().exists ()){
                         String pop_up= task.getResult ().getString ( "user_residence" );
                         if (pop_up.equals ( "..." )){
+                            content_floating_action_btn.setVisibility(View.INVISIBLE);
                             ShowPopup ();
                         }else{
 
@@ -220,6 +224,29 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
     protected void onRestart() {
         super.onRestart ();
 
+    }
+
+    public void exit_pop_up(){
+        Button button_pop_up;
+        Button plus_tard_pop_up;
+        myDialog.setContentView(R.layout.exit_pop_up);
+        button_pop_up=myDialog.findViewById ( R.id.non_button);
+        plus_tard_pop_up=myDialog.findViewById ( R.id.exit_button);
+        plus_tard_pop_up.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              finish();
+            }
+        });
+        button_pop_up.setOnClickListener ( new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+               myDialog.dismiss();
+            }
+        } );
+        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable (Color.TRANSPARENT));
+        myDialog.setCancelable(false);
+        myDialog.show();
     }
 
     public void setupViewPager(ViewPager viewPager){
@@ -261,17 +288,11 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
     }
 
     public void ShowPopup() {
-        TextView text_pop_up;
-        CircleImageView image_pop_up;
-        ImageView close_image;
         Button button_pop_up;
         Button plus_tard_pop_up;
         myDialog.setContentView(R.layout.custum_pop_up);
-        close_image=myDialog.findViewById ( R.id.close_image );
-        image_pop_up=myDialog.findViewById ( R.id.image_pop_up );
-        button_pop_up=myDialog.findViewById ( R.id.button_pop_up );
-        text_pop_up=myDialog.findViewById ( R.id.text_pop_up );
-        plus_tard_pop_up=myDialog.findViewById ( R.id.plus_tard_pop_up );
+        button_pop_up=myDialog.findViewById ( R.id.non_button);
+        plus_tard_pop_up=myDialog.findViewById ( R.id.exit_button);
         plus_tard_pop_up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -302,6 +323,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
                 drawer.closeDrawer ( GravityCompat.START );
             } else {
                 super.onBackPressed ();
+                exit_pop_up();
             }
     }
 
@@ -372,7 +394,6 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
 
     }
     public void vaTopost(){
-            content_floating_action_btn=findViewById ( R.id.content_floating_action_btn );
             content_floating_action_btn.setOnClickListener ( new View.OnClickListener () {
                 @Override
                 public void onClick(View v) {
