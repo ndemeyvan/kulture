@@ -72,7 +72,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:16.0.1'
     implementation 'com.github.xizzhu:simple-tool-tip:0.7.0'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.17'
-    implementation  'com.twitter.sdk.android:twitter:3.1.1'
+    implementation 'com.twitter.sdk.android:twitter:3.1.1'
     implementation 'com.twitter.sdk.android:twitter-mopub:3.1.1'
     implementation 'com.twitter.sdk.android:twitter-core:3.1.1'
     implementation 'com.twitter.sdk.android:tweet-ui:3.1.1'

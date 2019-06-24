@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="cm.studio.devbee.communitymarket">
+
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -45,14 +46,13 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="@string/fb_login_protocol_scheme"
-                   />
+
+                <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
         <activity
             android:name=".ChoiceActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".Accueil"
             android:label="@string/title_activity_accueil"
@@ -122,12 +122,11 @@
         <activity
             android:name=".profile.VenteUtilisateurActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".welcome.CursorActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".postActivity.SellActivityUser" />
-
+        <activity android:name=".PublicityActivity"></activity>
     </application>
 
 </manifest>
