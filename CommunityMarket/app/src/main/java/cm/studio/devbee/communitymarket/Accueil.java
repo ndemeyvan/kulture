@@ -322,7 +322,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
             if (drawer.isDrawerOpen ( GravityCompat.START )) {
                 drawer.closeDrawer ( GravityCompat.START );
             } else {
-                super.onBackPressed ();
+                //super.onBackPressed ();
                 exit_pop_up();
             }
     }
