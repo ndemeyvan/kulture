@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-
+    <color name="colorAccent">@color/blanc</color>
     <color name="orange">#ff4336</color>
     <color name="likegris">#747474</color>
     <color name="likerouge">#ff4336</color>
     <color name="doux">#FFEB3B</color>
-    <color name="colorAccent">#ffd740</color>
-    <color name="colorPrimary">#009688</color>
-    <color name="colorPrimaryDark">#00796b</color>
+    <color name="colorPrimary">#ff4336</color>
+    <color name="colorPrimaryDark">#000</color>
     <color name="black">#000</color>
     <color name="blanc">#ffffff</color>
     <color name="bleu">#3b5998</color>
