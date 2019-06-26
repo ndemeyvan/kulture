@@ -12,12 +12,15 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.AnimationUtils;
@@ -62,7 +65,6 @@ import java.util.Map;
 import javax.annotation.Nullable;
 
 import cm.studio.devbee.communitymarket.R;
-import cm.studio.devbee.communitymarket.bottom_sheet.Bottom_sheet;
 import cm.studio.devbee.communitymarket.commentaires.Commentaire_Adapter;
 import cm.studio.devbee.communitymarket.commentaires.Commentaires_Model;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -70,7 +72,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 
-public class DetailActivityTwo extends AppCompatActivity implements RewardedVideoAdListener , Bottom_sheet.BottomSheet_listener {
+public class DetailActivityTwo extends AppCompatActivity implements RewardedVideoAdListener {
     private  static String iddupost;
     private static FirebaseFirestore firebaseFirestore;
     private static ImageView detail_image_post;
@@ -91,6 +93,7 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
     private static  String lien_image;
     private RewardedVideoAd mad;
     Button voir_les_commentaire_btn;
+    String image_user;
 
     private static WeakReference<DetailActivityTwo> detailActivityTwoWeakReference;
     String prenom;
@@ -99,15 +102,16 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
     Button post_detail_add_comment_btn;
     EditText post_detail_comment;
     String comment;
-    RecyclerView rv_comment;
+
     List<Commentaires_Model> commentaires_modelList;
     Commentaire_Adapter commentaire_adapter;
-    TextView comment_empty_text;
+    //TextView comment_empty_text;
     android.support.v7.widget.Toolbar detail_image_post_toolbar;
     ProgressBar add_progressbar;
     String titre_produit;
     private Dialog myDialog;
     String prix_produit;
+    private BottomSheetBehavior mbottomSheetBehavior;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate ( savedInstanceState );
@@ -123,6 +127,8 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
                 finish ();
             }
         });
+        //View bottomSheet = findViewById(R.id.bottom_sheet);
+        //mbottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
         add_progressbar.setVisibility(INVISIBLE);
         firebaseAuth=FirebaseAuth.getInstance ();
         utilisateur_actuel=firebaseAuth.getCurrentUser ().getUid ();
@@ -145,11 +151,11 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
         asyncTask=new AsyncTask ();
         asyncTask.execute();
         ////////comment recycler
-        rv_comment=findViewById(R.id.rv_comment);
+        /*rv_comment=findViewById(R.id.rv_comment);
         commentaires_modelList=new ArrayList<>();
         commentaire_adapter=new Commentaire_Adapter(commentaires_modelList,DetailActivityTwo.this);
         rv_comment.setAdapter(commentaire_adapter);
-        rv_comment.setLayoutManager(new LinearLayoutManager(DetailActivityTwo.this,LinearLayoutManager.VERTICAL,false));
+        rv_comment.setLayoutManager(new LinearLayoutManager(DetailActivityTwo.this,LinearLayoutManager.VERTICAL,false));*/
         post_detail_add_comment_btn=findViewById(R.id.post_detail_add_comment_btn);
         detailActivityTwoWeakReference=new WeakReference<>(this);
         post_detail_currentuser_img=findViewById(R.id.post_detail_currentuser_img);
@@ -177,29 +183,20 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
 
         detail_progress.setVisibility ( View.VISIBLE );
         post_detail_comment=findViewById(R.id.post_detail_comment);
-        comment_empty_text=findViewById(R.id.comment_empty_text);
-        comment_empty_text.setVisibility(INVISIBLE);
-        firebaseFirestore.collection ( "publication" ).document ("categories").collection (categories ).document (iddupost).collection("commentaires").addSnapshotListener ( this,new EventListener<QuerySnapshot> () {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                if (queryDocumentSnapshots.isEmpty ()){
-                    comment_empty_text.setVisibility(VISIBLE);
 
-                }
-            }
-        } );
 
-        commentaire();
+
+
         voir_les_commentaire_btn=findViewById(R.id.voir_les_commentaire_btn);
         voir_les_commentaire_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bottom_sheet bottom_sheet = new Bottom_sheet();
-                bottom_sheet.show(getSupportFragmentManager(),"commentaire");
+               comment_init();
             }
         });
 
     }
+
 
     public void showPopup() {
         myDialog=new Dialog(this);
@@ -211,7 +208,6 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
 
     public void commentaire(){
         Query firstQuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( categories ).document (iddupost).collection("commentaires").orderBy ( "heure",Query.Direction.ASCENDING );
-        // .limit(3);
         firstQuery.addSnapshotListener(DetailActivityTwo.this,new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
@@ -352,17 +348,39 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
         Toast.makeText(getApplicationContext(),getString(R.string.video_seen_thank),Toast.LENGTH_LONG).show();
     }
 
-    @Override
-    public void bottom_sheet_listener(final String message) {
-        String msg =message;
-        post_detail_add_comment_btn.performClick();
+
+
+    public void comment_init(){
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(DetailActivityTwo.this);
+        View parientView = getLayoutInflater().inflate(R.layout.bottom_sheet_layout,null);
+        bottomSheetDialog.setContentView(parientView);
+        BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from((View)parientView.getParent());
+       // bottomSheetBehavior.setPeekHeight((int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,100,getResources().getDisplayMetrics()));
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        bottomSheetDialog.show();
+        CircleImageView post_detail_currentuser_img= parientView.findViewById(R.id.post_detail_currentuser_img);
+        Picasso.with(getApplicationContext()).load(image_user).into(post_detail_currentuser_img);
+        final EditText post_detail_comment=parientView.findViewById(R.id.post_detail_comment);
+        final Button post_detail_add_comment_btn=parientView.findViewById(R.id.post_detail_add_comment_btn);
+        final TextView comment_empty_text=parientView.findViewById(R.id.comment_empty_text);
+        RecyclerView rv_comment=parientView.findViewById(R.id.rv_comment);
+        commentaires_modelList=new ArrayList<>();
+        commentaire_adapter=new Commentaire_Adapter(commentaires_modelList,DetailActivityTwo.this);
+        rv_comment.setAdapter(commentaire_adapter);
+        rv_comment.setLayoutManager(new LinearLayoutManager(DetailActivityTwo.this,LinearLayoutManager.VERTICAL,false));
+        firebaseFirestore.collection ( "publication" ).document ("categories").collection (categories ).document (iddupost).collection("commentaires").addSnapshotListener ( DetailActivityTwo.this,new EventListener<QuerySnapshot> () {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                if (queryDocumentSnapshots.isEmpty ()){
+                    comment_empty_text.setVisibility(VISIBLE);
+                }
+            }
+        } );
+        commentaire();
         post_detail_add_comment_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                post_detail_add_comment_btn.setVisibility(INVISIBLE);
-                add_progressbar.setVisibility(VISIBLE);
-                comment = post_detail_comment.getText().toString();
-                if (!message.isEmpty ()){
+                if (!post_detail_comment.getText().toString().equals("")){
                     Date date=new Date();
                     SimpleDateFormat sdf= new SimpleDateFormat("d/MM/y H:mm:ss");
                     Calendar calendar=Calendar.getInstance ();
@@ -384,11 +402,8 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
                     });
 
                 }else{
-                    Toast.makeText(DetailActivityTwo.this,"votre conenu est vide ",Toast.LENGTH_LONG).show();
-                    add_progressbar.setVisibility(View.INVISIBLE);
-                    post_detail_add_comment_btn.setVisibility(VISIBLE);
+                    Toast.makeText(getApplicationContext(),"vide",Toast.LENGTH_LONG).show();
                 }
-
             }
         });
     }
@@ -415,7 +430,7 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
                             String prixduproduit= task.getResult ().getString ( "prix_du_produit" );
                             prix_produit=prixduproduit;
                             final String datedepublication=task.getResult ().getString ( "date_de_publication" );
-                            String image_user=task.getResult ().getString ( "user_profil_image" );
+                             image_user=task.getResult ().getString ( "user_profil_image" );
                             getSupportActionBar().setTitle(titreDuProduit);
                             detail_post_titre_produit.setText(titreDuProduit);
                             detail_prix_produit.setText(prixduproduit);
@@ -479,6 +494,7 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
             public void onClick(View v) {
                 Intent vendeur=new Intent(getApplicationContext(),UserGeneralPresentation.class);
                 vendeur.putExtra("id du post",iddupost);
+                DetailActivityTwo.setIddupost(iddupost);
                 vendeur.putExtra("id de l'utilisateur",current_user_id);
                 vendeur.putExtra("image_en_vente",lien_image);
                 vendeur.putExtra("titre_produit",titre_produit);
@@ -509,7 +525,37 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
                     }});
     }
 
+    public static String getIddupost() {
+        return iddupost;
+    }
 
+    public static void setIddupost(String iddupost) {
+        DetailActivityTwo.iddupost = iddupost;
+    }
+
+    public static String getUtilisateur_actuel() {
+        return utilisateur_actuel;
+    }
+
+    public static void setUtilisateur_actuel(String utilisateur_actuel) {
+        DetailActivityTwo.utilisateur_actuel = utilisateur_actuel;
+    }
+
+    public static String getCategories() {
+        return categories;
+    }
+
+    public static void setCategories(String categories) {
+        DetailActivityTwo.categories = categories;
+    }
+
+    public String getImage_user() {
+        return image_user;
+    }
+
+    public void setImage_user(String image_user) {
+        this.image_user = image_user;
+    }
 
     @Override
     public void onResume() {
