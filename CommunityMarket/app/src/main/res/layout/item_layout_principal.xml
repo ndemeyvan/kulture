@@ -95,7 +95,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/principal_start"
                     android:layout_marginTop="@dimen/principal_prix_top"
-                    android:layout_marginEnd="36dp"
+                    android:layout_marginEnd="24dp"
                     android:layout_marginBottom="8dp"
                     android:fontFamily="sans-serif-condensed"
                     android:text="xxxxxxx"
@@ -104,9 +104,10 @@
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toEndOf="@+id/textView20"
                     app:layout_constraintTop_toBottomOf="@+id/post_user_description"
-                    app:layout_constraintVertical_bias="1.0" />
+                    app:layout_constraintVertical_bias="0.0" />
 
                 <TextView
                     android:id="@+id/textView20"

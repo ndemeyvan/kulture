@@ -342,17 +342,17 @@ public class ChoiceActivity extends AppCompatActivity {
     public void firebaseAuthWithGoogle(final GoogleSignInAccount acct){
         Log.d("id_user_google", "firebaseAuthWithGoogle:" + acct.getId());
         AuthCredential credential =GoogleAuthProvider.getCredential ( acct.getIdToken (),null );
+        Log.e("Credentials", String.format("Provider %s signin method %s", credential.getProvider(), credential.getSignInMethod()));
         firebaseAuth.signInWithCredential ( credential ).addOnCompleteListener ( this, new OnCompleteListener<AuthResult> () {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful ()){
-                        FirebaseUser userGmail = firebaseAuth.getCurrentUser ();
-                        final String personName = acct.getDisplayName();
-                        final String personGivenName = acct.getGivenName();
-                        final String personFamilyName = acct.getFamilyName();
-                        String personEmail = acct.getEmail();
-                        final String personId = acct.getId();
-                        Uri personPhoto = acct.getPhotoUrl();
+                        showPopup();
+                        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser ();
+                        final String personName = firebaseUser.getDisplayName();
+                        final String personFamilyName = "";
+                        final String personId = firebaseUser.getUid();
+                        final Uri personPhoto = acct.getPhotoUrl();
                         firebaseFirestore.collection ( "mes donnees utilisateur" ).document (personId).get ().addOnCompleteListener ( ChoiceActivity.this,new OnCompleteListener<DocumentSnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -368,8 +368,9 @@ public class ChoiceActivity extends AppCompatActivity {
                                         donnees_utilisateur.put ( "user_telephone", personId );
                                         donnees_utilisateur.put ( "user_residence", "...");
                                         donnees_utilisateur.put ( "user_mail","...");
-                                        donnees_utilisateur.put ( "user_profil_image", String.valueOf(acct.getPhotoUrl()));
+                                        donnees_utilisateur.put ( "user_profil_image", String.valueOf(personPhoto));
                                         donnees_utilisateur.put ( "id_utilisateur", personId);
+                                        String id=personId;
                                         donnees_utilisateur.put ( "status","online" );
                                         donnees_utilisateur.put ( "search",personFamilyName);
                                         donnees_utilisateur.put ( "message","lu" );
@@ -392,10 +393,10 @@ public class ChoiceActivity extends AppCompatActivity {
                                             }
                                         } );
                                     }else {
-
-                                        Intent gotoparam=new Intent(getApplicationContext(),Accueil.class);
+                                        Toast.makeText ( getApplicationContext (),"failed",Toast.LENGTH_LONG ).show ();
+                                        /*Intent gotoparam=new Intent(getApplicationContext(),Accueil.class);
                                         startActivity ( gotoparam );
-                                        finish();
+                                        finish();*/
                                     }
                                 }else{
 
@@ -403,10 +404,6 @@ public class ChoiceActivity extends AppCompatActivity {
                                 }
                             }
                         } );
-
-                    Intent intent =new Intent ( ChoiceActivity.this,Accueil.class );
-                    startActivity ( intent );
-                    finish ();
                 }else{
                     Toast.makeText ( getApplicationContext (),"failed",Toast.LENGTH_LONG ).show ();
                 }
