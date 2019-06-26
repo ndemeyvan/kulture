@@ -33,7 +33,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/app_bar_height"
                     android:scaleType="centerCrop"
-                    app:layout_constraintTop_toTopOf="@+id/detail_image_post_toolbar" />
+                     />
 
                 <ImageView
                     android:id="@+id/imageView5"
@@ -42,7 +42,6 @@
                     android:visibility="visible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/detail_image_post_toolbar"
                     app:srcCompat="@drawable/background_detail" />
 
                 <android.support.design.widget.FloatingActionButton

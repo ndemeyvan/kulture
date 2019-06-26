@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -28,6 +29,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.flipboard.bottomsheet.BottomSheetLayout;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.reward.RewardItem;
@@ -60,6 +62,7 @@ import java.util.Map;
 import javax.annotation.Nullable;
 
 import cm.studio.devbee.communitymarket.R;
+import cm.studio.devbee.communitymarket.bottom_sheet.Bottom_sheet;
 import cm.studio.devbee.communitymarket.commentaires.Commentaire_Adapter;
 import cm.studio.devbee.communitymarket.commentaires.Commentaires_Model;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -67,7 +70,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 
-public class DetailActivityTwo extends AppCompatActivity implements RewardedVideoAdListener {
+public class DetailActivityTwo extends AppCompatActivity implements RewardedVideoAdListener , Bottom_sheet.BottomSheet_listener {
     private  static String iddupost;
     private static FirebaseFirestore firebaseFirestore;
     private static ImageView detail_image_post;
@@ -87,6 +90,8 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
     private static  String  categories;
     private static  String lien_image;
     private RewardedVideoAd mad;
+    Button voir_les_commentaire_btn;
+
     private static WeakReference<DetailActivityTwo> detailActivityTwoWeakReference;
     String prenom;
     String name_user;
@@ -169,43 +174,9 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
         if (mad.isLoaded()) {
             mad.show();
         }
+
         detail_progress.setVisibility ( View.VISIBLE );
         post_detail_comment=findViewById(R.id.post_detail_comment);
-        post_detail_add_comment_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                post_detail_add_comment_btn.setVisibility(INVISIBLE);
-                add_progressbar.setVisibility(VISIBLE);
-                comment = post_detail_comment.getText().toString();
-                if (!TextUtils.isEmpty ( comment )){
-                    Date date=new Date();
-                    SimpleDateFormat sdf= new SimpleDateFormat("d/MM/y H:mm:ss");
-                    Calendar calendar=Calendar.getInstance ();
-                    SimpleDateFormat currentDate=new SimpleDateFormat (" dd MMM yyyy" );
-                    String saveCurrentDate=currentDate.format ( calendar.getTime () );
-                    final Map<String,Object> user_comment = new HashMap();
-                    user_comment.put ( "contenu",comment );
-                    user_comment.put ( "heure",saveCurrentDate );
-                    user_comment.put ( "id_user",utilisateur_actuel );
-                    firebaseFirestore.collection ( "publication" ).document ("categories").collection (categories ).document (iddupost).collection("commentaires").add(user_comment).addOnCompleteListener(DetailActivityTwo.this,new OnCompleteListener<DocumentReference>() {
-                        @Override
-                        public void onComplete(@NonNull Task<DocumentReference> task) {
-                            Toast.makeText(DetailActivityTwo.this,"votre commentaire a ete envoyer",Toast.LENGTH_LONG).show();
-                            add_progressbar.setVisibility(INVISIBLE);
-                            post_detail_add_comment_btn.setVisibility(View.VISIBLE);
-                            post_detail_comment.setText("");
-                            comment_empty_text.setVisibility(INVISIBLE);
-                        }
-                    });
-
-                }else{
-                    Toast.makeText(DetailActivityTwo.this,"votre conenu est vide ",Toast.LENGTH_LONG).show();
-                    add_progressbar.setVisibility(View.INVISIBLE);
-                    post_detail_add_comment_btn.setVisibility(VISIBLE);
-                }
-
-            }
-        });
         comment_empty_text=findViewById(R.id.comment_empty_text);
         comment_empty_text.setVisibility(INVISIBLE);
         firebaseFirestore.collection ( "publication" ).document ("categories").collection (categories ).document (iddupost).collection("commentaires").addSnapshotListener ( this,new EventListener<QuerySnapshot> () {
@@ -218,8 +189,16 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
             }
         } );
 
-
         commentaire();
+        voir_les_commentaire_btn=findViewById(R.id.voir_les_commentaire_btn);
+        voir_les_commentaire_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bottom_sheet bottom_sheet = new Bottom_sheet();
+                bottom_sheet.show(getSupportFragmentManager(),"commentaire");
+            }
+        });
+
     }
 
     public void showPopup() {
@@ -371,6 +350,47 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
     @Override
     public void onRewardedVideoCompleted() {
         Toast.makeText(getApplicationContext(),getString(R.string.video_seen_thank),Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void bottom_sheet_listener(String message) {
+        post_detail_comment.setText(message);
+        post_detail_add_comment_btn.performClick();
+        post_detail_add_comment_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                post_detail_add_comment_btn.setVisibility(INVISIBLE);
+                add_progressbar.setVisibility(VISIBLE);
+                comment = post_detail_comment.getText().toString();
+                if (!TextUtils.isEmpty ( comment )){
+                    Date date=new Date();
+                    SimpleDateFormat sdf= new SimpleDateFormat("d/MM/y H:mm:ss");
+                    Calendar calendar=Calendar.getInstance ();
+                    SimpleDateFormat currentDate=new SimpleDateFormat (" dd MMM yyyy" );
+                    String saveCurrentDate=currentDate.format ( calendar.getTime () );
+                    final Map<String,Object> user_comment = new HashMap();
+                    user_comment.put ( "contenu",comment );
+                    user_comment.put ( "heure",saveCurrentDate );
+                    user_comment.put ( "id_user",utilisateur_actuel );
+                    firebaseFirestore.collection ( "publication" ).document ("categories").collection (categories ).document (iddupost).collection("commentaires").add(user_comment).addOnCompleteListener(DetailActivityTwo.this,new OnCompleteListener<DocumentReference>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentReference> task) {
+                            Toast.makeText(DetailActivityTwo.this,"votre commentaire a ete envoyer",Toast.LENGTH_LONG).show();
+                            add_progressbar.setVisibility(INVISIBLE);
+                            post_detail_add_comment_btn.setVisibility(View.VISIBLE);
+                            post_detail_comment.setText("");
+                            comment_empty_text.setVisibility(INVISIBLE);
+                        }
+                    });
+
+                }else{
+                    Toast.makeText(DetailActivityTwo.this,"votre conenu est vide ",Toast.LENGTH_LONG).show();
+                    add_progressbar.setVisibility(View.INVISIBLE);
+                    post_detail_add_comment_btn.setVisibility(VISIBLE);
+                }
+
+            }
+        });
     }
 
 

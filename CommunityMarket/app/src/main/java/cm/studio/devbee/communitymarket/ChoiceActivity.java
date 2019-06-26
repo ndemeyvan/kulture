@@ -249,7 +249,6 @@ public class ChoiceActivity extends AppCompatActivity {
                                 Intent gotoparam=new Intent(getApplicationContext(),Accueil.class);
                                 startActivity ( gotoparam );
                                 finish();
-
                             }
                         }else{
 
@@ -365,12 +364,11 @@ public class ChoiceActivity extends AppCompatActivity {
                                         String randomKey=saveCurrentDate;
                                         donnees_utilisateur.put ( "user_name",personFamilyName);
                                         donnees_utilisateur.put ( "user_prenom",personName);
-                                        donnees_utilisateur.put ( "user_telephone", personId );
+                                        donnees_utilisateur.put ( "user_telephone", "..." );
                                         donnees_utilisateur.put ( "user_residence", "...");
                                         donnees_utilisateur.put ( "user_mail","...");
                                         donnees_utilisateur.put ( "user_profil_image", String.valueOf(personPhoto));
                                         donnees_utilisateur.put ( "id_utilisateur", personId);
-                                        String id=personId;
                                         donnees_utilisateur.put ( "status","online" );
                                         donnees_utilisateur.put ( "search",personFamilyName);
                                         donnees_utilisateur.put ( "message","lu" );
@@ -393,10 +391,10 @@ public class ChoiceActivity extends AppCompatActivity {
                                             }
                                         } );
                                     }else {
-                                        Toast.makeText ( getApplicationContext (),"failed",Toast.LENGTH_LONG ).show ();
-                                        /*Intent gotoparam=new Intent(getApplicationContext(),Accueil.class);
+                                        Toast.makeText ( getApplicationContext (),"connexion",Toast.LENGTH_LONG ).show ();
+                                        Intent gotoparam=new Intent(getApplicationContext(),Accueil.class);
                                         startActivity ( gotoparam );
-                                        finish();*/
+                                        finish();
                                     }
                                 }else{
 
