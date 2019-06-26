@@ -353,8 +353,8 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
     }
 
     @Override
-    public void bottom_sheet_listener(String message) {
-        post_detail_comment.setText(message);
+    public void bottom_sheet_listener(final String message) {
+        String msg =message;
         post_detail_add_comment_btn.performClick();
         post_detail_add_comment_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -362,7 +362,7 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
                 post_detail_add_comment_btn.setVisibility(INVISIBLE);
                 add_progressbar.setVisibility(VISIBLE);
                 comment = post_detail_comment.getText().toString();
-                if (!TextUtils.isEmpty ( comment )){
+                if (!message.isEmpty ()){
                     Date date=new Date();
                     SimpleDateFormat sdf= new SimpleDateFormat("d/MM/y H:mm:ss");
                     Calendar calendar=Calendar.getInstance ();

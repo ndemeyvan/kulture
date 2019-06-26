@@ -201,20 +201,19 @@
                     app:layout_constraintVertical_bias="0.529" />
 
 
-
                 <TextView
                     android:id="@+id/comment_empty_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:text="aucun commentaire"
                     android:textColor="@color/black"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.502"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/post_detail_comment" />
+                    app:layout_constraintTop_toBottomOf="@+id/voir_les_commentaire_btn" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_comment"
@@ -242,13 +241,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="24dp"
                     android:layout_marginEnd="16dp"
                     android:background="@drawable/main_background"
-                    android:text="voir les un commentaires"
+                    android:text="voir les commentaires"
                     android:textAllCaps="false"
                     android:textColor="@color/blanc"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/detail_description" />
             </android.support.constraint.ConstraintLayout>

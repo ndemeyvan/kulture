@@ -38,10 +38,10 @@ public class Bottom_sheet extends BottomSheetDialogFragment {
         post_detail_add_comment_btn=v.findViewById(R.id.post_detail_add_comment_btn);
         post_detail_comment=v.findViewById(R.id.post_detail_comment);
         post_detail_currentuser_img=v.findViewById(R.id.post_detail_currentuser_img);
-        final String commentaire = post_detail_comment.getText().toString();
         post_detail_add_comment_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final String commentaire = post_detail_comment.getText().toString();
                 mListener.bottom_sheet_listener(commentaire);
                 dismiss();
             }
