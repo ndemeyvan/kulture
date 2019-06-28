@@ -208,7 +208,7 @@
     //////////pub
     <dimen name="pub_title_text_size">30sp</dimen>
     <dimen name="pub_dec_text_size">14sp</dimen>
-    <dimen name="pub_desc_text_size">300dp</dimen>
+    <dimen name="pub_desc_text_size">340dp</dimen>
     <dimen name="pub_location_start">40dp</dimen>
     <dimen name="pub_image_top">8dp</dimen>
     <dimen name="pub_first_image_top">20dp</dimen>

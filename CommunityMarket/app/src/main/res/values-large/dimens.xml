@@ -210,7 +210,7 @@
     <dimen name="pub_title_text_size">40sp</dimen>
     <dimen name="pub_dec_text_size">20sp</dimen>
     <dimen name="pub_desc_text_size">500dp</dimen>
-    <dimen name="pub_location_start">40dp</dimen>
+    <dimen name="pub_location_start">70dp</dimen>
     <dimen name="pub_image_top">8dp</dimen>
     <dimen name="pub_first_image_top">30dp</dimen>
     <dimen name="pub_button_start_end">45dp</dimen>
