@@ -43,6 +43,7 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <ImageView
+                        android:src="@drawable/t_shirt"
                         android:id="@+id/imageSlideOne"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/fragment_home_image_slider"
@@ -90,13 +91,15 @@
 
                 <TextView
                     android:id="@+id/publicity_description"
-                    android:layout_width="300dp"
+                    android:layout_width="@dimen/pub_desc_text_size"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="@dimen/pub_desc_top"
                     android:layout_marginEnd="24dp"
                     android:textStyle="bold"
+                    android:text=" le lorem Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500. "
                     app:layout_constraintEnd_toEndOf="parent"
+                    android:textSize="@dimen/pub_dec_text_size"
                     app:layout_constraintHorizontal_bias="0.498"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/publicity_entreprise_name" />
@@ -105,8 +108,8 @@
                     android:id="@+id/imageView7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="40dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="@dimen/pub_location_start"
+                    android:layout_marginTop="@dimen/pub_first_image_top"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/publicity_description"
                     app:srcCompat="@drawable/ic_map" />
@@ -118,6 +121,8 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
                     android:textStyle="bold"
+                    android:text="Douala"
+                    android:textSize="@dimen/pub_dec_text_size"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView7"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -125,6 +130,7 @@
                     app:layout_constraintTop_toTopOf="@+id/imageView7" />
 
                 <TextView
+                    android:text="Lorem ipsum"
                     android:id="@+id/publicity_entreprise_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -133,7 +139,7 @@
                     android:layout_marginEnd="8dp"
                     android:fontFamily="@font/pacifico"
                     android:textColor="@color/black"
-                    android:textSize="30sp"
+                    android:textSize="@dimen/pub_title_text_size"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -143,8 +149,8 @@
                     android:id="@+id/imageView8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="40dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="@dimen/pub_location_start"
+                    android:layout_marginTop="@dimen/pub_image_top"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/imageView7"
                     app:srcCompat="@drawable/ic_phone_black_24dp" />
@@ -155,6 +161,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:textStyle="bold"
+                    android:text="656209008"
+                    android:textSize="@dimen/pub_dec_text_size"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView8"
                     app:layout_constraintStart_toEndOf="@+id/imageView8"
                     app:layout_constraintTop_toTopOf="@+id/imageView8" />
@@ -163,10 +171,10 @@
                     android:id="@+id/publicity_call_button"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
+                    android:layout_marginStart="@dimen/pub_button_start_end"
                     android:layout_marginTop="32dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="@dimen/pub_button_start_end"
+                    android:layout_marginBottom="24dp"
                     android:background="@drawable/main_background"
                     android:text="appeler"
                     android:textAllCaps="false"

@@ -217,5 +217,13 @@
     <dimen name="item_card_height">290dp</dimen>
     <dimen name="item_text_top">8dp</dimen>
     <dimen name="item_profil_margin_top">40sp</dimen>
-
+    //////////pub
+    <dimen name="pub_title_text_size">40sp</dimen>
+    <dimen name="pub_dec_text_size">24sp</dimen>
+    <dimen name="pub_desc_text_size">850dp</dimen>
+    <dimen name="pub_location_start">90dp</dimen>
+    <dimen name="pub_image_top">8dp</dimen>
+    <dimen name="pub_first_image_top">40dp</dimen>
+    <dimen name="pub_button_start_end">100dp</dimen>
+    <dimen name="pub_desc_top">40dp</dimen>
 </resources>

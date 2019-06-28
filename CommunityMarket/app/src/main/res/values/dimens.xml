@@ -255,6 +255,15 @@
     <dimen name="principal_end">16dp</dimen>
     <dimen name="principal_item_desc_text">120dp</dimen>
     <dimen name="principal_prix_top">8dp</dimen>
+    //////////pub
+    <dimen name="pub_title_text_size">30sp</dimen>
+    <dimen name="pub_dec_text_size">14sp</dimen>
+    <dimen name="pub_desc_text_size">300dp</dimen>
+    <dimen name="pub_location_start">40dp</dimen>
+    <dimen name="pub_image_top">8dp</dimen>
+    <dimen name="pub_first_image_top">20dp</dimen>
+    <dimen name="pub_button_start_end">16dp</dimen>
+    <dimen name="pub_desc_top">16dp</dimen>
 
 
 </resources>

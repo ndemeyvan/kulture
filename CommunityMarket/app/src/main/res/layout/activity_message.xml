@@ -206,19 +206,18 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:alpha="0.4"
+                android:alpha="0.3"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/image_de_discutions"
                 app:layout_constraintTop_toTopOf="parent">
 
 
-
                 <ImageView
-                    android:scaleType="centerCrop"
                     android:id="@+id/image_de_fond"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerCrop" />
 
             </LinearLayout>
 
