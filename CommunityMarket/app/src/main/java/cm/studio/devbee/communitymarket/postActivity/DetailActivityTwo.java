@@ -19,20 +19,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
+import android.util.Log;
 import android.util.TypedValue;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.flipboard.bottomsheet.BottomSheetLayout;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.reward.RewardItem;
@@ -94,24 +91,19 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
     private RewardedVideoAd mad;
     Button voir_les_commentaire_btn;
     String image_user;
-
     private static WeakReference<DetailActivityTwo> detailActivityTwoWeakReference;
     String prenom;
     String name_user;
     CircleImageView post_detail_currentuser_img;
-    Button post_detail_add_comment_btn;
-    EditText post_detail_comment;
     String comment;
 
     List<Commentaires_Model> commentaires_modelList;
     Commentaire_Adapter commentaire_adapter;
-    //TextView comment_empty_text;
     android.support.v7.widget.Toolbar detail_image_post_toolbar;
-    ProgressBar add_progressbar;
+
     String titre_produit;
     private Dialog myDialog;
     String prix_produit;
-    private BottomSheetBehavior mbottomSheetBehavior;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate ( savedInstanceState );
@@ -119,7 +111,6 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
         detail_image_post_toolbar=findViewById(R.id.detail_image_post_toolbar);
         setSupportActionBar(detail_image_post_toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        add_progressbar=findViewById(R.id.add_progressbar);
         detail_image_post_toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -127,9 +118,7 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
                 finish ();
             }
         });
-        //View bottomSheet = findViewById(R.id.bottom_sheet);
-        //mbottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
-        add_progressbar.setVisibility(INVISIBLE);
+
         firebaseAuth=FirebaseAuth.getInstance ();
         utilisateur_actuel=firebaseAuth.getCurrentUser ().getUid ();
         firebaseFirestore=FirebaseFirestore.getInstance();
@@ -150,15 +139,8 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
         supprime_detail_button=findViewById ( R.id.supprime_detail_button );
         asyncTask=new AsyncTask ();
         asyncTask.execute();
-        ////////comment recycler
-        /*rv_comment=findViewById(R.id.rv_comment);
-        commentaires_modelList=new ArrayList<>();
-        commentaire_adapter=new Commentaire_Adapter(commentaires_modelList,DetailActivityTwo.this);
-        rv_comment.setAdapter(commentaire_adapter);
-        rv_comment.setLayoutManager(new LinearLayoutManager(DetailActivityTwo.this,LinearLayoutManager.VERTICAL,false));*/
-        post_detail_add_comment_btn=findViewById(R.id.post_detail_add_comment_btn);
         detailActivityTwoWeakReference=new WeakReference<>(this);
-        post_detail_currentuser_img=findViewById(R.id.post_detail_currentuser_img);
+        post_detail_currentuser_img=findViewById(R.id.post_detail_user_image);
         vendeur_button.setEnabled ( false );
         asyncTask=new AsyncTask ();
         asyncTask.execute();
@@ -180,13 +162,7 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
         if (mad.isLoaded()) {
             mad.show();
         }
-
         detail_progress.setVisibility ( View.VISIBLE );
-        post_detail_comment=findViewById(R.id.post_detail_comment);
-
-
-
-
         voir_les_commentaire_btn=findViewById(R.id.voir_les_commentaire_btn);
         voir_les_commentaire_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -205,6 +181,7 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
         myDialog.setCancelable(false);
         myDialog.show();
     }
+
 
     public void commentaire(){
         Query firstQuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( categories ).document (iddupost).collection("commentaires").orderBy ( "heure",Query.Direction.ASCENDING );
@@ -231,6 +208,7 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
         }
     }
 
+
     public void nomEtImageProfil(){
         firebaseFirestore.collection("mes donnees utilisateur").document(current_user_id).get().addOnCompleteListener(DetailActivityTwo.this,new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -251,6 +229,8 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
             }
         });
     }
+
+
     @SuppressLint("RestrictedApi")
     public void supprime(){
         if (current_user_id.equals ( utilisateur_actuel )){
@@ -354,12 +334,32 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(DetailActivityTwo.this);
         View parientView = getLayoutInflater().inflate(R.layout.bottom_sheet_layout,null);
         bottomSheetDialog.setContentView(parientView);
-        BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from((View)parientView.getParent());
-       // bottomSheetBehavior.setPeekHeight((int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,100,getResources().getDisplayMetrics()));
-        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        final BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from((View)parientView.getParent());
+        //bottomSheetBehavior.setPeekHeight((int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,100,getResources().getDisplayMetrics()));
+        bottomSheetBehavior.setPeekHeight(500);
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HALF_EXPANDED);
         bottomSheetDialog.show();
-        CircleImageView post_detail_currentuser_img= parientView.findViewById(R.id.post_detail_currentuser_img);
-        Picasso.with(getApplicationContext()).load(image_user).into(post_detail_currentuser_img);
+        final CircleImageView post_detail_user_image= parientView.findViewById(R.id.post_detail_user_image);
+        final ProgressBar progressBarBottom_sheet= parientView.findViewById(R.id.progressBarBottom_sheet);
+        final ProgressBar progressBar3= parientView.findViewById(R.id.progressBar3);
+        firebaseFirestore.collection("mes donnees utilisateur").document(current_user_id).get().addOnCompleteListener(DetailActivityTwo.this,new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()){
+                    if (task.getResult ().exists ()){
+                        String user_image= task.getResult ().getString ( "user_profil_image" );
+                        Log.e("image",user_image);
+                        Picasso.with(DetailActivityTwo.this).load(user_image).into(post_detail_user_image);
+                        progressBarBottom_sheet.setVisibility(INVISIBLE);
+
+                    }
+                }else {
+                    String error=task.getException().getMessage();
+
+                }
+            }
+        });
+        ImageView close_bottom_sheet=parientView.findViewById(R.id.close_bottom_sheet);
         final EditText post_detail_comment=parientView.findViewById(R.id.post_detail_comment);
         final Button post_detail_add_comment_btn=parientView.findViewById(R.id.post_detail_add_comment_btn);
         final TextView comment_empty_text=parientView.findViewById(R.id.comment_empty_text);
@@ -376,17 +376,28 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
                 }
             }
         } );
-        commentaire();
+
+        close_bottom_sheet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+            }
+        });
+
         post_detail_add_comment_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!post_detail_comment.getText().toString().equals("")){
+                    post_detail_add_comment_btn.setVisibility(INVISIBLE);
+                    progressBar3.setVisibility(VISIBLE);
+
                     Date date=new Date();
                     SimpleDateFormat sdf= new SimpleDateFormat("d/MM/y H:mm:ss");
                     Calendar calendar=Calendar.getInstance ();
                     SimpleDateFormat currentDate=new SimpleDateFormat (" dd MMM yyyy" );
                     String saveCurrentDate=currentDate.format ( calendar.getTime () );
                     final Map<String,Object> user_comment = new HashMap();
+                    comment = post_detail_comment.getText().toString();
                     user_comment.put ( "contenu",comment );
                     user_comment.put ( "heure",saveCurrentDate );
                     user_comment.put ( "id_user",utilisateur_actuel );
@@ -394,10 +405,11 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
                         @Override
                         public void onComplete(@NonNull Task<DocumentReference> task) {
                             Toast.makeText(DetailActivityTwo.this,"votre commentaire a ete envoyer",Toast.LENGTH_LONG).show();
-                            add_progressbar.setVisibility(INVISIBLE);
                             post_detail_add_comment_btn.setVisibility(View.VISIBLE);
                             post_detail_comment.setText("");
                             comment_empty_text.setVisibility(INVISIBLE);
+                            post_detail_add_comment_btn.setVisibility(VISIBLE);
+                            progressBar3.setVisibility(INVISIBLE);
                         }
                     });
 
@@ -406,6 +418,9 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
                 }
             }
         });
+
+        commentaire();
+
     }
 
 
@@ -494,7 +509,6 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
             public void onClick(View v) {
                 Intent vendeur=new Intent(getApplicationContext(),UserGeneralPresentation.class);
                 vendeur.putExtra("id du post",iddupost);
-                DetailActivityTwo.setIddupost(iddupost);
                 vendeur.putExtra("id de l'utilisateur",current_user_id);
                 vendeur.putExtra("image_en_vente",lien_image);
                 vendeur.putExtra("titre_produit",titre_produit);
@@ -525,37 +539,6 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
                     }});
     }
 
-    public static String getIddupost() {
-        return iddupost;
-    }
-
-    public static void setIddupost(String iddupost) {
-        DetailActivityTwo.iddupost = iddupost;
-    }
-
-    public static String getUtilisateur_actuel() {
-        return utilisateur_actuel;
-    }
-
-    public static void setUtilisateur_actuel(String utilisateur_actuel) {
-        DetailActivityTwo.utilisateur_actuel = utilisateur_actuel;
-    }
-
-    public static String getCategories() {
-        return categories;
-    }
-
-    public static void setCategories(String categories) {
-        DetailActivityTwo.categories = categories;
-    }
-
-    public String getImage_user() {
-        return image_user;
-    }
-
-    public void setImage_user(String image_user) {
-        this.image_user = image_user;
-    }
 
     @Override
     public void onResume() {

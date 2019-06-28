@@ -28,4 +28,7 @@
         <item name="android:fontFamily">@font/pacifico</item>
         <item name="colorPrimary">@color/colorPrimary</item>
     </style>
+    <style name="progress_theme" parent="ThemeOverlay.AppCompat.Light">
+        <item name="colorAccent">@color/black</item>
+    </style>
 </resources>

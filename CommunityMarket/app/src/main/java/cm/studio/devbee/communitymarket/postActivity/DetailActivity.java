@@ -12,7 +12,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,7 +23,6 @@ import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -60,13 +58,9 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.Nullable;
 
-import bolts.Bolts;
-import cm.studio.devbee.communitymarket.Accueil;
 import cm.studio.devbee.communitymarket.R;
 import cm.studio.devbee.communitymarket.commentaires.Commentaire_Adapter;
 import cm.studio.devbee.communitymarket.commentaires.Commentaires_Model;
-import cm.studio.devbee.communitymarket.profile.ParametrePorfilActivity;
-import cm.studio.devbee.communitymarket.utilsForNouveautes.CategoriesAdapteNouveaux;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.view.View.INVISIBLE;
@@ -143,7 +137,7 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
         detail_prix_produit = findViewById ( R.id.detail_prix_produit );
         detail_profil_image = findViewById ( R.id.detail_image_du_profil );
         vendeur_button = findViewById ( R.id.vendeur_button );
-        post_detail_currentuser_img = findViewById ( R.id.post_detail_currentuser_img );
+        post_detail_currentuser_img = findViewById ( R.id.post_detail_user_image);
         rv_comment = findViewById ( R.id.rv_comment );
         commentaires_modelList = new ArrayList<> ();
         commentaire_adapter = new Commentaire_Adapter ( commentaires_modelList, DetailActivity.this );

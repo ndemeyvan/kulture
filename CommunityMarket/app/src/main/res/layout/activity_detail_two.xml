@@ -154,11 +154,11 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.444"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/detail_image_post"
+                    app:layout_constraintTop_toBottomOf="@+id/supprime_detail_button"
                     tools:ignore="MissingConstraints" />
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/post_detail_currentuser_img"
+                    android:id="@+id/post_detail_user_image"
                     android:layout_width="@dimen/new_detail_height_image"
                     android:layout_height="@dimen/new_detail_height_image"
                     android:layout_marginStart="@dimen/new_detail_user_actual"
@@ -181,9 +181,9 @@
                     android:textColorHint="@color/black"
                     android:textSize="@dimen/new_detail_edit_text_size"
                     android:visibility="invisible"
-                    app:layout_constraintBottom_toBottomOf="@+id/post_detail_currentuser_img"
-                    app:layout_constraintStart_toEndOf="@+id/post_detail_currentuser_img"
-                    app:layout_constraintTop_toTopOf="@+id/post_detail_currentuser_img" />
+                    app:layout_constraintBottom_toBottomOf="@+id/post_detail_user_image"
+                    app:layout_constraintStart_toEndOf="@+id/post_detail_user_image"
+                    app:layout_constraintTop_toTopOf="@+id/post_detail_user_image" />
 
                 <Button
                     android:id="@+id/post_detail_add_comment_btn"

@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -113,6 +114,7 @@ public class Commentaire_Adapter extends RecyclerView.Adapter<Commentaire_Adapte
         TextView temps_commentaire;
          CircleImageView online;
         CircleImageView offline;
+        ProgressBar progressBar_comment;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             profil_comment_user=itemView.findViewById(R.id.chat_message_image_profil);
@@ -121,10 +123,12 @@ public class Commentaire_Adapter extends RecyclerView.Adapter<Commentaire_Adapte
             temps_commentaire=itemView.findViewById(R.id.chat_temps);
             online=itemView.findViewById(R.id.online);
             offline=itemView.findViewById(R.id.offline);
+            progressBar_comment=itemView.findViewById(R.id.progressBar_comment);
         }
         public void setuserData(String name,String image){
             profil_user_name.setText ( name );
             Picasso.with(context).load(image).into (profil_comment_user );
+            progressBar_comment.setVisibility(View.INVISIBLE);
         }
         public void setcomment(String comment){
             profil_comment_last_message.setText(comment);
