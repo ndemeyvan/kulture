@@ -604,7 +604,7 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
                         Picasso.with(getApplicationContext()).load(image_user).into(generalImageProfilUser);
                         general_residence.setText(residence_user);
                         general_last_view.setText(derniere_conection);
-                        general_user_name.setText(name_user);
+                        general_user_name.setText(name_user+" " + prenom);
                         detail_user.setText(user_mail);
                         final TextView total_vente= parientView.findViewById(R.id.total_vente);
                         Button general_voir_ventes = parientView.findViewById(R.id.general_voir_ventes);
@@ -621,7 +621,6 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
                                 donnees_utilisateur.put("image_en_vente", lien_image);
                                 donnees_utilisateur.put("titre_produit", titre_produit);
                                 donnees_utilisateur.put("prix_produit", prix_produit);
-
                                 firebaseFirestore.collection("sell_image").document(current_user_id).collection(utilisateur_actuel).document(current_user_id).set(donnees_utilisateur).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
