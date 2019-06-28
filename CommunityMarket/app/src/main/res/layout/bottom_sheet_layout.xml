@@ -30,6 +30,7 @@
         android:layout_marginStart="@dimen/new_detail_edit_start"
         android:ems="10"
         android:hint="ecrire un Commentaire"
+        android:theme="@style/progress_theme"
         android:inputType="textMultiLine|textPersonName"
         android:textColor="@color/black"
         android:textColorHint="@color/black"

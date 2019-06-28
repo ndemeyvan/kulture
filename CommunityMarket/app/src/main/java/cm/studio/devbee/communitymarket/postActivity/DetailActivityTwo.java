@@ -83,27 +83,25 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
     private static FirebaseAuth firebaseAuth;
     private static String current_user_id;
     private static String utilisateur_actuel;
-    private AsyncTask asyncTask;
+    private static AsyncTask asyncTask;
     private static ProgressBar detail_progress;
     private static FloatingActionButton supprime_detail_button;
     private static  String  categories;
     private static  String lien_image;
-    private RewardedVideoAd mad;
-    Button voir_les_commentaire_btn;
-    String image_user;
+    private static RewardedVideoAd mad;
     private static WeakReference<DetailActivityTwo> detailActivityTwoWeakReference;
-    String prenom;
-    String name_user;
-    CircleImageView post_detail_currentuser_img;
-    String comment;
-
-    List<Commentaires_Model> commentaires_modelList;
-    Commentaire_Adapter commentaire_adapter;
-    android.support.v7.widget.Toolbar detail_image_post_toolbar;
-
-    String titre_produit;
-    private Dialog myDialog;
-    String prix_produit;
+    private static FloatingActionButton voir_les_commentaire_btn;
+    private static String image_user;
+    private static String prenom;
+    private static String name_user;
+    private static CircleImageView post_detail_currentuser_img;
+    private static String comment;
+    private static List<Commentaires_Model> commentaires_modelList;
+    private static Commentaire_Adapter commentaire_adapter;
+    private static android.support.v7.widget.Toolbar detail_image_post_toolbar;
+    private static String titre_produit;
+    private static Dialog myDialog;
+    private static String prix_produit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate ( savedInstanceState );
@@ -336,13 +334,15 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
         bottomSheetDialog.setContentView(parientView);
         final BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from((View)parientView.getParent());
         //bottomSheetBehavior.setPeekHeight((int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,100,getResources().getDisplayMetrics()));
-        bottomSheetBehavior.setPeekHeight(500);
+        bottomSheetBehavior.setPeekHeight(410);
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HALF_EXPANDED);
         bottomSheetDialog.show();
         final CircleImageView post_detail_user_image= parientView.findViewById(R.id.post_detail_user_image);
         final ProgressBar progressBarBottom_sheet= parientView.findViewById(R.id.progressBarBottom_sheet);
         final ProgressBar progressBar3= parientView.findViewById(R.id.progressBar3);
-        firebaseFirestore.collection("mes donnees utilisateur").document(current_user_id).get().addOnCompleteListener(DetailActivityTwo.this,new OnCompleteListener<DocumentSnapshot>() {
+        progressBarBottom_sheet.setVisibility(VISIBLE);
+        progressBar3.setVisibility(INVISIBLE);
+        firebaseFirestore.collection("mes donnees utilisateur").document(utilisateur_actuel).get().addOnCompleteListener(DetailActivityTwo.this,new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()){
@@ -405,11 +405,11 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
                         @Override
                         public void onComplete(@NonNull Task<DocumentReference> task) {
                             Toast.makeText(DetailActivityTwo.this,"votre commentaire a ete envoyer",Toast.LENGTH_LONG).show();
-                            post_detail_add_comment_btn.setVisibility(View.VISIBLE);
                             post_detail_comment.setText("");
                             comment_empty_text.setVisibility(INVISIBLE);
-                            post_detail_add_comment_btn.setVisibility(VISIBLE);
                             progressBar3.setVisibility(INVISIBLE);
+                            post_detail_add_comment_btn.setVisibility(VISIBLE);
+
                         }
                     });
 
@@ -462,6 +462,7 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
                                             Picasso.with ( getApplicationContext () ).load ( image_user ).transform(new CircleTransform ()).into ( detail_profil_image );
                                             date_de_publication.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_transition_animation));
                                             detail_profil_image.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_transition_animation));
+                                            myDialog.dismiss();
                                             //detail_user_name.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_transition_animation));
 
                                         }
@@ -481,7 +482,7 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
                             detail_image_post.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_transition_animation));
                             detail_description.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_transition_animation));
                             detail_progress.setVisibility ( INVISIBLE );
-                            myDialog.dismiss();
+
                         }
 
                     }else {

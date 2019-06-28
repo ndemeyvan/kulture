@@ -12,6 +12,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,6 +21,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -92,20 +95,15 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
     String prenom;
     String name_user;
     CircleImageView post_detail_currentuser_img;
-    Button post_detail_add_comment_btn;
-    EditText post_detail_comment;
     String comment;
-    RecyclerView rv_comment;
     List<Commentaires_Model> commentaires_modelList;
     Commentaire_Adapter commentaire_adapter;
     TextView comment_empty_text;
-    //CollapsingToolbarLayout toolbar_layout;
     android.support.v7.widget.Toolbar detail_image_post_toolbar;
     ProgressBar add_progressbar;
     String titre_produit;
     String prix_produit;
-
-
+    private static FloatingActionButton voir_les_commentaire_btn;
     private static WeakReference<DetailActivity> detailActivityWeakReference;
 
     @Override
@@ -138,12 +136,8 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
         detail_profil_image = findViewById ( R.id.detail_image_du_profil );
         vendeur_button = findViewById ( R.id.vendeur_button );
         post_detail_currentuser_img = findViewById ( R.id.post_detail_user_image);
-        rv_comment = findViewById ( R.id.rv_comment );
-        commentaires_modelList = new ArrayList<> ();
-        commentaire_adapter = new Commentaire_Adapter ( commentaires_modelList, DetailActivity.this );
-        rv_comment.setAdapter ( commentaire_adapter );
-        rv_comment.setLayoutManager ( new LinearLayoutManager ( DetailActivity.this, LinearLayoutManager.VERTICAL, false ) );
-        post_detail_add_comment_btn = findViewById ( R.id.post_detail_add_comment_btn );
+
+        voir_les_commentaire_btn=findViewById(R.id.voir_les_commentaire_btn);
         //detail_user_name=findViewById(R.id.detail_user_name);
         detail_description = findViewById ( R.id.detail_description );
         date_de_publication = findViewById ( R.id.date_de_publication );
@@ -178,88 +172,107 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
         }
         donne ();
         detail_progress.setVisibility ( View.VISIBLE );
-        post_detail_comment = findViewById ( R.id.post_detail_comment );
-        post_detail_add_comment_btn.setOnClickListener ( new View.OnClickListener () {
+        voir_les_commentaire_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                post_detail_add_comment_btn.setVisibility ( INVISIBLE );
-                add_progressbar.setVisibility ( VISIBLE );
-                comment = post_detail_comment.getText ().toString ();
-                if (!TextUtils.isEmpty ( comment )) {
-                    Date date = new Date ();
-                    SimpleDateFormat sdf = new SimpleDateFormat ( "d/MM/y H:mm:ss" );
-                    final String date_avec_seconde = sdf.format ( date );
-                    Calendar calendar = Calendar.getInstance ();
-                    SimpleDateFormat currentDate = new SimpleDateFormat ( " dd MMM yyyy" );
-                    String saveCurrentDate = currentDate.format ( calendar.getTime () );
-                    final Map<String, Object> user_comment = new HashMap ();
-                    user_comment.put ( "contenu", comment );
-                    user_comment.put ( "heure", saveCurrentDate );
-                    user_comment.put ( "id_user", utilisateur_actuel );
-////////////recuperation des donnerr du vendeur
-                    firebaseFirestore.collection ( "mes donnees utilisateur" ).document ( utilisateur_actuel ).get ().addOnCompleteListener ( new OnCompleteListener<DocumentSnapshot> () {
-                        @Override
-                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                            if (task.isSuccessful ()) {
-                                if (task.getResult ().exists ()) {
-                                    String image_profil_user = task.getResult ().getString ( "user_profil_image" );
-                                    Picasso.with ( getApplicationContext () ).load ( image_profil_user ).into ( post_detail_currentuser_img );
+                comment_init();
+            }
+        });
 
-                                }
-                            } else {
+    }
 
-                            }
-                        }
-                    } );
-//////////////////////// recuperation de la categories du post
-                    firebaseFirestore.collection ( "publication" ).document ( "categories" ).collection ( "nouveaux" ).document ( iddupost ).get ().addOnCompleteListener ( DetailActivity.this, new OnCompleteListener<DocumentSnapshot> () {
-                        @Override
-                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                            if (task.isSuccessful ()) {
-                                if (task.getResult ().exists ()) {
-                                    categories = task.getResult ().getString ( "categories" );
-                                }
-                            } else {
-                                String error = task.getException ().getMessage ();
+    public void comment_init(){
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(DetailActivity.this);
+        View parientView = getLayoutInflater().inflate(R.layout.bottom_sheet_layout,null);
+        bottomSheetDialog.setContentView(parientView);
+        final BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from((View)parientView.getParent());
+        //bottomSheetBehavior.setPeekHeight((int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,100,getResources().getDisplayMetrics()));
+        bottomSheetBehavior.setPeekHeight(410);
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HALF_EXPANDED);
+        bottomSheetDialog.show();
+        final CircleImageView post_detail_user_image= parientView.findViewById(R.id.post_detail_user_image);
+        final ProgressBar progressBarBottom_sheet= parientView.findViewById(R.id.progressBarBottom_sheet);
+        final ProgressBar progressBar3= parientView.findViewById(R.id.progressBar3);
+        progressBarBottom_sheet.setVisibility(VISIBLE);
+        progressBar3.setVisibility(INVISIBLE);
+        firebaseFirestore.collection("mes donnees utilisateur").document(utilisateur_actuel).get().addOnCompleteListener(DetailActivity.this,new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()){
+                    if (task.getResult ().exists ()){
+                        String user_image= task.getResult ().getString ( "user_prof il_image" );
+                        Log.e("image",user_image);
+                        Picasso.with(DetailActivity.this).load(user_image).into(post_detail_user_image);
+                        progressBarBottom_sheet.setVisibility(INVISIBLE);
 
-                            }
-                        }
-                    } );
-////////////////////////////// see if the comment is go
-                    firebaseFirestore.collection ( "publication" ).document ( "categories" ).collection ( "nouveaux" ).document ( iddupost ).collection ( "commentaires" ).add ( user_comment ).addOnCompleteListener ( DetailActivity.this, new OnCompleteListener<DocumentReference> () {
-                        @Override
-                        public void onComplete(@NonNull Task<DocumentReference> task) {
-                            Toast.makeText ( DetailActivity.this, "votre commentaire a ete envoyer", Toast.LENGTH_LONG ).show ();
-                            add_progressbar.setVisibility ( INVISIBLE );
-                            post_detail_add_comment_btn.setVisibility ( View.VISIBLE );
-                            post_detail_comment.setText ( "" );
-                            comment_empty_text.setVisibility ( INVISIBLE );
-                        }
-                    } );
-
-                } else {
-
-                    Toast.makeText ( DetailActivity.this, "votre conenu est vide ", Toast.LENGTH_LONG ).show ();
-                    add_progressbar.setVisibility ( View.INVISIBLE );
-                    post_detail_add_comment_btn.setVisibility ( VISIBLE );
+                    }
+                }else {
+                    String error=task.getException().getMessage();
 
                 }
-
             }
-        } );
-//////////////////////////////
-        comment_empty_text.setVisibility ( INVISIBLE );
-        firebaseFirestore.collection ( "publication" ).document ( "categories" ).collection ( "nouveaux" ).document ( iddupost ).collection ( "commentaires" ).addSnapshotListener ( this, new EventListener<QuerySnapshot> () {
+        });
+        ImageView close_bottom_sheet=parientView.findViewById(R.id.close_bottom_sheet);
+        final EditText post_detail_comment=parientView.findViewById(R.id.post_detail_comment);
+        final Button post_detail_add_comment_btn=parientView.findViewById(R.id.post_detail_add_comment_btn);
+        final TextView comment_empty_text=parientView.findViewById(R.id.comment_empty_text);
+        RecyclerView rv_comment=parientView.findViewById(R.id.rv_comment);
+        commentaires_modelList=new ArrayList<>();
+        commentaire_adapter=new Commentaire_Adapter(commentaires_modelList,DetailActivity.this);
+        rv_comment.setAdapter(commentaire_adapter);
+        rv_comment.setLayoutManager(new LinearLayoutManager(DetailActivity.this,LinearLayoutManager.VERTICAL,false));
+        firebaseFirestore.collection ( "publication" ).document ("categories").collection (categories ).document (iddupost).collection("commentaires").addSnapshotListener ( DetailActivity.this,new EventListener<QuerySnapshot> () {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                if (queryDocumentSnapshots.isEmpty ()) {
-                    comment_empty_text.setVisibility ( VISIBLE );
-
+                if (queryDocumentSnapshots.isEmpty ()){
+                    comment_empty_text.setVisibility(VISIBLE);
                 }
             }
         } );
 
-        commentaire ();
+        close_bottom_sheet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+            }
+        });
+
+        post_detail_add_comment_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!post_detail_comment.getText().toString().equals("")){
+                    post_detail_add_comment_btn.setVisibility(INVISIBLE);
+                    progressBar3.setVisibility(VISIBLE);
+
+                    Date date=new Date();
+                    SimpleDateFormat sdf= new SimpleDateFormat("d/MM/y H:mm:ss");
+                    Calendar calendar=Calendar.getInstance ();
+                    SimpleDateFormat currentDate=new SimpleDateFormat (" dd MMM yyyy" );
+                    String saveCurrentDate=currentDate.format ( calendar.getTime () );
+                    final Map<String,Object> user_comment = new HashMap();
+                    comment = post_detail_comment.getText().toString();
+                    user_comment.put ( "contenu",comment );
+                    user_comment.put ( "heure",saveCurrentDate );
+                    user_comment.put ( "id_user",utilisateur_actuel );
+                    firebaseFirestore.collection ( "publication" ).document ("categories").collection ("nouveaux" ).document (iddupost).collection("commentaires").add(user_comment).addOnCompleteListener(DetailActivity.this,new OnCompleteListener<DocumentReference>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentReference> task) {
+                            Toast.makeText(DetailActivity.this,"votre commentaire a ete envoyer",Toast.LENGTH_LONG).show();
+                            post_detail_comment.setText("");
+                            comment_empty_text.setVisibility(INVISIBLE);
+                            progressBar3.setVisibility(INVISIBLE);
+                            post_detail_add_comment_btn.setVisibility(VISIBLE);
+
+                        }
+                    });
+
+                }else{
+                    Toast.makeText(getApplicationContext(),"vide",Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+        commentaire();
 
     }
 

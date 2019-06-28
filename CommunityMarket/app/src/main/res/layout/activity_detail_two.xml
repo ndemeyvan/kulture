@@ -7,9 +7,14 @@
     android:layout_height="match_parent"
     tools:context=".postActivity.DetailActivityTwo"
     android:background="@color/blanc">
+
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -30,12 +35,21 @@
                 <ImageView
                     android:id="@+id/imageView5"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="70dp"
                     android:visibility="visible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/detail_image_post_toolbar"
                     app:srcCompat="@drawable/background_detail" />
+
+                <ImageView
+                    android:id="@+id/imageView9"
+                    android:layout_width="0dp"
+                    android:layout_height="70dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/detail_image_post"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:srcCompat="@drawable/gradient_bg" />
 
                 <android.support.design.widget.FloatingActionButton
                     android:id="@+id/vendeur_button"
@@ -48,10 +62,9 @@
                     android:visibility="visible"
                     app:layout_constraintBottom_toBottomOf="@+id/detail_image_post"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.923"
+                    app:layout_constraintHorizontal_bias="0.976"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/detail_image_post"
-                    app:layout_constraintVertical_bias="0.475" />
+                    app:layout_constraintTop_toBottomOf="@+id/detail_image_post"/>
 
                 <android.support.design.widget.FloatingActionButton
                     android:id="@+id/supprime_detail_button"
@@ -62,10 +75,9 @@
                     android:visibility="visible"
                     app:layout_constraintBottom_toBottomOf="@+id/detail_image_post"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.921"
+                    app:layout_constraintHorizontal_bias="0.976"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/detail_image_post"
-                    app:layout_constraintVertical_bias="0.475" />
+                    app:layout_constraintTop_toBottomOf="@+id/detail_image_post" />
 
                 <TextView
                     android:id="@+id/detail_prix_produit"
@@ -98,7 +110,7 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="32dp"
-                    android:layout_marginTop="380dp"
+                    android:layout_marginTop="376dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/imageView5"
                     app:srcCompat="@drawable/boy" />
@@ -121,12 +133,12 @@
                     android:id="@+id/detail_image_post_toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:titleTextColor="@color/blanc"
-                    android:theme="@style/ToolbarTheme"
                     android:background="@android:color/transparent"
+                    android:theme="@style/ToolbarTheme"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:titleTextColor="@color/blanc" />
 
                 <View
                     android:id="@+id/view"
@@ -148,327 +160,31 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="16dp"
                     android:lineSpacingExtra="8dp"
                     android:textColor="@color/black"
                     android:textSize="@dimen/new_detail_desc_text_size"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.444"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/supprime_detail_button"
                     tools:ignore="MissingConstraints" />
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/post_detail_user_image"
-                    android:layout_width="@dimen/new_detail_height_image"
-                    android:layout_height="@dimen/new_detail_height_image"
-                    android:layout_marginStart="@dimen/new_detail_user_actual"
-                    android:layout_marginTop="@dimen/new_detail_top_actual_user"
-                    android:src="@drawable/boy"
-                    android:visibility="invisible"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/detail_description"
-                    tools:srcCompat="@tools:sample/avatars" />
 
-                <EditText
-                    android:id="@+id/post_detail_comment"
-                    android:layout_width="@dimen/new_detail_edit_width"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/new_detail_edit_start"
-                    android:ems="10"
-                    android:hint="ecrire un Commentaire"
-                    android:inputType="textMultiLine|textPersonName"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/black"
-                    android:textSize="@dimen/new_detail_edit_text_size"
-                    android:visibility="invisible"
-                    app:layout_constraintBottom_toBottomOf="@+id/post_detail_user_image"
-                    app:layout_constraintStart_toEndOf="@+id/post_detail_user_image"
-                    app:layout_constraintTop_toTopOf="@+id/post_detail_user_image" />
-
-                <Button
-                    android:id="@+id/post_detail_add_comment_btn"
-                    android:layout_width="@dimen/new_detail_add_button"
-                    android:layout_height="@dimen/new_detail_add_height"
-                    android:layout_marginStart="4dp"
-                    android:background="@drawable/oval"
-                    android:text="add"
-                    android:textAllCaps="false"
-                    android:textColor="@color/blanc"
-                    android:textSize="@dimen/new_button_add_size"
-                    android:visibility="invisible"
-                    app:layout_constraintBottom_toBottomOf="@+id/post_detail_comment"
-                    app:layout_constraintStart_toEndOf="@+id/post_detail_comment"
-                    app:layout_constraintTop_toTopOf="@+id/post_detail_comment"
-                    app:layout_constraintVertical_bias="0.529" />
-
-
-
-                <ProgressBar
-                    android:id="@+id/add_progressbar"
-                    style="?android:attr/progressBarStyle"
-                    android:layout_width="@dimen/new_detail_height_image"
-                    android:layout_height="@dimen/new_detail_height_image"
-                    android:visibility="invisible"
-                    app:layout_constraintBottom_toBottomOf="@+id/post_detail_add_comment_btn"
-                    app:layout_constraintEnd_toEndOf="@+id/post_detail_add_comment_btn"
-                    app:layout_constraintStart_toStartOf="@+id/post_detail_add_comment_btn"
-                    app:layout_constraintTop_toTopOf="@+id/post_detail_add_comment_btn" />
-
-                <Button
+                <android.support.design.widget.FloatingActionButton
                     android:id="@+id/voir_les_commentaire_btn"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:background="@drawable/main_background"
-                    android:text="voir les commentaires"
-                    android:textAllCaps="false"
-                    android:textColor="@color/blanc"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/detail_description" />
+                    android:clickable="true"
+                    app:layout_constraintBottom_toBottomOf="@+id/detail_image_post"
+                    app:layout_constraintEnd_toStartOf="@+id/supprime_detail_button"
+                    app:layout_constraintTop_toBottomOf="@+id/detail_image_post"
+                    app:layout_constraintVertical_bias="0.475"
+                    app:srcCompat="@drawable/ic_add_coment" />
 
-               </android.support.constraint.ConstraintLayout>
+            </android.support.constraint.ConstraintLayout>
         </LinearLayout>
     </ScrollView>
-
-   <!-- <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/detail_image_post_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/blanc"
-            android:elevation="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:titleTextColor="@color/black"
-            />
-
-        <ImageView
-            android:elevation="8dp"
-            android:id="@+id/detail_image_post"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/post_detail_height"
-            android:scaleType="centerCrop"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/detail_image_post_toolbar" />
-
-        <TextView
-            android:id="@+id/detail_prix_produit"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/new_detail_date_name_margin_start"
-            android:layout_marginTop="@dimen/new_detail_magin_top"
-            android:layout_marginEnd="8dp"
-            android:ellipsize="end"
-            android:lineSpacingExtra="4dp"
-            android:lines="1"
-            android:textColor="@color/black"
-            android:textSize="@dimen/new_detail_text_size"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/detail_image_post" />
-
-        <View
-            android:id="@+id/view"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            android:background="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/detail_prix_produit" />
-
-        <TextView
-            android:id="@+id/date_de_publication"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/new_detail_date_name_margin_start"
-            android:layout_marginTop="28dp"
-            android:textColor="@color/black"
-            android:textSize="@dimen/new_detail_day_name_user"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view"
-            />
-
-        <TextView
-            android:id="@+id/detail_description"
-            android:layout_width="@dimen/new_desc_text_width"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            android:lineSpacingExtra="8dp"
-            android:textColor="@color/black"
-            android:textSize="@dimen/new_detail_desc_text_size"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/detail_image_du_profil"
-            tools:ignore="MissingConstraints" />
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/post_detail_currentuser_img"
-            android:layout_width="@dimen/new_detail_height_image"
-            android:layout_height="@dimen/new_detail_height_image"
-            android:layout_marginStart="@dimen/new_detail_user_actual"
-            android:layout_marginTop="@dimen/new_detail_top_actual_user"
-            android:src="@drawable/boy"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/detail_description"
-            tools:srcCompat="@tools:sample/avatars" />
-
-        <EditText
-            android:id="@+id/post_detail_comment"
-            android:layout_width="@dimen/new_detail_edit_width"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/new_detail_edit_start"
-            android:ems="10"
-            android:hint="ecrire un Commentaire"
-            android:inputType="textMultiLine|textPersonName"
-            android:textColor="@color/black"
-            android:textColorHint="@color/black"
-            android:textSize="@dimen/new_detail_edit_text_size"
-            app:layout_constraintBottom_toBottomOf="@+id/post_detail_currentuser_img"
-            app:layout_constraintStart_toEndOf="@+id/post_detail_currentuser_img"
-            app:layout_constraintTop_toTopOf="@+id/post_detail_currentuser_img" />
-
-        <Button
-            android:id="@+id/post_detail_add_comment_btn"
-            android:layout_width="@dimen/new_detail_add_button"
-            android:layout_height="@dimen/new_detail_add_height"
-            android:layout_marginStart="4dp"
-            android:background="@drawable/oval"
-            android:text="add"
-            android:textAllCaps="false"
-            android:textColor="@color/blanc"
-            android:textSize="@dimen/new_button_add_size"
-            app:layout_constraintBottom_toBottomOf="@+id/post_detail_comment"
-            app:layout_constraintStart_toEndOf="@+id/post_detail_comment"
-            app:layout_constraintTop_toTopOf="@+id/post_detail_comment"
-            app:layout_constraintVertical_bias="0.529" />
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/detail_image_du_profil"
-            android:layout_width="@dimen/new_detail_height_image"
-            android:layout_height="@dimen/new_detail_height_image"
-            android:layout_marginStart="8dp"
-            android:src="@drawable/boy"
-            app:layout_constraintBottom_toBottomOf="@+id/date_de_publication"
-            app:layout_constraintStart_toEndOf="@+id/date_de_publication"
-            app:layout_constraintTop_toTopOf="@+id/date_de_publication"
-            tools:srcCompat="@tools:sample/avatars" />
-
-        <ImageButton
-            android:id="@+id/supprime_detail_button"
-            android:layout_width="@dimen/new_detail_supp_butt_widht"
-            android:layout_height="@dimen/new_detail_height_button"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="@dimen/new_dimen_supp_button_end"
-            android:background="@drawable/background_message_button"
-            android:src="@drawable/ic_trsah"
-            android:textAllCaps="false"
-            android:textColor="@color/blanc"
-            android:textSize="@dimen/new_detail_supp_button_size_text"
-            app:layout_constraintBottom_toBottomOf="@+id/detail_image_du_profil"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/detail_image_du_profil"
-            app:layout_constraintTop_toTopOf="@+id/detail_image_du_profil" />
-
-        <ImageButton
-            android:id="@+id/vendeur_button"
-            android:layout_width="@dimen/new_detail_supp_butt_widht"
-            android:layout_height="@dimen/new_detail_height_button"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="@dimen/new_dimen_supp_button_end"
-            android:background="@drawable/background_message_button"
-            android:src="@drawable/ic_send_message"
-            android:textAllCaps="false"
-            android:textColor="@color/blanc"
-            android:textSize="@dimen/new_detail_supp_button_size_text"
-            app:layout_constraintBottom_toBottomOf="@+id/detail_image_du_profil"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/detail_image_du_profil"
-            app:layout_constraintTop_toTopOf="@+id/detail_image_du_profil" />
-
-        <ProgressBar
-            android:id="@+id/detail_progress"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="@+id/detail_image_post"
-            app:layout_constraintEnd_toEndOf="@+id/detail_image_post"
-            app:layout_constraintStart_toStartOf="@+id/detail_image_post"
-            app:layout_constraintTop_toTopOf="@+id/detail_image_post" />
-
-        <TextView
-            android:id="@+id/detail_prix_produit"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/new_detail_date_name_margin_start"
-            android:layout_marginTop="@dimen/new_detail_prix_margin_top"
-            android:layout_marginEnd="8dp"
-            android:textColor="@color/bg_screen1"
-            android:textSize="@dimen/new_detail_prix_text_size"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/detail_prix_produit" />
-
-        <TextView
-            android:id="@+id/comment_empty_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="8dp"
-            android:text="aucun commentaire"
-            android:textColor="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.502"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/post_detail_comment" />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_comment"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:background="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/comment_empty_text">
-
-        </android.support.v7.widget.RecyclerView>
-
-        <ProgressBar
-            android:id="@+id/add_progressbar"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="@dimen/new_detail_height_image"
-            android:layout_height="@dimen/new_detail_height_image"
-            app:layout_constraintBottom_toBottomOf="@+id/post_detail_add_comment_btn"
-            app:layout_constraintEnd_toEndOf="@+id/post_detail_add_comment_btn"
-            app:layout_constraintStart_toStartOf="@+id/post_detail_add_comment_btn"
-            app:layout_constraintTop_toTopOf="@+id/post_detail_add_comment_btn" />
-
-    </android.support.constraint.ConstraintLayout> -->
-
 </android.support.constraint.ConstraintLayout>
