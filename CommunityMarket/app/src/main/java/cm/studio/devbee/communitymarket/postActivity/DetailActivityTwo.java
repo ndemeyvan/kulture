@@ -404,7 +404,7 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
                         @Override
                         public void onSuccess(DocumentReference documentReference) {
                             String id_commentaire = documentReference.getId();
-                            firebaseFirestore.collection ( "publication" ).document ("categories").collection ("nouveaux" ).document (iddupost).collection("commentaires").document(id_commentaire).set(user_comment).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            firebaseFirestore.collection ( "publication" ).document ("categories").collection ("nouveaux" ).document (iddupost).collection("commentaires").document(id_commentaire).set(user_comment).addOnSuccessListener(DetailActivityTwo.this,new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
 

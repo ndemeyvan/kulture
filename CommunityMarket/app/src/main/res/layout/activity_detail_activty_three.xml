@@ -8,6 +8,177 @@
     android:background="@color/blanc">
 
     <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/detail_image_post"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/app_bar_height"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintTop_toTopOf="@+id/detail_image_post_toolbar" />
+
+                <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:visibility="visible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/detail_image_post_toolbar"
+                    app:srcCompat="@drawable/background_detail" />
+
+                <ImageView
+                    android:id="@+id/imageView9"
+                    android:layout_width="0dp"
+                    android:layout_height="70dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/detail_image_post"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:srcCompat="@drawable/gradient_bg" />
+
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/vendeur_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/fab_margin"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:src="@drawable/ic_contact_seller"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="@+id/detail_image_post"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.923"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/detail_image_post"
+                    app:layout_constraintVertical_bias="0.475" />
+
+
+
+                <TextView
+                    android:id="@+id/detail_prix_produit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/bangers"
+                    android:text="1000 fcfa "
+                    android:textColor="@color/bg_screen1"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/detail_image_du_profil" />
+
+                <TextView
+                    android:id="@+id/date_de_publication"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:fontFamily="@font/fugaz_one"
+                    android:text="yannick Houdini"
+                    android:textColor="@color/blanc"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/detail_prix_produit" />
+
+                <ImageView
+                    android:id="@+id/detail_image_du_profil"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="376dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/imageView5"
+                    app:srcCompat="@drawable/boy" />
+
+                <ProgressBar
+                    android:id="@+id/add_progressbar"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="228dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/detail_image_post"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/detail_image_post_toolbar" />
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbarDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:theme="@style/ToolbarTheme"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:titleTextColor="@color/blanc" />
+
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@color/black"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+
+                <TextView
+                    android:id="@+id/detail_description"
+                    android:layout_width="@dimen/new_desc_text_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:lineSpacingExtra="8dp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/new_detail_desc_text_size"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.444"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/voir_les_commentaire_btn"
+                    tools:ignore="MissingConstraints" />
+
+
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/voir_les_commentaire_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:clickable="true"
+                    app:layout_constraintBottom_toBottomOf="@+id/detail_image_post"
+                    app:layout_constraintEnd_toStartOf="@+id/vendeur_button"
+                    app:layout_constraintTop_toBottomOf="@+id/detail_image_post"
+                    app:layout_constraintVertical_bias="0.475"
+                    app:srcCompat="@drawable/ic_add_coment" />
+
+            </android.support.constraint.ConstraintLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
+    <!-- <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -199,8 +370,6 @@
         </LinearLayout>
     </ScrollView>
 
-
-    <!--
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbarDetail"
