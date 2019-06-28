@@ -66,6 +66,9 @@ import cm.studio.devbee.communitymarket.commentaires.Commentaire_Adapter;
 import cm.studio.devbee.communitymarket.commentaires.Commentaires_Model;
 import cm.studio.devbee.communitymarket.messagerie.MessageActivity;
 import de.hdodenhof.circleimageview.CircleImageView;
+import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence;
+import uk.co.deanwild.materialshowcaseview.MaterialShowcaseView;
+import uk.co.deanwild.materialshowcaseview.ShowcaseConfig;
 
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
@@ -150,7 +153,29 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
         detail_progress = findViewById ( R.id.detail_progress );
         supprime_detail_button = findViewById ( R.id.supprime_detail_button );
         vendeur_button.setEnabled ( true );
+       /* new MaterialShowcaseView.Builder(this)
+                .setTarget(detail_profil_image)
+                .setDismissText("compris")
+                .setContentText("cliquez ici pour voir plus sur le vendeurs")
+                .singleUse(String.valueOf(1)) // provide a unique ID used to ensure it is only shown once
+                .show();*/
 
+        ShowcaseConfig config = new ShowcaseConfig();
+        //config.setDelay(500); // half second between each showcase view
+
+        MaterialShowcaseSequence sequence = new MaterialShowcaseSequence(this, String.valueOf(1));
+
+        sequence.setConfig(config);
+
+        sequence.addSequenceItem(detail_profil_image,
+                "cliquez ici pour voir plus sur le vendeurs", "compris");
+
+        sequence.addSequenceItem(supprime_detail_button,
+                "supprimmer une vente", "compris");
+
+        sequence.addSequenceItem(vendeur_button,
+                "contacter le vendeur", "compris");
+        sequence.start();
         asyncTask = new AsyncTask ();
         asyncTask.execute ();
         add_progressbar.setVisibility ( INVISIBLE );
