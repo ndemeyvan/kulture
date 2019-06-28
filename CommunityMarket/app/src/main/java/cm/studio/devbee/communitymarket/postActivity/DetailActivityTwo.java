@@ -400,29 +400,26 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
                     user_comment.put ( "contenu",comment );
                     user_comment.put ( "heure",saveCurrentDate );
                     user_comment.put ( "id_user",utilisateur_actuel );
-                    firebaseFirestore.collection ( "publication" ).document ("categories").collection (categories ).document (iddupost).collection("commentaires").add(user_comment).addOnCompleteListener(DetailActivityTwo.this,new OnCompleteListener<DocumentReference>() {
+                    firebaseFirestore.collection ( "publication" ).document ("categories").collection (categories ).document (iddupost).collection("commentaires").add(user_comment).addOnSuccessListener(DetailActivityTwo.this, new OnSuccessListener<DocumentReference>() {
                         @Override
-                        public void onComplete(@NonNull Task<DocumentReference> task) {
-                            firebaseFirestore.collection ( "publication" ).document ("categories").collection ("nouveaux" ).document (iddupost).collection("commentaires").add(user_comment).addOnCompleteListener(DetailActivityTwo.this,new OnCompleteListener<DocumentReference>() {
+                        public void onSuccess(DocumentReference documentReference) {
+                            String id_commentaire = documentReference.getId();
+                            firebaseFirestore.collection ( "publication" ).document ("categories").collection ("nouveaux" ).document (iddupost).collection("commentaires").document(id_commentaire).set(user_comment).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
-                                public void onComplete(@NonNull Task<DocumentReference> task) {
-
+                                public void onSuccess(Void aVoid) {
 
                                 }
                             });
 
-                            firebaseFirestore.collection ( "publication" ).document ("post utilisateur").collection ( current_user_id ).document(iddupost).collection("commentaires").add(user_comment).addOnCompleteListener(DetailActivityTwo.this,new OnCompleteListener<DocumentReference>() {
+                            firebaseFirestore.collection ( "publication" ).document ("post utilisateur").collection ( current_user_id ).document(iddupost).collection("commentaires").document(id_commentaire).set(user_comment).addOnSuccessListener(DetailActivityTwo.this, new OnSuccessListener<Void>() {
                                 @Override
-                                public void onComplete(@NonNull Task<DocumentReference> task) {
-                                    Toast.makeText(DetailActivityTwo.this,"votre commentaire a ete envoyer",Toast.LENGTH_LONG).show();
+                                public void onSuccess(Void aVoid) {
                                     post_detail_comment.setText("");
                                     comment_empty_text.setVisibility(INVISIBLE);
                                     progressBar3.setVisibility(INVISIBLE);
                                     post_detail_add_comment_btn.setVisibility(VISIBLE);
-
                                 }
                             });
-
                         }
                     });
                 }else{

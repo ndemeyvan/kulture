@@ -199,6 +199,8 @@ public class DetailActivityThree extends AppCompatActivity {
 
         }
     }
+
+
     public void vendeurActivity(){
         vendeur_button.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -104,7 +104,7 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
     String titre_produit;
     String prix_produit;
     private static FloatingActionButton voir_les_commentaire_btn;
-    private static WeakReference<DetailActivity> detailActivityWeakReference;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,7 +144,6 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
         firebaseAuth = FirebaseAuth.getInstance ();
         detail_progress = findViewById ( R.id.detail_progress );
         supprime_detail_button = findViewById ( R.id.supprime_detail_button );
-        detailActivityWeakReference = new WeakReference<> ( this );
         vendeur_button.setEnabled ( true );
         asyncTask = new AsyncTask ();
         asyncTask.execute ();
@@ -253,25 +252,24 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
                     user_comment.put ( "contenu",comment );
                     user_comment.put ( "heure",saveCurrentDate );
                     user_comment.put ( "id_user",utilisateur_actuel );
-                    firebaseFirestore.collection ( "publication" ).document ("categories").collection (categories ).document (iddupost).collection("commentaires").add(user_comment).addOnCompleteListener(DetailActivity.this,new OnCompleteListener<DocumentReference>() {
+                    firebaseFirestore.collection ( "publication" ).document ("categories").collection (categories ).document (iddupost).collection("commentaires").add(user_comment).addOnSuccessListener(DetailActivity.this, new OnSuccessListener<DocumentReference>() {
                         @Override
-                        public void onComplete(@NonNull Task<DocumentReference> task) {
-                            firebaseFirestore.collection ( "publication" ).document ("categories").collection ("nouveaux" ).document (iddupost).collection("commentaires").add(user_comment).addOnCompleteListener(DetailActivity.this,new OnCompleteListener<DocumentReference>() {
+                        public void onSuccess(DocumentReference documentReference) {
+                            String id_commentaire = documentReference.getId();
+                            firebaseFirestore.collection ( "publication" ).document ("categories").collection ("nouveaux" ).document (iddupost).collection("commentaires").document(id_commentaire).set(user_comment).addOnSuccessListener(DetailActivity.this,new OnSuccessListener<Void>() {
                                 @Override
-                                public void onComplete(@NonNull Task<DocumentReference> task) {
+                                public void onSuccess(Void aVoid) {
 
                                 }
                             });
 
-                            firebaseFirestore.collection ( "publication" ).document ("post utilisateur").collection ( current_user_id ).document(iddupost).collection("commentaires").add(user_comment).addOnCompleteListener(DetailActivity.this,new OnCompleteListener<DocumentReference>() {
+                            firebaseFirestore.collection ( "publication" ).document ("post utilisateur").collection ( current_user_id ).document(iddupost).collection("commentaires").document(id_commentaire).set(user_comment).addOnSuccessListener(DetailActivity.this, new OnSuccessListener<Void>() {
                                 @Override
-                                public void onComplete(@NonNull Task<DocumentReference> task) {
-                                    Toast.makeText(DetailActivity.this,"votre commentaire a ete envoyer",Toast.LENGTH_LONG).show();
+                                public void onSuccess(Void aVoid) {
                                     post_detail_comment.setText("");
                                     comment_empty_text.setVisibility(INVISIBLE);
                                     progressBar3.setVisibility(INVISIBLE);
                                     post_detail_add_comment_btn.setVisibility(VISIBLE);
-
                                 }
                             });
                         }
