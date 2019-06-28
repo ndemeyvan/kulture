@@ -130,10 +130,12 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
         categories=getIntent().getExtras().getString("id_categories");
         detail_image_post=findViewById(R.id.detail_image_post);
         showPopup();
+
         detail_post_titre_produit=findViewById(R.id.detail_prix_produit );
         detail_prix_produit=findViewById(R.id.detail_prix_produit);
         detail_profil_image=findViewById(R.id.detail_image_du_profil);
         vendeur_button=findViewById(R.id.vendeur_button);
+        vendeur_button.setEnabled ( true );
         //detail_user_name=findViewById(R.id.detail_user_name);
         detail_description=findViewById(R.id.detail_description);
         date_de_publication=findViewById(R.id.date_de_publication);
@@ -144,7 +146,6 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
         asyncTask.execute();
         detailActivityTwoWeakReference=new WeakReference<>(this);
         post_detail_currentuser_img=findViewById(R.id.post_detail_user_image);
-        vendeur_button.setEnabled ( false );
         asyncTask=new AsyncTask ();
         asyncTask.execute();
         firebaseFirestore.collection ( "publication" ).document ("categories").collection (categories ).document (iddupost).addSnapshotListener ( this,new EventListener<DocumentSnapshot> () {
@@ -187,7 +188,7 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
 
 
     public void commentaire(){
-        Query firstQuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( categories ).document (iddupost).collection("commentaires").orderBy ( "heure",Query.Direction.ASCENDING );
+        Query firstQuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( categories ).document (iddupost).collection("commentaires");
         firstQuery.addSnapshotListener(DetailActivityTwo.this,new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {

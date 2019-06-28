@@ -292,7 +292,7 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
 
     ////envoi du commentaire
     public void commentaire() {
-        Query firstQuery = firebaseFirestore.collection ( "publication" ).document ( "categories" ).collection ( "nouveaux" ).document ( iddupost ).collection ( "commentaires" ).orderBy ( "heure", Query.Direction.DESCENDING );
+        Query firstQuery = firebaseFirestore.collection ( "publication" ).document ( "categories" ).collection ( "nouveaux" ).document ( iddupost ).collection ( "commentaires" );
         // .limit(3);
         firstQuery.addSnapshotListener ( DetailActivity.this, new EventListener<QuerySnapshot> () {
             @Override
@@ -573,7 +573,6 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
     }
 
     public void vendeurActivity() {
-
         vendeur_button.setOnClickListener ( new View.OnClickListener () {
             @Override
             public void onClick(View v) {
