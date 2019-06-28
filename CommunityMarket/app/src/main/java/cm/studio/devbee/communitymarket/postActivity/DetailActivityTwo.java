@@ -403,37 +403,28 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
                     firebaseFirestore.collection ( "publication" ).document ("categories").collection (categories ).document (iddupost).collection("commentaires").add(user_comment).addOnCompleteListener(DetailActivityTwo.this,new OnCompleteListener<DocumentReference>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentReference> task) {
-                            Toast.makeText(DetailActivityTwo.this,"votre commentaire a ete envoyer",Toast.LENGTH_LONG).show();
-                            post_detail_comment.setText("");
-                            comment_empty_text.setVisibility(INVISIBLE);
-                            progressBar3.setVisibility(INVISIBLE);
-                            post_detail_add_comment_btn.setVisibility(VISIBLE);
+                            firebaseFirestore.collection ( "publication" ).document ("categories").collection ("nouveaux" ).document (iddupost).collection("commentaires").add(user_comment).addOnCompleteListener(DetailActivityTwo.this,new OnCompleteListener<DocumentReference>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentReference> task) {
+
+
+                                }
+                            });
+
+                            firebaseFirestore.collection ( "publication" ).document ("post utilisateur").collection ( current_user_id ).document(iddupost).collection("commentaires").add(user_comment).addOnCompleteListener(DetailActivityTwo.this,new OnCompleteListener<DocumentReference>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentReference> task) {
+                                    Toast.makeText(DetailActivityTwo.this,"votre commentaire a ete envoyer",Toast.LENGTH_LONG).show();
+                                    post_detail_comment.setText("");
+                                    comment_empty_text.setVisibility(INVISIBLE);
+                                    progressBar3.setVisibility(INVISIBLE);
+                                    post_detail_add_comment_btn.setVisibility(VISIBLE);
+
+                                }
+                            });
 
                         }
                     });
-                    firebaseFirestore.collection ( "publication" ).document ("categories").collection ("nouveaux" ).document (iddupost).collection("commentaires").add(user_comment).addOnCompleteListener(DetailActivityTwo.this,new OnCompleteListener<DocumentReference>() {
-                        @Override
-                        public void onComplete(@NonNull Task<DocumentReference> task) {
-                            Toast.makeText(DetailActivityTwo.this,"votre commentaire a ete envoyer",Toast.LENGTH_LONG).show();
-                            post_detail_comment.setText("");
-                            comment_empty_text.setVisibility(INVISIBLE);
-                            progressBar3.setVisibility(INVISIBLE);
-                            post_detail_add_comment_btn.setVisibility(VISIBLE);
-
-                        }
-                    });
-                    firebaseFirestore.collection ( "publication" ).document ("post utilisateur").collection ( current_user_id ).document(iddupost).collection("commentaires").add(user_comment).addOnCompleteListener(DetailActivityTwo.this,new OnCompleteListener<DocumentReference>() {
-                        @Override
-                        public void onComplete(@NonNull Task<DocumentReference> task) {
-                            Toast.makeText(DetailActivityTwo.this,"votre commentaire a ete envoyer",Toast.LENGTH_LONG).show();
-                            post_detail_comment.setText("");
-                            comment_empty_text.setVisibility(INVISIBLE);
-                            progressBar3.setVisibility(INVISIBLE);
-                            post_detail_add_comment_btn.setVisibility(VISIBLE);
-
-                        }
-                    });
-
                 }else{
                     Toast.makeText(getApplicationContext(),"vide",Toast.LENGTH_LONG).show();
                 }
@@ -483,7 +474,7 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
                                             Picasso.with ( getApplicationContext () ).load ( image_user ).transform(new CircleTransform ()).into ( detail_profil_image );
                                             date_de_publication.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_transition_animation));
                                             detail_profil_image.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_transition_animation));
-                                            myDialog.dismiss();
+
                                             //detail_user_name.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_transition_animation));
 
                                         }
@@ -503,6 +494,7 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
                             detail_image_post.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_transition_animation));
                             detail_description.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_transition_animation));
                             detail_progress.setVisibility ( INVISIBLE );
+                            myDialog.dismiss();
 
                         }
 

@@ -256,37 +256,26 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
                     firebaseFirestore.collection ( "publication" ).document ("categories").collection (categories ).document (iddupost).collection("commentaires").add(user_comment).addOnCompleteListener(DetailActivity.this,new OnCompleteListener<DocumentReference>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentReference> task) {
-                            Toast.makeText(DetailActivity.this,"votre commentaire a ete envoyer",Toast.LENGTH_LONG).show();
-                            post_detail_comment.setText("");
-                            comment_empty_text.setVisibility(INVISIBLE);
-                            progressBar3.setVisibility(INVISIBLE);
-                            post_detail_add_comment_btn.setVisibility(VISIBLE);
+                            firebaseFirestore.collection ( "publication" ).document ("categories").collection ("nouveaux" ).document (iddupost).collection("commentaires").add(user_comment).addOnCompleteListener(DetailActivity.this,new OnCompleteListener<DocumentReference>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentReference> task) {
 
+                                }
+                            });
+
+                            firebaseFirestore.collection ( "publication" ).document ("post utilisateur").collection ( current_user_id ).document(iddupost).collection("commentaires").add(user_comment).addOnCompleteListener(DetailActivity.this,new OnCompleteListener<DocumentReference>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentReference> task) {
+                                    Toast.makeText(DetailActivity.this,"votre commentaire a ete envoyer",Toast.LENGTH_LONG).show();
+                                    post_detail_comment.setText("");
+                                    comment_empty_text.setVisibility(INVISIBLE);
+                                    progressBar3.setVisibility(INVISIBLE);
+                                    post_detail_add_comment_btn.setVisibility(VISIBLE);
+
+                                }
+                            });
                         }
                     });
-                    firebaseFirestore.collection ( "publication" ).document ("categories").collection ("nouveaux" ).document (iddupost).collection("commentaires").add(user_comment).addOnCompleteListener(DetailActivity.this,new OnCompleteListener<DocumentReference>() {
-                        @Override
-                        public void onComplete(@NonNull Task<DocumentReference> task) {
-                            Toast.makeText(DetailActivity.this,"votre commentaire a ete envoyer",Toast.LENGTH_LONG).show();
-                            post_detail_comment.setText("");
-                            comment_empty_text.setVisibility(INVISIBLE);
-                            progressBar3.setVisibility(INVISIBLE);
-                            post_detail_add_comment_btn.setVisibility(VISIBLE);
-
-                        }
-                    });
-                    firebaseFirestore.collection ( "publication" ).document ("post utilisateur").collection ( current_user_id ).document(iddupost).collection("commentaires").add(user_comment).addOnCompleteListener(DetailActivity.this,new OnCompleteListener<DocumentReference>() {
-                        @Override
-                        public void onComplete(@NonNull Task<DocumentReference> task) {
-                            Toast.makeText(DetailActivity.this,"votre commentaire a ete envoyer",Toast.LENGTH_LONG).show();
-                            post_detail_comment.setText("");
-                            comment_empty_text.setVisibility(INVISIBLE);
-                            progressBar3.setVisibility(INVISIBLE);
-                            post_detail_add_comment_btn.setVisibility(VISIBLE);
-
-                        }
-                    });
-
                 }else{
                     Toast.makeText(getApplicationContext(),"vide",Toast.LENGTH_LONG).show();
                 }
