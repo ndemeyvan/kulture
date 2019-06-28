@@ -153,12 +153,13 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
         detail_progress = findViewById ( R.id.detail_progress );
         supprime_detail_button = findViewById ( R.id.supprime_detail_button );
         vendeur_button.setEnabled ( true );
-       /* new MaterialShowcaseView.Builder(this)
-                .setTarget(detail_profil_image)
+        new MaterialShowcaseView.Builder(this)
+                .setTarget(voir_les_commentaire_btn)
+                .setDelay(5000)
                 .setDismissText("compris")
-                .setContentText("cliquez ici pour voir plus sur le vendeurs")
-                .singleUse(String.valueOf(1)) // provide a unique ID used to ensure it is only shown once
-                .show();*/
+                .setContentText("cliquez ici pour voir plus de commentaire")
+                .singleUse(String.valueOf(2)) // provide a unique ID used to ensure it is only shown once
+                .show();
 
         ShowcaseConfig config = new ShowcaseConfig();
         //config.setDelay(500); // half second between each showcase view
