@@ -496,8 +496,6 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
                             lien_image=imageduproduit;
                             Picasso.with(getApplicationContext()).load(image_user).into(detail_profil_image);
                             Picasso.with(getApplicationContext()).load(imageduproduit).into(detail_image_post);
-                            vendeur_button.setEnabled ( false );
-                            vendeur_button.setVisibility(INVISIBLE);
                             detail_prix_produit.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_transition_animation));
                             date_de_publication.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_transition_animation));
                             detail_image_post.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_transition_animation));
@@ -555,7 +553,22 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
                         final TextView detail_user= parientView.findViewById(R.id.detail_user);
                         final TextView general_residence= parientView.findViewById(R.id.general_residence);
                         final TextView general_last_view= parientView.findViewById(R.id.general_last_view);
-                        Picasso.with(getApplicationContext()).load(image_user).into(generalImageProfilUser);
+
+                        firebaseFirestore.collection ( "mes donnees utilisateur" ).document ( current_user_id ).get ().addOnCompleteListener ( DetailActivityTwo.this, new OnCompleteListener<DocumentSnapshot> () {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful ()) {
+                                    if (task.getResult ().exists ()) {
+                                        image_user = task.getResult ().getString ( "user_profil_image" );
+                                        Picasso.with(getApplicationContext()).load(image_user).into(generalImageProfilUser);
+                                    }
+                                } else {
+                                    String error = task.getException ().getMessage ();
+
+                                }
+                            }
+                        } );
+                      
                         general_residence.setText(residence_user);
                         general_last_view.setText(derniere_conection);
                         general_user_name.setText(name_user+" " + prenom);
