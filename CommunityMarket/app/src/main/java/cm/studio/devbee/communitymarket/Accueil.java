@@ -174,7 +174,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
                     if (task.getResult ().exists ()){
                         String message= task.getResult ().getString ( "message" );
                         if (message.equals ( "non_lu" )){
-                            menu.getItem(1).setIcon(ContextCompat.getDrawable(getApplicationContext (), R.drawable.message_lu));
+                            menu.getItem(1).setIcon(ContextCompat.getDrawable(getApplicationContext (), R.drawable.ic_message_flooat_icon));
                         }else{
 
                         }

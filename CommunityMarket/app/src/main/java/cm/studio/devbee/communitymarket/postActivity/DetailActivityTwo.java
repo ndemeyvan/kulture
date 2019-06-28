@@ -542,6 +542,13 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
                         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HALF_EXPANDED);
                         bottomSheetDialog.show();
                         ImageView close_bottom_sheet= parientView.findViewById(R.id.close_bottom_sheet);
+                        ImageView ic_bottom_sheet_up = parientView.findViewById(R.id.ic_bottom_sheet_up);
+                        ic_bottom_sheet_up.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                            }
+                        });
                         close_bottom_sheet.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -568,7 +575,7 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
                                 }
                             }
                         } );
-                      
+
                         general_residence.setText(residence_user);
                         general_last_view.setText(derniere_conection);
                         general_user_name.setText(name_user+" " + prenom);

@@ -588,6 +588,13 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
                         bottomSheetBehavior.setPeekHeight(410);
                         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HALF_EXPANDED);
                         bottomSheetDialog.show();
+                        ImageView ic_bottom_sheet_up = parientView.findViewById(R.id.ic_bottom_sheet_up);
+                        ic_bottom_sheet_up.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                            }
+                        });
                         ImageView close_bottom_sheet= parientView.findViewById(R.id.close_bottom_sheet);
                         close_bottom_sheet.setOnClickListener(new View.OnClickListener() {
                             @Override

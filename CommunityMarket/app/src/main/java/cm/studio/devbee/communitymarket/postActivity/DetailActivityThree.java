@@ -87,8 +87,13 @@ public class DetailActivityThree extends AppCompatActivity {
     String prenom;
     String name_user;
     private Dialog myDialog;
+    private static String titre_produit;
+    private static String prix_produit;
 
     private static WeakReference<DetailActivityThree> detailActivityThreeWeakReference;
+    private String titreDuProduit;
+    private String prixduproduit;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -161,6 +166,8 @@ public class DetailActivityThree extends AppCompatActivity {
     }
 
     public class AsyncTask extends android.os.AsyncTask<Void, Void, Void> {
+
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute ();
@@ -176,10 +183,10 @@ public class DetailActivityThree extends AppCompatActivity {
                             String postLike= task.getResult ().getString ( "user_name" );
                             String image_user=task.getResult ().getString ( "user_profil_image" );
                             ////sockelerie a faire after
-                            String titreDuProduit=task.getResult().getString("nom_du_produit");
+                             titreDuProduit=task.getResult().getString("nom_du_produit");
                             String description= task.getResult ().getString ( "decription_du_produit" );
                             String imageduproduit=task.getResult ().getString ( "image_du_produit" );
-                            String prixduproduit= task.getResult ().getString ( "prix_du_produit" );
+                             prixduproduit= task.getResult ().getString ( "prix_du_produit" );
                             final String datedepublication=task.getResult ().getString ( "date_de_publication" );
                             detail_post_titre_produit.setText(titreDuProduit);
                             detail_prix_produit.setText(prixduproduit);
@@ -355,39 +362,42 @@ public class DetailActivityThree extends AppCompatActivity {
         vendeur_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent vendeur=new Intent(getApplicationContext(),MessageActivity.class);
-                vendeur.putExtra("id du post", iddupost);
-                vendeur.putExtra("id de l'utilisateur", current_user_id);
-                vendeur.putExtra("image_en_vente", lien_image);
-                Map<String, String> donnees_utilisateur = new HashMap<> ();
-                donnees_utilisateur.put ( "image_en_vente",lien_image);
-               current_user=firebaseAuth.getCurrentUser ().getUid ();
-                firebaseFirestore.collection ( "sell_image" ).document ( current_user_id ).collection ( current_user ).document (current_user_id).set ( donnees_utilisateur ).addOnCompleteListener ( new OnCompleteListener<Void> () {
+                Intent gotoMessage = new Intent(getApplicationContext(), MessageActivity.class);
+                gotoMessage.putExtra("id du post", iddupost);
+                gotoMessage.putExtra("id de l'utilisateur", current_user_id);
+                gotoMessage.putExtra("id_categories", categories);
+                gotoMessage.putExtra("image_en_vente", lien_image);
+                Map<String, String> donnees_utilisateur = new HashMap<>();
+                donnees_utilisateur.put("image_en_vente", lien_image);
+                donnees_utilisateur.put("titre_produit", titre_produit);
+                donnees_utilisateur.put("prix_produit", prix_produit);
+                firebaseFirestore.collection("sell_image").document(current_user_id).collection(utilisateur_actuel).document(current_user_id).set(donnees_utilisateur).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
 
                     }
-                } );
-                firebaseFirestore.collection ( "sell_image" ).document ( current_user ).collection ( current_user_id ).document (current_user).set ( donnees_utilisateur ).addOnCompleteListener ( new OnCompleteListener<Void> () {
+                });
+                firebaseFirestore.collection("sell_image").document(utilisateur_actuel).collection(current_user_id).document(utilisateur_actuel).set(donnees_utilisateur).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
 
                     }
-                } );
-                DocumentReference user =  firebaseFirestore.collection ( "sell_image" ).document ( current_user ).collection ( current_user_id ).document (current_user);
+                });
+                DocumentReference user = firebaseFirestore.collection("sell_image").document(current_user_id).collection(utilisateur_actuel).document(current_user_id);
                 user.update("image_en_vente", lien_image)
-                        .addOnSuccessListener(new OnSuccessListener<Void> () {
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
                             }
                         })
-                        .addOnFailureListener(new OnFailureListener () {
+                        .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
                             }
                         });
-                startActivity(vendeur);
+                startActivity(gotoMessage);
                 //finish();
+
             }
         });
     }
