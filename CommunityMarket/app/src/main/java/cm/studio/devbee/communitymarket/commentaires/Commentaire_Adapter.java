@@ -22,7 +22,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import cm.studio.devbee.communitymarket.R;
-import cm.studio.devbee.communitymarket.postActivity.UserGeneralPresentation;
+import cm.studio.devbee.communitymarket.postActivity.SellActivityUser;
 import cm.studio.devbee.communitymarket.profile.ProfileActivity;
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -86,7 +86,7 @@ public class Commentaire_Adapter extends RecyclerView.Adapter<Commentaire_Adapte
             @Override
             public void onClick(View v) {
                 if (!get_id.equals(current_user)) {
-                    Intent gotoprofil_user=new Intent(context,UserGeneralPresentation.class);
+                   Intent gotoprofil_user=new Intent(context,SellActivityUser.class);
                     gotoprofil_user.putExtra("id de l'utilisateur",get_id);
                     context.startActivity(gotoprofil_user);
 

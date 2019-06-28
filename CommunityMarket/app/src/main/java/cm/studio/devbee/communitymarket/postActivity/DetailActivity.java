@@ -573,10 +573,7 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
     }
 
     public void vendeurActivity() {
-        vendeur_button.setOnClickListener ( new View.OnClickListener () {
-            @Override
-            public void onClick(View v) {
-                vendeur_button.setOnClickListener(new View.OnClickListener() {
+        detail_profil_image.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
@@ -685,16 +682,54 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
 
                     }
                 });
-               /* Intent vendeur = new Intent ( getApplicationContext (), UserGeneralPresentation.class );
+        vendeur_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent gotoMessage = new Intent(getApplicationContext(), MessageActivity.class);
+                gotoMessage.putExtra("id du post", iddupost);
+                gotoMessage.putExtra("id de l'utilisateur", current_user_id);
+                gotoMessage.putExtra("id_categories", categories);
+                gotoMessage.putExtra("image_en_vente", lien_image);
+                Map<String, String> donnees_utilisateur = new HashMap<>();
+                donnees_utilisateur.put("image_en_vente", lien_image);
+                donnees_utilisateur.put("titre_produit", titre_produit);
+                donnees_utilisateur.put("prix_produit", prix_produit);
+                firebaseFirestore.collection("sell_image").document(current_user_id).collection(utilisateur_actuel).document(current_user_id).set(donnees_utilisateur).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+
+                    }
+                });
+                firebaseFirestore.collection("sell_image").document(utilisateur_actuel).collection(current_user_id).document(utilisateur_actuel).set(donnees_utilisateur).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+
+                    }
+                });
+                DocumentReference user = firebaseFirestore.collection("sell_image").document(current_user_id).collection(utilisateur_actuel).document(current_user_id);
+                user.update("image_en_vente", lien_image)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                            }
+                        });
+                startActivity(gotoMessage);
+               /* Intent vendeur = new Intent ( getApplicationContext (), MessageActivity.class );
                 vendeur.putExtra ( "id du post", iddupost );
                 vendeur.putExtra ( "id de l'utilisateur", current_user_id );
                 vendeur.putExtra ( "image_en_vente", lien_image );
                 vendeur.putExtra ( "titre_produit", titre_produit );
                 vendeur.putExtra ( "prix_produit", prix_produit );
                 startActivity ( vendeur );*/
-                //finish();
             }
-        } );
+        });
+
+                //finish();
     }
 
     public void userstatus(String status) {

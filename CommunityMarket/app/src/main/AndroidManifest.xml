@@ -89,9 +89,7 @@
         <activity
             android:name=".postActivity.DetailActivityTwo"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".postActivity.UserGeneralPresentation"
-            android:screenOrientation="portrait" />
+
         <activity
             android:name=".search.SearchActivity"
             android:screenOrientation="portrait" />
@@ -126,7 +124,8 @@
             android:name=".welcome.CursorActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".postActivity.SellActivityUser" />
-        <activity android:name=".PublicityActivity"></activity>
+        <activity android:name=".PublicityActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

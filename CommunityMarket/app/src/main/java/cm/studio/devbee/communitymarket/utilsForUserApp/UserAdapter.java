@@ -23,7 +23,6 @@ import com.squareup.picasso.Transformation;
 import java.util.List;
 import cm.studio.devbee.communitymarket.R;
 import cm.studio.devbee.communitymarket.postActivity.SellActivityUser;
-import cm.studio.devbee.communitymarket.postActivity.UserGeneralPresentation;
 import cm.studio.devbee.communitymarket.profile.ProfileActivity;
 import de.hdodenhof.circleimageview.CircleImageView;
 
