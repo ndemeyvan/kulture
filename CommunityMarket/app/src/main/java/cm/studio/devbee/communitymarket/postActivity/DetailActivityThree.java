@@ -81,6 +81,7 @@ public class DetailActivityThree extends AppCompatActivity {
     private  static String lien_image;
     private  static String current_user;
     private static  String  categories;
+    FloatingActionButton voir_les_commentaire_btn;
     private static List<Commentaires_Model> commentaires_modelList;
     private static Commentaire_Adapter commentaire_adapter;
     String prenom;
@@ -135,6 +136,13 @@ public class DetailActivityThree extends AppCompatActivity {
             }
         } );
         showPopup();
+        voir_les_commentaire_btn=findViewById(R.id.voir_les_commentaire_btn);
+        voir_les_commentaire_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                comment_init();
+            }
+        });
 
     }
 
