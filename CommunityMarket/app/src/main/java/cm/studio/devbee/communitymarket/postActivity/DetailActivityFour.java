@@ -83,6 +83,7 @@ public class  DetailActivityFour extends AppCompatActivity {
     Commentaire_Adapter commentaire_adapter;
     String prenom;
     String name_user;
+    FloatingActionButton voir_les_commentaire_btn;
     String categories;
 
     private static WeakReference<DetailActivityFour> detailActivityFourWeakReference;
@@ -105,6 +106,7 @@ public class  DetailActivityFour extends AppCompatActivity {
         detail_description=findViewById(R.id.detail_description);
         date_de_publication=findViewById(R.id.date_de_publication);
         firebaseAuth=FirebaseAuth.getInstance();
+        voir_les_commentaire_btn=findViewById(R.id.voir_les_commentaire_btn);
         toolbarDetail=findViewById(R.id.toolbarDetail);
         supprime_detail_button=findViewById ( R.id.supprime_detail_button );
         detailActivityFourWeakReference=new WeakReference<>(this);
@@ -133,6 +135,13 @@ public class  DetailActivityFour extends AppCompatActivity {
                 }
             }
         } );
+
+        voir_les_commentaire_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                comment_init();
+            }
+        });
 
     }
 
