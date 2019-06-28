@@ -200,8 +200,7 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()){
                     if (task.getResult ().exists ()){
-                        String user_image= task.getResult ().getString ( "user_prof il_image" );
-                        Log.e("image",user_image);
+                        String user_image= task.getResult ().getString ( "user_profil_image" );
                         Picasso.with(DetailActivity.this).load(user_image).into(post_detail_user_image);
                         progressBarBottom_sheet.setVisibility(INVISIBLE);
 
@@ -254,7 +253,29 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
                     user_comment.put ( "contenu",comment );
                     user_comment.put ( "heure",saveCurrentDate );
                     user_comment.put ( "id_user",utilisateur_actuel );
+                    firebaseFirestore.collection ( "publication" ).document ("categories").collection (categories ).document (iddupost).collection("commentaires").add(user_comment).addOnCompleteListener(DetailActivity.this,new OnCompleteListener<DocumentReference>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentReference> task) {
+                            Toast.makeText(DetailActivity.this,"votre commentaire a ete envoyer",Toast.LENGTH_LONG).show();
+                            post_detail_comment.setText("");
+                            comment_empty_text.setVisibility(INVISIBLE);
+                            progressBar3.setVisibility(INVISIBLE);
+                            post_detail_add_comment_btn.setVisibility(VISIBLE);
+
+                        }
+                    });
                     firebaseFirestore.collection ( "publication" ).document ("categories").collection ("nouveaux" ).document (iddupost).collection("commentaires").add(user_comment).addOnCompleteListener(DetailActivity.this,new OnCompleteListener<DocumentReference>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentReference> task) {
+                            Toast.makeText(DetailActivity.this,"votre commentaire a ete envoyer",Toast.LENGTH_LONG).show();
+                            post_detail_comment.setText("");
+                            comment_empty_text.setVisibility(INVISIBLE);
+                            progressBar3.setVisibility(INVISIBLE);
+                            post_detail_add_comment_btn.setVisibility(VISIBLE);
+
+                        }
+                    });
+                    firebaseFirestore.collection ( "publication" ).document ("post utilisateur").collection ( current_user_id ).document(iddupost).collection("commentaires").add(user_comment).addOnCompleteListener(DetailActivity.this,new OnCompleteListener<DocumentReference>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentReference> task) {
                             Toast.makeText(DetailActivity.this,"votre commentaire a ete envoyer",Toast.LENGTH_LONG).show();

@@ -40,7 +40,7 @@ public class  DetailActivityFour extends AppCompatActivity {
     private static FirebaseFirestore firebaseFirestore;
     private static ImageView detail_image_post;
     private static TextView detail_post_titre_produit;
-    private static CircleImageView detail_profil_image;
+    private static ImageView detail_profil_image;
 
     private static TextView detail_user_name;
     private static TextView detail_prix_produit;
