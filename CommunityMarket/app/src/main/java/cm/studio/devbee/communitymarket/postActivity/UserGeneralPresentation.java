@@ -66,8 +66,8 @@ public class UserGeneralPresentation extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_general_presentation);
-        toolbargeneral = findViewById(R.id.general_toolbar);
-        setSupportActionBar(toolbargeneral);
+       // toolbargeneral = findViewById(R.id.general_toolbar);
+        //setSupportActionBar(toolbargeneral);
         detail_user = findViewById(R.id.detail_user);
         iddupost = getIntent().getExtras().getString("id du post");
         current_user_id = getIntent().getExtras().getString("id de l'utilisateur");

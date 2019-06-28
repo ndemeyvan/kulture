@@ -64,6 +64,7 @@ import javax.annotation.Nullable;
 import cm.studio.devbee.communitymarket.R;
 import cm.studio.devbee.communitymarket.commentaires.Commentaire_Adapter;
 import cm.studio.devbee.communitymarket.commentaires.Commentaires_Model;
+import cm.studio.devbee.communitymarket.messagerie.MessageActivity;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.view.View.INVISIBLE;
@@ -104,6 +105,10 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
     String titre_produit;
     String prix_produit;
     private static FloatingActionButton voir_les_commentaire_btn;
+    private String image_user;
+    private String user_mail;
+    private String residence_user;
+    private String derniere_conection;
 
 
     @Override
@@ -145,6 +150,7 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
         detail_progress = findViewById ( R.id.detail_progress );
         supprime_detail_button = findViewById ( R.id.supprime_detail_button );
         vendeur_button.setEnabled ( true );
+
         asyncTask = new AsyncTask ();
         asyncTask.execute ();
         add_progressbar.setVisibility ( INVISIBLE );
@@ -337,7 +343,10 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
                     if (task.getResult ().exists ()) {
                         prenom = task.getResult ().getString ( "user_prenom" );
                         name_user = task.getResult ().getString ( "user_name" );
-                        String image_user = task.getResult ().getString ( "user_profil_image" );
+                         image_user = task.getResult ().getString ( "user_profil_image" );
+                         user_mail  =task.getResult ().getString ("user_mail");
+                         residence_user  =task.getResult ().getString ("user_residence");
+                         derniere_conection  =task.getResult ().getString ("derniere_conection");
                         // detail_user_name.setText(name_user+" "+prenom);
                         Picasso.with ( getApplicationContext () ).load ( image_user ).into ( detail_profil_image );
                         detail_profil_image.setAnimation ( AnimationUtils.loadAnimation ( getApplicationContext (), R.anim.fade_transition_animation ) );
@@ -568,13 +577,116 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
         vendeur_button.setOnClickListener ( new View.OnClickListener () {
             @Override
             public void onClick(View v) {
-                Intent vendeur = new Intent ( getApplicationContext (), UserGeneralPresentation.class );
+                vendeur_button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(DetailActivity.this);
+                        View parientView = getLayoutInflater().inflate(R.layout.activity_user_general_presentation,null);
+                        bottomSheetDialog.setContentView(parientView);
+                        final BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from((View)parientView.getParent());
+                        //bottomSheetBehavior.setPeekHeight((int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,100,getResources().getDisplayMetrics()));
+                        bottomSheetBehavior.setPeekHeight(410);
+                        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HALF_EXPANDED);
+                        bottomSheetDialog.show();
+                        ImageView close_bottom_sheet= parientView.findViewById(R.id.close_bottom_sheet);
+                        close_bottom_sheet.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+                            }
+                        });
+                        final CircleImageView generalImageProfilUser= parientView.findViewById(R.id.generalImageProfilUser);
+                        final TextView general_user_name= parientView.findViewById(R.id.general_user_name);
+                        final TextView detail_user= parientView.findViewById(R.id.detail_user);
+                        final TextView general_residence= parientView.findViewById(R.id.general_residence);
+                        final TextView general_last_view= parientView.findViewById(R.id.general_last_view);
+                        Picasso.with(getApplicationContext()).load(image_user).into(generalImageProfilUser);
+                        general_residence.setText(residence_user);
+                        general_last_view.setText(derniere_conection);
+                        general_user_name.setText(name_user);
+                        detail_user.setText(user_mail);
+                        final TextView total_vente= parientView.findViewById(R.id.total_vente);
+                        Button general_voir_ventes = parientView.findViewById(R.id.general_voir_ventes);
+                        Button general_button_message = parientView .findViewById(R.id.general_button_message);
+                        general_button_message.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent gotoMessage = new Intent(getApplicationContext(), MessageActivity.class);
+                                gotoMessage.putExtra("id du post", iddupost);
+                                gotoMessage.putExtra("id de l'utilisateur", current_user_id);
+                                gotoMessage.putExtra("id_categories", categories);
+                                gotoMessage.putExtra("image_en_vente", lien_image);
+                                Map<String, String> donnees_utilisateur = new HashMap<>();
+                                donnees_utilisateur.put("image_en_vente", lien_image);
+                                donnees_utilisateur.put("titre_produit", titre_produit);
+                                donnees_utilisateur.put("prix_produit", prix_produit);
+
+                                firebaseFirestore.collection("sell_image").document(current_user_id).collection(utilisateur_actuel).document(current_user_id).set(donnees_utilisateur).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+
+                                    }
+                                });
+                                firebaseFirestore.collection("sell_image").document(utilisateur_actuel).collection(current_user_id).document(utilisateur_actuel).set(donnees_utilisateur).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+
+                                    }
+                                });
+                                DocumentReference user = firebaseFirestore.collection("sell_image").document(current_user_id).collection(utilisateur_actuel).document(current_user_id);
+                                user.update("image_en_vente", lien_image)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                            }
+                                        });
+                                startActivity(gotoMessage);
+                                //finish();
+
+                            }
+                        });
+
+                        general_voir_ventes.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent gotoDetail = new Intent(getApplicationContext(), SellActivityUser.class);
+                                gotoDetail.putExtra("id du post", iddupost);
+                                gotoDetail.putExtra("id de l'utilisateur", current_user_id);
+                                gotoDetail.putExtra("id_categories", categories);
+                                gotoDetail.putExtra ( "image_en_vente", lien_image );
+                                gotoDetail.putExtra ( "prix_produit", prix_produit );
+                                startActivity(gotoDetail);
+                                //finish();
+                            }
+                        });
+                        firebaseFirestore.collection("publication").document("post utilisateur").collection(current_user_id).addSnapshotListener(DetailActivity.this,new EventListener<QuerySnapshot>() {
+                            @Override
+                            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                                if (!queryDocumentSnapshots.isEmpty()) {
+                                    int i = queryDocumentSnapshots.size();
+                                    total_vente.setText(i + "");
+
+                                } else {
+                                    total_vente.setText(0 + "");
+                                }
+                            }
+                        });
+
+                    }
+                });
+               /* Intent vendeur = new Intent ( getApplicationContext (), UserGeneralPresentation.class );
                 vendeur.putExtra ( "id du post", iddupost );
                 vendeur.putExtra ( "id de l'utilisateur", current_user_id );
                 vendeur.putExtra ( "image_en_vente", lien_image );
                 vendeur.putExtra ( "titre_produit", titre_produit );
                 vendeur.putExtra ( "prix_produit", prix_produit );
-                startActivity ( vendeur );
+                startActivity ( vendeur );*/
                 //finish();
             }
         } );
