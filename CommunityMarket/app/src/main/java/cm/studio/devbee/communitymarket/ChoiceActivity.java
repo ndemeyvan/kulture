@@ -126,11 +126,11 @@ public class ChoiceActivity extends AppCompatActivity {
         login ();
         printkey();
         firebaseFirestore=FirebaseFirestore.getInstance();
-        ConstraintLayout constraintLayout=findViewById(R.id.layout);
+       /* ConstraintLayout constraintLayout=findViewById(R.id.layout);
         AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
         animationDrawable.setEnterFadeDuration(2000);
         animationDrawable.setExitFadeDuration(4000);
-        animationDrawable.start();
+        animationDrawable.start();*/
         callbackManager=CallbackManager.Factory.create();
         facebook_button.setReadPermissions("email");
         facebook_button.setOnClickListener(new View.OnClickListener() {

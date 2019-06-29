@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ChoiceActivity"
-    android:background="@drawable/gradient_list"
+    android:background="@color/black"
     android:id="@+id/layout">
     <!--<LinearLayout
         android:layout_width="match_parent"
@@ -36,6 +36,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
         tools:ignore="Orientation">
+        <ImageView
+            android:id="@+id/imageslide"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/sign_in_image"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/slider_description"/>
 
     </LinearLayout>
 
@@ -77,7 +88,7 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_marginStart="@dimen/choice_button_width"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="60dp"
         android:layout_marginEnd="@dimen/choice_button_width"
         android:fontFamily="sans-serif-condensed"
         android:paddingTop="15dp"
@@ -114,7 +125,7 @@
         android:layout_width="@dimen/text_choice_widht"
         android:layout_height="0dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="32dp"
         android:text="Open market est votre nouveaux partenaire en affaires , vendez partout aux cameroun,sans frais.Inscrivez vous ,c'est simple et rapide."
         android:textAlignment="center"
