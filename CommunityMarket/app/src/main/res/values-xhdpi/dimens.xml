@@ -223,5 +223,10 @@
     <dimen name="detail_text_size_two">18sp</dimen>
     <dimen name="text_choice_widht">300dp</dimen>
     <dimen name="button_margin_top">88dp</dimen>
+    //splash
+    <dimen name="splash_progress_top">330dp</dimen>
+    <dimen name="splash_text_proverb">12sp</dimen>
+    <dimen name="splash_text_logo_name">20sp</dimen>
+
 
 </resources>

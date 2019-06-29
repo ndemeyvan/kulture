@@ -224,6 +224,11 @@
     <dimen name="detail_image_height_width">50dp</dimen>
     <dimen name="text_choice_widht">500dp</dimen>
     <dimen name="button_margin_top">88dp</dimen>
+    //splash
+    <dimen name="splash_progress_top">530dp</dimen>
+    <dimen name="splash_text_proverb">18sp</dimen>
+    <dimen name="splash_text_logo_name">30sp</dimen>
+
 
 
 </resources>
