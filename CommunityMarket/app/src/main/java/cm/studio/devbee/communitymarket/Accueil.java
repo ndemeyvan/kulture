@@ -212,7 +212,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
                             ShowcaseConfig config = new ShowcaseConfig();
                             MaterialShowcaseSequence sequence = new MaterialShowcaseSequence(Accueil.this, String.valueOf(1));
                             sequence.setConfig(config);
-                            sequence.addSequenceItem(content_floating_action_btn, "Hello"+nom_user+" cliquez ici pour ajouter une vente. \" ok \" pour continuer", "ok");
+                            sequence.addSequenceItem(content_floating_action_btn, "Hello cliquez ici pour ajouter une vente. \" ok \" pour continuer", "ok");
                             sequence.start();
                         }
                     }else {
