@@ -67,6 +67,7 @@ import cm.studio.devbee.communitymarket.utilsForPostPrincipal.PrincipalModel;
 import cm.studio.devbee.communitymarket.utilsForUserApp.UserAdapter;
 import cm.studio.devbee.communitymarket.utilsForUserApp.UserModel;
 import cm.studio.devbee.communitymarket.welcome.CursorActivity;
+import uk.co.deanwild.materialshowcaseview.MaterialShowcaseView;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
 
@@ -261,13 +262,13 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
         mAdView. setAnimation ( AnimationUtils. loadAnimation (getActivity(), R.anim.fade_transition_animation));
         mAdViewTwo. setAnimation ( AnimationUtils. loadAnimation (getActivity(), R.anim.fade_transition_animation));
 
-
         ///////ads"ca-app-pub-3940256099942544~3347511713
         ////my id : ca-app-pub-4353172129870258~6890094527
         MobileAds.initialize(getActivity(),"ca-app-pub-4353172129870258~6890094527");
         mad=MobileAds.getRewardedVideoAdInstance(getActivity());
         mad.setRewardedVideoAdListener(this);
         loadRewardedVideo();
+
 
          return v;
     }

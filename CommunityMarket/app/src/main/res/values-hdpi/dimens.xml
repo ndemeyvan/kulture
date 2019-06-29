@@ -6,14 +6,14 @@
     <dimen name="nav_header_height">176dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <!-- a propos activity. -->
-    <dimen name="a_propos_margin_top">105dp</dimen>
+    <dimen name="a_propos_margin_top">200dp</dimen>
     <dimen name="a_propos_text_size">16sp</dimen>
     <dimen name="a_propos_contacter_nous">16sp</dimen>
     <dimen name="a_propos_nuttoon_padding">68dp</dimen>
     <dimen name="a_propos_button_size_text">30sp</dimen>
     <!-- choice activity. -->
     <dimen name="choice_Logo_margin_top">65dp</dimen>
-    <dimen name="choice_Logo_text_size">40sp</dimen>
+    <dimen name="choice_Logo_text_size">70sp</dimen>
     <dimen name="choice_button_padding_top">10dp</dimen>
     <dimen name="button_size_text">12sp</dimen>
 
@@ -216,6 +216,13 @@
     <dimen name="pub_first_image_top">20dp</dimen>
     <dimen name="pub_button_start_end">16dp</dimen>
     <dimen name="pub_desc_top">16dp</dimen>
+    ///detail_two
+    <dimen name="detail_image_top">380dp</dimen>
+    <dimen name="detail_image_start">32dp</dimen>
+    <dimen name="profil_detail_start_text">32dp</dimen>
+    <dimen name="detail_text_size_two">18sp</dimen>
+    <dimen name="text_choice_widht">300dp</dimen>
+    <dimen name="button_margin_top">88dp</dimen>
 
 
 

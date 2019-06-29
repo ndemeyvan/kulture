@@ -77,7 +77,7 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_marginStart="@dimen/choice_button_width"
-        android:layout_marginTop="88dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="@dimen/choice_button_width"
         android:fontFamily="sans-serif-condensed"
         android:paddingTop="15dp"
@@ -89,7 +89,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/textView7"
         tools:ignore="HardcodedText,MissingConstraints" />
 
     <TextView
@@ -97,10 +97,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="132dp"
+        android:layout_marginTop="@dimen/choice_Logo_margin_top"
         android:layout_marginEnd="8dp"
         android:fontFamily="@font/caveat"
-        android:text="Welcome"
+        android:text="O.Market "
         android:textColor="@color/blanc"
         android:textSize="@dimen/choice_Logo_text_size"
         android:textStyle="bold"
@@ -111,14 +111,15 @@
 
     <TextView
         android:id="@+id/textView7"
-        android:layout_width="300dp"
+        android:layout_width="@dimen/text_choice_widht"
         android:layout_height="0dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
-        android:text="Open market est votre nouveaux partenaire en affaires , vendez partout aux cameroun,sans frais . "
+        android:text="Open market est votre nouveaux partenaire en affaires , vendez partout aux cameroun,sans frais.Inscrivez vous ,c'est simple et rapide."
         android:textAlignment="center"
         android:textColor="@color/blanc"
+        android:textSize="@dimen/new_detail_desc_text_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />

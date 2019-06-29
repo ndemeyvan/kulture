@@ -265,5 +265,15 @@
     <dimen name="pub_button_start_end">16dp</dimen>
     <dimen name="pub_desc_top">16dp</dimen>
 
+    ///detail_two
+    <dimen name="detail_image_top">380dp</dimen>
+    <dimen name="detail_image_start">32dp</dimen>
+    <dimen name="profil_detail_start_text">32dp</dimen>
+    <dimen name="detail_text_size_two">18sp</dimen>
+    <dimen name="detail_image_height_width">40dp</dimen>
+    //choice three
+    <dimen name="text_choice_widht">300dp</dimen>
+    <dimen name="button_margin_top">88dp</dimen>
+
 
 </resources>

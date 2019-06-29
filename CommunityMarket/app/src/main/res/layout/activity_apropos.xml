@@ -11,15 +11,17 @@
         android:layout_height="wrap_content"
         android:id="@+id/aporpos_toolbar"
         app:titleTextColor="@color/blanc"/>
+
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
+
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@drawable/shop"/>
+            android:src="@drawable/shop" />
     </LinearLayout>
 
     <LinearLayout
@@ -34,38 +36,55 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        tools:ignore="Orientation"></LinearLayout>
+        tools:ignore="Orientation">
 
+    </LinearLayout>
 
     <TextView
-        android:id="@+id/textView11"
-        android:layout_width="@dimen/parametre_textt_two"
+        android:id="@+id/textView10"
+        android:layout_width="@dimen/text_choice_widht"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="@dimen/a_propos_margin_top"
+        android:layout_marginTop="@dimen/choice_Logo_margin_top"
         android:layout_marginEnd="8dp"
-        android:fontFamily="sans-serif-condensed"
-        android:text="@string/apropos_grand_titre"
+        android:fontFamily="@font/caveat"
+        android:text="Advert !!!"
         android:textAlignment="center"
-        android:textColor="@color/orange"
-        android:textSize="@dimen/a_propos_text_size"
+        android:textColor="@color/blanc"
+        android:textSize="@dimen/choice_Logo_text_size"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <TextView
-        android:id="@+id/textView12"
-        android:layout_width="@dimen/parametre_textt_two"
+        android:id="@+id/textView11"
+        android:layout_width="@dimen/text_choice_widht"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="92dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
         android:fontFamily="sans-serif-condensed"
+        android:text="@string/apropos_grand_titre"
+        android:textAlignment="center"
+        android:textColor="@color/blanc"
+        android:textSize="@dimen/a_propos_text_size"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="@dimen/text_choice_widht"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
         android:text="@string/a_propos_sous_titre"
         android:textAlignment="center"
         android:textColor="@color/blanc"
-        android:textSize="@dimen/a_propos_contacter_nous"
+        android:textSize="@dimen/new_detail_desc_text_size"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -67,6 +67,9 @@ import cm.studio.devbee.communitymarket.profile.ParametrePorfilActivity;
 import cm.studio.devbee.communitymarket.profile.ProfileActivity;
 import cm.studio.devbee.communitymarket.search.SearchActivity;
 import de.hdodenhof.circleimageview.CircleImageView;
+import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence;
+import uk.co.deanwild.materialshowcaseview.MaterialShowcaseView;
+import uk.co.deanwild.materialshowcaseview.ShowcaseConfig;
 
 public class Accueil extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, RewardedVideoAdListener {
         private FirebaseAuth mAuth;
@@ -83,7 +86,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
         private AdView mAdView;
         String name;
         Dialog myDialog;
-
+    private String nom_user;
 
 
     @Override
@@ -174,7 +177,9 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
                     if (task.getResult ().exists ()){
                         String message= task.getResult ().getString ( "message" );
                         if (message.equals ( "non_lu" )){
+
                             menu.getItem(1).setIcon(ContextCompat.getDrawable(getApplicationContext (), R.drawable.ic_message_flooat_icon));
+
                         }else{
 
                         }
@@ -193,7 +198,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
         asyncTask=new AsyncTask();
         asyncTask.execute();
 
-        firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user_id).get ().addOnCompleteListener ( new OnCompleteListener<DocumentSnapshot>() {
+        firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user_id).get ().addOnCompleteListener ( Accueil.this,new OnCompleteListener<DocumentSnapshot>() {
             @SuppressLint("RestrictedApi")
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -204,7 +209,11 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
                             content_floating_action_btn.setVisibility(View.INVISIBLE);
                             ShowPopup ();
                         }else{
-
+                            ShowcaseConfig config = new ShowcaseConfig();
+                            MaterialShowcaseSequence sequence = new MaterialShowcaseSequence(Accueil.this, String.valueOf(1));
+                            sequence.setConfig(config);
+                            sequence.addSequenceItem(content_floating_action_btn, "Hello"+nom_user+" cliquez ici pour ajouter une vente. \" ok \" pour continuer", "ok");
+                            sequence.start();
                         }
                     }else {
 
@@ -273,7 +282,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
                     if (task.isSuccessful ()){
                         if (task.getResult ().exists ()){
                             String  image_profil_user =task.getResult ().getString ("user_profil_image");
-                            String nom_user = task.getResult ().getString ("user_name");
+                             nom_user = task.getResult ().getString ("user_name");
                             String prenomuser =task.getResult ().getString ("user_prenom");
                             drawer_user_name.setText ( nom_user + " " + prenomuser);
                             Picasso.with ( getApplicationContext()).load ( image_profil_user ).transform(new CircleTransform()).into ( acceuille_image );
