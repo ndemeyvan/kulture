@@ -181,6 +181,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
                             menu.getItem(1).setIcon(ContextCompat.getDrawable(getApplicationContext (), R.drawable.ic_message_flooat_icon));
 
                         }else{
+                            menu.getItem(1).setIcon(ContextCompat.getDrawable(getApplicationContext (), R.drawable.message_lu));
 
                         }
                     }else {

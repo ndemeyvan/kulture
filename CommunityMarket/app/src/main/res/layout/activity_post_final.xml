@@ -29,7 +29,7 @@
                 <ImageView
                     android:id="@+id/imageProduit"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/post_image_height"
+                    android:layout_height="@dimen/app_bar_height"
                     android:scaleType="centerCrop"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

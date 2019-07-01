@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
@@ -14,7 +13,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -24,11 +22,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.Toast;
-
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.reward.RewardItem;
@@ -41,19 +36,14 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -61,13 +51,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-
 import cm.studio.devbee.communitymarket.Accueil;
 import cm.studio.devbee.communitymarket.R;
-import cm.studio.devbee.communitymarket.messagerie.ChatMessageActivity;
-import cm.studio.devbee.communitymarket.profile.ParametrePorfilActivity;
-import cm.studio.devbee.communitymarket.search.SearchActivity;
 import id.zelory.compressor.Compressor;
+import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence;
+import uk.co.deanwild.materialshowcaseview.MaterialShowcaseView;
+import uk.co.deanwild.materialshowcaseview.ShowcaseConfig;
 
 public class PostActivityFinal extends AppCompatActivity implements RewardedVideoAdListener {
     private static  final int MAX_LENGTH =100;
@@ -113,6 +102,13 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
             }
         });
 
+        ShowcaseConfig config = new ShowcaseConfig();
+        MaterialShowcaseSequence sequence = new MaterialShowcaseSequence(PostActivityFinal.this, String.valueOf(10));
+        sequence.setConfig(config);
+        sequence.addSequenceItem(postfinaltoolbar, "cliquer sur l'icone pour choisir une image. \" ok \" pour continuer", "ok");
+        sequence.addSequenceItem(imageProduit, " la prevusualisation apparait ici ,ensuite scroller vers le bas pour continuer. \" ok \" pour continuer\"", "ok");
+        sequence.addSequenceItem(imageProduit, " enfin ,remplisser les valeurs propre a votre vente et vendez le. \" ok \" pour continuer\"", "ok");
+        sequence.start();
         imageProduit=findViewById ( R.id.imageProduit );
         nomProduit=findViewById ( R.id.post_product_name );
         post_new_button=findViewById ( R.id.post_new_button );
@@ -180,7 +176,7 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
                 prendreDonnerDevente ();
                 loadRewardedVideo();
                 if (mad.isLoaded()) {
-                    Toast.makeText ( getApplicationContext(),"Regarder cette publicter pendant le traitement de votre vente , vous pouvez la fermer si vous voulez",Toast.LENGTH_LONG ).show ();
+                    Toast.makeText ( getApplicationContext(),"Regarder cette publiczter pendant le traitement de votre vente , vous pouvez la fermer si vous voulez",Toast.LENGTH_LONG ).show ();
                     mad.show();
                 }
             }

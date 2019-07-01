@@ -67,6 +67,9 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
+import cm.studio.devbee.communitymarket.postActivity.PostActivityFinal;
+import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence;
+import uk.co.deanwild.materialshowcaseview.ShowcaseConfig;
 
 
 public class ChoiceActivity extends AppCompatActivity {
@@ -97,11 +100,17 @@ public class ChoiceActivity extends AppCompatActivity {
         Twitter.initialize(config);
         setContentView ( R.layout.activity_choice );
         gotoLogin=findViewById ( R.id.gotoLogin );
-
         firebaseAuth=FirebaseAuth.getInstance();
         mLoginButton=findViewById ( R.id.gotoRegister );
         facebook_button=findViewById(R.id.facebook_button);
         //image_de_choix=findViewById(R.id.image_de_choix);
+        ShowcaseConfig configTwo = new ShowcaseConfig();
+        MaterialShowcaseSequence sequence = new MaterialShowcaseSequence(ChoiceActivity.this, String.valueOf(10));
+        sequence.setConfig(configTwo);
+        sequence.addSequenceItem(facebook_button, "vous pouvez vous inscrive via facebook. \" ok \" pour continuer", "ok");
+        sequence.addSequenceItem(gotoLogin, "vous pouvez vous inscrive via twitter. \" ok \" pour continuer\"", "ok");
+
+        sequence.start();
         mLoginButton.setCallback(new Callback<TwitterSession>() {
             @Override
             public void success(Result<TwitterSession> result) {
