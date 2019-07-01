@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:id="@+id/layout"
     tools:context=".postActivity.PostActivityFinal"
-   android:background="@drawable/gradient_list">
+   android:background="@color/blanc">
 
     <ScrollView
         android:layout_width="match_parent"

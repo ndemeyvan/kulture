@@ -24,7 +24,7 @@ public class SplashActivity extends AppCompatActivity {
                 startActivity(gotochoice);
                 finish();
             }
-        }, 2000 );
+        }, 4000 );
         //SystemClock.sleep(3000);
 
 

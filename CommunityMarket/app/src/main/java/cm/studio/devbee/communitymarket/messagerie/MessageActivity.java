@@ -209,8 +209,6 @@ public class MessageActivity extends AppCompatActivity {
         userstatus("online");
         Toast.makeText ( getApplicationContext (),"l'image qui porte sur la vente apparait en haut",Toast.LENGTH_LONG ).show ();
 
-
-
     }
 
 

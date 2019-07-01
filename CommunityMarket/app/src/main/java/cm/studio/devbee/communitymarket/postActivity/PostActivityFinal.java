@@ -126,11 +126,11 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
         mad=MobileAds.getRewardedVideoAdInstance(this);
         mad.setRewardedVideoAdListener(this);
         loadRewardedVideo();
-        ConstraintLayout constraintLayout=findViewById(R.id.layout);
+        /*ConstraintLayout constraintLayout=findViewById(R.id.layout);
         AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
         animationDrawable.setEnterFadeDuration(2000);
         animationDrawable.setExitFadeDuration(4000);
-        animationDrawable.start();
+        animationDrawable.start();*/
         //ads
         if (mad.isLoaded()) {
             mad.show();

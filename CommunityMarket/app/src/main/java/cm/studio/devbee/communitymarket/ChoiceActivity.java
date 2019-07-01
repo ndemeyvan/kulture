@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
@@ -68,6 +69,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import cm.studio.devbee.communitymarket.postActivity.PostActivityFinal;
+import cm.studio.devbee.communitymarket.welcome.CursorActivity;
 import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence;
 import uk.co.deanwild.materialshowcaseview.ShowcaseConfig;
 
@@ -75,7 +77,7 @@ import uk.co.deanwild.materialshowcaseview.ShowcaseConfig;
 public class ChoiceActivity extends AppCompatActivity {
         private static GoogleSignInClient mGoogleSignInClient;
         private static SignInButton gotoLogin;
-    private TwitterLoginButton mLoginButton;
+        private TwitterLoginButton mLoginButton;
         private static ImageView devant;
         private static WeakReference<ChoiceActivity> choiceActivityWeakReference;
         private static LoginButton facebook_button;
@@ -104,26 +106,6 @@ public class ChoiceActivity extends AppCompatActivity {
         mLoginButton=findViewById ( R.id.gotoRegister );
         facebook_button=findViewById(R.id.facebook_button);
         //image_de_choix=findViewById(R.id.image_de_choix);
-        ShowcaseConfig configTwo = new ShowcaseConfig();
-        MaterialShowcaseSequence sequence = new MaterialShowcaseSequence(ChoiceActivity.this, String.valueOf(10));
-        sequence.setConfig(configTwo);
-        sequence.addSequenceItem(facebook_button, "vous pouvez vous inscrive via facebook. \" ok \" pour continuer", "ok");
-        sequence.addSequenceItem(gotoLogin, "vous pouvez vous inscrive via twitter. \" ok \" pour continuer\"", "ok");
-
-        sequence.start();
-        mLoginButton.setCallback(new Callback<TwitterSession>() {
-            @Override
-            public void success(Result<TwitterSession> result) {
-                handleTwitterSession(result.data);
-                loginTwo(result.data);
-            }
-
-            @Override
-            public void failure(TwitterException exception) {
-
-            }
-        });
-
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken("537391119843-njqfai8ka55g6doo947bnklqcap3ih8c.apps.googleusercontent.com")
                 .requestEmail()
@@ -165,7 +147,19 @@ public class ChoiceActivity extends AppCompatActivity {
             finish();
         }
 
-        //image_de_choix.animate().scaleX(2).scaleY(2).setDuration(2000).start();
+
+        mLoginButton.setCallback(new Callback<TwitterSession>() {
+            @Override
+            public void success(Result<TwitterSession> result) {
+                handleTwitterSession(result.data);
+            }
+
+            @Override
+            public void failure(TwitterException exception) {
+
+
+            }
+        });
     }
 
     public void loginTwo(TwitterSession session) {
@@ -285,8 +279,6 @@ public class ChoiceActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-
                             FirebaseUser user = firebaseAuth.getCurrentUser();
 
                         } else {

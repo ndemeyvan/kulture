@@ -48,7 +48,7 @@
         android:layout_marginTop="@dimen/choice_Logo_margin_top"
         android:layout_marginEnd="8dp"
         android:fontFamily="@font/caveat"
-        android:text="Advert !!!"
+        android:text="Pub !!!"
         android:textAlignment="center"
         android:textColor="@color/blanc"
         android:textSize="@dimen/choice_Logo_text_size"
