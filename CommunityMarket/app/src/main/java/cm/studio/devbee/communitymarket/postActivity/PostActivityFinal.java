@@ -107,7 +107,7 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
         sequence.setConfig(config);
         sequence.addSequenceItem(postfinaltoolbar, "cliquer sur l'icone pour choisir une image. \" ok \" pour continuer", "ok");
         sequence.addSequenceItem(imageProduit, " la prevusualisation apparait ici ,ensuite scroller vers le bas pour continuer. \" ok \" pour continuer\"", "ok");
-        sequence.addSequenceItem(imageProduit, " enfin ,remplisser les valeurs propre a votre vente et vendez le. \" ok \" pour continuer\"", "ok");
+        //sequence.addSequenceItem(imageProduit, " enfin ,remplisser les valeurs propre a votre vente et vendez le. \" ok \" pour continuer\"", "ok");
         sequence.start();
         imageProduit=findViewById ( R.id.imageProduit );
         nomProduit=findViewById ( R.id.post_product_name );
