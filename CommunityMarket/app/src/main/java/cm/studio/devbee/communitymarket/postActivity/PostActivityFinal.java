@@ -102,13 +102,7 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
             }
         });
 
-        ShowcaseConfig config = new ShowcaseConfig();
-        MaterialShowcaseSequence sequence = new MaterialShowcaseSequence(PostActivityFinal.this, String.valueOf(10));
-        sequence.setConfig(config);
-        sequence.addSequenceItem(postfinaltoolbar, "cliquer sur l'icone pour choisir une image. \" ok \" pour continuer", "ok");
-        sequence.addSequenceItem(imageProduit, " la prevusualisation apparait ici ,ensuite scroller vers le bas pour continuer. \" ok \" pour continuer\"", "ok");
-        //sequence.addSequenceItem(imageProduit, " enfin ,remplisser les valeurs propre a votre vente et vendez le. \" ok \" pour continuer\"", "ok");
-        sequence.start();
+
         imageProduit=findViewById ( R.id.imageProduit );
         nomProduit=findViewById ( R.id.post_product_name );
         post_new_button=findViewById ( R.id.post_new_button );
@@ -120,6 +114,13 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
         Toast.makeText ( getApplicationContext(),categoryName,Toast.LENGTH_LONG ).show ();
         asyncTask=new AsyncTask();
         asyncTask.execute();
+        ShowcaseConfig config = new ShowcaseConfig();
+        MaterialShowcaseSequence sequence = new MaterialShowcaseSequence(PostActivityFinal.this, String.valueOf(10));
+        sequence.setConfig(config);
+        sequence.addSequenceItem(postfinaltoolbar, "cliquer sur l'icone pour choisir une image. \" ok \" pour continuer", "ok");
+        sequence.addSequenceItem(imageProduit, " la prevusualisation apparait ici ,ensuite scroller vers le bas pour continuer. \" ok \" pour continuer\"", "ok");
+        sequence.addSequenceItem(imageProduit, " enfin ,remplisser les valeurs propre a votre vente et vendez le. \" ok \" pour continuer\"", "ok");
+        sequence.start();
         ///////ads"ca-app-pub-3940256099942544~3347511713
         ////my id : ca-app-pub-4353172129870258~6890094527
         MobileAds.initialize(this,"ca-app-pub-4353172129870258~6890094527");
