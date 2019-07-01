@@ -181,7 +181,6 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
         animationDrawable.setEnterFadeDuration(2000);
         animationDrawable.setExitFadeDuration(4000);
         animationDrawable.start();
-
         // my id ca-app-pub-4353172129870258~6890094527
         // leur id ca-app-pub-3940256099942544~3347511713
         MobileAds.initialize(getApplicationContext(), "ca-app-pub-4353172129870258~6890094527");
