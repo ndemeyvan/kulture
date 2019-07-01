@@ -118,8 +118,6 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
         MaterialShowcaseSequence sequence = new MaterialShowcaseSequence(PostActivityFinal.this, String.valueOf(10));
         sequence.setConfig(config);
         sequence.addSequenceItem(postfinaltoolbar, "cliquer sur l'icone pour choisir une image. \" ok \" pour continuer", "ok");
-        sequence.addSequenceItem(imageProduit, " la prevusualisation apparait ici ,ensuite scroller vers le bas pour continuer. \" ok \" pour continuer\"", "ok");
-        sequence.addSequenceItem(imageProduit, " enfin ,remplisser les valeurs propre a votre vente et vendez le. \" ok \" pour continuer\"", "ok");
         sequence.start();
         ///////ads"ca-app-pub-3940256099942544~3347511713
         ////my id : ca-app-pub-4353172129870258~6890094527

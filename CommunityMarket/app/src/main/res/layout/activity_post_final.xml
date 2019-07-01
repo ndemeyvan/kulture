@@ -20,6 +20,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <android.support.v7.widget.Toolbar
+                    android:theme="@style/ToolbarTheme"
                     android:background="@color/blanc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
