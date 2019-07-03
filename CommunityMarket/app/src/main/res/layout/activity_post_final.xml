@@ -8,25 +8,34 @@
     tools:context=".postActivity.PostActivityFinal"
    android:background="@color/blanc">
 
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/constrain"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <android.support.v7.widget.Toolbar
-                    android:theme="@style/ToolbarTheme"
-                    android:background="@color/blanc"
+                    android:id="@+id/final_toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:titleTextColor="@color/black"
+                    android:background="@color/blanc"
+                    android:theme="@style/ToolbarTheme_two"
                     app:title="@string/post_info_sur_vente"
-                    android:id="@+id/final_toolbar"/>
+                    app:titleTextColor="@color/black" />
+
                 <ImageView
                     android:id="@+id/imageProduit"
                     android:layout_width="0dp"
@@ -45,16 +54,16 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="16dp"
                     android:alpha="0.5"
-                    android:background="@drawable/edit_text_background"
                     android:elevation="1dp"
+                    android:theme="@style/progress_theme"
                     android:ems="10"
                     android:fontFamily="sans-serif-condensed"
                     android:hint="@string/produc_name"
                     android:inputType="textPersonName"
                     android:maxLength="35"
-                    android:padding="@dimen/post_padding_edit_text"
-                    android:textColor="@color/blanc"
-                    android:textColorHint="@color/blanc"
+
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black"
                     android:textSize="@dimen/parametre_text_size"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -68,19 +77,18 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
-                    android:background="@drawable/edit_text_background"
+                    android:alpha="0.5"
                     android:elevation="1dp"
                     android:ems="10"
+                    android:theme="@style/progress_theme"
                     android:fontFamily="sans-serif-condensed"
                     android:hint="@string/post_description"
                     android:inputType="textMultiLine"
-                    android:padding="@dimen/post_padding_edit_text"
-                    android:textSize="@dimen/parametre_text_size"
-                    android:text=""
-                    android:alpha="0.5"
                     android:maxLength="400"
-                    android:textColor="@color/blanc"
-                    android:textColorHint="@color/blanc"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black"
+                    android:textSize="@dimen/parametre_text_size"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/post_product_name" />
@@ -92,16 +100,15 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
-                    android:background="@drawable/edit_text_background"
+                    android:alpha="0.5"
                     android:elevation="1dp"
                     android:ems="10"
+                    android:theme="@style/progress_theme"
                     android:fontFamily="sans-serif-condensed"
                     android:hint="@string/post_prix"
                     android:inputType="number"
-                    android:padding="@dimen/post_padding_edit_text"
-                    android:alpha="0.5"
-                    android:textColor="@color/blanc"
-                    android:textColorHint="@color/blanc"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black"
                     android:textSize="@dimen/parametre_text_size"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

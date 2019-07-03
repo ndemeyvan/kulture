@@ -12,6 +12,8 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
 
     <application
         android:allowBackup="true"
@@ -89,7 +91,6 @@
         <activity
             android:name=".postActivity.DetailActivityTwo"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".search.SearchActivity"
             android:screenOrientation="portrait" />
@@ -124,8 +125,27 @@
             android:name=".welcome.CursorActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".postActivity.SellActivityUser" />
-        <activity android:name=".PublicityActivity"
-            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".PublicityActivity"
+            android:screenOrientation="portrait" />
+
+        <service
+            android:name=".MyFirebaseInstanceIDService"
+            android:enabled="false"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".MyFirebaseMessagingService"
+            android:enabled="false"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

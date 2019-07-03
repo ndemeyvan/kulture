@@ -159,7 +159,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginBottom="50dp"
                     android:lineSpacingExtra="8dp"
                     android:textColor="@color/black"
                     android:textSize="@dimen/new_detail_desc_text_size"

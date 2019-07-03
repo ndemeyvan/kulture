@@ -57,6 +57,7 @@ import cm.studio.devbee.communitymarket.R;
 import cm.studio.devbee.communitymarket.commentaires.Commentaire_Adapter;
 import cm.studio.devbee.communitymarket.commentaires.Commentaires_Model;
 import cm.studio.devbee.communitymarket.profile.ProfileActivity;
+import cm.studio.devbee.communitymarket.profile.VenteUtilisateurActivity;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.view.View.INVISIBLE;
@@ -291,6 +292,8 @@ public class  DetailActivityFour extends AppCompatActivity {
                                                     firebaseFirestore.collection ( "publication" ).document ("categories").collection ( categories ).document (iddupost).delete ();
                                                     firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "nouveaux" ).document (iddupost).delete ();
                                                     firebaseFirestore.collection ( "publication" ).document ("post utilisateur").collection ( current_user_id ).document(iddupost).delete ();
+                                                    Intent gotovente = new Intent ( getApplicationContext (),VenteUtilisateurActivity.class );
+                                                    startActivity ( gotovente );
                                                     finish ();
                                                 }else {
                                                     String error=task.getException ().getMessage ();

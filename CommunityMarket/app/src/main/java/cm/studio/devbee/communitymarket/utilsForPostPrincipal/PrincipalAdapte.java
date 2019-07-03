@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -123,6 +124,7 @@ public class PrincipalAdapte extends RecyclerView.Adapter<PrincipalAdapte.ViewHo
         ImageView like;
         TextView likeCount;
         TextView categorieChoice;
+        ProgressBar principal_progress;
         //ConstraintLayout nouveaux_container;
         CardView card_principal;
         public ViewHolder(@NonNull View itemView) {
@@ -133,18 +135,12 @@ public class PrincipalAdapte extends RecyclerView.Adapter<PrincipalAdapte.ViewHo
             nom_utilisateur=itemView.findViewById ( R.id.post_user_prenom );
             temps_de_la_pub=itemView.findViewById ( R.id.post_userTemps );
             profil_utilisateur=itemView.findViewById ( R.id.postImageUtilisateur );
+            principal_progress=itemView.findViewById ( R.id.principal_progress);
             //nouveaux_container=itemView.findViewById ( R.id.nouveaux_container);
             card_principal=itemView.findViewById ( R.id.nouveaux_container );
         }
         public void setNom(final String desc){
             description.setText(desc);
-            /*itemView.setOnClickListener ( new View.OnClickListener () {
-                @Override
-                public void onClick(View v) { Intent categoryIntent=new Intent ( itemView.getContext (),PostActivityFinal.class );
-                   categoryIntent.putExtra ( "categoryName",name );
-                   itemView.getContext ().startActivity ( categoryIntent );
-                }
-            } );*/
         }
         public void categorie(String categ){
             categorieChoice.setText(categ);
@@ -159,18 +155,12 @@ public class PrincipalAdapte extends RecyclerView.Adapter<PrincipalAdapte.ViewHo
             likeCount.setText(lelike+"");
         }
         public void imageproduitxi(String image){
-            /*itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent gotoDetail =new Intent(itemView.getContext(),DetailActivity.class);
-                    itemView.getContext().startActivity(gotoDetail);
-                }
-            });*/
             Picasso.with(context).load(image).into (imageDuproduit );
         }
         public void setuserData(String name,String image){
             nom_utilisateur.setText ( name );
             Picasso.with(context).load(image).transform(new CircleTransform()).into (profil_utilisateur );
+            principal_progress.setVisibility ( View.INVISIBLE );
         }
 
     }

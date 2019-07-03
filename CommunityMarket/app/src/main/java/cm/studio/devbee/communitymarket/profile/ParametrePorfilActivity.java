@@ -54,7 +54,6 @@ import cm.studio.devbee.communitymarket.R;
 import cm.studio.devbee.communitymarket.postActivity.PostActivityFinal;
 import de.hdodenhof.circleimageview.CircleImageView;
 import id.zelory.compressor.Compressor;
-import uk.co.deanwild.materialshowcaseview.MaterialShowcaseView;
 
 public class ParametrePorfilActivity extends AppCompatActivity {
     private static EditText nom;
@@ -104,21 +103,26 @@ public class ParametrePorfilActivity extends AppCompatActivity {
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    try {
-                        requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 555);
-                        CropImage.activity()
-                                .setGuidelines(CropImageView.Guidelines.ON)
-                                .start(ParametrePorfilActivity.this);
+                parametreImage.setOnClickListener ( new View.OnClickListener () {
+                    @Override
+                    public void onClick(View v) {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                            try {
+                                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 555);
+                                CropImage.activity()
+                                        .setGuidelines(CropImageView.Guidelines.ON)
+                                        .start(ParametrePorfilActivity.this);
 
-                    }catch (Exception e){
-                        e.printStackTrace ();
+                            }catch (Exception e){
+                                e.printStackTrace ();
+                            }
+                        } else {
+                            CropImage.activity()
+                                    .setGuidelines(CropImageView.Guidelines.ON)
+                                    .start(ParametrePorfilActivity.this);
+                        }
                     }
-                } else {
-                    CropImage.activity()
-                            .setGuidelines(CropImageView.Guidelines.ON)
-                            .start(ParametrePorfilActivity.this);
-                }
+                } );
             }
         });
         /*ConstraintLayout constraintLayout=findViewById(R.id.layout);
@@ -126,12 +130,6 @@ public class ParametrePorfilActivity extends AppCompatActivity {
         animationDrawable.setEnterFadeDuration(2000);
         animationDrawable.setExitFadeDuration(4000);
         animationDrawable.start();*/
-        new MaterialShowcaseView.Builder(this)
-                .setTarget(imageButton)
-                .setDismissText("ok")
-                .setContentText("ajouter une photo , et remplissez les informations neccesaires de profil. ")
-                .singleUse(String.valueOf(4)) // provide a unique ID used to ensure it is only shown once
-                .show();
         Toast.makeText ( getApplicationContext (), getString(R.string.renplir_tous),Toast.LENGTH_LONG ).show ();
         residence.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

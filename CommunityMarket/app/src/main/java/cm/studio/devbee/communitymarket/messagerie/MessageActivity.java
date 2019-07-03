@@ -19,6 +19,11 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -34,12 +39,18 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 import com.xwray.groupie.GroupAdapter;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import cm.studio.devbee.communitymarket.MySingleton;
 import cm.studio.devbee.communitymarket.R;
 import cm.studio.devbee.communitymarket.utilForChat.ChatAdapter;
 import cm.studio.devbee.communitymarket.utilForChat.DiplayAllChat;
@@ -76,7 +87,15 @@ public class MessageActivity extends AppCompatActivity {
     private static  ImageView image_de_fond;
     private  static  TextView prix_produit;
     private static  TextView titre_produit;
-
+    private static  boolean is_open=false;
+    private String viens_detail;
+    final private String FCM_API = "https://fcm.googleapis.com/fcm/send";
+    final private String serverKey = "key=" + "AAAAfR8BveM:APA91bEgCOmnLz5LKrc4ms8qvCBYqAUwbXpoMswSYyuQJT0cg3FpLSvH-S_nAiaCARSdeolPbGpxTX5nHVm5AP6tI7N9sCYEL4IUkR_eF4lYZXN4oeXhWtCKavTHIaA8pH6eklL4yBO5";
+    final private String contentType = "application/json";
+    final String TAG = "NOTIFICATION TAG";
+    String NOTIFICATION_TITLE;
+    String NOTIFICATION_MESSAGE;
+    String TOPIC;
 
 
     @Override
@@ -99,6 +118,7 @@ public class MessageActivity extends AppCompatActivity {
         user_id_message=intent.getStringExtra ( "id de l'utilisateur" );
         lien_image=intent.getStringExtra ( "image_en_vente" );
         id_recepteur=intent.getStringExtra ( "id_recepteur" );
+        viens_detail=getIntent ().getStringExtra ( "viens_de_detail" );
         send_button=findViewById ( R.id.imageButton_to_send );
         message_user_send=findViewById ( R.id.user_message_to_send );
         message_recyclerview=findViewById ( R.id.message_recyclerView );
@@ -116,8 +136,20 @@ public class MessageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent gotochatlist=new Intent(getApplicationContext(),ChatMessageActivity.class);
-                startActivity(gotochatlist);
-                finish();
+                if (viens_detail.equals ( "vrai" )){
+                    gotochatlist.putExtra ( "viens","" );
+                    gotochatlist.putExtra ( "ouvert","ouvert" );
+                    gotochatlist.putExtra ( "viens_de_detail","vrai" );
+                    startActivity(gotochatlist);
+                    finish();
+                }else{
+                    gotochatlist.putExtra ( "viens", "acceuil" );
+                    gotochatlist.putExtra ( "viens_de_detail","faux" );
+                    gotochatlist.putExtra ( "ouvert","ouvert" );
+                    startActivity(gotochatlist);
+                    finish();
+                }
+
             }
         });
 
@@ -143,6 +175,26 @@ public class MessageActivity extends AppCompatActivity {
                             Toast.makeText ( getApplicationContext (),getString(R.string.message_vide),Toast.LENGTH_LONG ).show ();
                         }
                          message_user_send.setText ( "" );
+
+
+                        /////test noti
+                TOPIC = "/topics/userABC"; //topic has to match what the receiver subscribed to
+                NOTIFICATION_TITLE = message_user_send.getText().toString();
+                NOTIFICATION_MESSAGE = message_user_send.getText().toString();
+                JSONObject notification = new JSONObject();
+                JSONObject notifcationBody = new JSONObject ();
+                try {
+                    notifcationBody.put("title", NOTIFICATION_TITLE);
+                    notifcationBody.put("message", NOTIFICATION_MESSAGE);
+
+                    notification.put("to", TOPIC);
+                    notification.put("data", notifcationBody);
+                } catch (JSONException e) {
+                    Log.e(TAG, "onCreate: " + e.getMessage() );
+                }
+                sendNotification(notification);
+
+                ////end test noti
             }
         } );
 
@@ -209,7 +261,39 @@ public class MessageActivity extends AppCompatActivity {
         userstatus("online");
         Toast.makeText ( getApplicationContext (),"l'image qui porte sur la vente apparait en haut",Toast.LENGTH_LONG ).show ();
 
+
+
     }
+
+    private void sendNotification(JSONObject notification) {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest (FCM_API, notification,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.i(TAG, "onResponse: " + response.toString());
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(MessageActivity.this, "Request error", Toast.LENGTH_LONG).show();
+                        Log.i(TAG, "onErrorResponse: Didn't work");
+                    }
+                }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("Authorization", serverKey);
+                params.put("Content-Type", contentType);
+                return params;
+            }
+        };
+        MySingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
+    }
+
+
+
 
 
     public void userstatus(String status){
@@ -353,19 +437,20 @@ public class MessageActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed ();
         userstatus("offline");
-        startActivity ( new Intent ( getApplicationContext (),ChatMessageActivity.class ).setFlags ( Intent.FLAG_ACTIVITY_CLEAR_TOP ) );
-        finish();
+        Intent gotochatlist=new Intent(getApplicationContext(),ChatMessageActivity.class);
+        if (viens_detail.equals ( "vrai" )){
+            startActivity ( new Intent ( getApplicationContext (),ChatMessageActivity.class ).setFlags ( Intent.FLAG_ACTIVITY_CLEAR_TOP ).putExtra ( "viens","" ).putExtra ( "ouvert","ouvert" ).putExtra ( "viens_de_detail","vrai" ));
+            finish();
+        }else{
+            startActivity ( new Intent ( getApplicationContext (),ChatMessageActivity.class ).setFlags ( Intent.FLAG_ACTIVITY_CLEAR_TOP ).putExtra ( "viens", "acceuil" ).putExtra ( "ouvert","ouvert" ).putExtra ( "viens_de_detail","faux" ) );
+            finish();
+        }
+
     }
-
-
-
-
 
     public void readMessage(final String monId, final String sonID, final String imageYrl){
        // modelChatList.clear();
-
         modelChatList=new ArrayList<> (  );
         reference=FirebaseDatabase.getInstance ().getReference ("Chats");
         reference.addValueEventListener ( new ValueEventListener () {

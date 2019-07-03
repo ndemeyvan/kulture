@@ -51,6 +51,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/chat_message_image_profil" />
 
             <TextView
+                android:theme="@style/ToolbarTheme"
                 android:id="@+id/chat_user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -99,6 +100,7 @@
                 app:layout_constraintVertical_bias="0.0" />
 
             <TextView
+                android:theme="@style/ToolbarTheme"
                 android:id="@+id/chat_temps"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

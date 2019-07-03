@@ -41,6 +41,7 @@
                     android:ellipsize="end"
                     android:fontFamily="@font/caveat"
                     android:lines="1"
+                    android:theme="@style/ToolbarTheme"
                     android:textColor="@color/blanc"
                     android:textSize="18sp"
                     android:textStyle="bold"

@@ -10,6 +10,7 @@ import android.widget.Button;
 
 import java.lang.ref.WeakReference;
 
+import cm.studio.devbee.communitymarket.Accueil;
 import cm.studio.devbee.communitymarket.R;
 
 public class AproposActivity extends AppCompatActivity {
@@ -39,7 +40,9 @@ public class AproposActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        finish();
+        Intent nous_contacter=new Intent(getApplicationContext(),Accueil.class);
+        startActivity(nous_contacter);
+        finish ();
     }
 
     @Override

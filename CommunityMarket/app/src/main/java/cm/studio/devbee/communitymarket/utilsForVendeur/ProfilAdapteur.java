@@ -1,5 +1,6 @@
 package cm.studio.devbee.communitymarket.utilsForVendeur;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -77,6 +78,7 @@ public class ProfilAdapteur extends RecyclerView.Adapter<ProfilAdapteur.ViewHold
                 gotoDetail.putExtra("id de l'utilisateur",nom_utilisateur);
                 gotoDetail.putExtra("id_categories",categorie);
                 context.startActivity(gotoDetail);
+                ((Activity)context).finish();
 
             }
         });

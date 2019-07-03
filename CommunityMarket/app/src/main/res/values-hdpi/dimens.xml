@@ -227,6 +227,9 @@
     <dimen name="splash_progress_top">270dp</dimen>
     <dimen name="splash_text_proverb">13sp</dimen>
     <dimen name="splash_text_logo_name">20sp</dimen>
+    <dimen name="message_activity_height_image">100dp</dimen>
+    <dimen name="message_image">100dp</dimen>
+
 
 
 

@@ -62,7 +62,7 @@ public class VenteUtilisateurActivity extends AppCompatActivity {
             }
         });
         modelGridViewList=new ArrayList<> ();
-        gridViewAdapter=new ProfilAdapteur (modelGridViewList,getApplicationContext());
+        gridViewAdapter=new ProfilAdapteur (modelGridViewList,VenteUtilisateurActivity.this);
         Recycler.setAdapter(gridViewAdapter);
         Recycler.setLayoutManager(new GridLayoutManager (getApplicationContext(),2));
         recyclerprofil();

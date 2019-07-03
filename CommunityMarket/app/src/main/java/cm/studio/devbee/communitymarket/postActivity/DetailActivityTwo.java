@@ -576,6 +576,8 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
                             gotoMessage.putExtra("id de l'utilisateur", current_user_id);
                             gotoMessage.putExtra("id_categories", categories);
                             gotoMessage.putExtra("image_en_vente", lien_image);
+                            gotoMessage.putExtra ( "viens_de_detail","vrai" );
+
                             Map<String, String> donnees_utilisateur = new HashMap<>();
                             donnees_utilisateur.put("image_en_vente", lien_image);
                             donnees_utilisateur.put("titre_produit", titre_produit);
@@ -619,6 +621,7 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
                             gotoDetail.putExtra("id_categories", categories);
                             gotoDetail.putExtra ( "image_en_vente", lien_image );
                             gotoDetail.putExtra ( "prix_produit", prix_produit );
+
                             startActivity(gotoDetail);
                             //finish();
                         }
@@ -646,6 +649,8 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
                 gotoMessage.putExtra("id de l'utilisateur", current_user_id);
                 gotoMessage.putExtra("id_categories", categories);
                 gotoMessage.putExtra("image_en_vente", lien_image);
+                gotoMessage.putExtra ( "viens_de_detail","vrai" );
+
                 Map<String, String> donnees_utilisateur = new HashMap<>();
                 donnees_utilisateur.put("image_en_vente", lien_image);
                 donnees_utilisateur.put("titre_produit", titre_produit);

@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -199,6 +200,7 @@ public class  CategoriesAdapteNouveaux extends RecyclerView.Adapter<CategoriesAd
         TextView categorieChoice;
         ConstraintLayout container;
         CardView card_nvx;
+        ProgressBar nouveaux_progress;
         public ViewHolder(@NonNull View itemView) {
             super ( itemView );
             description=itemView.findViewById ( R.id.nouveaux_description_du_produit );
@@ -215,6 +217,7 @@ public class  CategoriesAdapteNouveaux extends RecyclerView.Adapter<CategoriesAd
             profil_utilisateur=itemView.findViewById ( R.id.nouveaux_image_profile );
             likeCount=itemView.findViewById ( R.id.nouveaux_nombre_de_like );
             categorieChoice=itemView.findViewById(R.id.categorieChoice);
+            nouveaux_progress=itemView.findViewById ( R.id.nouveaux_progress);
         }
         public void setNom(final String desc){
             description.setText(desc);
@@ -237,6 +240,7 @@ public class  CategoriesAdapteNouveaux extends RecyclerView.Adapter<CategoriesAd
         public void setuserData(String name,String image){
             nom_utilisateur.setText ( name );
             Picasso.with(context).load(image).transform(new CircleTransform()).into (profil_utilisateur );
+            nouveaux_progress.setVisibility ( View.INVISIBLE );
         }
         public void nomproduit(String produitnom){
             nouveaux_tire.setText ( produitnom );

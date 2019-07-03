@@ -114,6 +114,7 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
     TextView pubImageTextThree;
     TextView pubImageTextFour;
     boolean isfirstload =true;
+    private String viens_detail;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -181,6 +182,7 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
         animationDrawable.setEnterFadeDuration(2000);
         animationDrawable.setExitFadeDuration(4000);
         animationDrawable.start();
+
         // my id ca-app-pub-4353172129870258~6890094527
         // leur id ca-app-pub-3940256099942544~3347511713
         MobileAds.initialize(getApplicationContext(), "ca-app-pub-4353172129870258~6890094527");
@@ -269,7 +271,8 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
         loadRewardedVideo();
 
 
-         return v;
+
+        return v;
     }
     public void loadRewardedVideo(){
         if (!mad.isLoaded()){
@@ -299,7 +302,7 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
                                     final String iinageOne= task.getResult ().getString ( "iinageOne" );
                                     final String contact=task.getResult ().getString ( "contact" );
                                     final String desc=task.getResult().getString("desc");
-                                    final String imageThree= task.getResult ().getString ( "imageThre" );
+                                    final String imageThree= task.getResult ().getString ( "imageThree" );
                                     final String imageTwo=task.getResult ().getString ( "imageTwo" );
                                     final String lieu= task.getResult ().getString ( "lieu" );
                                     final String name=task.getResult ().getString ( "name" );
@@ -336,7 +339,7 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
                                     final String imageTwoo=task.getResult ().getString ( "imageTwo" );
                                     final String lieu= task.getResult ().getString ( "lieu" );
                                     final String name=task.getResult ().getString ( "name" );
-                                    Picasso.with(getActivity()).load(imageTwoo).into(imageTwo);
+                                    Picasso.with(getActivity()).load(iinageOne).into(imageTwo);
                                     imageTwo.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
@@ -368,7 +371,7 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
                                     final String imageTwoo=task.getResult ().getString ( "imageTwo" );
                                     final String lieu= task.getResult ().getString ( "lieu" );
                                     final String name=task.getResult ().getString ( "name" );
-                                    Picasso.with(getActivity()).load(imageThreee).into(imageThree);
+                                    Picasso.with(getActivity()).load(iinageOne).into(imageThree);
                                     imageThree.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
@@ -435,37 +438,143 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
 
     }
     public void imagePub(){
-        DocumentReference user = firebaseFirestore.collection("sliders").document("image_two");
-        user.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        DocumentReference user_two = firebaseFirestore.collection("sliders").document("images");
+        user_two.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()){
-                    viewFlippertwo.setOutAnimation(getActivity(),android.R.anim.slide_in_left);
-                    viewFlippertwo.setInAnimation(getActivity(),android.R.anim.slide_out_right);
-                    DocumentSnapshot doc =task.getResult();
-                    StringBuilder imagePub=new StringBuilder("");
-                    imagePub.append(doc.get("pubImage"));
-                    imagePubText.setText(imagePub.toString());
-                    String lien = imagePubText.getText().toString();
-                    Picasso.with(getActivity()).load(lien).into(pubImage);
-                    //////////image deux
-                    StringBuilder image2=new StringBuilder("");
-                    image2.append(doc.get("pubImageTwo"));
-                    pubImageTextTwo.setText(image2.toString());
-                    String lien2 = pubImageTextTwo.getText().toString();
-                    Picasso.with(getActivity()).load(lien2).into(pubImageTwo);
-                    //////image trois
-                    StringBuilder image3=new StringBuilder("");
-                    image3.append(doc.get("pubImageThree"));
-                    pubImageTextThree.setText(image3.toString());
-                    String lien3 = pubImageTextThree.getText().toString();
-                    Picasso.with(getActivity()).load(lien3).into(pubImageThree);
-                    //////////image quatre
-                    StringBuilder image4=new StringBuilder("");
-                    image4.append(doc.get("pubImageFour"));
-                    pubImageTextFour.setText(image4.toString());
-                    String lien4 = pubImageTextFour.getText().toString();
-                    Picasso.with(getActivity()).load(lien4).into(pubImageFour);
+                    viewFlippertwo.setOutAnimation(getActivity(),android.R.anim.slide_out_right);
+                    viewFlippertwo.setInAnimation(getActivity(),android.R.anim.slide_in_left);
+                    //image_one
+                    firebaseFirestore.collection("slider_home_two").document("imageOne").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if (task.isSuccessful()){
+                                if (task.getResult().exists()){
+                                    final String iinageOne= task.getResult ().getString ( "iinageOne" );
+                                    final String contact=task.getResult ().getString ( "contact" );
+                                    final String desc=task.getResult().getString("desc");
+                                    final String imageThree= task.getResult ().getString ( "imageThree" );
+                                    final String imageTwo=task.getResult ().getString ( "imageTwo" );
+                                    final String lieu= task.getResult ().getString ( "lieu" );
+                                    final String name=task.getResult ().getString ( "name" );
+                                    Picasso.with(getActivity()).load(iinageOne).into(pubImage);
+                                    pubImage.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            Intent gotoPublicity=new Intent(getActivity(),PublicityActivity.class);
+                                            gotoPublicity.putExtra("imageOne",iinageOne);
+                                            gotoPublicity.putExtra("contact",contact);
+                                            gotoPublicity.putExtra("desc",desc);
+                                            gotoPublicity.putExtra("imageThree",imageThree);
+                                            gotoPublicity.putExtra("imageTwo",imageTwo);
+                                            gotoPublicity.putExtra("lieu",lieu);
+                                            gotoPublicity.putExtra("name",name);
+                                            startActivity(gotoPublicity);
+                                        }
+                                    });
+                                }
+                            }
+                        }
+                    });
+
+                    //image_two
+                    firebaseFirestore.collection("slider_home_two").document("imageTwo").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if (task.isSuccessful()){
+                                if (task.getResult().exists()){
+                                    final String iinageOne= task.getResult ().getString ( "iinageOne" );
+                                    final String contact=task.getResult ().getString ( "contact" );
+                                    final String desc=task.getResult().getString("desc");
+                                    final String imageThree= task.getResult ().getString ( "imageThree" );
+                                    final String imageTwoo=task.getResult ().getString ( "imageTwo" );
+                                    final String lieu= task.getResult ().getString ( "lieu" );
+                                    final String name=task.getResult ().getString ( "name" );
+                                    Picasso.with(getActivity()).load(iinageOne).into(pubImageTwo);
+                                    pubImageTwo.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            Intent gotoPublicity=new Intent(getActivity(),PublicityActivity.class);
+                                            gotoPublicity.putExtra("imageOne",iinageOne);
+                                            gotoPublicity.putExtra("contact",contact);
+                                            gotoPublicity.putExtra("desc",desc);
+                                            gotoPublicity.putExtra("imageThree",imageThree);
+                                            gotoPublicity.putExtra("imageTwo",imageTwoo);
+                                            gotoPublicity.putExtra("lieu",lieu);
+                                            gotoPublicity.putExtra("name",name);
+                                            startActivity(gotoPublicity);
+                                        }
+                                    });
+                                }
+                            }
+                        }
+                    });
+                    //image_three
+                    firebaseFirestore.collection("slider_home_two").document("imageThree").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if (task.isSuccessful()){
+                                if (task.getResult().exists()){
+                                    final String iinageOne= task.getResult ().getString ( "iinageOne" );
+                                    final String contact=task.getResult ().getString ( "contact" );
+                                    final String desc=task.getResult().getString("desc");
+                                    final String imageThreee= task.getResult ().getString ( "imageThree" );
+                                    final String imageTwoo=task.getResult ().getString ( "imageTwo" );
+                                    final String lieu= task.getResult ().getString ( "lieu" );
+                                    final String name=task.getResult ().getString ( "name" );
+                                    Picasso.with(getActivity()).load(iinageOne).into(pubImageThree);
+                                    pubImageThree.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            Intent gotoPublicity=new Intent(getActivity(),PublicityActivity.class);
+                                            gotoPublicity.putExtra("imageOne",iinageOne);
+                                            gotoPublicity.putExtra("contact",contact);
+                                            gotoPublicity.putExtra("desc",desc);
+                                            gotoPublicity.putExtra("imageThree",imageThreee);
+                                            gotoPublicity.putExtra("imageTwo",imageTwoo);
+                                            gotoPublicity.putExtra("lieu",lieu);
+                                            gotoPublicity.putExtra("name",name);
+                                            startActivity(gotoPublicity);
+                                        }
+                                    });
+                                }
+                            }
+                        }
+                    });
+
+                    //image_four
+                    firebaseFirestore.collection("slider_home_two").document("imageFour").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if (task.isSuccessful()){
+                                if (task.getResult().exists()){
+                                    final String imageOne= task.getResult ().getString ( "iinageOne" );
+                                    final String contact=task.getResult ().getString ( "contact" );
+                                    final String desc=task.getResult().getString("desc");
+                                    final String imageThreee= task.getResult ().getString ( "imageThree" );
+                                    final String imageTwoo=task.getResult ().getString ( "imageTwo" );
+                                    final String lieu= task.getResult ().getString ( "lieu" );
+                                    final String name=task.getResult ().getString ( "name" );
+                                    Picasso.with(getActivity()).load(imageOne).into(pubImageFour);
+                                    pubImageFour.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            Intent gotoPublicity=new Intent(getActivity(),PublicityActivity.class);
+                                            gotoPublicity.putExtra("imageOne",imageOne);
+                                            gotoPublicity.putExtra("contact",contact);
+                                            gotoPublicity.putExtra("desc",desc);
+                                            gotoPublicity.putExtra("imageThree",imageThreee);
+                                            gotoPublicity.putExtra("imageTwo",imageTwoo);
+                                            gotoPublicity.putExtra("lieu",lieu);
+                                            gotoPublicity.putExtra("name",name);
+                                            startActivity(gotoPublicity);
+                                        }
+                                    });
+                                }
+                            }
+                        }
+                    });
 
 
 
@@ -475,6 +584,7 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
             @Override
             public void onFailure(@NonNull Exception e) {
 
+                Toast.makeText(getActivity(),getString(R.string.erreur_slider),Toast.LENGTH_LONG).show();
             }
         });
     }

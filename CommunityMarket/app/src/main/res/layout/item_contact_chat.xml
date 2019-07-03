@@ -61,7 +61,7 @@
                 android:textColor="@color/blanc"
                 android:textSize="@dimen/commentaire_name_user"
                 android:textStyle="bold"
-                android:text="yannick"
+                android:theme="@style/ToolbarTheme"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.004"
                 app:layout_constraintStart_toEndOf="@+id/chat_message_image_profil"
@@ -108,6 +108,7 @@
                 android:textColor="@color/blanc"
                 android:textSize="@dimen/commentaire_temps"
                 android:textStyle="bold"
+                android:theme="@style/ToolbarTheme"
                 app:layout_constraintBottom_toBottomOf="@+id/chat_user_name"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/chat_user_name" />

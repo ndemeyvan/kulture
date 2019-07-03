@@ -43,6 +43,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.microsoft.projectoxford.vision.VisionServiceClient;
+import com.microsoft.projectoxford.vision.VisionServiceRestClient;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 import java.lang.ref.WeakReference;
@@ -86,7 +89,8 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
         private AdView mAdView;
         String name;
         Dialog myDialog;
-    private String nom_user;
+        private String nom_user;
+
 
 
     @Override
@@ -97,6 +101,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
         Toolbar toolbar =findViewById ( R.id.detail_image_post_toolbar );
         setSupportActionBar ( toolbar );
         NavigationView navigationView =findViewById ( R.id.nav_view );
+        FirebaseMessaging.getInstance ().subscribeToTopic ( "userABC" );
         tabLayout=findViewById(R.id.tabslayout);
         tabsviewpager=findViewById(R.id.tabsview);
         setupViewPager(tabsviewpager);
@@ -178,8 +183,9 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
                         String message= task.getResult ().getString ( "message" );
                         if (message.equals ( "non_lu" )){
                             menu.getItem(1).setIcon(ContextCompat.getDrawable(getApplicationContext (), R.drawable.message_lu));
+
                         }else{
-                            menu.getItem(1).setIcon(ContextCompat.getDrawable(getApplicationContext (), R.drawable.ic_message_flooat_icon));
+                            menu.getItem(1).setIcon(ContextCompat.getDrawable(getApplicationContext (), R.drawable.ic_message_float_icon));
                         }
                     }else {
                         Intent gotoparam=new Intent(getApplicationContext(),ParametrePorfilActivity.class);
@@ -350,9 +356,11 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
                 //finish ();
                 return true;
             }else if (id == R.id.message) {
-                Intent gogotoSearch = new Intent(getApplicationContext(),ChatMessageActivity.class);
-                startActivity(gogotoSearch);
-                //finish ();
+                Intent message=new Intent(getApplicationContext(),ChatMessageActivity.class);
+                message.putExtra ( "viens","acceuil" );
+                message.putExtra ( "viens_de_detail","faux" );
+                startActivity(message);
+                finish ();
                 return true;
             }
 
@@ -382,11 +390,13 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
             else if (id == R.id.nous_contacter) {
                 Intent nous_contacter=new Intent(getApplicationContext(),AproposActivity.class);
                 startActivity(nous_contacter);
-               // finish ();
+                finish ();
             }else if(id==R.id.ic_message){
                 Intent message=new Intent(getApplicationContext(),ChatMessageActivity.class);
+                message.putExtra ( "viens","acceuil" );
+                message.putExtra ( "viens_de_detail","faux" );
                 startActivity(message);
-                //finish ();
+                finish ();
             }
             DrawerLayout drawer = (DrawerLayout) findViewById ( R.id.drawer_layout );
             drawer.closeDrawer ( GravityCompat.START );

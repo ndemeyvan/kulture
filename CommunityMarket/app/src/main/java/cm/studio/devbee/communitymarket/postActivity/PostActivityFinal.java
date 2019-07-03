@@ -1,6 +1,7 @@
 package cm.studio.devbee.communitymarket.postActivity;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -8,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,6 +19,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,9 +43,14 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.async.Callback;
+import com.mashape.unirest.http.exceptions.UnirestException;
+import com.microsoft.projectoxford.vision.VisionServiceClient;
+import com.microsoft.projectoxford.vision.VisionServiceRestClient;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
@@ -52,11 +60,19 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import cm.studio.devbee.communitymarket.Accueil;
+import cm.studio.devbee.communitymarket.JsonNode;
 import cm.studio.devbee.communitymarket.R;
 import id.zelory.compressor.Compressor;
-import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence;
-import uk.co.deanwild.materialshowcaseview.MaterialShowcaseView;
-import uk.co.deanwild.materialshowcaseview.ShowcaseConfig;
+import android.app.ProgressDialog;
+import android.widget.TextView;
+import com.google.gson.Gson;
+import com.microsoft.projectoxford.vision.contract.AnalysisResult;
+import com.microsoft.projectoxford.vision.contract.Caption;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.util.concurrent.Future;
 
 public class PostActivityFinal extends AppCompatActivity implements RewardedVideoAdListener {
     private static  final int MAX_LENGTH =100;
@@ -67,7 +83,6 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
     private static ImageView imageProduit;
     private static String categoryName ,nom_du_produit,decription_du_produit,prix_du_produit,saveCurrentTime,saveCurrentDate;
     private static Button vendreButton;
-
     private static Uri mImageUri;
     private static String randomKey;
     private static String current_user_id;
@@ -82,6 +97,8 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
     byte[] final_image;
     String id_document;
     private Dialog myDialog;
+    public VisionServiceClient visionServiceClient ;
+    private String apilink="https://westcentralus.api.cognitive.microsoft.com/vision/v1.0";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,7 +119,8 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
             }
         });
 
-
+        //mcrosoft site key : 05222f7bfd274f8bb1f6ac44a6a1d493
+        visionServiceClient = new VisionServiceRestClient ("05222f7bfd274f8bb1f6ac44a6a1d493",apilink);
         imageProduit=findViewById ( R.id.imageProduit );
         nomProduit=findViewById ( R.id.post_product_name );
         post_new_button=findViewById ( R.id.post_new_button );
@@ -112,13 +130,6 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
         setSupportActionBar ( postfinaltoolbar );
         categoryName=getIntent ().getExtras ().get ( "categoryName" ).toString ();
         Toast.makeText ( getApplicationContext(),categoryName,Toast.LENGTH_LONG ).show ();
-        asyncTask=new AsyncTask();
-        asyncTask.execute();
-        ShowcaseConfig config = new ShowcaseConfig();
-        MaterialShowcaseSequence sequence = new MaterialShowcaseSequence(PostActivityFinal.this, String.valueOf(10));
-        sequence.setConfig(config);
-        sequence.addSequenceItem(postfinaltoolbar, "cliquer sur l'icone pour choisir une image. \" ok \" pour continuer", "ok");
-        sequence.start();
         ///////ads"ca-app-pub-3940256099942544~3347511713
         ////my id : ca-app-pub-4353172129870258~6890094527
         MobileAds.initialize(this,"ca-app-pub-4353172129870258~6890094527");
@@ -130,12 +141,18 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
         animationDrawable.setEnterFadeDuration(2000);
         animationDrawable.setExitFadeDuration(4000);
         animationDrawable.start();*/
+        prendreDonner ();
         //ads
         if (mad.isLoaded()) {
             mad.show();
         }
         //Toast.makeText(getApplicationContext(),getString(R.string.post_remplisser_les_info),Toast.LENGTH_LONG).show();
         postActivityWeakReference=new WeakReference<>(this);
+
+
+        //Convert image to stream
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        final ByteArrayInputStream inputStream = new ByteArrayInputStream (outputStream.toByteArray());
 
     }
 
@@ -175,7 +192,7 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
                 prendreDonnerDevente ();
                 loadRewardedVideo();
                 if (mad.isLoaded()) {
-                    Toast.makeText ( getApplicationContext(),"Regarder cette publiczter pendant le traitement de votre vente , vous pouvez la fermer si vous voulez",Toast.LENGTH_LONG ).show ();
+                    Toast.makeText ( getApplicationContext(),"Regarder cette publicter pendant le traitement de votre vente , vous pouvez la fermer si vous voulez",Toast.LENGTH_LONG ).show ();
                     mad.show();
                 }
             }
@@ -208,7 +225,41 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
                 mImageUri = result.getUri();
-                File actualImage = new File(mImageUri.getPath());
+                final File actualImage = new File(mImageUri.getPath());
+
+
+                //visionTask.execute(inputStream);
+                ///// debut de reconnaissance
+               /* final AsyncTask<Void,Void,Void> asyncTask = new AsyncTask<Void, Void, Void> () {
+                    @Override
+                    protected Void doInBackground(Void... voids) {
+                        Future <HttpResponse<String>> response = Unirest.post("https://microsoft-azure-microsoft-computer-vision-v1.p.rapidapi.com/analyze?visualfeatures=Categories%2CTags%2CColor%2CFaces%2CDescription")
+                                .header("X-RapidAPI-Host", "microsoft-azure-microsoft-computer-vision-v1.p.rapidapi.com")
+                                .header("X-RapidAPI-Key", "abe6f6383dmsh1c25b01602566e9p1c0d73jsn1e685cb9c0a1")
+                                .field("image",actualImage)
+                                .asStringAsync ( new Callback<String> () {
+                                    @Override
+                                    public void completed(HttpResponse<String> httpResponse) {
+                                        Log.e("json_data",""+httpResponse.getBody ());
+                                    }
+
+                                    @Override
+                                    public void failed(UnirestException e) {
+                                        Log.e("json_data",""+e.getMessage ());
+                                    }
+
+                                    @Override
+                                    public void cancelled() {
+
+                                    }
+                                } );
+                        return null;
+                    }
+
+                };
+                asyncTask.execute (  );*/
+
+                //////fin de reconnaissance
                 try{
                     Bitmap compressedImage = new Compressor(this)
                             .setMaxWidth(250)
@@ -217,6 +268,56 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
                             .compressToBitmap(actualImage);
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
                     compressedImage.compress(Bitmap.CompressFormat.JPEG, 95, baos);
+                    final ByteArrayInputStream inputStream = new ByteArrayInputStream(baos.toByteArray());
+                    AsyncTask<InputStream,String,String> visionTask = new AsyncTask<InputStream, String, String>() {
+                        ProgressDialog mDialog = new ProgressDialog(PostActivityFinal.this);
+                        @Override
+                        protected String doInBackground(InputStream... params) {
+                            try{
+                                publishProgress("Recognizing....");
+                                String[] features = {"Description"};
+                                String[] details = {};
+
+                                AnalysisResult result = visionServiceClient.analyzeImage(params[0],features,details);
+
+                                String strResult = new Gson().toJson(result);
+                                return strResult;
+
+                            } catch (Exception e) {
+                                return null;
+                            }
+                        }
+
+                        @Override
+                        protected void onPreExecute() {
+                            mDialog.show();
+                        }
+
+                        @Override
+                        protected void onPostExecute(String s) {
+                            mDialog.dismiss();
+
+                           // AnalysisResult result = new Gson().fromJson(s,AnalysisResult.class);
+                            StringBuilder stringBuilder = new StringBuilder();
+                            try {
+                                AnalysisResult result = new Gson().fromJson(s, AnalysisResult.class);
+                                for (Caption caption: result.description.captions) {
+                                    stringBuilder.append(caption.text);
+                                }
+                            } catch (Exception e) {
+                                stringBuilder.append(e.getCause());
+                            }
+                            descriptionProduit.setText(stringBuilder);
+
+                        }
+
+                        @Override
+                        protected void onProgressUpdate(String... values) {
+                            mDialog.setMessage(values[0]);
+                        }
+                    };
+
+                    visionTask.execute(inputStream);
                     final_image = baos.toByteArray();
                 }catch (Exception e){
 
@@ -418,25 +519,9 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
 
 
 
-    public class AsyncTask extends android.os.AsyncTask<Void, Void, Void> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute ();
-        }
 
-        @Override
-        protected Void doInBackground(Void... voids) {
-            //setimage ();
-            prendreDonner ();
-            return null;
-        }
 
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute ( aVoid );
 
-        }
-    }
     @Override
     public void onBackPressed() {
             super.onBackPressed ();
@@ -447,9 +532,7 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
 
     @Override
     protected void onDestroy() {
-            asyncTask.cancel(true);
             super.onDestroy();
-            asyncTask.cancel(true);
             postfinaltoolbar=null;;
             nomProduit=null;;
             descriptionProduit=null;;

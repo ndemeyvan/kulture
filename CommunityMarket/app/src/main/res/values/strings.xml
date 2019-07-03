@@ -16,7 +16,7 @@
     <string name="title_activity_maps">Map</string>Vendez vos vetements sans stress .
     <string name="string">Map</string>
     <string name="title_activity_scrolling_detail_one">ScrollingActivityDetailOne</string>
-    <string name="description_titre_slider1">Grace a Open Market , vendez gratuitement et facilement vos produits partout au cameroun.</string>
+    <string name="description_titre_slider1">Grace a Open Market , vendez gratuitement et facilement vos produits partout en afrique.</string>
     <string name="titre_slider1">Vendez vos vetements sans stress .</string>
     <string name="titre_slider2">Faites connaitre votre boutique .</string>
     <string name="slider_description_slider2">L\'application dispose d\'enplacement cible pour vous pemettre de vous mettre en valeur et de faire connaitre vos articles.</string>
@@ -107,8 +107,8 @@
     <string name="acceuil">Acceuil</string>
     <string name="pas_de_message">aucune conversation</string>
     <string name="client_id">537391119843-njqfai8ka55g6doo947bnklqcap3ih8c.apps.googleusercontent.com</string>
-    <string name="com.twitter.sdk.android.CONSUMER_KEY">VrPx1FzdX0e0MZ4ZQJP9cu1qa</string>
-    <string name="com.twitter.sdk.android.CONSUMER_SECRET">J2b5B2IgQRHTQOEd6p0E2Kwb5IjhDzBDaSAgO4LAakc8TFGcuf</string>
+    <string name="com.twitter.sdk.android.CONSUMER_KEY" tools:ignore="ExtraTranslation">VrPx1FzdX0e0MZ4ZQJP9cu1qa</string>
+    <string name="com.twitter.sdk.android.CONSUMER_SECRET" tools:ignore="ExtraTranslation">J2b5B2IgQRHTQOEd6p0E2Kwb5IjhDzBDaSAgO4LAakc8TFGcuf</string>
     <string-array name="countries" id="@+id/countries">
         <item>Residence</item>
         <item>Douala</item>

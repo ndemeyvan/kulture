@@ -157,6 +157,13 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
         detail_progress = findViewById ( R.id.detail_progress );
         supprime_detail_button = findViewById ( R.id.supprime_detail_button );
         vendeur_button.setEnabled ( true );
+       /* new MaterialShowcaseView.Builder(this)
+                .setTarget(detail_profil_image)
+                .setDismissText("ok")
+                .setContentText("cliquez ici pour voir plus de sur le vendeur actuel")
+                .singleUse(String.valueOf(4)) // provide a unique ID used to ensure it is only shown once
+                .show();*/
+
         asyncTask = new AsyncTask ();
         asyncTask.execute ();
         add_progressbar.setVisibility ( INVISIBLE );
@@ -199,7 +206,7 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
             //config.setDelay(500); // half second between each showcase view
             MaterialShowcaseSequence sequence = new MaterialShowcaseSequence(DetailActivity.this, String.valueOf(10));
             sequence.setConfig(config);
-            sequence.addSequenceItem(detail_profil_image, "cliquez sur l'image de profil pour en savoir plus sur le vendeurs. \" ok \" pour continuer", "ok");
+            sequence.addSequenceItem(detail_profil_image, "cliquez sur l'image de profil pour en savoir plus sur un vendeurs si le produit n'est pas poste par vous. \" ok \" pour continuer", "ok");
             sequence.addSequenceItem(voir_les_commentaire_btn, "laisser ou voir les commentaires. \" ok \" pour continuer\"", "ok");
             sequence.addSequenceItem(detail_prix_produit, "ici apparait le prix.\" ok \" pour continuer\"", "ok");
             sequence.addSequenceItem(supprime_detail_button, "cliquez ici pour supprimmer un votre article de la vente.\" ok \" pour continuer\"", "ok");
@@ -659,6 +666,7 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
                                     gotoMessage.putExtra("id de l'utilisateur", current_user_id);
                                     gotoMessage.putExtra("id_categories", categories);
                                     gotoMessage.putExtra("image_en_vente", lien_image);
+                                    gotoMessage.putExtra ( "viens_de_detail","vrai" );
                                     Map<String, String> donnees_utilisateur = new HashMap<>();
                                     donnees_utilisateur.put("image_en_vente", lien_image);
                                     donnees_utilisateur.put("titre_produit", titre_produit);
@@ -729,6 +737,7 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
                 gotoMessage.putExtra("id de l'utilisateur", current_user_id);
                 gotoMessage.putExtra("id_categories", categories);
                 gotoMessage.putExtra("image_en_vente", lien_image);
+                gotoMessage.putExtra ( "viens_de_detail","vrai" );
                 Map<String, String> donnees_utilisateur = new HashMap<>();
                 donnees_utilisateur.put("image_en_vente", lien_image);
                 donnees_utilisateur.put("titre_produit", titre_produit);

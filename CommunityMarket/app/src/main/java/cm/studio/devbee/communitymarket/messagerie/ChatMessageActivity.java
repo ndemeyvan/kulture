@@ -54,7 +54,10 @@ public class ChatMessageActivity extends AppCompatActivity {
     private  TextView conversation_count;
     private ProgressBar chat_progress;
     private DiplayAllChat diplayAllChat;
-   // private  static  CircleImageView online_status_image;
+    String valeur;
+    private String ouvert;
+    private String viens_de_detail;
+    // private  static  CircleImageView online_status_image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +67,9 @@ public class ChatMessageActivity extends AppCompatActivity {
         message_toolbar=findViewById ( R.id.message_toolbar );
         setSupportActionBar (message_toolbar);
         getSupportActionBar ().setTitle ( "Discussions" );
+        valeur=getIntent ().getStringExtra ( "viens" );
+        ouvert=getIntent ().getStringExtra ( "ouvert" );
+        viens_de_detail=getIntent ().getStringExtra ( "viens_de_detail" );
         contatc_recyclerview=findViewById ( R.id.contatc_recyclerview );
         current_user=firebaseAuth.getCurrentUser ().getUid ();
         contatc_recyclerview.setLayoutManager ( new LinearLayoutManager ( getApplicationContext () ) );
@@ -80,7 +86,13 @@ public class ChatMessageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //startActivity ( new Intent ( getApplicationContext (),Accueil.class ).setFlags ( Intent.FLAG_ACTIVITY_CLEAR_TOP ) );
-                finish ();
+                if (valeur.equals ( "acceuil" )&&viens_de_detail.equals ( "faux" )) {
+                    Intent gotoacceuil = new Intent ( getApplicationContext (), Accueil.class );
+                    startActivity ( gotoacceuil );
+                    finish ();
+                }else if (ouvert.equals ( "ouvert" )&&viens_de_detail.equals ( "vrai" )){
+                    finish ();
+                }
             }
         });
 
@@ -110,10 +122,13 @@ public class ChatMessageActivity extends AppCompatActivity {
     }
     @Override
     public void onBackPressed() {
-        super.onBackPressed ();
-        /*Intent gotoHome =new Intent ( getApplicationContext(),Accueil.class );
-        startActivity ( gotoHome );*/
-        finish ();
+        if (valeur.equals ( "acceuil" )&&viens_de_detail.equals ( "faux" )) {
+            Intent gotoacceuil = new Intent ( getApplicationContext (), Accueil.class );
+            startActivity ( gotoacceuil );
+            finish ();
+        }else if (ouvert.equals ( "ouvert" )&&viens_de_detail.equals ( "vrai" )){
+            finish ();
+        }
     }
 
 
@@ -253,6 +268,7 @@ public class ChatMessageActivity extends AppCompatActivity {
                         Intent chatOne =new Intent ( getApplicationContext (),MessageActivity.class );
                         chatOne.putExtra ( "id de l'utilisateur" ,diplayAllChat.getId_expediteur () );
                         chatOne.putExtra ( "id_recepteur" ,diplayAllChat.getId_recepteur());
+                        chatOne.putExtra ( "viens_de_detail","faux" );
                         DocumentReference user = firebaseFirestore.collection("dernier_message" ).document (diplayAllChat.getId_expediteur ()).collection("contacts").document (current_user);
                         user.update("lu", "lu")
                                 .addOnSuccessListener(new OnSuccessListener<Void> () {
@@ -266,12 +282,25 @@ public class ChatMessageActivity extends AppCompatActivity {
                                     }
                                 });
                         startActivity ( chatOne );
-                        //finish ();
+                        finish ();
                     }else{
-                        Intent chat =new Intent ( getApplicationContext (),MessageActivity.class );
-                        chat.putExtra ( "id de l'utilisateur" ,diplayAllChat.getId_recepteur () );
-                        chat.putExtra ( "id_recepteur" ,diplayAllChat.getId_recepteur());
-                        startActivity ( chat );
+                        if (valeur.equals ( "acceuil" )&&viens_de_detail.equals ( "faux" )) {
+                            Intent chat =new Intent ( getApplicationContext (),MessageActivity.class );
+                            chat.putExtra ( "id de l'utilisateur" ,diplayAllChat.getId_recepteur () );
+                            chat.putExtra ( "id_recepteur" ,diplayAllChat.getId_recepteur());
+                            chat.putExtra ( "viens_de_detail","faux" );
+                            startActivity ( chat );
+                            finish ();
+                        }else if (ouvert.equals ( "ouvert" )&&viens_de_detail.equals ( "vrai" )){
+                            Intent chat =new Intent ( getApplicationContext (),MessageActivity.class );
+                            chat.putExtra ( "id de l'utilisateur" ,diplayAllChat.getId_recepteur () );
+                            chat.putExtra ( "id_recepteur" ,diplayAllChat.getId_recepteur());
+                            chat.putExtra ( "viens_de_detail","vrai" );
+                            startActivity ( chat );
+                            finish ();
+
+                        }
+
                         //finish ();
                     }
                 }

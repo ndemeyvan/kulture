@@ -79,6 +79,7 @@
                 app:layout_constraintTop_toTopOf="@+id/non_button" />
 
             <TextView
+                android:theme="@style/ToolbarTheme"
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
