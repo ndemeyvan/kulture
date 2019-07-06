@@ -30,6 +30,11 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.reward.RewardItem;
@@ -51,6 +56,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -62,6 +70,7 @@ import java.util.Map;
 import javax.annotation.Nullable;
 
 import cm.studio.devbee.communitymarket.Accueil;
+import cm.studio.devbee.communitymarket.MySingleton;
 import cm.studio.devbee.communitymarket.R;
 import cm.studio.devbee.communitymarket.commentaires.Commentaire_Adapter;
 import cm.studio.devbee.communitymarket.commentaires.Commentaires_Model;
@@ -74,6 +83,7 @@ import uk.co.deanwild.materialshowcaseview.ShowcaseConfig;
 
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
+import static cm.studio.devbee.communitymarket.messagerie.MessageActivity.user_id_message;
 
 public class DetailActivity extends AppCompatActivity implements RewardedVideoAdListener {
     private static String iddupost;
@@ -98,7 +108,10 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
     private Dialog myDialog;
     private boolean suppBool=false;
     private boolean venteBool=false;
-
+    final private String FCM_API = "https://fcm.googleapis.com/fcm/send";
+    final private String serverKey = "key="+"AAAAfR8BveM:APA91bEgCOmnLz5LKrc4ms8qvCBYqAUwbXpoMswSYyuQJT0cg3FpLSvH-S_nAiaCARSdeolPbGpxTX5nHVm5AP6tI7N9sCYEL4IUkR_eF4lYZXN4oeXhWtCKavTHIaA8pH6eklL4yBO5";
+    final private String contentType = "application/json";
+    final String TAG = "NOTIFICATION TAG";
     String categories;
     String prenom;
     String name_user;
@@ -287,6 +300,42 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
             @Override
             public void onClick(View v) {
                 if (!post_detail_comment.getText().toString().equals("")){
+                    firebaseFirestore.collection("mes donnees utilisateur").document(current_user_id).get().addOnCompleteListener(DetailActivity.this,new OnCompleteListener<DocumentSnapshot> () {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if (task.isSuccessful()){
+                                if (task.getResult ().exists ()){
+                                    String prenom=task.getResult ().getString ( "user_prenom" );
+                                    String name_user= task.getResult ().getString ( "user_name" );
+                                    String image_user=task.getResult ().getString ( "user_profil_image" );
+                                    String TOPIC = "/topics/"+user_id_message; //topic has to match what the receiver subscribed to
+                                    JSONObject notification = new JSONObject();
+                                    JSONObject notifcationBody = new JSONObject ();
+                                    try {
+                                        notifcationBody.put("title", "nouvelle reaction");
+                                        notifcationBody.put("message",name_user +" "+prenom +" reagi sur votre post") ;
+                                        notifcationBody.put("id", user_id_message);
+                                        notifcationBody.put ( "viens_de_detail","faux" );
+                                        notifcationBody.put ( "id_recepteur",user_id_message );
+                                        notifcationBody.put ( "image_en_vente",lien_image );
+                                        notification.put("to", TOPIC);
+                                        notification.put("data", notifcationBody);
+                                        notifcationBody.put ( "viens_de_detail","vrai" );
+
+                                    } catch (JSONException e) {
+                                        Log.e(TAG, "onCreate: " + e.getMessage() );
+                                    }
+                                    sendNotification(notification);
+
+                                    ////end test noti
+                                }
+                            }else {
+                                String error=task.getException().getMessage();
+                                Toast.makeText ( getApplicationContext (), error, Toast.LENGTH_LONG ).show ();
+
+                            }
+                        }
+                    });
                     post_detail_add_comment_btn.setVisibility(INVISIBLE);
                     progressBar3.setVisibility(VISIBLE);
                     Date date=new Date();
@@ -329,6 +378,33 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
 
         commentaire();
 
+    }
+
+    private void sendNotification(JSONObject notification) {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest (FCM_API, notification,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.i(TAG, "onResponse: " + response.toString());
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(DetailActivity.this, "Request error", Toast.LENGTH_LONG).show();
+                        Log.i(TAG, "onErrorResponse: Didn't work");
+                    }
+                }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("Authorization", serverKey);
+                params.put("Content-Type", contentType);
+                return params;
+            }
+        };
+        MySingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
     }
 
     ////envoi du commentaire

@@ -32,6 +32,7 @@ import java.net.URL;
 import java.util.Random;
 
 import cm.studio.devbee.communitymarket.messagerie.MessageActivity;
+import cm.studio.devbee.communitymarket.postActivity.DetailActivityTwo;
 import io.grpc.internal.SharedResourceHolder;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
@@ -46,9 +47,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private String id_expediteur;
     private String image_user;
     private FirebaseAuth firebaseAuth;
+    private Intent intent;
 
     private static FirebaseFirestore firebaseFirestore;
     private String current_id;
+    private String categories;
 
     /*remoteMessage.getData()!=null && remoteMessage.getData().size() > 0*/
     @Override
@@ -57,7 +60,14 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         current_id=firebaseAuth.getCurrentUser ().getUid ();
 
         if (remoteMessage.getData()!=null && remoteMessage.getData().size() > 0) {
-            final Intent intent = new Intent(this, MessageActivity.class);
+            categories=remoteMessage.getData ().get ( "viens_de_detail" );
+            if (categories.equals ( "vrai" )){
+                intent= new Intent(this, DetailActivityTwo.class);
+            }else if (categories.equals ( "faux" )){
+                intent = new Intent(this, MessageActivity.class);
+
+            }
+
             NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
             int notificationID = new Random().nextInt(9000);
             title = remoteMessage.getData().get("title");
@@ -71,6 +81,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             intent.putExtra ("image_en_vente",image_en_vente  );
             intent.putExtra ("viens_de_detail","faux"  );
             intent.putExtra ( "id de l'utilisateur",id );
+            intent.putExtra ( "id_categories",categories );
+
       /*
         Apps targeting SDK 26 or above (Android O) must implement notification channels and add its notifications
         to at least one of them. Therefore, confirm if version is Oreo or higher, then setup notification channel
