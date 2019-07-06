@@ -9,17 +9,24 @@ public class ModelGridView extends PostId {
     private String user_profil_image;
     private String utilisateur;
     private String categories;
-
+    private String decription_du_produit;
+    private String date_de_publication;
+    private String user_image;
+    private String like;
     public ModelGridView() {
     }
 
-    public ModelGridView(String nom_du_produit, String image_du_produit, String prix_du_produit, String user_profil_image, String utilisateur, String categories) {
+    public ModelGridView(String nom_du_produit, String image_du_produit, String prix_du_produit, String user_profil_image, String utilisateur, String categories, String decription_du_produit, String date_de_publication, String user_image, String like) {
         this.nom_du_produit = nom_du_produit;
         this.image_du_produit = image_du_produit;
         this.prix_du_produit = prix_du_produit;
         this.user_profil_image = user_profil_image;
         this.utilisateur = utilisateur;
         this.categories = categories;
+        this.decription_du_produit = decription_du_produit;
+        this.date_de_publication = date_de_publication;
+        this.user_image = user_image;
+        this.like = like;
     }
 
     public String getNom_du_produit() {
@@ -68,5 +75,37 @@ public class ModelGridView extends PostId {
 
     public void setCategories(String categories) {
         this.categories = categories;
+    }
+
+    public String getDecription_du_produit() {
+        return decription_du_produit;
+    }
+
+    public void setDecription_du_produit(String decription_du_produit) {
+        this.decription_du_produit = decription_du_produit;
+    }
+
+    public String getDate_de_publication() {
+        return date_de_publication;
+    }
+
+    public void setDate_de_publication(String date_de_publication) {
+        this.date_de_publication = date_de_publication;
+    }
+
+    public String getUser_image() {
+        return user_image;
+    }
+
+    public void setUser_image(String user_image) {
+        this.user_image = user_image;
+    }
+
+    public String getLike() {
+        return like;
+    }
+
+    public void setLike(String like) {
+        this.like = like;
     }
 }

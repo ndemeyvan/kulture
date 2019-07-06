@@ -90,12 +90,14 @@ public class MessageActivity extends AppCompatActivity {
     private static  boolean is_open=false;
     private String viens_detail;
     final private String FCM_API = "https://fcm.googleapis.com/fcm/send";
-    final private String serverKey = "key=" + "AAAAfR8BveM:APA91bEgCOmnLz5LKrc4ms8qvCBYqAUwbXpoMswSYyuQJT0cg3FpLSvH-S_nAiaCARSdeolPbGpxTX5nHVm5AP6tI7N9sCYEL4IUkR_eF4lYZXN4oeXhWtCKavTHIaA8pH6eklL4yBO5";
+    final private String serverKey = "key="+"AAAAfR8BveM:APA91bEgCOmnLz5LKrc4ms8qvCBYqAUwbXpoMswSYyuQJT0cg3FpLSvH-S_nAiaCARSdeolPbGpxTX5nHVm5AP6tI7N9sCYEL4IUkR_eF4lYZXN4oeXhWtCKavTHIaA8pH6eklL4yBO5";
     final private String contentType = "application/json";
     final String TAG = "NOTIFICATION TAG";
     String NOTIFICATION_TITLE;
     String NOTIFICATION_MESSAGE;
     String TOPIC;
+    private String prenom;
+    private String name_user;
 
 
     @Override
@@ -158,7 +160,7 @@ public class MessageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 send_button.setAnimation ( AnimationUtils.loadAnimation ( getApplicationContext (),R.anim.fade_transition_animation ) );
-                String message =message_user_send.getText ().toString ();
+                final String message =message_user_send.getText ().toString ();
                         if(!TextUtils.isEmpty ( message )){
                             sendmessage (current_user,user_id_message,message);
                             Map<String, String> notification = new HashMap<> ();
@@ -178,23 +180,46 @@ public class MessageActivity extends AppCompatActivity {
 
 
                         /////test noti
-                TOPIC = "/topics/userABC"; //topic has to match what the receiver subscribed to
-                NOTIFICATION_TITLE = message_user_send.getText().toString();
-                NOTIFICATION_MESSAGE = message_user_send.getText().toString();
-                JSONObject notification = new JSONObject();
-                JSONObject notifcationBody = new JSONObject ();
-                try {
-                    notifcationBody.put("title", NOTIFICATION_TITLE);
-                    notifcationBody.put("message", NOTIFICATION_MESSAGE);
+                firebaseFirestore.collection("mes donnees utilisateur").document(current_user).get().addOnCompleteListener(MessageActivity.this,new OnCompleteListener<DocumentSnapshot> () {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()){
+                            if (task.getResult ().exists ()){
+                               String prenom=task.getResult ().getString ( "user_prenom" );
+                                String name_user= task.getResult ().getString ( "user_name" );
+                                String image_user=task.getResult ().getString ( "user_profil_image" );
+                                lien_profil_contact =task.getResult ().getString ( "user_profil_image" );
+                                nom_utilisateur=task.getResult ().getString ( "user_name" );
+                                String status=task.getResult ().getString ( "status" );
+                                TOPIC = "/topics/userABC"; //topic has to match what the receiver subscribed to
+                                NOTIFICATION_MESSAGE =message;
+                                JSONObject notification = new JSONObject();
+                                JSONObject notifcationBody = new JSONObject ();
+                                try {
+                                    notifcationBody.put("title", name_user +" "+prenom);
+                                    notifcationBody.put("message", NOTIFICATION_MESSAGE);
+                                    notifcationBody.put("id", user_id_message);
+                                    notifcationBody.put ( "viens_de_detail","faux" );
+                                    notifcationBody.put ( "id_recepteur",id_recepteur );
+                                    notifcationBody.put ( "image_en_vente",lien_image );
+                                    notifcationBody.put ( "id_expediteur" ,current_user);
+                                    notification.put("to", TOPIC);
+                                    notification.put("data", notifcationBody);
+                                } catch (JSONException e) {
+                                    Log.e(TAG, "onCreate: " + e.getMessage() );
+                                }
+                                sendNotification(notification);
 
-                    notification.put("to", TOPIC);
-                    notification.put("data", notifcationBody);
-                } catch (JSONException e) {
-                    Log.e(TAG, "onCreate: " + e.getMessage() );
-                }
-                sendNotification(notification);
+                                ////end test noti
+                            }
+                        }else {
+                            String error=task.getException().getMessage();
+                            Toast.makeText ( getApplicationContext (), error, Toast.LENGTH_LONG ).show ();
 
-                ////end test noti
+                        }
+                    }
+                });
+
             }
         } );
 
@@ -539,13 +564,13 @@ public class MessageActivity extends AppCompatActivity {
     }*/
 
 public void nomEtImageProfil(){
-        firebaseFirestore.collection("mes donnees utilisateur").document(user_id_message).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot> () {
+        firebaseFirestore.collection("mes donnees utilisateur").document(user_id_message).get().addOnCompleteListener(MessageActivity.this,new OnCompleteListener<DocumentSnapshot> () {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()){
                     if (task.getResult ().exists ()){
-                        String prenom=task.getResult ().getString ( "user_prenom" );
-                        String name_user= task.getResult ().getString ( "user_name" );
+                         prenom=task.getResult ().getString ( "user_prenom" );
+                         name_user= task.getResult ().getString ( "user_name" );
                         String image_user=task.getResult ().getString ( "user_profil_image" );
                         lien_profil_contact =task.getResult ().getString ( "user_profil_image" );
                         nom_utilisateur=task.getResult ().getString ( "user_name" );

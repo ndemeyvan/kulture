@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,19 +55,25 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
-    String produit_image =modelGridViewList.get(i).getImage_du_produit();
-    String nom=modelGridViewList.get(i).getNom_du_produit();
-    String prix_produit=modelGridViewList.get(i).getPrix_du_produit();
-    final String nom_utilisateur=modelGridViewList.get(i).getUtilisateur();
-    final String idDuPost=modelGridViewList.get ( i ).PostId;
-    final String categorie=modelGridViewList.get(i).getCategories();
-    viewHolder.setCatrogies_name(categorie);
-    viewHolder.prix_produit(prix_produit);
-    viewHolder.image_produit(produit_image);
-    viewHolder.nom_produit(nom);
-   // viewHolder.setUser(nom_utilisateur);
-    viewHolder.post_layout_one.setAnimation ( AnimationUtils.loadAnimation ( context,R.anim.fade_transition_animation ) );
-    viewHolder.produit.setOnClickListener(new View.OnClickListener() {
+        String produit_image =modelGridViewList.get(i).getImage_du_produit();
+        String nom=modelGridViewList.get(i).getNom_du_produit();
+        String desc =modelGridViewList.get ( i).getDecription_du_produit();
+        String prix_produit=modelGridViewList.get(i).getPrix_du_produit();
+        String tempsdepub=modelGridViewList.get ( i ).getDate_de_publication ();
+
+        final String nom_utilisateur=modelGridViewList.get(i).getUtilisateur();
+        final String idDuPost=modelGridViewList.get ( i ).PostId;
+        final String categorie=modelGridViewList.get(i).getCategories();
+        //viewHolder.setCatrogies_name(categorie);
+        viewHolder.prix_produit(prix_produit);
+        viewHolder.image_produit(produit_image);
+        //viewHolder.nom_produit(nom);
+        viewHolder.post_user_description.setText ( desc );
+        viewHolder.principal_progress.setVisibility ( View.INVISIBLE );
+        viewHolder.post_userTemps.setText ( tempsdepub );
+        // viewHolder.setUser(nom_utilisateur);
+        viewHolder.profil_container.setAnimation ( AnimationUtils.loadAnimation ( context,R.anim.fade_transition_animation ) );
+        viewHolder.profil_container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent gotoDetail =new Intent(context,DetailActivityTwo.class);
@@ -107,41 +114,47 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder{
         ImageView produit;
         ImageView post_image_profil;
-        TextView post_titre_produit_description;
+        //TextView post_titre_produit_description;
         TextView prix_post;
-        TextView catrogies_name;
+        // TextView catrogies_name;
         TextView nom_user;
-        CardView post_layout_one;
-       public ViewHolder(@NonNull View itemView) {
-           super(itemView);
-           produit=itemView.findViewById(R.id.post_image_vendeur );
-           post_titre_produit_description=itemView.findViewById(R.id.post_titre_produit_description);
-           prix_post=itemView.findViewById(R.id.prix_postl_vendeur );
-           post_image_profil=itemView.findViewById ( R.id.profil_vendeur );
-           catrogies_name=itemView.findViewById(R.id.catrogies_name_vendeur );
-           nom_user=itemView.findViewById(R.id.nom_user);
-           post_layout_one=itemView.findViewById ( R.id.profil_container );
-       }
-       public void image_produit(String image){
-           Picasso.with(context).load(image).into (produit );
-       }
-        public void nom_produit(String nom){
-            post_titre_produit_description.setText(nom);
+        CardView profil_container;
+        TextView post_user_description;
+        ProgressBar principal_progress;
+        TextView post_userTemps;
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            produit=itemView.findViewById(R.id.post_image_vendeur );
+            //post_titre_produit_description=itemView.findViewById(R.id.post_titre_produit_description);
+            prix_post=itemView.findViewById(R.id.prix_postl_vendeur );
+            post_image_profil=itemView.findViewById ( R.id.profil_vendeur );
+            // catrogies_name=itemView.findViewById(R.id.catrogies_name_vendeur );
+            nom_user=itemView.findViewById(R.id.nom_user);
+            profil_container=itemView.findViewById ( R.id.profil_container );
+            post_user_description=itemView.findViewById ( R.id.post_user_description );
+            principal_progress=itemView.findViewById ( R.id.principal_progress );
+            post_userTemps=itemView.findViewById ( R.id.post_userTemps );
         }
+        public void image_produit(String image){
+            Picasso.with(context).load(image).into (produit );
+        }
+        /*public void nom_produit(String nom){
+             post_titre_produit_description.setText(nom);
+         }*/
         public void prix_produit(String prix){
             prix_post.setText(prix);
         }
         public void profil_post(String profil){
             Picasso.with(context).load(profil).transform(new CircleTransform()).into (post_image_profil );
         }
-        public void setCatrogies_name(String cat){
+       /* public void setCatrogies_name(String cat){
             catrogies_name.setText(cat);
-        }
+        }*/
        /* public void setUser(String user){
             nom_user.setText(user);
         }*/
 
-   }
+    }
     public class CircleTransform implements Transformation {
         @Override
         public Bitmap transform(Bitmap source) {

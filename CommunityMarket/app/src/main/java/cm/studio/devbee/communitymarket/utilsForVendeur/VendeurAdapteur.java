@@ -44,7 +44,7 @@ public class VendeurAdapteur extends RecyclerView.Adapter<VendeurAdapteur.ViewHo
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         firebaseFirestore=FirebaseFirestore.getInstance();
         firebaseAuth=FirebaseAuth.getInstance();
-        View v=LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_post_layout_vendeur,viewGroup,false);
+        View v=LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_des_profil,viewGroup,false);
         return new ViewHolder(v);
     }
 

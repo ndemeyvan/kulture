@@ -60,7 +60,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import cm.studio.devbee.communitymarket.Accueil;
-import cm.studio.devbee.communitymarket.JsonNode;
 import cm.studio.devbee.communitymarket.R;
 import id.zelory.compressor.Compressor;
 import android.app.ProgressDialog;
