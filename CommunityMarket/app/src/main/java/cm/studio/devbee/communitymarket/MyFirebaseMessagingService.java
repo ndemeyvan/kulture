@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -44,12 +45,17 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private String image_en_vente;
     private String id_expediteur;
     private String image_user;
+    private FirebaseAuth firebaseAuth;
+
     private static FirebaseFirestore firebaseFirestore;
+    private String current_id;
 
-
+    /*remoteMessage.getData()!=null && remoteMessage.getData().size() > 0*/
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        if (remoteMessage.getData()!=null && remoteMessage.getData().size() > 0) {
+        current_id=firebaseAuth.getCurrentUser ().getUid ();
+
+        if (remoteMessage.getData()!=null && remoteMessage.getData().size() > 0&&remoteMessage.getData().get("id_recepteur").equals ( current_id )) {
             final Intent intent = new Intent(this, MessageActivity.class);
             NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
             int notificationID = new Random().nextInt(9000);
@@ -76,12 +82,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             PendingIntent pendingIntent = PendingIntent.getActivity(this , 0, intent,
                     PendingIntent.FLAG_ONE_SHOT);
             Bitmap largeIcon = BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher_logo_two);
-            ////////////////////////////////////
-
-
-//////////////////////////////////////////////
-
-
             Uri notificationSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
             NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, ADMIN_CHANNEL_ID)
                     .setSmallIcon(R.mipmap.ic_launcher_logo_two)

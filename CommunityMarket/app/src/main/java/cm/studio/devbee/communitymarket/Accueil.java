@@ -229,6 +229,8 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
             }
         } );
 
+
+
     }
 
 
