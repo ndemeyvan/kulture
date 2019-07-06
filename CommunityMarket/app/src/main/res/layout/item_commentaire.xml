@@ -133,8 +133,8 @@
             <ProgressBar
                 android:id="@+id/progressBar_comment"
                 style="?android:attr/progressBarStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/nvx_item_nvx_like_image"
+                android:layout_height="@dimen/nvx_item_nvx_like_image"
                 app:layout_constraintBottom_toBottomOf="@+id/chat_message_image_profil"
                 app:layout_constraintEnd_toEndOf="@+id/chat_message_image_profil"
                 app:layout_constraintStart_toStartOf="@+id/chat_message_image_profil"
