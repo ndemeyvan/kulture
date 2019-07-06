@@ -95,8 +95,8 @@
     <ProgressBar
         android:id="@+id/progressBarBottom_sheet"
         android:theme="@style/progress_theme"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/nvx_item_nvx_like_image"
+        android:layout_height="@dimen/nvx_item_nvx_like_image"
         android:layout_marginEnd="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/post_detail_user_image"
         app:layout_constraintEnd_toEndOf="@+id/post_detail_user_image"
@@ -106,9 +106,9 @@
     <ProgressBar
         android:id="@+id/progressBar3"
         style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/nvx_item_nvx_like_image"
         android:theme="@style/progress_theme"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/nvx_item_nvx_like_image"
         app:layout_constraintBottom_toBottomOf="@+id/post_detail_add_comment_btn"
         app:layout_constraintEnd_toEndOf="@+id/post_detail_add_comment_btn"
         app:layout_constraintStart_toStartOf="@+id/post_detail_add_comment_btn"

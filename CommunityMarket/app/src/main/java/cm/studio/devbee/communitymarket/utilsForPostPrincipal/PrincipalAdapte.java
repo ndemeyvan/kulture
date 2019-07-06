@@ -92,6 +92,18 @@ public class PrincipalAdapte extends RecyclerView.Adapter<PrincipalAdapte.ViewHo
 
                 }
             });
+        firebaseFirestore.collection ( "publication" ).document ("categories").collection ( categorie ).document (idDuPost).collection ( "commentaires" ).addSnapshotListener ( (Activity) context,new EventListener<QuerySnapshot> () {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                if (!queryDocumentSnapshots.isEmpty ()){
+                    int i=queryDocumentSnapshots.size ();
+                    viewHolder.comment_number.setText ( i+"" );
+
+                }else{
+                    viewHolder.comment_number.setText ( "0" );
+                }
+            }
+        } );
         firebaseFirestore.collection("mes donnees utilisateur").document(nom_id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -127,6 +139,9 @@ public class PrincipalAdapte extends RecyclerView.Adapter<PrincipalAdapte.ViewHo
         ProgressBar principal_progress;
         //ConstraintLayout nouveaux_container;
         CardView card_principal;
+        TextView comment_number;
+        ImageView image_comment;
+        TextView text_prix;
         public ViewHolder(@NonNull View itemView) {
             super ( itemView );
             description=itemView.findViewById ( R.id.post_user_description );
@@ -138,6 +153,12 @@ public class PrincipalAdapte extends RecyclerView.Adapter<PrincipalAdapte.ViewHo
             principal_progress=itemView.findViewById ( R.id.principal_progress);
             //nouveaux_container=itemView.findViewById ( R.id.nouveaux_container);
             card_principal=itemView.findViewById ( R.id.nouveaux_container );
+            comment_number=itemView.findViewById ( R.id.comment_number );
+            image_comment=itemView.findViewById ( R.id.image_comment );
+            text_prix=itemView.findViewById ( R.id.text_prix );
+            text_prix.setVisibility ( View.INVISIBLE );
+            image_comment.setVisibility ( View.INVISIBLE );
+            comment_number.setVisibility ( View.INVISIBLE );
         }
         public void setNom(final String desc){
             description.setText(desc);
@@ -161,6 +182,12 @@ public class PrincipalAdapte extends RecyclerView.Adapter<PrincipalAdapte.ViewHo
             nom_utilisateur.setText ( name );
             Picasso.with(context).load(image).transform(new CircleTransform()).into (profil_utilisateur );
             principal_progress.setVisibility ( View.INVISIBLE );
+            comment_number=itemView.findViewById ( R.id.comment_number );
+            image_comment=itemView.findViewById ( R.id.image_comment );
+            text_prix=itemView.findViewById ( R.id.text_prix );
+            text_prix.setVisibility ( View.VISIBLE );
+            image_comment.setVisibility (  View.VISIBLE  );
+            comment_number.setVisibility (  View.VISIBLE  );
         }
 
     }

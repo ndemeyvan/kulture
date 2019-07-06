@@ -23,14 +23,22 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 import cm.studio.devbee.communitymarket.R;
+import cm.studio.devbee.communitymarket.commentaires.Commentaires_Model;
 import cm.studio.devbee.communitymarket.postActivity.DetailActivityTwo;
 
 public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.ViewHolder> {
@@ -60,7 +68,6 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.ViewHo
         String desc =modelGridViewList.get ( i).getDecription_du_produit();
         String prix_produit=modelGridViewList.get(i).getPrix_du_produit();
         String tempsdepub=modelGridViewList.get ( i ).getDate_de_publication ();
-
         final String nom_utilisateur=modelGridViewList.get(i).getUtilisateur();
         final String idDuPost=modelGridViewList.get ( i ).PostId;
         final String categorie=modelGridViewList.get(i).getCategories();
@@ -69,9 +76,20 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.ViewHo
         viewHolder.image_produit(produit_image);
         //viewHolder.nom_produit(nom);
         viewHolder.post_user_description.setText ( desc );
-        viewHolder.principal_progress.setVisibility ( View.INVISIBLE );
         viewHolder.post_userTemps.setText ( tempsdepub );
         // viewHolder.setUser(nom_utilisateur);
+        firebaseFirestore.collection ( "publication" ).document ("categories").collection ( categorie ).document (idDuPost).collection ( "commentaires" ).addSnapshotListener ( (Activity) context,new EventListener<QuerySnapshot> () {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                if (!queryDocumentSnapshots.isEmpty ()){
+                    int i=queryDocumentSnapshots.size ();
+                    viewHolder.comment_number.setText ( i+"" );
+
+                }else{
+                    viewHolder.comment_number.setText ( "0" );
+                }
+            }
+        } );
         viewHolder.profil_container.setAnimation ( AnimationUtils.loadAnimation ( context,R.anim.fade_transition_animation ) );
         viewHolder.profil_container.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,6 +140,9 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.ViewHo
         TextView post_user_description;
         ProgressBar principal_progress;
         TextView post_userTemps;
+        TextView comment_number;
+        ImageView image_comment;
+        TextView text_prix;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             produit=itemView.findViewById(R.id.post_image_vendeur );
@@ -134,6 +155,12 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.ViewHo
             post_user_description=itemView.findViewById ( R.id.post_user_description );
             principal_progress=itemView.findViewById ( R.id.principal_progress );
             post_userTemps=itemView.findViewById ( R.id.post_userTemps );
+            comment_number=itemView.findViewById ( R.id.comment_number );
+            image_comment=itemView.findViewById ( R.id.image_comment );
+            text_prix=itemView.findViewById ( R.id.text_prix );
+            text_prix.setVisibility ( View.INVISIBLE );
+            image_comment.setVisibility ( View.INVISIBLE );
+            comment_number.setVisibility ( View.INVISIBLE );
         }
         public void image_produit(String image){
             Picasso.with(context).load(image).into (produit );
@@ -146,6 +173,10 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.ViewHo
         }
         public void profil_post(String profil){
             Picasso.with(context).load(profil).transform(new CircleTransform()).into (post_image_profil );
+            principal_progress.setVisibility ( View.VISIBLE  );
+            text_prix.setVisibility ( View.VISIBLE );
+            image_comment.setVisibility (  View.VISIBLE  );
+            comment_number.setVisibility (  View.VISIBLE  );
         }
        /* public void setCatrogies_name(String cat){
             catrogies_name.setText(cat);

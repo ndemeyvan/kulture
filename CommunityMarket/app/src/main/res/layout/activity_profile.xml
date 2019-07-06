@@ -48,7 +48,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/new_profil_user_name_top"
-                        android:text="ndeme yvan"
                         android:textColor="@color/orange"
                         android:textSize="@dimen/new_profil_name_text_size"
                         android:textStyle="bold"
@@ -63,7 +62,6 @@
                         android:layout_marginStart="@dimen/new_profil_margin_start"
                         android:layout_marginTop="@dimen/margin_top_new_profil_design"
                         android:layout_marginEnd="@dimen/new_profil_margin_end"
-                        android:src="@drawable/boy"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -71,8 +69,9 @@
                     <ProgressBar
                         android:id="@+id/progressBar"
                         style="?android:attr/progressBarStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:theme="@style/progress_theme"
+                        android:layout_width="@dimen/nvx_item_nvx_like_image"
+                        android:layout_height="@dimen/nvx_item_nvx_like_image"
                         android:layout_marginBottom="8dp"
                         app:layout_constraintBottom_toBottomOf="@+id/circleImageView_profil"
                         app:layout_constraintEnd_toEndOf="@+id/circleImageView_profil"
