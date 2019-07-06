@@ -53,6 +53,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     /*remoteMessage.getData()!=null && remoteMessage.getData().size() > 0*/
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
+        firebaseAuth=FirebaseAuth.getInstance ();
         current_id=firebaseAuth.getCurrentUser ().getUid ();
 
         if (remoteMessage.getData()!=null && remoteMessage.getData().size() > 0&&remoteMessage.getData().get("id_recepteur").equals ( current_id )) {

@@ -192,7 +192,7 @@ public class MessageActivity extends AppCompatActivity {
                                 lien_profil_contact =task.getResult ().getString ( "user_profil_image" );
                                 nom_utilisateur=task.getResult ().getString ( "user_name" );
                                 String status=task.getResult ().getString ( "status" );
-                                TOPIC = "/topics/userABC"; //topic has to match what the receiver subscribed to
+                                TOPIC = "/topics/"+user_id_message; //topic has to match what the receiver subscribed to
                                 NOTIFICATION_MESSAGE =message;
                                 JSONObject notification = new JSONObject();
                                 JSONObject notifcationBody = new JSONObject ();
@@ -201,7 +201,7 @@ public class MessageActivity extends AppCompatActivity {
                                     notifcationBody.put("message", NOTIFICATION_MESSAGE);
                                     notifcationBody.put("id", user_id_message);
                                     notifcationBody.put ( "viens_de_detail","faux" );
-                                    notifcationBody.put ( "id_recepteur",id_recepteur );
+                                    notifcationBody.put ( "id_recepteur",user_id_message );
                                     notifcationBody.put ( "image_en_vente",lien_image );
                                     notifcationBody.put ( "id_expediteur" ,current_user);
                                     notification.put("to", TOPIC);
