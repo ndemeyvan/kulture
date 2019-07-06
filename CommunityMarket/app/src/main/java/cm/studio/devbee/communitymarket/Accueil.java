@@ -44,6 +44,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.FirebaseMessagingService;
 import com.microsoft.projectoxford.vision.VisionServiceClient;
 import com.microsoft.projectoxford.vision.VisionServiceRestClient;
 import com.squareup.picasso.Picasso;
@@ -74,7 +75,7 @@ import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence;
 import uk.co.deanwild.materialshowcaseview.MaterialShowcaseView;
 import uk.co.deanwild.materialshowcaseview.ShowcaseConfig;
 
-public class Accueil extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, RewardedVideoAdListener {
+public class Accueil extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, RewardedVideoAdListener  {
         private FirebaseAuth mAuth;
         private FirebaseFirestore firebaseFirestore;
         private String current_user_id;
@@ -115,6 +116,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
         drawer_user_name=navigationView.getHeaderView(0).findViewById(R.id.drawer_user_name);
         DrawerLayout drawer =findViewById ( R.id.drawer_layout );
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        FirebaseMessaging.getInstance().subscribeToTopic(current_user_id);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle (
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close );
         drawer.addDrawerListener ( toggle );

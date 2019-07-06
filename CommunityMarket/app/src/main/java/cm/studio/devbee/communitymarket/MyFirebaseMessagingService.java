@@ -56,7 +56,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         firebaseAuth=FirebaseAuth.getInstance ();
         current_id=firebaseAuth.getCurrentUser ().getUid ();
 
-        if (remoteMessage.getData()!=null && remoteMessage.getData().size() > 0&&remoteMessage.getData().get("id_recepteur").equals ( current_id )) {
+        if (remoteMessage.getData()!=null && remoteMessage.getData().size() > 0) {
             final Intent intent = new Intent(this, MessageActivity.class);
             NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
             int notificationID = new Random().nextInt(9000);
@@ -78,7 +78,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
                 setupChannels(notificationManager);
             }
-
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             PendingIntent pendingIntent = PendingIntent.getActivity(this , 0, intent,
                     PendingIntent.FLAG_ONE_SHOT);
