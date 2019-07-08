@@ -1,5 +1,6 @@
 package cm.studio.devbee.communitymarket.utilsForUserApp;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -9,25 +10,41 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 import java.util.List;
+
+import javax.annotation.Nullable;
+
 import cm.studio.devbee.communitymarket.R;
+import cm.studio.devbee.communitymarket.gridView_post.GridViewAdapter;
+import cm.studio.devbee.communitymarket.gridView_post.ModelGridView;
+import cm.studio.devbee.communitymarket.postActivity.DetailActivityTwo;
 import cm.studio.devbee.communitymarket.postActivity.SellActivityUser;
 import cm.studio.devbee.communitymarket.profile.ProfileActivity;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
-    List<UserModel> userModelList;
+    List<UserModel> modelGridViewList;
     Context context;
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
@@ -36,13 +53,9 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     String s;
 
 
-    public UserAdapter(List<UserModel> userModelList, Context context,boolean ischat) {
-        this.userModelList = userModelList;
-        this.context = context;
-        this.ischat=ischat;
-    }
-    public UserAdapter(List<UserModel> userModelList, Context context,String s) {
-        this.userModelList = userModelList;
+
+    public UserAdapter(List<UserModel> modelGridViewList, Context context,String s) {
+        this.modelGridViewList = modelGridViewList;
         this.context = context;
         this.s=s;
     }
@@ -60,88 +73,130 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull  final ViewHolder viewHolder, int i) {
-       String nom_utilisateur=userModelList.get ( i ).getUser_prenom ();
-        String prenom_utilisateur=userModelList.get ( i ).getUser_name();
-       String image =userModelList.get ( i ).getUser_profil_image ();
-       final String nom=userModelList.get ( i ).getId_utilisateur ();
-       String status=userModelList.get ( i ).getStatus ();
-       //viewHolder.setNom ( nom );
-       viewHolder.setNom ( prenom_utilisateur+" "+nom_utilisateur );
-       viewHolder.setimage ( image );
-       viewHolder.user_container.setAnimation ( AnimationUtils.loadAnimation ( context,R.anim.fade_transition_animation ) );
-       viewHolder.profil_utilisateur.setOnClickListener ( new View.OnClickListener () {
-           @Override
-           public void onClick(View v) {
-               current_user=firebaseAuth.getCurrentUser ().getUid ();
-              if (current_user.equals ( nom )){
-                  Intent gotogneral=new Intent ( context,ProfileActivity.class );
-                  context.startActivity ( gotogneral );
-              }else {
-                  Intent gotogneral=new Intent ( context,SellActivityUser.class );
-                  gotogneral.putExtra ( "id de l'utilisateur",nom );
-                  context.startActivity ( gotogneral );
-              }
+        String produit_image =modelGridViewList.get(i).getImage_du_produit();
+        String nom=modelGridViewList.get(i).getNom_du_produit();
+        String desc =modelGridViewList.get ( i).getDecription_du_produit();
+        String prix_produit=modelGridViewList.get(i).getPrix_du_produit();
+        String tempsdepub=modelGridViewList.get ( i ).getDate_de_publication ();
+        final String nom_utilisateur=modelGridViewList.get(i).getUtilisateur();
+        final String idDuPost=modelGridViewList.get ( i ).PostId;
+        final String categorie=modelGridViewList.get(i).getCategories();
+        //viewHolder.setCatrogies_name(categorie);
+        viewHolder.prix_produit(prix_produit);
+        viewHolder.image_produit(produit_image);
+        //viewHolder.nom_produit(nom);
+        viewHolder.post_user_description.setText ( desc );
+        viewHolder.post_userTemps.setText ( tempsdepub );
+        // viewHolder.setUser(nom_utilisateur);
+        firebaseFirestore.collection ( "publication" ).document ("categories").collection ( categorie ).document (idDuPost).collection ( "commentaires" ).addSnapshotListener ( (Activity) context,new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                if (!queryDocumentSnapshots.isEmpty ()){
+                    int i=queryDocumentSnapshots.size ();
+                    viewHolder.comment_number.setText ( i+"" );
 
-           }
-       } );
-       if (ischat){
-           if (status.equals ( "online" )){
-                viewHolder.online_image.setVisibility ( View.INVISIBLE );
-                viewHolder.offline_image.setVisibility ( View.INVISIBLE );
-           }else {
-               viewHolder.online_image.setVisibility ( View.INVISIBLE );
-               viewHolder.offline_image.setVisibility ( View.INVISIBLE );
-           }
-       }else{
-           viewHolder.online_image.setVisibility ( View.INVISIBLE );
-           viewHolder.offline_image.setVisibility ( View.INVISIBLE );
-       }
+                }else{
+                    viewHolder.comment_number.setText ( "0" );
+                }
+            }
+        } );
+        viewHolder.profil_container.setAnimation ( AnimationUtils.loadAnimation ( context,R.anim.fade_transition_animation ) );
+        viewHolder.profil_container.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent gotoDetail =new Intent(context,DetailActivityTwo.class);
+                gotoDetail.putExtra("id du post",idDuPost);
+                gotoDetail.putExtra("id de l'utilisateur",nom_utilisateur);
+                gotoDetail.putExtra("id_categories",categorie);
+                context.startActivity(gotoDetail);
+
+            }
+        });
+        firebaseFirestore.collection("mes donnees utilisateur").document(nom_utilisateur).get().addOnCompleteListener((Activity) context,new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()){
+                    if (task.getResult ().exists ()){
+                        String image_user=task.getResult ().getString ( "user_profil_image" );
+                        String user_nom=task.getResult ().getString ( "user_name" );
+                        String user_prenom=task.getResult ().getString ( "user_prenom" );
+                        viewHolder.nom_user.setText(user_nom+" "+user_prenom);
+                        if (firebaseAuth.getCurrentUser().getUid()==nom_utilisateur){
+                            viewHolder.nom_user.setText(" ");
+                        }
+                        viewHolder.profil_post ( image_user );
+                    }
+                }else {
+                    String error=task.getException().getMessage();
+                    Toast.makeText(context,error,Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return userModelList.size ();
+        return modelGridViewList.size ();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-
-        TextView nom_utilisateur;
-        ImageView profil_utilisateur;
-        TextView textView;
-        CircleImageView online_image;
-        CircleImageView offline_image;
-        TextView status;
-        ConstraintLayout user_container;
+        ImageView produit;
+        ImageView post_image_profil;
+        //TextView post_titre_produit_description;
+        TextView prix_post;
+        // TextView catrogies_name;
+        TextView nom_user;
+        CardView profil_container;
+        TextView post_user_description;
+        ProgressBar principal_progress;
+        TextView post_userTemps;
+        TextView comment_number;
+        ImageView image_comment;
+        TextView text_prix;
         public ViewHolder(@NonNull View itemView) {
             super ( itemView );
-            user_container=itemView.findViewById ( R.id.user_container);
-            nom_utilisateur=itemView.findViewById ( R.id.user_text_name );
-            profil_utilisateur=itemView.findViewById ( R.id.user_image );
-            textView=itemView.findViewById ( R.id.id_utilisateur_user );
-            online_image=itemView.findViewById ( R.id.online_image );
-            offline_image=itemView.findViewById ( R.id.off_image );
-            status=itemView.findViewById ( R.id.status );
+            produit=itemView.findViewById(R.id.post_image_vendeur );
+            //post_titre_produit_description=itemView.findViewById(R.id.post_titre_produit_description);
+            prix_post=itemView.findViewById(R.id.prix_postl_vendeur );
+            post_image_profil=itemView.findViewById ( R.id.profil_vendeur );
+            // catrogies_name=itemView.findViewById(R.id.catrogies_name_vendeur );
+            nom_user=itemView.findViewById(R.id.nom_user);
+            profil_container=itemView.findViewById ( R.id.profil_container );
+            post_user_description=itemView.findViewById ( R.id.post_user_description );
+            principal_progress=itemView.findViewById ( R.id.principal_progress );
+            post_userTemps=itemView.findViewById ( R.id.post_userTemps );
+            comment_number=itemView.findViewById ( R.id.comment_number );
+            image_comment=itemView.findViewById ( R.id.image_comment );
+            text_prix=itemView.findViewById ( R.id.text_prix );
+            text_prix.setVisibility ( View.INVISIBLE );
+            image_comment.setVisibility ( View.INVISIBLE );
+            comment_number.setVisibility ( View.INVISIBLE );
 
         }
-        public void setuser(String nom){
-            textView.setText ( nom );
+        public void image_produit(String image){
+            Picasso.with(context).load(image).into (produit );
         }
-
-        public void setNom(final String nom){
-            nom_utilisateur.setText(nom);
-
+        /*public void nom_produit(String nom){
+             post_titre_produit_description.setText(nom);
+         }*/
+        public void prix_produit(String prix){
+            prix_post.setText(prix);
         }
-        public void setimage(final String image){
-            Bitmap bitmap=BitmapFactory.decodeFile(image);
-
-            Picasso.with ( context ).load ( image ).transform(new CircleTransform()).into (profil_utilisateur);
-
+        public void profil_post(String profil){
+            Picasso.with(context).load(profil).transform(new CircleTransform()).into (post_image_profil );
+            principal_progress.setVisibility ( View.INVISIBLE  );
+            text_prix.setVisibility ( View.VISIBLE );
+            image_comment.setVisibility (  View.VISIBLE  );
+            comment_number.setVisibility (  View.VISIBLE  );
         }
-
+       /* public void setCatrogies_name(String cat){
+            catrogies_name.setText(cat);
+        }*/
+       /* public void setUser(String user){
+            nom_user.setText(user);
+        }*/
 
     }
-
-
     public class CircleTransform implements Transformation {
         @Override
         public Bitmap transform(Bitmap source) {
@@ -178,4 +233,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
 
     }
+
+
 }
+

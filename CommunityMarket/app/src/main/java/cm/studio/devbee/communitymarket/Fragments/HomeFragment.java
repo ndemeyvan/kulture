@@ -2,6 +2,8 @@ package cm.studio.devbee.communitymarket.Fragments;
 
 
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
@@ -358,6 +360,7 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
                             }
                         }
                     });
+
                     //image_three
                     firebaseFirestore.collection("slider_home_one").document("imageThree").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                         @Override
@@ -437,6 +440,9 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
         });
 
     }
+
+
+
     public void imagePub(){
         DocumentReference user_two = firebaseFirestore.collection("sliders").document("images");
         user_two.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {

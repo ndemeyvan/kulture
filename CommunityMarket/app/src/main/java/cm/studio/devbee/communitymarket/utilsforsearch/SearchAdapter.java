@@ -2,12 +2,20 @@ package cm.studio.devbee.communitymarket.utilsforsearch;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapShader;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,27 +28,32 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 
 import java.util.List;
 
 import javax.annotation.Nullable;
 
 import cm.studio.devbee.communitymarket.R;
+import cm.studio.devbee.communitymarket.gridView_post.GridViewAdapter;
+import cm.studio.devbee.communitymarket.gridView_post.ModelGridView;
+import cm.studio.devbee.communitymarket.postActivity.DetailActivityTwo;
 import cm.studio.devbee.communitymarket.utilsForUserApp.UserModel;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.viewHolder> {
-    List<UserModel> searchModelList;
+    List<ModelGridView> modelGridViewList;
     Context context;
-    FirebaseFirestore firebaseFirestore;
+    private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
+
      String nom_id;
-    String give;
+     String give;
 
     public SearchAdapter(List<UserModel> searchModelList, Context context,String give) {
-        this.searchModelList = searchModelList;
+        this.modelGridViewList = modelGridViewList;
         this.context = context;
         this.give = give;
     }
@@ -48,25 +61,66 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.viewHolder
     @NonNull
     @Override
     public viewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View v =LayoutInflater.from ( viewGroup.getContext () ).inflate ( R.layout.item_user_layout,viewGroup,false );
         firebaseFirestore=FirebaseFirestore.getInstance ();
-        viewGroup.getContext ();
         firebaseAuth=FirebaseAuth.getInstance();
+        View v =LayoutInflater.from ( viewGroup.getContext () ).inflate ( R.layout.item_user_layout,viewGroup,false );
         return new viewHolder ( v );
     }
 
     @Override
     public void onBindViewHolder(@NonNull final viewHolder viewHolder, int i) {
-        String user_name=searchModelList.get ( i ).getUser_prenom ();
-        String image=searchModelList.get ( i ).getUser_prenom ();
-        firebaseFirestore.collection("mes donnees utilisateur").document (give).get().addOnCompleteListener((Activity) context,new OnCompleteListener<DocumentSnapshot>() {
+        String produit_image =modelGridViewList.get(i).getImage_du_produit();
+        String nom=modelGridViewList.get(i).getNom_du_produit();
+        String desc =modelGridViewList.get ( i).getDecription_du_produit();
+        String prix_produit=modelGridViewList.get(i).getPrix_du_produit();
+        String tempsdepub=modelGridViewList.get ( i ).getDate_de_publication ();
+        final String nom_utilisateur=modelGridViewList.get(i).getUtilisateur();
+        final String idDuPost=modelGridViewList.get ( i ).PostId;
+        final String categorie=modelGridViewList.get(i).getCategories();
+        //viewHolder.setCatrogies_name(categorie);
+        viewHolder.prix_produit(prix_produit);
+        viewHolder.image_produit(produit_image);
+        //viewHolder.nom_produit(nom);
+        viewHolder.post_user_description.setText ( desc );
+        viewHolder.post_userTemps.setText ( tempsdepub );
+        // viewHolder.setUser(nom_utilisateur);
+        firebaseFirestore.collection ( "publication" ).document ("categories").collection ( categorie ).document (idDuPost).collection ( "commentaires" ).addSnapshotListener ( (Activity) context,new EventListener<QuerySnapshot> () {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                if (!queryDocumentSnapshots.isEmpty ()){
+                    int i=queryDocumentSnapshots.size ();
+                    viewHolder.comment_number.setText ( i+"" );
+
+                }else{
+                    viewHolder.comment_number.setText ( "0" );
+                }
+            }
+        } );
+        viewHolder.profil_container.setAnimation ( AnimationUtils.loadAnimation ( context,R.anim.fade_transition_animation ) );
+        viewHolder.profil_container.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent gotoDetail =new Intent(context,DetailActivityTwo.class);
+                gotoDetail.putExtra("id du post",idDuPost);
+                gotoDetail.putExtra("id de l'utilisateur",nom_utilisateur);
+                gotoDetail.putExtra("id_categories",categorie);
+                context.startActivity(gotoDetail);
+
+            }
+        });
+        firebaseFirestore.collection("mes donnees utilisateur").document(nom_utilisateur).get().addOnCompleteListener((Activity) context,new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()){
                     if (task.getResult ().exists ()){
-                        String name_user= task.getResult ().getString ( "user_name" );
                         String image_user=task.getResult ().getString ( "user_profil_image" );
-                        viewHolder.userNameAndProfile ( image_user,name_user );
+                        String user_nom=task.getResult ().getString ( "user_name" );
+                        String user_prenom=task.getResult ().getString ( "user_prenom" );
+                        viewHolder.nom_user.setText(user_nom+" "+user_prenom);
+                        if (firebaseAuth.getCurrentUser().getUid()==nom_utilisateur){
+                            viewHolder.nom_user.setText(" ");
+                        }
+                        viewHolder.profil_post ( image_user );
                     }
                 }else {
                     String error=task.getException().getMessage();
@@ -78,44 +132,100 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.viewHolder
 
     @Override
     public int getItemCount() {
-        return searchModelList.size ();
+        return modelGridViewList.size ();
     }
 
     public class  viewHolder extends RecyclerView.ViewHolder{
-        TextView search_price;
-        TextView search_user_name;
-        CircleImageView search_user_profil_image;
-        ImageView search_post_image;
-        TextView search_description;
-        TextView utilisateur_search;
-        TextView search_title;
+        ImageView produit;
+        ImageView post_image_profil;
+        //TextView post_titre_produit_description;
+        TextView prix_post;
+        // TextView catrogies_name;
+        TextView nom_user;
+        CardView profil_container;
+        TextView post_user_description;
+        ProgressBar principal_progress;
+        TextView post_userTemps;
+        TextView comment_number;
+        ImageView image_comment;
+        TextView text_prix;
         public viewHolder(@NonNull View itemView) {
             super ( itemView );
-            /*search_price=itemView.findViewById ( R.id.search_prix );
-            utilisateur_search=itemView.findViewById ( R.id.utilisateur_search );
-            search_user_name=itemView.findViewById ( R.id.search_usr_name );
-            search_user_profil_image=itemView.findViewById ( R.id.search_profil_image );
-            search_post_image=itemView.findViewById ( R.id.seacrh_image_post );
-            search_description=itemView.findViewById ( R.id.search_description );
-            search_title=itemView.findViewById ( R.id.search_title );*/
+            produit=itemView.findViewById(R.id.post_image_vendeur );
+            //post_titre_produit_description=itemView.findViewById(R.id.post_titre_produit_description);
+            prix_post=itemView.findViewById(R.id.prix_postl_vendeur );
+            post_image_profil=itemView.findViewById ( R.id.profil_vendeur );
+            // catrogies_name=itemView.findViewById(R.id.catrogies_name_vendeur );
+            nom_user=itemView.findViewById(R.id.nom_user);
+            profil_container=itemView.findViewById ( R.id.profil_container );
+            post_user_description=itemView.findViewById ( R.id.post_user_description );
+            principal_progress=itemView.findViewById ( R.id.principal_progress );
+            post_userTemps=itemView.findViewById ( R.id.post_userTemps );
+            comment_number=itemView.findViewById ( R.id.comment_number );
+            image_comment=itemView.findViewById ( R.id.image_comment );
+            text_prix=itemView.findViewById ( R.id.text_prix );
+            text_prix.setVisibility ( View.INVISIBLE );
+            image_comment.setVisibility ( View.INVISIBLE );
+            comment_number.setVisibility ( View.INVISIBLE );
         }
-        public void searchdata (String titre){
-            search_title.setText ( titre );
+        public void image_produit(String image){
+            Picasso.with(context).load(image).into (produit );
+        }
+        /*public void nom_produit(String nom){
+             post_titre_produit_description.setText(nom);
+         }*/
+        public void prix_produit(String prix){
+            prix_post.setText(prix);
+        }
+        public void profil_post(String profil){
+            Picasso.with(context).load(profil).transform(new CircleTransform()).into (post_image_profil );
+            principal_progress.setVisibility ( View.INVISIBLE  );
+            text_prix.setVisibility ( View.VISIBLE );
+            image_comment.setVisibility (  View.VISIBLE  );
+            comment_number.setVisibility (  View.VISIBLE  );
+        }
+       /* public void setCatrogies_name(String cat){
+            catrogies_name.setText(cat);
+        }*/
+       /* public void setUser(String user){
+            nom_user.setText(user);
+        }*/
 
-        }
-        public void stdesc(String desc){
-            search_description.setText ( desc );
-        }
-        public void userNameAndProfile(String name,String profil_image){
-            search_user_name.setText ( name );
-            Picasso.with ( context ).load ( profil_image ).into ( search_user_profil_image );
-        }
-        public void image_produit(String imageDuproduit){
-            Picasso.with ( context ).load( imageDuproduit ).into ( search_post_image );
+    }
+    public class CircleTransform implements Transformation {
+        @Override
+        public Bitmap transform(Bitmap source) {
+            int size = Math.min(source.getWidth(), source.getHeight());
+
+            int x = (source.getWidth() - size) / 2;
+            int y = (source.getHeight() - size) / 2;
+
+            Bitmap squaredBitmap = Bitmap.createBitmap(source, x, y, size, size);
+            if (squaredBitmap != source) {
+                source.recycle();
+            }
+
+            Bitmap bitmap = Bitmap.createBitmap(size, size, source.getConfig());
+
+            Canvas canvas = new Canvas(bitmap);
+            Paint paint = new Paint();
+            BitmapShader shader = new BitmapShader(squaredBitmap,
+                    BitmapShader.TileMode.CLAMP, BitmapShader.TileMode.CLAMP);
+            paint.setShader(shader);
+            paint.setAntiAlias(true);
+
+            float r = size / 2f;
+            canvas.drawCircle(r, r, r, paint);
+
+            squaredBitmap.recycle();
+            return bitmap;
         }
 
-        public void setprix(String prix){
-            search_price.setText ( prix );
+        @Override
+        public String key() {
+            return "circle";
         }
+
+
     }
 }

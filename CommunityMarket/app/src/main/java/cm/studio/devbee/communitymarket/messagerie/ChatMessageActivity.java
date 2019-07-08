@@ -57,6 +57,7 @@ public class ChatMessageActivity extends AppCompatActivity {
     String valeur;
     private String ouvert;
     private String viens_de_detail;
+    private String viens_de_service;
     // private  static  CircleImageView online_status_image;
 
     @Override
@@ -70,6 +71,7 @@ public class ChatMessageActivity extends AppCompatActivity {
         valeur=getIntent ().getStringExtra ( "viens" );
         ouvert=getIntent ().getStringExtra ( "ouvert" );
         viens_de_detail=getIntent ().getStringExtra ( "viens_de_detail" );
+        viens_de_service=getIntent ().getStringExtra ( "viens_de_service" );
         contatc_recyclerview=findViewById ( R.id.contatc_recyclerview );
         current_user=firebaseAuth.getCurrentUser ().getUid ();
         contatc_recyclerview.setLayoutManager ( new LinearLayoutManager ( getApplicationContext () ) );
@@ -86,13 +88,15 @@ public class ChatMessageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //startActivity ( new Intent ( getApplicationContext (),Accueil.class ).setFlags ( Intent.FLAG_ACTIVITY_CLEAR_TOP ) );
-                if (valeur.equals ( "acceuil" )&&viens_de_detail.equals ( "faux" )) {
+                if (valeur.equals ( "acceuil" )) {
                     Intent gotoacceuil = new Intent ( getApplicationContext (), Accueil.class );
                     startActivity ( gotoacceuil );
                     finish ();
-                }else if (ouvert.equals ( "ouvert" )&&viens_de_detail.equals ( "vrai" )){
+                }else {
                     finish ();
                 }
+
+
             }
         });
 

@@ -665,8 +665,6 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
                             date_de_publication.setAnimation ( AnimationUtils.loadAnimation ( getApplicationContext (), R.anim.fade_transition_animation ) );
                             detail_image_post.setAnimation ( AnimationUtils.loadAnimation ( getApplicationContext (), R.anim.fade_transition_animation ) );
                             detail_description.setAnimation ( AnimationUtils.loadAnimation ( getApplicationContext (), R.anim.fade_transition_animation ) );
-                            supprime_detail_button.setAnimation ( AnimationUtils.loadAnimation ( getApplicationContext (), R.anim.fade_transition_animation ) );
-                            vendeur_button.setAnimation ( AnimationUtils.loadAnimation ( getApplicationContext (), R.anim.fade_transition_animation ) );
                             detail_description.setText ( description );
                             detail_progress.setVisibility ( INVISIBLE );
                             myDialog.dismiss();

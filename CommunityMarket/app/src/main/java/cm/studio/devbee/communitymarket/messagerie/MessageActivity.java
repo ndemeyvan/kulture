@@ -99,6 +99,7 @@ public class MessageActivity extends AppCompatActivity {
     String TOPIC;
     private String prenom;
     private String name_user;
+    private String viens_de_service;
 
 
     @Override
@@ -122,6 +123,7 @@ public class MessageActivity extends AppCompatActivity {
         lien_image=intent.getStringExtra ( "image_en_vente" );
         id_recepteur=intent.getStringExtra ( "id_recepteur" );
         viens_detail=getIntent ().getStringExtra ( "viens_de_detail" );
+        viens_de_service=getIntent ().getStringExtra ( "viens_de_service" );
         send_button=findViewById ( R.id.imageButton_to_send );
         message_user_send=findViewById ( R.id.user_message_to_send );
         message_recyclerview=findViewById ( R.id.message_recyclerView );
@@ -140,15 +142,12 @@ public class MessageActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent gotochatlist=new Intent(getApplicationContext(),ChatMessageActivity.class);
                 if (viens_detail.equals ( "vrai" )){
-                    gotochatlist.putExtra ( "viens","" );
-                    gotochatlist.putExtra ( "ouvert","ouvert" );
-                    gotochatlist.putExtra ( "viens_de_detail","vrai" );
-                    startActivity(gotochatlist);
                     finish();
                 }else{
                     gotochatlist.putExtra ( "viens", "acceuil" );
                     gotochatlist.putExtra ( "viens_de_detail","faux" );
                     gotochatlist.putExtra ( "ouvert","ouvert" );
+                    gotochatlist.putExtra ( "viens_de_service","non" );
                     startActivity(gotochatlist);
                     finish();
                 }
@@ -467,7 +466,6 @@ public class MessageActivity extends AppCompatActivity {
         userstatus("offline");
         Intent gotochatlist=new Intent(getApplicationContext(),ChatMessageActivity.class);
         if (viens_detail.equals ( "vrai" )){
-            startActivity ( new Intent ( getApplicationContext (),ChatMessageActivity.class ).setFlags ( Intent.FLAG_ACTIVITY_CLEAR_TOP ).putExtra ( "viens","" ).putExtra ( "ouvert","ouvert" ).putExtra ( "viens_de_detail","vrai" ));
             finish();
         }else{
             startActivity ( new Intent ( getApplicationContext (),ChatMessageActivity.class ).setFlags ( Intent.FLAG_ACTIVITY_CLEAR_TOP ).putExtra ( "viens", "acceuil" ).putExtra ( "ouvert","ouvert" ).putExtra ( "viens_de_detail","faux" ) );

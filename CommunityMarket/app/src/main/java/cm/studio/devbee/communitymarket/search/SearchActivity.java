@@ -78,7 +78,6 @@ public class SearchActivity extends AppCompatActivity {
         listUsers = new ArrayList<>();
         toolbarSearch=findViewById(R.id.toolbarSearch);
         setSupportActionBar(toolbarSearch);
-        search_recyclerview.setAdapter (  searchAdapter);
         search_recyclerview.setLayoutManager ( new LinearLayoutManager ( getApplicationContext (),LinearLayoutManager.VERTICAL,false ) );
         db = FirebaseFirestore.getInstance();
         getSupportActionBar ().setDisplayHomeAsUpEnabled ( true );
@@ -125,15 +124,15 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void search(final String s) {
-        db.collection ( "mes donnees utilisateur" ).whereEqualTo( "search",s).get()
+        db.collection ( "publication" ).document ("categories").collection ("nouveaux" ).whereEqualTo( "decription_du_produit",s).get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         listUsers.clear ();
                         for (DocumentSnapshot doc :task.getResult()) {
                             listUsers.clear ();
-                            UserModel searchModel = new UserModel(doc.getString("user_profil_image"),doc.getString("user_prenom"),doc.getString("id_utilisateur"),doc.getString("status"),doc.getString("search"),doc.getString("user_name"));
-                            if (!current_user.equals ( searchModel.getId_utilisateur () )) {
+                            UserModel searchModel = new UserModel(doc.getString("nom_du_produit"),doc.getString("image_du_produit"),doc.getString("prix_du_produit"),doc.getString("user_profil_image"),doc.getString("utilisateur"),doc.getString("categories"),doc.getString("decription_du_produit"),doc.getString("dete_de_publication"),doc.getString("user_image"));
+                            if (!current_user.equals ( searchModel.getUtilisateur() )) {
                                 listUsers.add ( searchModel );
                             }
                         }

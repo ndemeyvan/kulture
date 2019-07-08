@@ -3,27 +3,53 @@ package cm.studio.devbee.communitymarket.utilsForUserApp;
 import cm.studio.devbee.communitymarket.utilsForNouveautes.PostId;
 
 public class UserModel extends PostId{
-
-
+    private String nom_du_produit;
+    private  String image_du_produit;
+    private String prix_du_produit;
     private String user_profil_image;
-    private String user_prenom;
-    private String id_utilisateur;
-    private String user_name;
-    private String status;
-    private String search;
-
-
+    private String utilisateur;
+    private String categories;
+    private String decription_du_produit;
+    private String dete_de_publication;
+    private String user_image;
     public UserModel(){
 
     }
 
-    public UserModel(String user_profil_image, String user_prenom, String id_utilisateur, String user_name, String status, String search) {
+    public UserModel(String nom_du_produit, String image_du_produit, String prix_du_produit, String user_profil_image, String utilisateur, String categories, String decription_du_produit, String date_de_publication, String user_image) {
+        this.nom_du_produit = nom_du_produit;
+        this.image_du_produit = image_du_produit;
+        this.prix_du_produit = prix_du_produit;
         this.user_profil_image = user_profil_image;
-        this.user_prenom = user_prenom;
-        this.id_utilisateur = id_utilisateur;
-        this.user_name = user_name;
-        this.status = status;
-        this.search = search;
+        this.utilisateur = utilisateur;
+        this.categories = categories;
+        this.decription_du_produit = decription_du_produit;
+        this.dete_de_publication = date_de_publication;
+        this.user_image = user_image;
+    }
+
+    public String getNom_du_produit() {
+        return nom_du_produit;
+    }
+
+    public void setNom_du_produit(String nom_du_produit) {
+        this.nom_du_produit = nom_du_produit;
+    }
+
+    public String getImage_du_produit() {
+        return image_du_produit;
+    }
+
+    public void setImage_du_produit(String image_du_produit) {
+        this.image_du_produit = image_du_produit;
+    }
+
+    public String getPrix_du_produit() {
+        return prix_du_produit;
+    }
+
+    public void setPrix_du_produit(String prix_du_produit) {
+        this.prix_du_produit = prix_du_produit;
     }
 
     public String getUser_profil_image() {
@@ -34,43 +60,44 @@ public class UserModel extends PostId{
         this.user_profil_image = user_profil_image;
     }
 
-    public String getUser_prenom() {
-        return user_prenom;
+    public String getUtilisateur() {
+        return utilisateur;
     }
 
-    public void setUser_prenom(String user_prenom) {
-        this.user_prenom = user_prenom;
+    public void setUtilisateur(String utilisateur) {
+        this.utilisateur = utilisateur;
     }
 
-    public String getId_utilisateur() {
-        return id_utilisateur;
+    public String getCategories() {
+        return categories;
     }
 
-    public void setId_utilisateur(String id_utilisateur) {
-        this.id_utilisateur = id_utilisateur;
+    public void setCategories(String categories) {
+        this.categories = categories;
     }
 
-    public String getUser_name() {
-        return user_name;
+    public String getDecription_du_produit() {
+        return decription_du_produit;
     }
 
-    public void setUser_name(String user_name) {
-        this.user_name = user_name;
+    public void setDecription_du_produit(String decription_du_produit) {
+        this.decription_du_produit = decription_du_produit;
     }
 
-    public String getStatus() {
-        return status;
+    public String getDate_de_publication() {
+        return dete_de_publication;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setDate_de_publication(String date_de_publication) {
+        this.dete_de_publication = date_de_publication;
     }
 
-    public String getSearch() {
-        return search;
+    public String getUser_image() {
+        return user_image;
     }
 
-    public void setSearch(String search) {
-        this.search = search;
+    public void setUser_image(String user_image) {
+        this.user_image = user_image;
     }
+
 }

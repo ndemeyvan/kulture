@@ -173,7 +173,7 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.ViewHo
         }
         public void profil_post(String profil){
             Picasso.with(context).load(profil).transform(new CircleTransform()).into (post_image_profil );
-            principal_progress.setVisibility ( View.VISIBLE  );
+            principal_progress.setVisibility ( View.INVISIBLE  );
             text_prix.setVisibility ( View.VISIBLE );
             image_comment.setVisibility (  View.VISIBLE  );
             comment_number.setVisibility (  View.VISIBLE  );

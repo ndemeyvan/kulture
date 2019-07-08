@@ -67,4 +67,5 @@ public class ModelChat {
     public void setItseen(boolean itseen) {
         this.itseen = itseen;
     }
+
 }

@@ -67,8 +67,6 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
         ModelChat modelChat=modelChatList.get ( i );
         viewHolder.message.setText ( modelChat.getMessage () );
-        UserModel userModel=new UserModel (  );
-        modelChat.setStatus ( userModel.getStatus () );
         String status=modelChatList.get ( i ).getStatus ();
         //viewHolder.right_constraint.setAnimation ( AnimationUtils.loadAnimation ( context,R.anim.fade_scale_animation ) );
         viewHolder.left_container.setAnimation ( AnimationUtils.loadAnimation ( context,R.anim.fade_scale_animation ) );
