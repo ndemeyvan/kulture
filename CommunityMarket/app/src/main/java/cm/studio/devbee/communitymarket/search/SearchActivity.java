@@ -8,6 +8,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -32,6 +34,7 @@ public class SearchActivity extends AppCompatActivity {
     private UserAdapter searchAdapter;
     private ImageView search_button;
     private Toolbar toolbar_search;
+    private ProgressBar search_progress;
 
 
     @Override
@@ -48,6 +51,8 @@ public class SearchActivity extends AppCompatActivity {
         current_user=firebaseAuth.getCurrentUser ().getUid ();
         search_button=findViewById(R.id.search_button);
         toolbar_search=findViewById(R.id.toolbar_search);
+        search_progress=findViewById(R.id.search_progress);
+        search_progress.setVisibility(View.INVISIBLE);
         setSupportActionBar(toolbar_search);
         getSupportActionBar().setTitle("search");
         getSupportActionBar ().setDisplayHomeAsUpEnabled ( true );
@@ -61,6 +66,7 @@ public class SearchActivity extends AppCompatActivity {
         search_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                search_progress.setVisibility(View.VISIBLE);
                 search(search_edit_text.getText().toString().toLowerCase());
             }
         });
@@ -83,6 +89,7 @@ public class SearchActivity extends AppCompatActivity {
                             ModelGridView searchModel = new ModelGridView(doc.getString("nom_du_produit"),doc.getString("image_du_produit"),doc.getString("prix_du_produit"),doc.getString("user_profil_image"),doc.getString("utilisateur"),doc.getString("categories"),doc.getString("decription_du_produit"),doc.getString("date_de_publication"),doc.getString("user_image"),doc.getString("like"),doc.getString("post_id"));
                             if (!current_user.equals ( searchModel.getUtilisateur() )) {
                                 listUsers.add ( searchModel );
+                                search_progress.setVisibility(View.INVISIBLE);
                             }
                         }
                         searchAdapter = new UserAdapter ( listUsers, SearchActivity.this ,s);
