@@ -86,6 +86,7 @@ public class SearchActivity extends AppCompatActivity {
                         listUsers.clear ();
                         for (DocumentSnapshot doc :task.getResult()) {
                             listUsers.clear ();
+                            search_progress.setVisibility(View.INVISIBLE);
                             ModelGridView searchModel = new ModelGridView(doc.getString("nom_du_produit"),doc.getString("image_du_produit"),doc.getString("prix_du_produit"),doc.getString("user_profil_image"),doc.getString("utilisateur"),doc.getString("categories"),doc.getString("decription_du_produit"),doc.getString("date_de_publication"),doc.getString("user_image"),doc.getString("like"),doc.getString("post_id"));
                             if (!current_user.equals ( searchModel.getUtilisateur() )) {
                                 listUsers.add ( searchModel );
