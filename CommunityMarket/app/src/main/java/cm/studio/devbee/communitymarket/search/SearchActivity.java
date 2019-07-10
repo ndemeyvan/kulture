@@ -55,16 +55,14 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SearchActivity extends AppCompatActivity {
     private EditText search_edit_text;
-    private Button search_buton;
     private RecyclerView search_recyclerview;
-    private Context context;
     private FirebaseFirestore db;
     private static FirebaseAuth firebaseAuth;
     private static String current_user;
     Toolbar toolbarSearch;
-    private LinearLayoutManager linearLayoutManager;
     private List<UserModel> listUsers;
     private UserAdapter searchAdapter;
+    private ImageView search_button;
 
 
     @Override
@@ -72,7 +70,6 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate ( savedInstanceState );
         setContentView ( R.layout.activity_search );
         search_edit_text=findViewById ( R.id.search_edit_text );
-        final String find=search_edit_text.getText ().toString ();
         search_recyclerview=findViewById ( R.id.search_recyclerview );
         listUsers = new ArrayList<>();
         toolbarSearch=findViewById(R.id.toolbarSearch);
@@ -82,39 +79,25 @@ public class SearchActivity extends AppCompatActivity {
         getSupportActionBar ().setDisplayHomeAsUpEnabled ( true );
         firebaseAuth=FirebaseAuth.getInstance ();
         current_user=firebaseAuth.getCurrentUser ().getUid ();
+        search_button=findViewById(R.id.search_button);
         getSupportActionBar ().setTitle ( "rechercher" );
         toolbarSearch.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //startActivity ( new Intent( getApplicationContext (),Accueil.class ).setFlags ( Intent.FLAG_ACTIVITY_CLEAR_TOP ) );
                 finish ();
             }
         });
-        search_edit_text.addTextChangedListener ( new TextWatcher () {
+        search_button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+            public void onClick(View v) {
+                search(search_edit_text.getText().toString().toLowerCase());
             }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                search(s.toString().toLowerCase ());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        } );
-
-
-
+        });
     }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed ();
-        /*Intent gotoHome =new Intent ( getApplicationContext(),Accueil.class );
-        startActivity ( gotoHome );*/
         finish ();
     }
 

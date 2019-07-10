@@ -100,6 +100,8 @@ public class PullFragment extends Fragment {
         pullFragmentWeakReference=new WeakReference<>(this);
         asyncTask=new AsyncTask();
         asyncTask.execute();
+        viewFlippertwo.setOutAnimation(getActivity(),android.R.anim.slide_out_right);
+        viewFlippertwo.setInAnimation(getActivity(),android.R.anim.slide_in_left);
         ConstraintLayout constraintLayout=v.findViewById(R.id.layout);
         AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
         animationDrawable.setEnterFadeDuration(2000);
@@ -160,8 +162,7 @@ public class PullFragment extends Fragment {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()){
-                    viewFlippertwo.setOutAnimation(getActivity(),android.R.anim.slide_out_right);
-                    viewFlippertwo.setInAnimation(getActivity(),android.R.anim.slide_in_left);
+
                     //image_one
                     firebaseFirestore.collection("slider_pull").document("imageOne").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
                         @Override

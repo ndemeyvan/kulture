@@ -599,10 +599,10 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
                  .setQuery(firstQuery, PrincipalModel.class)
                  .build();
          adapter  = new PrincipalAdapte(options,getActivity());
-     principalRecyclerView = v.findViewById(R.id.principal_recyclerView);
-     principalRecyclerView.setHasFixedSize(true);
-     principalRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
-     principalRecyclerView.setAdapter(adapter);
+         principalRecyclerView = v.findViewById(R.id.principal_recyclerView);
+         principalRecyclerView.setHasFixedSize(true);
+         principalRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
+         principalRecyclerView.setAdapter(adapter);
     }
 
     @Override
