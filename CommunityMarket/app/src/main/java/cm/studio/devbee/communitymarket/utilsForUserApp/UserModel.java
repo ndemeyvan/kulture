@@ -1,8 +1,5 @@
 package cm.studio.devbee.communitymarket.utilsForUserApp;
-
-import cm.studio.devbee.communitymarket.utilsForNouveautes.PostId;
-
-public class UserModel extends PostId{
+public class UserModel {
     private String decription_du_produit;
     private String date_de_publication;
     private String nom_du_produit;
@@ -17,7 +14,6 @@ public class UserModel extends PostId{
     public UserModel(){
 
     }
-
 
     public UserModel(String decription_du_produit, String date_de_publication, String nom_du_produit, String prix_du_produit, String image_du_produit, String user_image, String like, String utilisateur, String categories, String post_id) {
         this.decription_du_produit = decription_du_produit;

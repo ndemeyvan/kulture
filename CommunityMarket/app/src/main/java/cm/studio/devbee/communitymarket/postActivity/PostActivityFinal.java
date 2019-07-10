@@ -118,7 +118,7 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
                 finish ();
             }
         });
-
+        prendreDonnerDevente ();
         //mcrosoft site key : 05222f7bfd274f8bb1f6ac44a6a1d493
         visionServiceClient = new VisionServiceRestClient ("05222f7bfd274f8bb1f6ac44a6a1d493",apilink);
         imageProduit=findViewById ( R.id.imageProduit );
@@ -189,7 +189,7 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
 
             }else{
                 showPopup();
-                prendreDonnerDevente ();
+
                 loadRewardedVideo();
                 if (mad.isLoaded()) {
                     Toast.makeText ( getApplicationContext(),"Regarder cette publicter pendant le traitement de votre vente , vous pouvez la fermer si vous voulez",Toast.LENGTH_LONG ).show ();

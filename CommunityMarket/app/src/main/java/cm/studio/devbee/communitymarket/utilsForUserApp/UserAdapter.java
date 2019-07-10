@@ -1,15 +1,12 @@
 package cm.studio.devbee.communitymarket.utilsForUserApp;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -20,32 +17,17 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 import java.util.List;
-
-import javax.annotation.Nullable;
-
 import cm.studio.devbee.communitymarket.R;
-import cm.studio.devbee.communitymarket.gridView_post.GridViewAdapter;
 import cm.studio.devbee.communitymarket.gridView_post.ModelGridView;
 import cm.studio.devbee.communitymarket.postActivity.DetailActivityTwo;
-import cm.studio.devbee.communitymarket.postActivity.SellActivityUser;
-import cm.studio.devbee.communitymarket.profile.ProfileActivity;
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
-    List<UserModel> modelGridViewList;
+    List<ModelGridView>modelGridViewList;
     Context context;
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
@@ -53,7 +35,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
 
 
-    public UserAdapter(List<UserModel> modelGridViewList, Context context,String s) {
+    public UserAdapter(List<ModelGridView> modelGridViewList, Context context,String s) {
         this.modelGridViewList = modelGridViewList;
         this.context = context;
         this.s=s;
@@ -78,11 +60,17 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         final String nom_utilisateur=modelGridViewList.get(i).getUtilisateur();
         final String idDuPost=modelGridViewList.get ( i ).getPost_id();
         final String categorie=modelGridViewList.get(i).getCategories();
+        //viewHolder.setCatrogies_name(categorie);
         viewHolder.prix_produit(prix_produit);
         viewHolder.image_produit(produit_image);
+        //viewHolder.nom_produit(nom);
         viewHolder.post_user_description.setText ( desc );
         viewHolder.post_userTemps.setText ( tempsdepub );
-       firebaseFirestore.collection ( "publication" ).document ("categories").collection ( categorie ).document (idDuPost).collection ( "commentaires" ).addSnapshotListener ( (Activity) context,new EventListener<QuerySnapshot> () {
+        Log.i("id",idDuPost);
+        Log.i("cat",categorie);
+        Log.i("id_user",nom_utilisateur);
+        // viewHolder.setUser(nom_utilisateur);
+        /*firebaseFirestore.collection ( "publication" ).document ("categories").collection ( categorie ).document (idDuPost).collection ( "commentaires" ).addSnapshotListener ( (Activity) context,new EventListener<QuerySnapshot> () {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                 if (!queryDocumentSnapshots.isEmpty ()){
@@ -93,7 +81,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
                     viewHolder.comment_number.setText ( "0" );
                 }
             }
-        } );
+        } );*/
         viewHolder.profil_container.setAnimation ( AnimationUtils.loadAnimation ( context,R.anim.fade_transition_animation ) );
         viewHolder.profil_container.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,8 +94,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
             }
         });
-
-       firebaseFirestore.collection("mes donnees utilisateur").document(nom_utilisateur).get().addOnCompleteListener((Activity) context,new OnCompleteListener<DocumentSnapshot>() {
+        /*firebaseFirestore.collection("mes donnees utilisateur").document(nom_utilisateur).get().addOnCompleteListener((Activity) context,new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()){
@@ -126,7 +113,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
                     Toast.makeText(context,error,Toast.LENGTH_LONG).show();
                 }
             }
-        });
+        });*/
     }
 
     @Override
@@ -137,7 +124,9 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder{
         ImageView produit;
         ImageView post_image_profil;
+        //TextView post_titre_produit_description;
         TextView prix_post;
+        // TextView catrogies_name;
         TextView nom_user;
         CardView profil_container;
         TextView post_user_description;
@@ -167,6 +156,9 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         public void image_produit(String image){
             Picasso.with(context).load(image).into (produit );
         }
+        /*public void nom_produit(String nom){
+             post_titre_produit_description.setText(nom);
+         }*/
         public void prix_produit(String prix){
             prix_post.setText(prix);
         }

@@ -44,6 +44,7 @@ import java.util.List;
 
 import cm.studio.devbee.communitymarket.Accueil;
 import cm.studio.devbee.communitymarket.R;
+import cm.studio.devbee.communitymarket.gridView_post.ModelGridView;
 import cm.studio.devbee.communitymarket.postActivity.DetailActivity;
 import cm.studio.devbee.communitymarket.utilsForNouveautes.CategoriesModelNouveaux;
 import cm.studio.devbee.communitymarket.utilsForPostPrincipal.PrincipalModel;
@@ -60,7 +61,7 @@ public class SearchActivity extends AppCompatActivity {
     private static FirebaseAuth firebaseAuth;
     private static String current_user;
     Toolbar toolbarSearch;
-    private List<UserModel> listUsers;
+    private List<ModelGridView> listUsers;
     private UserAdapter searchAdapter;
     private ImageView search_button;
 
@@ -72,21 +73,12 @@ public class SearchActivity extends AppCompatActivity {
         search_edit_text=findViewById ( R.id.search_edit_text );
         search_recyclerview=findViewById ( R.id.search_recyclerview );
         listUsers = new ArrayList<>();
-        toolbarSearch=findViewById(R.id.toolbarSearch);
         setSupportActionBar(toolbarSearch);
         search_recyclerview.setLayoutManager ( new LinearLayoutManager ( getApplicationContext (),LinearLayoutManager.VERTICAL,false ) );
         db = FirebaseFirestore.getInstance();
-        getSupportActionBar ().setDisplayHomeAsUpEnabled ( true );
         firebaseAuth=FirebaseAuth.getInstance ();
         current_user=firebaseAuth.getCurrentUser ().getUid ();
         search_button=findViewById(R.id.search_button);
-        getSupportActionBar ().setTitle ( "rechercher" );
-        toolbarSearch.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish ();
-            }
-        });
         search_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,7 +101,7 @@ public class SearchActivity extends AppCompatActivity {
                         listUsers.clear ();
                         for (DocumentSnapshot doc :task.getResult()) {
                             listUsers.clear ();
-                            UserModel searchModel = new UserModel(doc.getString("nom_du_produit"),doc.getString("image_du_produit"),doc.getString("prix_du_produit"),doc.getString("user_profil_image"),doc.getString("utilisateur"),doc.getString("categories"),doc.getString("decription_du_produit"),doc.getString("dete_de_publication"),doc.getString("user_image"),doc.getString("post_id"));
+                            ModelGridView searchModel = new ModelGridView(doc.getString("nom_du_produit"),doc.getString("image_du_produit"),doc.getString("prix_du_produit"),doc.getString("user_profil_image"),doc.getString("utilisateur"),doc.getString("categories"),doc.getString("decription_du_produit"),doc.getString("date_de_publication"),doc.getString("user_image"),doc.getString("like"),doc.getString("post_id"));
                             if (!current_user.equals ( searchModel.getUtilisateur() )) {
                                 listUsers.add ( searchModel );
                             }

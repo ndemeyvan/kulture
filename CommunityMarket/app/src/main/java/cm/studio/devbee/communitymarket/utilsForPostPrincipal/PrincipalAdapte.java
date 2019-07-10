@@ -81,6 +81,8 @@ public class PrincipalAdapte extends FirestoreRecyclerAdapter<PrincipalModel,Pri
         viewHolder.setNom ( desc );
         viewHolder.setPrix(nvxPrix);
         viewHolder.temps ( tempsdepub );
+        Log.i("id",postId);
+        Log.i("id",postId);
         viewHolder . card_principal . setAnimation ( AnimationUtils. loadAnimation (context, R . anim . fade_transition_animation));
         viewHolder.card_principal.setOnClickListener(new View.OnClickListener() {
             @Override
