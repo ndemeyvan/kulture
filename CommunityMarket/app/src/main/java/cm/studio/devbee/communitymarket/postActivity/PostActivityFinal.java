@@ -43,10 +43,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.Unirest;
-import com.mashape.unirest.http.async.Callback;
-import com.mashape.unirest.http.exceptions.UnirestException;
 import com.microsoft.projectoxford.vision.VisionServiceClient;
 import com.microsoft.projectoxford.vision.VisionServiceRestClient;
 import com.theartofdev.edmodo.cropper.CropImage;
@@ -54,9 +50,11 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 import java.io.File;
 import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import cm.studio.devbee.communitymarket.Accueil;
@@ -67,6 +65,9 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.microsoft.projectoxford.vision.contract.AnalysisResult;
 import com.microsoft.projectoxford.vision.contract.Caption;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -383,23 +384,19 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
                                         user_post.put ( "utilisateur",current_user_id );
                                         user_post.put ( "image_du_produit",downloadUri.toString() );
                                         user_post.put ( "dete-en-seconde",date_avec_seconde );
+                                        user_post.put("search",decription_du_produit);
                                         user_post.put("categories",categoryName);
-                                        firebaseFirestore.collection ( "publication" ).document ("categories").collection ( categoryName ).add(user_post).addOnSuccessListener(PostActivityFinal.this,new OnSuccessListener<DocumentReference>() {
+                                        DocumentReference post_reference =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( categoryName ).document();
+                                        final String post_id = post_reference.getId();
+                                        user_post.put("post_id",post_id);
+                                        post_reference.set(user_post).addOnSuccessListener(PostActivityFinal.this,new OnSuccessListener<Void>() {
                                             @Override
-                                            public void onSuccess(DocumentReference documentReference) {
-                                                id_document =documentReference.getId();
+                                            public void onSuccess(Void documentReference) {
+                                               firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "nouveaux" ).document(post_id).set(user_post).addOnSuccessListener(PostActivityFinal.this,null);
 
-                                                firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "nouveaux" ).document(id_document).set(user_post).addOnSuccessListener(PostActivityFinal.this,new OnSuccessListener<Void>() {
+                                                firebaseFirestore.collection ( "publication" ).document ("post utilisateur").collection ( current_user_id ).document(post_id).set(user_post).addOnSuccessListener(PostActivityFinal.this,new OnSuccessListener<Void>() {
                                                     @Override
                                                     public void onSuccess(Void aVoid) {
-
-                                                    }
-                                                });
-
-                                                firebaseFirestore.collection ( "publication" ).document ("post utilisateur").collection ( current_user_id ).document(id_document).set(user_post).addOnSuccessListener(PostActivityFinal.this,new OnSuccessListener<Void>() {
-                                                    @Override
-                                                    public void onSuccess(Void aVoid) {
-
                                                         Intent gotoRecherche=new Intent(getApplicationContext(),Accueil.class);
                                                         startActivity(gotoRecherche);
                                                         finish();

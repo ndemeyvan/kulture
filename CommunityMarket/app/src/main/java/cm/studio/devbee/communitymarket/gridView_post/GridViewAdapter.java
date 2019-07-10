@@ -69,7 +69,7 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.ViewHo
         String prix_produit=modelGridViewList.get(i).getPrix_du_produit();
         String tempsdepub=modelGridViewList.get ( i ).getDate_de_publication ();
         final String nom_utilisateur=modelGridViewList.get(i).getUtilisateur();
-        final String idDuPost=modelGridViewList.get ( i ).PostId;
+        final String idDuPost=modelGridViewList.get ( i ).getPost_id();
         final String categorie=modelGridViewList.get(i).getCategories();
         //viewHolder.setCatrogies_name(categorie);
         viewHolder.prix_produit(prix_produit);
@@ -146,10 +146,8 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.ViewHo
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             produit=itemView.findViewById(R.id.post_image_vendeur );
-            //post_titre_produit_description=itemView.findViewById(R.id.post_titre_produit_description);
             prix_post=itemView.findViewById(R.id.prix_postl_vendeur );
             post_image_profil=itemView.findViewById ( R.id.profil_vendeur );
-            // catrogies_name=itemView.findViewById(R.id.catrogies_name_vendeur );
             nom_user=itemView.findViewById(R.id.nom_user);
             profil_container=itemView.findViewById ( R.id.profil_container );
             post_user_description=itemView.findViewById ( R.id.post_user_description );

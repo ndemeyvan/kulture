@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -40,17 +43,16 @@ import javax.annotation.Nullable;
 import cm.studio.devbee.communitymarket.R;
 import cm.studio.devbee.communitymarket.postActivity.DetailActivity;
 
-public class PrincipalAdapte extends RecyclerView.Adapter<PrincipalAdapte.ViewHolder> {
-    List<PrincipalModel> principalList;
+public class PrincipalAdapte extends FirestoreRecyclerAdapter<PrincipalModel,PrincipalAdapte.ViewHolder> {
     Context context;
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
 
-
-    public PrincipalAdapte(List<PrincipalModel> principalList, Context context) {
-        this.principalList = principalList;
-        this.context = context;
+    public PrincipalAdapte(@NonNull FirestoreRecyclerOptions<PrincipalModel> options,Context context) {
+        super(options);
+        this.context=context;
     }
+
 
     @NonNull
     @Override
@@ -63,36 +65,36 @@ public class PrincipalAdapte extends RecyclerView.Adapter<PrincipalAdapte.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull  final ViewHolder viewHolder, int i) {
-        viewHolder.setIsRecyclable ( false );
-        String desc =principalList.get ( i).getDecription_du_produit();
-        String nvxPrix=principalList.get(i).getPrix_du_produit();
-        String imageproduit=principalList.get ( i ).getImage_du_produit ();
-        final String nom_id=principalList.get ( i ).getUtilisateur ();
-        String tempsdepub=principalList.get ( i ).getDate_de_publication ();
-        String produinom=principalList.get ( i ).getNom_du_produit ();
-        final String postId=principalList.get ( i ).PostId;
+    protected void onBindViewHolder(@NonNull final ViewHolder viewHolder, int position, @NonNull PrincipalModel model) {
+        String desc =model.getDecription_du_produit();
+        String nvxPrix=model.getPrix_du_produit();
+        String imageproduit=model.getImage_du_produit ();
+        final String nom_id=model.getUtilisateur ();
+        Log.i("nom",model.getUtilisateur ());
+        String tempsdepub=model.getDate_de_publication ();
+        String produinom=model.getNom_du_produit ();
+        final String postId=model.getPost_id();
         final String current_user=firebaseAuth.getCurrentUser ().getUid ();
-        final String idDuPost=principalList.get ( i ).PostId;
-        final String categorie =principalList.get(i).getCategories();
+        final String idDuPost=model.getPost_id();
+        final String categorie =model.getCategories();
         viewHolder.imageproduitxi ( imageproduit );
         viewHolder.setNom ( desc );
         viewHolder.setPrix(nvxPrix);
         viewHolder.temps ( tempsdepub );
         viewHolder . card_principal . setAnimation ( AnimationUtils. loadAnimation (context, R . anim . fade_transition_animation));
         viewHolder.card_principal.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent gotoDetail =new Intent(context,DetailActivity.class);
-                    gotoDetail.putExtra("id du post",idDuPost);
-                    gotoDetail.putExtra("id de l'utilisateur",nom_id);
-                    gotoDetail.putExtra("id_categories",categorie);
-                    context.startActivity(gotoDetail);
-                    //((Activity)context).finish();
+            @Override
+            public void onClick(View v) {
+                Intent gotoDetail =new Intent(context,DetailActivity.class);
+                gotoDetail.putExtra("id du post",postId);
+                gotoDetail.putExtra("id de l'utilisateur",nom_id);
+                gotoDetail.putExtra("id_categories",categorie);
+                context.startActivity(gotoDetail);
+                //((Activity)context).finish();
 
-                }
-            });
-        firebaseFirestore.collection ( "publication" ).document ("categories").collection ( categorie ).document (idDuPost).collection ( "commentaires" ).addSnapshotListener ( (Activity) context,new EventListener<QuerySnapshot> () {
+            }
+        });
+       firebaseFirestore.collection ( "publication" ).document ("categories").collection ( categorie ).document (postId).collection ( "commentaires" ).addSnapshotListener ( (Activity) context,new EventListener<QuerySnapshot> () {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                 if (!queryDocumentSnapshots.isEmpty ()){
@@ -121,10 +123,7 @@ public class PrincipalAdapte extends RecyclerView.Adapter<PrincipalAdapte.ViewHo
         });
     }
 
-    @Override
-    public int getItemCount() {
-        return principalList.size ();
-    }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         TextView description;
@@ -176,6 +175,7 @@ public class PrincipalAdapte extends RecyclerView.Adapter<PrincipalAdapte.ViewHo
             likeCount.setText(lelike+"");
         }
         public void imageproduitxi(String image){
+
             Picasso.with(context).load(image).into (imageDuproduit );
         }
         public void setuserData(String name,String image){

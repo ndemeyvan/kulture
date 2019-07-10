@@ -23,6 +23,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
+
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.github.xizzhu.simpletooltip.ToolTip;
 import com.github.xizzhu.simpletooltip.ToolTipView;
 import com.google.android.gms.ads.AdListener;
@@ -38,6 +40,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -97,7 +100,7 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
     private static View v;
     private  static WeakReference<HomeFragment> homeFragmentWeakReference;
     private static List<PrincipalModel> principalModelList;
-    private static PrincipalAdapte principalAdapte;
+    private static PrincipalAdapte adapter;
     private RecyclerView principalRecyclerView;
     private static  String current_user;
     private static AlertDialog.Builder alertDialogBuilder;
@@ -116,6 +119,8 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
     TextView pubImageTextThree;
     TextView pubImageTextFour;
     boolean isfirstload =true;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    CollectionReference notebookRef = db.collection("publication").document("categories").collection("nouveaux");
     private String viens_detail;
 
     public HomeFragment() {
@@ -132,16 +137,11 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
         pubImageTextFour=v.findViewById ( R.id.pubImageTextFour );
         pubImage=v.findViewById ( R.id.pubImage );
         ////////nvx
-        principalRecyclerView=v.findViewById(R.id.principal_recyclerView);
-        principalModelList=new ArrayList<>();
         viewFlippertwo=v.findViewById ( R.id.viewFlippertwo);
         pubImageTwo=v.findViewById ( R.id.pubImageTwo );
         pubImageThree=v.findViewById ( R.id.pubImageThree);
         pubImageFour=v.findViewById ( R.id.pubImageFour );
         //
-        principalAdapte=new PrincipalAdapte(principalModelList,getActivity());
-        principalRecyclerView.setAdapter(principalAdapte);
-        principalRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
         //////nvx
         ///chaussure
         categoriesAdapteChaussureList=new ArrayList<>(  );
@@ -238,7 +238,7 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
         mInterstitialAd.setAdListener(new AdListener() {
             @Override
             public void onAdLoaded() {
-                Toast.makeText(getApplicationContext(),  "appuyer sur la banniere publictaire pour encourager l'application" ,Toast.LENGTH_LONG).show();
+              //  Toast.makeText(getApplicationContext(),  "appuyer sur la banniere publictaire pour encourager l'application" ,Toast.LENGTH_LONG).show();
 
             }
 
@@ -249,7 +249,7 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
 
             @Override
             public void onAdOpened() {
-                Toast.makeText(getApplicationContext(),"merci pour votre soutient",Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(),"merci pour votre soutient",Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -271,9 +271,7 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
         mad=MobileAds.getRewardedVideoAdInstance(getActivity());
         mad.setRewardedVideoAdListener(this);
         loadRewardedVideo();
-
-
-
+        nouveautes();
         return v;
     }
     public void loadRewardedVideo(){
@@ -435,7 +433,7 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
             @Override
             public void onFailure(@NonNull Exception e) {
 
-                Toast.makeText(getActivity(),getString(R.string.erreur_slider),Toast.LENGTH_LONG).show();
+               // Toast.makeText(getActivity(),getString(R.string.erreur_slider),Toast.LENGTH_LONG).show();
             }
         });
 
@@ -590,43 +588,35 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
             @Override
             public void onFailure(@NonNull Exception e) {
 
-                Toast.makeText(getActivity(),getString(R.string.erreur_slider),Toast.LENGTH_LONG).show();
+                //Toast.makeText(getActivity(),getString(R.string.erreur_slider),Toast.LENGTH_LONG).show();
             }
         });
     }
 
  public void nouveautes(){
-        Query firstQuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "nouveaux" ).orderBy ( "prix_du_produit",Query.Direction.ASCENDING );
-               // .limit(3);
-        firstQuery.addSnapshotListener(getActivity(),new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                for (DocumentChange doc:queryDocumentSnapshots.getDocumentChanges()){
+         Query firstQuery =notebookRef.orderBy ( "prix_du_produit",Query.Direction.ASCENDING );
+         FirestoreRecyclerOptions<PrincipalModel> options = new FirestoreRecyclerOptions.Builder<PrincipalModel>()
+                 .setQuery(firstQuery, PrincipalModel.class)
+                 .build();
+         adapter  = new PrincipalAdapte(options,getActivity());
+     principalRecyclerView = v.findViewById(R.id.principal_recyclerView);
+     principalRecyclerView.setHasFixedSize(true);
+     principalRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
+     principalRecyclerView.setAdapter(adapter);
+    }
 
-                    if (doc.getType()==DocumentChange.Type.ADDED){
-                        String idupost=doc.getDocument ().getId ();
-                        PrincipalModel principalAdaptemodel =doc.getDocument().toObject(PrincipalModel.class).withId ( idupost );
-                        if (isfirstload){
-                            principalModelList.add(principalAdaptemodel);
-
-                        }else{
-                            principalModelList.add(0,principalAdaptemodel);
-
-                        }
-                        principalAdapte.notifyDataSetChanged();
-                    }
-                }
-                isfirstload=false;
-            }
-        });
+    @Override
+    public void onStart() {
+        super.onStart();
+        adapter.startListening();
     }
 
 
 
-   public void chaussuresRecycler(){
+    public void chaussuresRecycler(){
        int i ;
        Random ran = new Random();
-       i= ran.nextInt(11);;
+       i= ran.nextInt(11);
        String [] liste = {"Chaussures","jupes","accessoires","Cullotes","Pantalons","T-shirts","Chemises","robe","pull","lingeries","location"};
        a_charger = liste[i];
        String text = liste[i];
@@ -740,7 +730,6 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
         @Override
         protected Void doInBackground(Void... voids) {
             uptdate();
-            nouveautes();
             chaussuresRecycler ();
             imagePub();
             imagePub();

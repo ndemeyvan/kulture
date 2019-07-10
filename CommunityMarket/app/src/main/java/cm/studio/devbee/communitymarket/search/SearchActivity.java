@@ -72,7 +72,6 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate ( savedInstanceState );
         setContentView ( R.layout.activity_search );
         search_edit_text=findViewById ( R.id.search_edit_text );
-        search_buton=findViewById ( R.id.search_button );
         final String find=search_edit_text.getText ().toString ();
         search_recyclerview=findViewById ( R.id.search_recyclerview );
         listUsers = new ArrayList<>();
@@ -107,11 +106,7 @@ public class SearchActivity extends AppCompatActivity {
 
             }
         } );
-        ConstraintLayout constraintLayout=findViewById(R.id.layout);
-        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
-        animationDrawable.setEnterFadeDuration(2000);
-        animationDrawable.setExitFadeDuration(4000);
-        animationDrawable.start();
+
 
 
     }
@@ -124,14 +119,14 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void search(final String s) {
-        db.collection ( "publication" ).document ("categories").collection ("nouveaux" ).whereEqualTo( "decription_du_produit",s).get()
+        db.collection ( "publication" ).document ("categories").collection ("nouveaux" ).orderBy( "decription_du_produit").startAt(s).endAt(s+"\uf8ff").get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         listUsers.clear ();
                         for (DocumentSnapshot doc :task.getResult()) {
                             listUsers.clear ();
-                            UserModel searchModel = new UserModel(doc.getString("nom_du_produit"),doc.getString("image_du_produit"),doc.getString("prix_du_produit"),doc.getString("user_profil_image"),doc.getString("utilisateur"),doc.getString("categories"),doc.getString("decription_du_produit"),doc.getString("dete_de_publication"),doc.getString("user_image"));
+                            UserModel searchModel = new UserModel(doc.getString("nom_du_produit"),doc.getString("image_du_produit"),doc.getString("prix_du_produit"),doc.getString("user_profil_image"),doc.getString("utilisateur"),doc.getString("categories"),doc.getString("decription_du_produit"),doc.getString("dete_de_publication"),doc.getString("user_image"),doc.getString("post_id"));
                             if (!current_user.equals ( searchModel.getUtilisateur() )) {
                                 listUsers.add ( searchModel );
                             }
@@ -146,7 +141,6 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
-        }
-
     }
 
+}

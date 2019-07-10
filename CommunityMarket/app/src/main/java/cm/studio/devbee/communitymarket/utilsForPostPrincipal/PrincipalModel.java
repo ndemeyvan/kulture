@@ -13,15 +13,13 @@ public class PrincipalModel extends PostId{
     private String like;
     private String utilisateur;
     private String categories;
-
-
-
+    String post_id;
 
     public PrincipalModel(){
 
     }
 
-    public PrincipalModel(String decription_du_produit, String date_de_publication, String nom_du_produit, String prix_du_produit, String image_du_produit, String user_image, String like, String utilisateur, String categories, String categories1) {
+    public PrincipalModel(String decription_du_produit, String date_de_publication, String nom_du_produit, String prix_du_produit, String image_du_produit, String user_image, String like, String utilisateur, String categories, String post_id) {
         this.decription_du_produit = decription_du_produit;
         this.date_de_publication = date_de_publication;
         this.nom_du_produit = nom_du_produit;
@@ -31,7 +29,7 @@ public class PrincipalModel extends PostId{
         this.like = like;
         this.utilisateur = utilisateur;
         this.categories = categories;
-        this.categories = categories1;
+        this.post_id = post_id;
     }
 
     public String getDecription_du_produit() {
@@ -104,5 +102,13 @@ public class PrincipalModel extends PostId{
 
     public void setCategories(String categories) {
         this.categories = categories;
+    }
+
+    public String getPost_id() {
+        return post_id;
+    }
+
+    public void setPost_id(String post_id) {
+        this.post_id = post_id;
     }
 }
