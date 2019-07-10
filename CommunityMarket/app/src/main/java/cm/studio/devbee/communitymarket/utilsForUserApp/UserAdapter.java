@@ -49,7 +49,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     Context context;
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
-    private boolean ischat;
     String s;
 
 
@@ -79,15 +78,11 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         final String nom_utilisateur=modelGridViewList.get(i).getUtilisateur();
         final String idDuPost=modelGridViewList.get ( i ).getPost_id();
         final String categorie=modelGridViewList.get(i).getCategories();
-        //viewHolder.setCatrogies_name(categorie);
         viewHolder.prix_produit(prix_produit);
         viewHolder.image_produit(produit_image);
-        //viewHolder.nom_produit(nom);
         viewHolder.post_user_description.setText ( desc );
         viewHolder.post_userTemps.setText ( tempsdepub );
-        // viewHolder.setUser(nom_utilisateur);
-        Log.i("id",idDuPost);
-      /* firebaseFirestore.collection ( "publication" ).document ("categories").collection ( categorie ).document (idDuPost).collection ( "commentaires" ).addSnapshotListener ( (Activity) context,new EventListener<QuerySnapshot> () {
+       firebaseFirestore.collection ( "publication" ).document ("categories").collection ( categorie ).document (idDuPost).collection ( "commentaires" ).addSnapshotListener ( (Activity) context,new EventListener<QuerySnapshot> () {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                 if (!queryDocumentSnapshots.isEmpty ()){
@@ -98,7 +93,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
                     viewHolder.comment_number.setText ( "0" );
                 }
             }
-        } );*/
+        } );
         viewHolder.profil_container.setAnimation ( AnimationUtils.loadAnimation ( context,R.anim.fade_transition_animation ) );
         viewHolder.profil_container.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,7 +107,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             }
         });
 
-       /* firebaseFirestore.collection("mes donnees utilisateur").document(nom_utilisateur).get().addOnCompleteListener((Activity) context,new OnCompleteListener<DocumentSnapshot>() {
+       firebaseFirestore.collection("mes donnees utilisateur").document(nom_utilisateur).get().addOnCompleteListener((Activity) context,new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()){
@@ -131,7 +126,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
                     Toast.makeText(context,error,Toast.LENGTH_LONG).show();
                 }
             }
-        });*/
+        });
     }
 
     @Override
@@ -142,9 +137,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder{
         ImageView produit;
         ImageView post_image_profil;
-        //TextView post_titre_produit_description;
         TextView prix_post;
-        // TextView catrogies_name;
         TextView nom_user;
         CardView profil_container;
         TextView post_user_description;
@@ -156,10 +149,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         public ViewHolder(@NonNull View itemView) {
             super ( itemView );
             produit=itemView.findViewById(R.id.post_image_vendeur );
-            //post_titre_produit_description=itemView.findViewById(R.id.post_titre_produit_description);
             prix_post=itemView.findViewById(R.id.prix_postl_vendeur );
             post_image_profil=itemView.findViewById ( R.id.profil_vendeur );
-            // catrogies_name=itemView.findViewById(R.id.catrogies_name_vendeur );
             nom_user=itemView.findViewById(R.id.nom_user);
             profil_container=itemView.findViewById ( R.id.profil_container );
             post_user_description=itemView.findViewById ( R.id.post_user_description );
@@ -176,9 +167,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         public void image_produit(String image){
             Picasso.with(context).load(image).into (produit );
         }
-        /*public void nom_produit(String nom){
-             post_titre_produit_description.setText(nom);
-         }*/
         public void prix_produit(String prix){
             prix_post.setText(prix);
         }
@@ -189,12 +177,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             image_comment.setVisibility (  View.VISIBLE  );
             comment_number.setVisibility (  View.VISIBLE  );
         }
-       /* public void setCatrogies_name(String cat){
-            catrogies_name.setText(cat);
-        }*/
-       /* public void setUser(String user){
-            nom_user.setText(user);
-        }*/
 
     }
     public class CircleTransform implements Transformation {
