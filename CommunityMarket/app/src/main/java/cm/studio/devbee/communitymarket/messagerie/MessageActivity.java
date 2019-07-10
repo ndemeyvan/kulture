@@ -1,7 +1,5 @@
 package cm.studio.devbee.communitymarket.messagerie;
-
 import android.content.Intent;
-import android.net.Uri;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -19,7 +17,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -38,25 +35,19 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
-import com.xwray.groupie.GroupAdapter;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import cm.studio.devbee.communitymarket.MyFirebaseInstanceIDService;
 import cm.studio.devbee.communitymarket.MySingleton;
 import cm.studio.devbee.communitymarket.R;
 import cm.studio.devbee.communitymarket.utilForChat.ChatAdapter;
 import cm.studio.devbee.communitymarket.utilForChat.DiplayAllChat;
 import cm.studio.devbee.communitymarket.utilForChat.ModelChat;
-import cm.studio.devbee.communitymarket.utilsForUserApp.UserModel;
 import de.hdodenhof.circleimageview.CircleImageView;
 public class MessageActivity extends AppCompatActivity {
     private static CircleImageView user_message_image;

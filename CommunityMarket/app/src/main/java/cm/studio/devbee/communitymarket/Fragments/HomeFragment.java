@@ -2,18 +2,14 @@ package cm.studio.devbee.communitymarket.Fragments;
 
 
 import android.app.AlertDialog;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,10 +19,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
-
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.github.xizzhu.simpletooltip.ToolTip;
-import com.github.xizzhu.simpletooltip.ToolTipView;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -50,30 +43,17 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
-
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
-
 import javax.annotation.Nullable;
-
-import cm.studio.devbee.communitymarket.Accueil;
 import cm.studio.devbee.communitymarket.PublicityActivity;
 import cm.studio.devbee.communitymarket.R;
-import cm.studio.devbee.communitymarket.postActivity.DetailActivity;
-import cm.studio.devbee.communitymarket.profile.ParametrePorfilActivity;
 import cm.studio.devbee.communitymarket.utilsForNouveautes.CategoriesAdapteNouveaux;
 import cm.studio.devbee.communitymarket.utilsForNouveautes.CategoriesModelNouveaux;
 import cm.studio.devbee.communitymarket.utilsForPostPrincipal.PrincipalAdapte;
 import cm.studio.devbee.communitymarket.utilsForPostPrincipal.PrincipalModel;
-import cm.studio.devbee.communitymarket.utilsForUserApp.UserAdapter;
-import cm.studio.devbee.communitymarket.utilsForUserApp.UserModel;
-import cm.studio.devbee.communitymarket.welcome.CursorActivity;
-import uk.co.deanwild.materialshowcaseview.MaterialShowcaseView;
-
 import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
