@@ -31,6 +31,7 @@
     <style name="ToolbarThemeTwo" parent="ThemeOverlay.AppCompat.Light">
         <item name="android:fontFamily">@font/nunito_bold</item>
         <item name="colorPrimary">@color/blanc</item>
+        <item name="android:colorAccent">@color/blanc</item>
     </style>
     <style name="progress_theme" parent="ThemeOverlay.AppCompat.Light">
         <item name="android:fontFamily">@font/nunito_bold</item>

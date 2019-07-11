@@ -14,7 +14,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="100dp"
         android:layout_marginEnd="8dp"
-        app:cardCornerRadius="5dp"
+        app:cardCornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
@@ -27,7 +27,6 @@
                 android:id="@+id/post_cat_image_two"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginBottom="2dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/chemise"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -75,7 +74,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        app:cardCornerRadius="5dp"
+        app:cardCornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/card_utilisateur">
@@ -88,7 +87,6 @@
                 android:id="@+id/post_cat_image"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginBottom="2dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/accessoires"
                 app:layout_constraintBottom_toBottomOf="parent"

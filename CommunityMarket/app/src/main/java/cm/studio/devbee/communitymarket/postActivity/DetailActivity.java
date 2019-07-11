@@ -10,8 +10,10 @@ import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.FloatingActionButton;
@@ -211,6 +213,15 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
         });
         showcase_supp_button ();
         showcase_vente_button ();
+        AnimationDrawable animationDrawable = (AnimationDrawable) detail_profil_image.getBackground();
+        animationDrawable.setEnterFadeDuration(2000);
+        animationDrawable.setExitFadeDuration(4000);
+        animationDrawable.start();
+
+        AnimationDrawable animationDrawableTwo = (AnimationDrawable) detail_prix_produit.getBackground();
+        animationDrawable.setEnterFadeDuration(2000);
+        animationDrawable.setExitFadeDuration(4000);
+        animationDrawable.start();
 
     }
     public void showcase_supp_button(){

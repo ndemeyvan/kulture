@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -71,7 +72,12 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 search_progress.setVisibility(View.VISIBLE);
-                search(search_edit_text.getText().toString().toLowerCase());
+                if (search_edit_text.getText().toString().toLowerCase().equals ( "" )){
+                    Toast.makeText ( SearchActivity.this,"search empty",Toast.LENGTH_LONG ).show ();
+                    search_progress.setVisibility(View.INVISIBLE);
+                }else{
+                    search(search_edit_text.getText().toString().toLowerCase());
+                }
             }
         });
     }
@@ -90,9 +96,11 @@ public class SearchActivity extends AppCompatActivity {
         searchAdapter  = new UserAdapter (options,SearchActivity.this);
         search_recyclerview = findViewById(R.id.search_recyclerview);
         search_recyclerview.setHasFixedSize(true);
-        search_recyclerview.setLayoutManager(new LinearLayoutManager(SearchActivity.this,LinearLayoutManager.HORIZONTAL,false));
+        search_recyclerview.setLayoutManager(new LinearLayoutManager(SearchActivity.this,LinearLayoutManager.VERTICAL,false));
         search_recyclerview.setAdapter(searchAdapter);
-
+        searchAdapter.startListening ();
+        search_progress.setVisibility(View.INVISIBLE);
     }
+
 
 }

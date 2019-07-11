@@ -1,5 +1,6 @@
 package cm.studio.devbee.communitymarket.utilsForUserApp;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -7,6 +8,7 @@ import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -17,11 +19,18 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 import java.util.List;
@@ -53,7 +62,7 @@ public class UserAdapter extends FirestoreRecyclerAdapter<ModelGridView,UserAdap
 
 
     @Override
-    protected void onBindViewHolder(@NonNull ViewHolder viewHolder, int i, @NonNull ModelGridView model) {
+    protected void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i, @NonNull ModelGridView model) {
         String produit_image =model.getImage_du_produit();
         String nom=model.getNom_du_produit();
         String desc =model.getDecription_du_produit();
@@ -72,7 +81,7 @@ public class UserAdapter extends FirestoreRecyclerAdapter<ModelGridView,UserAdap
         Log.i("cat",categorie);
         Log.i("id_user",nom_utilisateur);
         // viewHolder.setUser(nom_utilisateur);
-        /*firebaseFirestore.collection ( "publication" ).document ("categories").collection ( categorie ).document (idDuPost).collection ( "commentaires" ).addSnapshotListener ( (Activity) context,new EventListener<QuerySnapshot> () {
+        firebaseFirestore.collection ( "publication" ).document ("categories").collection ( categorie ).document (idDuPost).collection ( "commentaires" ).addSnapshotListener ( (Activity) context,new EventListener<QuerySnapshot> () {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                 if (!queryDocumentSnapshots.isEmpty ()){
@@ -83,7 +92,7 @@ public class UserAdapter extends FirestoreRecyclerAdapter<ModelGridView,UserAdap
                     viewHolder.comment_number.setText ( "0" );
                 }
             }
-        } );*/
+        } );
         viewHolder.profil_container.setAnimation ( AnimationUtils.loadAnimation ( context,R.anim.fade_transition_animation ) );
         viewHolder.profil_container.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,7 +106,7 @@ public class UserAdapter extends FirestoreRecyclerAdapter<ModelGridView,UserAdap
             }
         });
 
-        /*firebaseFirestore.collection("mes donnees utilisateur").document(nom_utilisateur).get().addOnCompleteListener((Activity) context,new OnCompleteListener<DocumentSnapshot>() {
+        firebaseFirestore.collection("mes donnees utilisateur").document(nom_utilisateur).get().addOnCompleteListener((Activity) context,new OnCompleteListener<DocumentSnapshot> () {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()){
@@ -116,13 +125,9 @@ public class UserAdapter extends FirestoreRecyclerAdapter<ModelGridView,UserAdap
                     Toast.makeText(context,error,Toast.LENGTH_LONG).show();
                 }
             }
-        });*/
+        });
     }
 
-    @Override
-    public int getItemCount() {
-        return modelGridViewList.size ();
-    }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         ImageView produit;
