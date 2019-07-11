@@ -141,6 +141,11 @@ public class PantalonFragment extends Fragment {
         pantalonsRecyclerView.setAdapter(categoriesAdaptepantalons);
 
     }
+    @Override
+    public void onStart() {
+        super.onStart();
+        categoriesAdaptepantalons.startListening();
+    }
     public void imagePub(){
         DocumentReference user_two = firebaseFirestore.collection("sliders").document("images");
         user_two.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {

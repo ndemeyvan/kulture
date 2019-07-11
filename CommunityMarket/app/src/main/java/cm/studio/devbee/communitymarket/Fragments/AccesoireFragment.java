@@ -257,6 +257,11 @@ public class AccesoireFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        categoriesAdapteacessoire.startListening();
+    }
     public void RecyclerView(){
         firebaseFirestore=FirebaseFirestore.getInstance ();
         Query firstQuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "accessoires" ).orderBy ( "prix_du_produit",Query.Direction.ASCENDING );

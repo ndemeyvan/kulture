@@ -284,6 +284,11 @@ public class ChaussureFragment extends Fragment {
         super.onPause ();
         userstatus("offline");
     }
+    @Override
+    public void onStart() {
+        super.onStart();
+        categoriesAdaptechaussures.startListening();
+    }
 
     public void chaussureRecyclerView(){
         Query firstQuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "Chaussures" ).orderBy ( "prix_du_produit",Query.Direction.ASCENDING );
@@ -291,7 +296,7 @@ public class ChaussureFragment extends Fragment {
                 .setQuery(firstQuery, ModelGridView.class)
                 .build();
         categoriesAdaptechaussures  = new GridViewAdapter (options,getActivity());
-        chaussuresRecyclerView = v.findViewById(R.id.lingerie_shirt);
+        chaussuresRecyclerView = v.findViewById(R.id.chaussureRecyclerView);
         chaussuresRecyclerView.setHasFixedSize(true);
         chaussuresRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
         chaussuresRecyclerView.setAdapter(categoriesAdaptechaussures);
@@ -308,6 +313,7 @@ public class ChaussureFragment extends Fragment {
            chaussureRecyclerView ();
             return null;
         }
+
 
         @Override
         protected void onPostExecute(Void aVoid) {

@@ -118,6 +118,11 @@ public class PullFragment extends Fragment {
         pullRecyclerView.setAdapter(categoriesAdaptepull);
 
     }
+    @Override
+    public void onStart() {
+        super.onStart();
+        categoriesAdaptepull.startListening();
+    }
     public void userstatus(String status){
 
         DocumentReference user = firebaseFirestore.collection("mes donnees utilisateur" ).document(curent_user);

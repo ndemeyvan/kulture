@@ -143,6 +143,12 @@ public class TshirtFragment extends Fragment {
         tshirtRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
         tshirtRecyclerView.setAdapter(categoriesAdapteTshirt);
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        categoriesAdapteTshirt.startListening();
+    }
     public void imagePub(){
         DocumentReference user_two = firebaseFirestore.collection("sliders").document("images");
         user_two.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {

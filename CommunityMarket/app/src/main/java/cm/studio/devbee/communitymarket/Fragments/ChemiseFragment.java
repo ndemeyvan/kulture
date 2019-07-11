@@ -140,6 +140,11 @@ public class ChemiseFragment extends Fragment {
         chemiseRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
         chemiseRecyclerView.setAdapter(categoriesAdaptechemise);
     }
+    @Override
+    public void onStart() {
+        super.onStart();
+        categoriesAdaptechemise.startListening();
+    }
     public void imagePub(){
         DocumentReference user_two = firebaseFirestore.collection("sliders").document("images");
         user_two.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {

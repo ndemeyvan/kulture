@@ -72,12 +72,13 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:visibility="invisible" />
+
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/lingerie_shirt"
+        android:id="@+id/lingerie_recycler"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pubImage_lingerie" />
+        app:layout_constraintTop_toBottomOf="@+id/viewFlippertwo" />
 </android.support.constraint.ConstraintLayout>

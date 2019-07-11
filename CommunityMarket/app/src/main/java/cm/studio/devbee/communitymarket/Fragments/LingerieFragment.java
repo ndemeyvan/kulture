@@ -49,7 +49,6 @@ import cm.studio.devbee.communitymarket.gridView_post.ModelGridView;
  */
 public class LingerieFragment extends Fragment {
     private static FirebaseFirestore firebaseFirestore;
-    private static View v;
     private static RecyclerView lingerie_shirt;
     private static GridViewAdapter categoriesAdaptelingeries;
     private static List<ModelGridView> categoriesModelTshirtList;
@@ -65,6 +64,7 @@ public class LingerieFragment extends Fragment {
     TextView pubImageTextTwo;
     TextView pubImageTextThree;
     TextView pubImageTextFour;
+    View v;
 
 
 
@@ -77,7 +77,7 @@ public class LingerieFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v= inflater.inflate ( R.layout.fragment_lingerie, container, false );
+        v= inflater.inflate ( R.layout.fragment_lingerie, container, false );
         pubImageTextTwo=v.findViewById ( R.id.pubImageTextTwo );
         pubImageTextThree=v.findViewById ( R.id.pubImageTextThree );
         pubImageTextFour=v.findViewById ( R.id.pubImageTextFour );
@@ -87,7 +87,7 @@ public class LingerieFragment extends Fragment {
         pubImageThree=v.findViewById ( R.id.pubImageThree);
         pubImageFour=v.findViewById ( R.id.pubImageFour );
         imagePubText=v.findViewById ( R.id.imagePubText );
-       asyncTask=new AsyncTask ();
+        asyncTask=new AsyncTask ();
         asyncTask.execute (  );
         firebaseAuth=FirebaseAuth.getInstance ();
         curent_user=firebaseAuth.getCurrentUser ().getUid ();
@@ -96,6 +96,8 @@ public class LingerieFragment extends Fragment {
         animationDrawable.setEnterFadeDuration(2000);
         animationDrawable.setExitFadeDuration(4000);
         animationDrawable.start();
+        tshirtRecyclerView();
+        imagePub ();
         return v;
     }
     public void userstatus(String status){
@@ -124,15 +126,20 @@ public class LingerieFragment extends Fragment {
         super.onPause ();
         userstatus("offline");
     }
+    @Override
+    public void onStart() {
+        super.onStart();
+        categoriesAdaptelingeries.startListening();
+    }
 
     public void tshirtRecyclerView(){
-
+        firebaseFirestore=FirebaseFirestore.getInstance ();
         Query firstQuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "lingeries" ).orderBy ( "prix_du_produit",Query.Direction.ASCENDING );
         FirestoreRecyclerOptions<ModelGridView> options = new FirestoreRecyclerOptions.Builder<ModelGridView>()
                 .setQuery(firstQuery, ModelGridView.class)
                 .build();
         categoriesAdaptelingeries  = new GridViewAdapter (options,getActivity());
-        lingerie_shirt = v.findViewById(R.id.lingerie_shirt);
+        lingerie_shirt = v.findViewById(R.id.lingerie_recycler);
         lingerie_shirt.setHasFixedSize(true);
         lingerie_shirt.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
         lingerie_shirt.setAdapter(categoriesAdaptelingeries);
@@ -302,8 +309,7 @@ public class LingerieFragment extends Fragment {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            tshirtRecyclerView();
-            imagePub ();
+
             return null;
         }
 

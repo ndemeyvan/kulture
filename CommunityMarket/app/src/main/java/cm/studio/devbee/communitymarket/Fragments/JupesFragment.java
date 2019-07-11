@@ -101,6 +101,11 @@ public class JupesFragment extends Fragment {
         animationDrawable.start();
         return v;
     }
+    @Override
+    public void onStart() {
+        super.onStart();
+        categoriesAdaptejupe.startListening();
+    }
 
     public void userstatus(String status){
         DocumentReference user = firebaseFirestore.collection("mes donnees utilisateur" ).document(curent_user);

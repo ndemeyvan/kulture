@@ -128,6 +128,11 @@ public class CulloteFragment extends Fragment {
         super.onPause ();
         userstatus("offline");
     }
+    @Override
+    public void onStart() {
+        super.onStart();
+        categoriesAdaptecullote.startListening();
+    }
     public void RecyclerView(){
         Query firstQuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "Cullotes" ).orderBy ( "prix_du_produit",Query.Direction.ASCENDING );
         FirestoreRecyclerOptions<ModelGridView> options = new FirestoreRecyclerOptions.Builder<ModelGridView>()

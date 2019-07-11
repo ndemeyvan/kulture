@@ -130,6 +130,11 @@ public class LocationFragment extends Fragment {
         super.onPause ();
         userstatus("offline");
     }
+    @Override
+    public void onStart() {
+        super.onStart();
+        categoriesAdaptechemise.startListening();
+    }
 
     public void RecyclerView(){
 

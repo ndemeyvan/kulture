@@ -130,6 +130,11 @@ public class RobeFragment extends Fragment {
         super.onPause ();
         userstatus("offline");
     }
+    @Override
+    public void onStart() {
+        super.onStart();
+        categoriesAdapterobe.startListening();
+    }
 
     public void RecyclerView(){
 
