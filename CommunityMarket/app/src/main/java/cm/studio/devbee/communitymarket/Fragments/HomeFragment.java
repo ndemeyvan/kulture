@@ -75,8 +75,6 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
     private static RecyclerView jupesRecyclerView;
     private static List<CategoriesModelNouveaux> categoriesAdapteChaussureList;
     private static DocumentSnapshot lastVisible;
-    private static ImageView imagePubFixe;
-    private static TextView imagePubText;
     private static View v;
     private  static WeakReference<HomeFragment> homeFragmentWeakReference;
     private static List<PrincipalModel> principalModelList;
@@ -123,12 +121,6 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
         pubImageFour=v.findViewById ( R.id.pubImageFour );
         //
         //////nvx
-        ///chaussure
-        categoriesAdapteChaussureList=new ArrayList<>(  );
-        chaussureRecyclerView=v.findViewById ( R.id.chaussureRecyclerView );
-        categoriesAdapteNouveaux=new CategoriesAdapteNouveaux (categoriesAdapteChaussureList,getActivity());
-        chaussureRecyclerView.setAdapter ( categoriesAdapteNouveaux );
-        chaussureRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
         //////////////slider
         imageOne=v.findViewById(R.id.imageSlideOne);
         imageTwo=v.findViewById(R.id.imageSlideTwo);
@@ -244,7 +236,6 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
         });
         mAdView. setAnimation ( AnimationUtils. loadAnimation (getActivity(), R.anim.fade_transition_animation));
         mAdViewTwo. setAnimation ( AnimationUtils. loadAnimation (getActivity(), R.anim.fade_transition_animation));
-
         ///////ads"ca-app-pub-3940256099942544~3347511713
         ////my id : ca-app-pub-4353172129870258~6890094527
         MobileAds.initialize(getActivity(),"ca-app-pub-4353172129870258~6890094527");
@@ -589,9 +580,8 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
     public void onStart() {
         super.onStart();
         adapter.startListening();
+        categoriesAdapte.startListening ();
     }
-
-
 
     public void chaussuresRecycler(){
        int i ;
@@ -602,27 +592,14 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
        String text = liste[i];
        textChausure.setText(  text.replaceAll("(?!^)([A-Z])", " $1").toUpperCase());
         Query firstQuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( a_charger ).orderBy ( "prix_du_produit",Query.Direction.ASCENDING );
-        firstQuery.addSnapshotListener(getActivity(),new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                for (DocumentChange doc:queryDocumentSnapshots.getDocumentChanges()){
-                    if (doc.getType()==DocumentChange.Type.ADDED){
-                        String idupost=doc.getDocument ().getId ();
-                        CategoriesModelNouveaux categoriesModelChaussure =doc.getDocument().toObject(CategoriesModelNouveaux.class).withId ( idupost );
-                        if (isfirstload){
-                            categoriesAdapteChaussureList.add(categoriesModelChaussure);
-                        }else{
-                            categoriesAdapteChaussureList.add(0,categoriesModelChaussure);
-                        }
-                        categoriesAdapteNouveaux.notifyDataSetChanged();
-
-                    }
-                }
-                isfirstload=false;
-
-            }
-        });
-
+        FirestoreRecyclerOptions<CategoriesModelNouveaux> options = new FirestoreRecyclerOptions.Builder<CategoriesModelNouveaux>()
+                .setQuery(firstQuery, CategoriesModelNouveaux.class)
+                .build();
+        categoriesAdapte  = new CategoriesAdapteNouveaux (options);
+        chaussureRecyclerView = v.findViewById(R.id.chaussureRecyclerView);
+        chaussureRecyclerView.setHasFixedSize(true);
+        chaussureRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
+        chaussureRecyclerView.setAdapter(adapter);
     }
 
     public void userstatus(String status){

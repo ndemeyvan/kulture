@@ -33,11 +33,16 @@ import com.squareup.picasso.Picasso;
 import com.xwray.groupie.GroupAdapter;
 import com.xwray.groupie.Item;
 import com.xwray.groupie.ViewHolder;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Nullable;
 import cm.studio.devbee.communitymarket.Accueil;
 import cm.studio.devbee.communitymarket.R;
 import cm.studio.devbee.communitymarket.profile.ProfileActivity;
 import cm.studio.devbee.communitymarket.utilForChat.DiplayAllChat;
+import cm.studio.devbee.communitymarket.utilForChat.List_chat_adapter;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.view.View.VISIBLE;
@@ -47,17 +52,18 @@ public class ChatMessageActivity extends AppCompatActivity {
     private  static String current_user;
     private static FirebaseFirestore firebaseFirestore;
     private static RecyclerView contatc_recyclerview;
-    private GroupAdapter groupAdapter;
+    // private GroupAdapter groupAdapter;
     private static Toolbar message_toolbar;
     private String image_profil;
     private String status;
     private  TextView conversation_count;
     private ProgressBar chat_progress;
     private DiplayAllChat diplayAllChat;
+    List_chat_adapter list_chat_adapter;
+    List<DiplayAllChat> diplayAllChatList;
     String valeur;
     private String ouvert;
     private String viens_de_detail;
-    private String viens_de_service;
     // private  static  CircleImageView online_status_image;
 
     @Override
@@ -71,32 +77,30 @@ public class ChatMessageActivity extends AppCompatActivity {
         valeur=getIntent ().getStringExtra ( "viens" );
         ouvert=getIntent ().getStringExtra ( "ouvert" );
         viens_de_detail=getIntent ().getStringExtra ( "viens_de_detail" );
-        viens_de_service=getIntent ().getStringExtra ( "viens_de_service" );
         contatc_recyclerview=findViewById ( R.id.contatc_recyclerview );
         current_user=firebaseAuth.getCurrentUser ().getUid ();
         contatc_recyclerview.setLayoutManager ( new LinearLayoutManager ( getApplicationContext () ) );
-        groupAdapter=new GroupAdapter ();
+        diplayAllChatList=new ArrayList<> (  );
+        list_chat_adapter=new List_chat_adapter (diplayAllChatList,ChatMessageActivity.this);
         firebaseFirestore=FirebaseFirestore.getInstance ();
-        contatc_recyclerview.setAdapter ( groupAdapter );
+        contatc_recyclerview.setAdapter (list_chat_adapter  );
         conversation_count=findViewById(R.id.conversation_count);
         chat_progress=findViewById(R.id.chat_progress);
         chat_progress.setVisibility(VISIBLE);
-       //online_status_image=findViewById ( R.id.online_status_image );
+        //online_status_image=findViewById ( R.id.online_status_image );
         recuperation ();
         getSupportActionBar ().setDisplayHomeAsUpEnabled ( true );
         message_toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //startActivity ( new Intent ( getApplicationContext (),Accueil.class ).setFlags ( Intent.FLAG_ACTIVITY_CLEAR_TOP ) );
-                if (valeur.equals ( "acceuil" )) {
+                if (valeur.equals ( "acceuil" )&&viens_de_detail.equals ( "faux" )) {
                     Intent gotoacceuil = new Intent ( getApplicationContext (), Accueil.class );
                     startActivity ( gotoacceuil );
                     finish ();
-                }else {
+                }else if (ouvert.equals ( "ouvert" )&&viens_de_detail.equals ( "vrai" )){
                     finish ();
                 }
-
-
             }
         });
 
@@ -148,8 +152,10 @@ public class ChatMessageActivity extends AppCompatActivity {
                 for (DocumentChange doc:queryDocumentSnapshots.getDocumentChanges()){
                     if (doc.getType()==DocumentChange.Type.ADDED){
                         DiplayAllChat model=doc.getDocument().toObject(DiplayAllChat.class);
-                        groupAdapter.add(new ContactItem ( model ) );
-                        groupAdapter.notifyDataSetChanged();
+                        diplayAllChatList.add ( model );
+                        list_chat_adapter.notifyDataSetChanged ();
+                        //groupAdapter.add(new ContactItem ( model ) );
+                        //groupAdapter.notifyDataSetChanged();
                     }
                 }
 
@@ -207,7 +213,7 @@ public class ChatMessageActivity extends AppCompatActivity {
         userstatus("offline");
     }
 
-    public class ContactItem extends Item<ViewHolder> {
+    /*public class ContactItem extends Item<ViewHolder> {
         private DiplayAllChat diplayAllChat;
         public ContactItem(DiplayAllChat diplayAllChat){
             this.diplayAllChat=diplayAllChat;
@@ -236,32 +242,7 @@ public class ChatMessageActivity extends AppCompatActivity {
 
                 firebaseFirestore=FirebaseFirestore.getInstance ();
                 MessageActivity message = new MessageActivity ();
-               firebaseFirestore.collection("mes donnees utilisateur").document(diplayAllChat.getId_expediteur ()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot> () {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()){
-                            if (task.getResult ().exists ()){
-                                String prenom=task.getResult ().getString ( "user_prenom" );
-                                String name_user= task.getResult ().getString ( "user_name" );
-                                image_profil =task.getResult ().getString ( "user_profil_image" );
-                                String statusUser= task.getResult ().getString ( "status" );
-                                nom_utilisateur.setText(name_user+" "+prenom);
-                                Picasso.with(getApplicationContext()).load(image_profil).into(profil);
-                                if (statusUser.equals ( "online" )){
-                                    online.setVisibility ( VISIBLE );
-                                    offline.setVisibility ( View.INVISIBLE );
-                                }else {
-                                    online.setVisibility ( View.INVISIBLE );
-                                    offline.setVisibility ( VISIBLE );
-                                }
-                            }
 
-                        }else {
-                            String error=task.getException().getMessage();
-                            Toast.makeText ( getApplicationContext (), error, Toast.LENGTH_LONG ).show ();
-                        }
-                    }
-                });
             }else{
                 Picasso.with ( getApplicationContext () ).load (diplayAllChat.getImage_profil ()  ).into ( profil );
             }
@@ -316,5 +297,5 @@ public class ChatMessageActivity extends AppCompatActivity {
         public int getLayout() {
             return R.layout.item_contact_chat;
         }
-    }
+    }*/
 }

@@ -20,6 +20,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -46,17 +48,16 @@ import cm.studio.devbee.communitymarket.postActivity.PostActivityFinal;
 import cm.studio.devbee.communitymarket.utilsForUserApp.UserAdapter;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class  CategoriesAdapteNouveaux extends RecyclerView.Adapter<CategoriesAdapteNouveaux.ViewHolder> {
+public class  CategoriesAdapteNouveaux extends FirestoreRecyclerAdapter<CategoriesModelNouveaux,CategoriesAdapteNouveaux.ViewHolder> {
     List<CategoriesModelNouveaux> categoriesModelNouveauxList;
     Context context;
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
 
-
-    public CategoriesAdapteNouveaux(List<CategoriesModelNouveaux> categoriesModelNouveauxList, Context context) {
-        this.categoriesModelNouveauxList = categoriesModelNouveauxList;
-        this.context = context;
+    public CategoriesAdapteNouveaux(@NonNull FirestoreRecyclerOptions<CategoriesModelNouveaux> options) {
+        super ( options );
     }
+
 
     @NonNull
     @Override
@@ -68,19 +69,19 @@ public class  CategoriesAdapteNouveaux extends RecyclerView.Adapter<CategoriesAd
         return new ViewHolder ( v );
     }
 
+
     @Override
-    public void onBindViewHolder(@NonNull  final ViewHolder viewHolder, int i) {
-        viewHolder.setIsRecyclable ( false );
-        String desc =categoriesModelNouveauxList.get ( i).getDecription_du_produit();
-        String nvxPrix=categoriesModelNouveauxList.get(i).getPrix_du_produit();
-        final String imageproduit=categoriesModelNouveauxList.get ( i ).getImage_du_produit ();
-        final String nom_id=categoriesModelNouveauxList.get ( i ).getUtilisateur ();
-        String tempsdepub=categoriesModelNouveauxList.get ( i ).getDate_de_publication ();
-        String produinom=categoriesModelNouveauxList.get ( i ).getNom_du_produit ();
-        final String postId=categoriesModelNouveauxList.get ( i ).PostId;
+    protected void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i, @NonNull CategoriesModelNouveaux model) {
+        String desc =model.getDecription_du_produit();
+        String nvxPrix=model.getPrix_du_produit();
+        final String imageproduit=model.getImage_du_produit ();
+        final String nom_id=model.getUtilisateur ();
+        String tempsdepub=model.getDate_de_publication ();
+        String produinom=model.getNom_du_produit ();
+        final String postId=model.PostId;
         final String current_user=firebaseAuth.getCurrentUser ().getUid ();
-        final String idDuPost=categoriesModelNouveauxList.get ( i ).PostId;
-        final String categorie=categoriesModelNouveauxList.get(i).getCategories();
+        final String idDuPost=model.PostId;
+        final String categorie=model.getCategories();
         viewHolder.categorie(categorie);
         viewHolder.imageproduitxi ( imageproduit );
         viewHolder.setNom ( desc );
@@ -89,18 +90,18 @@ public class  CategoriesAdapteNouveaux extends RecyclerView.Adapter<CategoriesAd
         viewHolder.nomproduit ( produinom );
         viewHolder.container. setAnimation ( AnimationUtils. loadAnimation (context, R.anim.fade_transition_animation));
         viewHolder.card_nvx.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent gotoDetail =new Intent(context,DetailActivityTwo.class);
-                    gotoDetail.putExtra("id du post",idDuPost);
-                    gotoDetail.putExtra("id de l'utilisateur",nom_id);
-                    gotoDetail.putExtra("id_categories",categorie);
-                    gotoDetail.putExtra("image_en_vente",imageproduit);
-                    context.startActivity(gotoDetail);
-                    //((Activity)context).finish();
+            @Override
+            public void onClick(View v) {
+                Intent gotoDetail =new Intent(context,DetailActivityTwo.class);
+                gotoDetail.putExtra("id du post",idDuPost);
+                gotoDetail.putExtra("id de l'utilisateur",nom_id);
+                gotoDetail.putExtra("id_categories",categorie);
+                gotoDetail.putExtra("image_en_vente",imageproduit);
+                context.startActivity(gotoDetail);
+                //((Activity)context).finish();
 
-                }
-            });
+            }
+        });
         firebaseFirestore.collection("mes donnees utilisateur").document(nom_id).get().addOnCompleteListener((Activity) context,new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -125,7 +126,7 @@ public class  CategoriesAdapteNouveaux extends RecyclerView.Adapter<CategoriesAd
                     viewHolder.likexa ( i );
 
                 }else{
-                        viewHolder.likexa ( 0 );
+                    viewHolder.likexa ( 0 );
                 }
             }
         } );

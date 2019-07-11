@@ -67,7 +67,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
     implementation 'com.squareup.okhttp3:okhttp:3.6.0'
-    implementation 'com.google.firebase:firebase-database:16.1.0'
+    implementation 'com.google.firebase:firebase-database:17.0.0'
     implementation 'com.google.android.gms:play-services-ads:17.2.0'
     implementation 'com.google.android.gms:play-services-auth:16.0.1'
     implementation 'com.github.xizzhu:simple-tool-tip:0.7.0'

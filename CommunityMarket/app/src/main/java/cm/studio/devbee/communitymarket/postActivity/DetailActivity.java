@@ -811,6 +811,7 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
                 gotoMessage.putExtra("id de l'utilisateur", current_user_id);
                 gotoMessage.putExtra("id_categories", categories);
                 gotoMessage.putExtra("image_en_vente", lien_image);
+                gotoMessage.putExtra ( "id_recepteur",current_user_id );
                 gotoMessage.putExtra ( "viens_de_detail","vrai" );
                 Map<String, String> donnees_utilisateur = new HashMap<>();
                 donnees_utilisateur.put("image_en_vente", lien_image);
