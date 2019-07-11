@@ -137,7 +137,7 @@ public class ChemiseFragment extends Fragment {
         categoriesAdaptechemise  = new GridViewAdapter (options,getActivity());
         chemiseRecyclerView = v.findViewById(R.id.chemiseRecyclerView);
         chemiseRecyclerView.setHasFixedSize(true);
-        chemiseRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
+        chemiseRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
         chemiseRecyclerView.setAdapter(categoriesAdaptechemise);
     }
     @Override

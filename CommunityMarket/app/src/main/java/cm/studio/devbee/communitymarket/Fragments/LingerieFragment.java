@@ -141,7 +141,7 @@ public class LingerieFragment extends Fragment {
         categoriesAdaptelingeries  = new GridViewAdapter (options,getActivity());
         lingerie_shirt = v.findViewById(R.id.lingerie_recycler);
         lingerie_shirt.setHasFixedSize(true);
-        lingerie_shirt.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
+        lingerie_shirt.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
         lingerie_shirt.setAdapter(categoriesAdaptelingeries);
 
 

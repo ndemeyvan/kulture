@@ -145,7 +145,7 @@ public class RobeFragment extends Fragment {
         categoriesAdapterobe  = new GridViewAdapter (options,getActivity());
         robeRecyclerView = v.findViewById(R.id.robeRecyclerView);
         robeRecyclerView.setHasFixedSize(true);
-        robeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
+        robeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
         robeRecyclerView.setAdapter(categoriesAdapterobe);
     }
 

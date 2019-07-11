@@ -141,7 +141,7 @@ public class CulloteFragment extends Fragment {
         categoriesAdaptecullote  = new GridViewAdapter (options,getActivity());
         culloteRecyclerView = v.findViewById(R.id.culloteRecyclerView);
         culloteRecyclerView.setHasFixedSize(true);
-        culloteRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
+        culloteRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
         culloteRecyclerView.setAdapter(categoriesAdaptecullote);
     }
     public void imagePub(){

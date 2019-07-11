@@ -271,7 +271,7 @@ public class AccesoireFragment extends Fragment {
         categoriesAdapteacessoire  = new GridViewAdapter (options,getActivity());
         acessoireRecyclerView = v.findViewById(R.id.accessoiresRecyclerView);
         acessoireRecyclerView.setHasFixedSize(true);
-        acessoireRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
+        acessoireRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
         acessoireRecyclerView.setAdapter(categoriesAdapteacessoire);
     }
 

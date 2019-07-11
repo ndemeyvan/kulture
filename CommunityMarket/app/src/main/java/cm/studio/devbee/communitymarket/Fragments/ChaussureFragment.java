@@ -91,7 +91,6 @@ public class ChaussureFragment extends Fragment {
         imagePubText=v.findViewById ( R.id.imagePubText );
         //
         chaussuresFragmentWeakReference=new WeakReference<> ( this );
-        chaussuresRecyclerView=v.findViewById ( R.id.chaussureRecyclerView );
         firebaseFirestore=FirebaseFirestore.getInstance();
         asyncTask=new AsyncTask ();
         asyncTask.execute (  );
@@ -103,6 +102,8 @@ public class ChaussureFragment extends Fragment {
         animationDrawable.setExitFadeDuration(4000);
         animationDrawable.start();
         imagePub();
+        chaussureRecyclerView ();
+
 
         return v;
     }
@@ -298,7 +299,7 @@ public class ChaussureFragment extends Fragment {
         categoriesAdaptechaussures  = new GridViewAdapter (options,getActivity());
         chaussuresRecyclerView = v.findViewById(R.id.chaussureRecyclerView);
         chaussuresRecyclerView.setHasFixedSize(true);
-        chaussuresRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
+        chaussuresRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
         chaussuresRecyclerView.setAdapter(categoriesAdaptechaussures);
     }
 
@@ -310,7 +311,6 @@ public class ChaussureFragment extends Fragment {
 
         @Override
         protected Void doInBackground(Void... voids) {
-           chaussureRecyclerView ();
             return null;
         }
 

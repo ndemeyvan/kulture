@@ -142,7 +142,7 @@ public class JupesFragment extends Fragment {
         categoriesAdaptejupe  = new GridViewAdapter (options,getActivity());
         jupeRecyclerView = v.findViewById(R.id.jupeRecyclerView);
         jupeRecyclerView.setHasFixedSize(true);
-        jupeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
+        jupeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
         jupeRecyclerView.setAdapter(categoriesAdaptejupe);
 
     }

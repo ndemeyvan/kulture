@@ -80,7 +80,6 @@ public class TshirtFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         v=inflater.inflate(R.layout.fragment_tshirt, container, false);
-        tshirtRecyclerView=v.findViewById ( R.id.tshirtRecyclerView );
         firebaseFirestore=FirebaseFirestore.getInstance();
         pubImageTextTwo=v.findViewById ( R.id.pubImageTextTwo );
         pubImageTextThree=v.findViewById ( R.id.pubImageTextThree );
