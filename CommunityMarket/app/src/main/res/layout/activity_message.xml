@@ -71,6 +71,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
+                    android:fontFamily="@font/nunito_bold"
                     android:id="@+id/user_messag_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -130,6 +131,7 @@
         android:hint="@string/message_activity_send_editext"
         android:inputType="textMultiLine|textPersonName"
         android:padding="15dp"
+        android:fontFamily="@font/nunito_bold"
         android:textColor="@color/black"
         android:textColorHint="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -190,8 +192,7 @@
                 android:lines="1"
                 android:textSize="@dimen/detail_text_size"
                 android:ellipsize="end"
-                android:theme="@style/ToolbarTheme"
-
+                android:fontFamily="@font/nunito_bold"
                 app:layout_constraintStart_toEndOf="@+id/image_de_discutions"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -204,7 +205,7 @@
                 android:textColor="@color/bg_screen1"
                 android:textStyle="bold"
                 android:textSize="@dimen/detail_text_size"
-                android:theme="@style/ToolbarTheme"
+                android:fontFamily="@font/nunito_bold"
                 app:layout_constraintStart_toEndOf="@+id/image_de_discutions"
                 app:layout_constraintTop_toBottomOf="@+id/titre_produit" />
 
@@ -246,8 +247,8 @@
 
     <ProgressBar
         android:id="@+id/message_progressbar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/commentaire_circle_widht_height"
+        android:layout_height="@dimen/commentaire_circle_widht_height"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"

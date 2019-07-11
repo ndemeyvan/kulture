@@ -31,17 +31,17 @@
         tools:ignore="Orientation"></LinearLayout>
 
     <TextView
-        android:theme="@style/ToolbarTheme"
         android:id="@+id/textView5"
         android:layout_width="@dimen/text_choice_widht"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/a_propos_margin_top"
-        android:fontFamily="sans-serif"
+        android:fontFamily="@font/nunito_bold"
         android:text="@string/titre_slider1"
         android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="@dimen/slide_title"
         android:textStyle="bold"
+        android:theme="@style/ToolbarTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -52,7 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
         android:layout_marginEnd="@dimen/desc_marginend"
-        android:fontFamily="sans-serif"
+        android:fontFamily="@font/nunito_bold"
         android:paddingLeft="@dimen/desc_padding"
         android:paddingRight="@dimen/desc_padding"
         android:text="@string/description_titre_slider1"

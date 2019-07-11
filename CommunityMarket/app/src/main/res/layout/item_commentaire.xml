@@ -51,17 +51,17 @@
                 app:layout_constraintEnd_toEndOf="@+id/chat_message_image_profil" />
 
             <TextView
-                android:theme="@style/ToolbarTheme"
                 android:id="@+id/chat_user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/commentaire_name_start"
                 android:layout_marginTop="@dimen/commentaire_user_name_top"
                 android:layout_marginEnd="@dimen/commentaire_user_name_end"
+                android:fontFamily="@font/nunito_bold"
+                android:text="yannick"
                 android:textColor="@color/blanc"
                 android:textSize="@dimen/commentaire_name_user"
                 android:textStyle="bold"
-                android:text="yannick"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.004"
                 app:layout_constraintStart_toEndOf="@+id/chat_message_image_profil"
@@ -75,9 +75,10 @@
                 android:layout_marginEnd="@dimen/commentaire_text_end"
                 android:layout_marginBottom="@dimen/commentaire_text_bottom"
                 android:ellipsize="end"
+                android:fontFamily="@font/nunito_bold"
+                android:text="s'il te plait viens jaimerais te voir"
                 android:textColor="@color/blanc"
                 android:textSize="@dimen/commentaire_text"
-                android:text="s'il te plait viens jaimerais te voir"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.019"
@@ -100,11 +101,11 @@
                 app:layout_constraintVertical_bias="0.0" />
 
             <TextView
-                android:theme="@style/ToolbarTheme"
                 android:id="@+id/chat_temps"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/commentaire_text_temps_end"
+                android:fontFamily="@font/nunito_bold"
                 android:text="17 mai 2019"
                 android:textColor="@color/blanc"
                 android:textSize="@dimen/commentaire_temps"

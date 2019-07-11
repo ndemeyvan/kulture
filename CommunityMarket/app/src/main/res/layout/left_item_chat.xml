@@ -30,6 +30,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/background_dipla_left"
+            android:fontFamily="@font/nunito_bold"
             android:maxWidth="250dp"
             android:padding="8dp"
             android:text="Hello"
