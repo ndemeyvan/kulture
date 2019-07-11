@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -43,6 +44,9 @@ import cm.studio.devbee.communitymarket.PublicityActivity;
 import cm.studio.devbee.communitymarket.R;
 import cm.studio.devbee.communitymarket.gridView_post.GridViewAdapter;
 import cm.studio.devbee.communitymarket.gridView_post.ModelGridView;
+import cm.studio.devbee.communitymarket.utilsForPostPrincipal.PrincipalAdapte;
+import cm.studio.devbee.communitymarket.utilsForPostPrincipal.PrincipalModel;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -78,10 +82,6 @@ public class TshirtFragment extends Fragment {
         v=inflater.inflate(R.layout.fragment_tshirt, container, false);
         tshirtRecyclerView=v.findViewById ( R.id.tshirtRecyclerView );
         firebaseFirestore=FirebaseFirestore.getInstance();
-        categoriesModelTshirtList=new ArrayList<>(  );
-        categoriesAdapteTshirt=new GridViewAdapter (categoriesModelTshirtList,getActivity());
-        tshirtRecyclerView.setAdapter ( categoriesAdapteTshirt );
-        tshirtRecyclerView.setLayoutManager(new LinearLayoutManager (getActivity(),LinearLayoutManager.VERTICAL,false));
         pubImageTextTwo=v.findViewById ( R.id.pubImageTextTwo );
         pubImageTextThree=v.findViewById ( R.id.pubImageTextThree );
         pubImageTextFour=v.findViewById ( R.id.pubImageTextFour );
@@ -101,7 +101,8 @@ public class TshirtFragment extends Fragment {
         animationDrawable.setEnterFadeDuration(2000);
         animationDrawable.setExitFadeDuration(4000);
         animationDrawable.start();
-
+        tshirtRecyclerView();
+        imagePub();
         return v;
     }
     public void userstatus(String status){
@@ -117,6 +118,7 @@ public class TshirtFragment extends Fragment {
                     public void onFailure(@NonNull Exception e) {
                     }
                 });
+
     }
 
     @Override
@@ -131,24 +133,15 @@ public class TshirtFragment extends Fragment {
         userstatus("offline");
     }
     public void tshirtRecyclerView(){
-
         Query firstQuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "T-shirts" ).orderBy ( "prix_du_produit",Query.Direction.ASCENDING );
-        firstQuery.addSnapshotListener(getActivity (),new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-
-                for (DocumentChange doc:queryDocumentSnapshots.getDocumentChanges()){
-                    if (doc.getType()==DocumentChange.Type.ADDED){
-                        String idupost=doc.getDocument ().getId ();
-                        ModelGridView categoriesModelTshirt =doc.getDocument().toObject(ModelGridView.class).withId ( idupost );
-                        categoriesModelTshirtList.add(categoriesModelTshirt);
-
-                        categoriesAdapteTshirt.notifyDataSetChanged();
-                    }
-                }
-
-            }
-        });
+        FirestoreRecyclerOptions<ModelGridView> options = new FirestoreRecyclerOptions.Builder<ModelGridView>()
+                .setQuery(firstQuery, ModelGridView.class)
+                .build();
+        categoriesAdapteTshirt  = new GridViewAdapter (options,getActivity());
+        tshirtRecyclerView = v.findViewById(R.id.tshirtRecyclerView);
+        tshirtRecyclerView.setHasFixedSize(true);
+        tshirtRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
+        tshirtRecyclerView.setAdapter(categoriesAdapteTshirt);
     }
     public void imagePub(){
         DocumentReference user_two = firebaseFirestore.collection("sliders").document("images");
@@ -304,14 +297,12 @@ public class TshirtFragment extends Fragment {
     public class AsyncTask extends android.os.AsyncTask<Void, Void, Void> {
         @Override
         protected void onPreExecute() {
-
             super.onPreExecute ();
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
-            tshirtRecyclerView();
-            imagePub();
+
             return null;
         }
 

@@ -65,24 +65,15 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
     private static ImageView imageOne,imageTwo,imageThree,imageFour;
     private static TextView img1,img2,img3,img4;
     private static ProgressBar content_progresbar;
-    private static RecyclerView content_recyclerView;
     private static CategoriesAdapteNouveaux categoriesAdapte;
-    private static List<CategoriesModelNouveaux> categoriesModelList;
     private static ViewFlipper viewFlipper;
-    private static CategoriesAdapteNouveaux categoriesAdapteNouveaux;
-    private static RecyclerView nouveauxRecyclerView;
     private static RecyclerView chaussureRecyclerView;
-    private static RecyclerView jupesRecyclerView;
-    private static List<CategoriesModelNouveaux> categoriesAdapteChaussureList;
     private static DocumentSnapshot lastVisible;
     private static View v;
     private  static WeakReference<HomeFragment> homeFragmentWeakReference;
-    private static List<PrincipalModel> principalModelList;
     private static PrincipalAdapte adapter;
     private RecyclerView principalRecyclerView;
     private static  String current_user;
-    private static AlertDialog.Builder alertDialogBuilder;
-    private static AlertDialog alertDialog;
     private AdView mAdView;
     private AdView mAdViewTwo;
     private RewardedVideoAd mad;
@@ -119,9 +110,7 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
         pubImageTwo=v.findViewById ( R.id.pubImageTwo );
         pubImageThree=v.findViewById ( R.id.pubImageThree);
         pubImageFour=v.findViewById ( R.id.pubImageFour );
-        //
-        //////nvx
-        //////////////slider
+       //////////////slider
         imageOne=v.findViewById(R.id.imageSlideOne);
         imageTwo=v.findViewById(R.id.imageSlideTwo);
         imageThree=v.findViewById(R.id.imageSlideThree);
@@ -133,8 +122,6 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
         textChausure=v.findViewById(R.id.textChausure);
         ///////fin slider
         content_progresbar=v.findViewById ( R.id.content_progresbar );
-        imagePubFixe=v.findViewById(R.id.pubImage);
-        imagePubText=v.findViewById(R.id.pubImageText);
         viewFlipper=v.findViewById(R.id.viewFlipper);
         firebaseFirestore=FirebaseFirestore.getInstance();
         AsyncTask asyncTask=new AsyncTask ();
@@ -236,6 +223,7 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
         });
         mAdView. setAnimation ( AnimationUtils. loadAnimation (getActivity(), R.anim.fade_transition_animation));
         mAdViewTwo. setAnimation ( AnimationUtils. loadAnimation (getActivity(), R.anim.fade_transition_animation));
+
         ///////ads"ca-app-pub-3940256099942544~3347511713
         ////my id : ca-app-pub-4353172129870258~6890094527
         MobileAds.initialize(getActivity(),"ca-app-pub-4353172129870258~6890094527");
@@ -583,6 +571,8 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
         categoriesAdapte.startListening ();
     }
 
+
+
     public void chaussuresRecycler(){
        int i ;
        Random ran = new Random();
@@ -591,15 +581,16 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
        a_charger = liste[i];
        String text = liste[i];
        textChausure.setText(  text.replaceAll("(?!^)([A-Z])", " $1").toUpperCase());
-        Query firstQuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( a_charger ).orderBy ( "prix_du_produit",Query.Direction.ASCENDING );
+        Query queryuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( a_charger ).orderBy ( "prix_du_produit",Query.Direction.ASCENDING );
         FirestoreRecyclerOptions<CategoriesModelNouveaux> options = new FirestoreRecyclerOptions.Builder<CategoriesModelNouveaux>()
-                .setQuery(firstQuery, CategoriesModelNouveaux.class)
+                .setQuery(queryuery, CategoriesModelNouveaux.class)
                 .build();
-        categoriesAdapte  = new CategoriesAdapteNouveaux (options);
+        categoriesAdapte  = new CategoriesAdapteNouveaux (options,getActivity());
         chaussureRecyclerView = v.findViewById(R.id.chaussureRecyclerView);
         chaussureRecyclerView.setHasFixedSize(true);
         chaussureRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
-        chaussureRecyclerView.setAdapter(adapter);
+        chaussureRecyclerView.setAdapter(categoriesAdapte);
+
     }
 
     public void userstatus(String status){
@@ -715,17 +706,10 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
         img3=null;
         img4=null;
         content_progresbar=null;
-        content_recyclerView=null;
         categoriesAdapte=null;
-        categoriesModelList=null;
-         categoriesAdapteNouveaux=null;
-         nouveauxRecyclerView=null;
          chaussureRecyclerView=null;
-         jupesRecyclerView=null;
-         categoriesAdapteChaussureList=null;
         lastVisible=null;
-        imagePubFixe=null;
-        imagePubText=null;
+
         ///robe
         v=null;
         firebaseAuth=null;

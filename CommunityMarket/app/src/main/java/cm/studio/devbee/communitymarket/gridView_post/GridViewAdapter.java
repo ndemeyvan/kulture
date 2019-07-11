@@ -20,6 +20,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -41,16 +43,18 @@ import cm.studio.devbee.communitymarket.R;
 import cm.studio.devbee.communitymarket.commentaires.Commentaires_Model;
 import cm.studio.devbee.communitymarket.postActivity.DetailActivityTwo;
 
-public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.ViewHolder> {
+public class GridViewAdapter extends FirestoreRecyclerAdapter<ModelGridView,GridViewAdapter.ViewHolder> {
     List<ModelGridView> modelGridViewList;
     Context context;
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
 
-    public GridViewAdapter(List<ModelGridView> modelGridViewList, Context context) {
-        this.modelGridViewList = modelGridViewList;
-        this.context = context;
+
+    public GridViewAdapter(@NonNull FirestoreRecyclerOptions<ModelGridView> options,Context context) {
+        super ( options );
+        this.context=context;
     }
+
 
     @NonNull
     @Override
@@ -63,14 +67,19 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
-        String produit_image =modelGridViewList.get(i).getImage_du_produit();
-        String nom=modelGridViewList.get(i).getNom_du_produit();
-        String desc =modelGridViewList.get ( i).getDecription_du_produit();
-        String prix_produit=modelGridViewList.get(i).getPrix_du_produit();
-        String tempsdepub=modelGridViewList.get ( i ).getDate_de_publication ();
-        final String nom_utilisateur=modelGridViewList.get(i).getUtilisateur();
-        final String idDuPost=modelGridViewList.get ( i ).getPost_id();
-        final String categorie=modelGridViewList.get(i).getCategories();
+
+    }
+
+    @Override
+    protected void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i, @NonNull ModelGridView model) {
+        String produit_image =model.getImage_du_produit();
+        String nom=model.getNom_du_produit();
+        String desc =model.getDecription_du_produit();
+        String prix_produit=model.getPrix_du_produit();
+        String tempsdepub=model.getDate_de_publication ();
+        final String nom_utilisateur=model.getUtilisateur();
+        final String idDuPost=model.getPost_id();
+        final String categorie=model.getCategories();
         //viewHolder.setCatrogies_name(categorie);
         viewHolder.prix_produit(prix_produit);
         viewHolder.image_produit(produit_image);
@@ -124,10 +133,6 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.ViewHo
         });
     }
 
-    @Override
-    public int getItemCount() {
-        return modelGridViewList.size();
-    }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         ImageView produit;

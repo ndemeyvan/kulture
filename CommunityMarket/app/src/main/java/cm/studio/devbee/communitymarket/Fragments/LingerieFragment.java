@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -86,14 +87,7 @@ public class LingerieFragment extends Fragment {
         pubImageThree=v.findViewById ( R.id.pubImageThree);
         pubImageFour=v.findViewById ( R.id.pubImageFour );
         imagePubText=v.findViewById ( R.id.imagePubText );
-        //
-        lingerie_shirt=v.findViewById ( R.id.lingerie_shirt );
-        firebaseFirestore=FirebaseFirestore.getInstance();
-        categoriesModelTshirtList=new ArrayList<> (  );
-        categoriesAdaptelingeries=new GridViewAdapter (categoriesModelTshirtList,getActivity());
-        lingerie_shirt.setAdapter ( categoriesAdaptelingeries );
-        lingerie_shirt.setLayoutManager(new LinearLayoutManager (getActivity(),LinearLayoutManager.VERTICAL,false));
-        asyncTask=new AsyncTask ();
+       asyncTask=new AsyncTask ();
         asyncTask.execute (  );
         firebaseAuth=FirebaseAuth.getInstance ();
         curent_user=firebaseAuth.getCurrentUser ().getUid ();
@@ -134,21 +128,16 @@ public class LingerieFragment extends Fragment {
     public void tshirtRecyclerView(){
 
         Query firstQuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "lingeries" ).orderBy ( "prix_du_produit",Query.Direction.ASCENDING );
-        firstQuery.addSnapshotListener(getActivity (),new EventListener<QuerySnapshot> () {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+        FirestoreRecyclerOptions<ModelGridView> options = new FirestoreRecyclerOptions.Builder<ModelGridView>()
+                .setQuery(firstQuery, ModelGridView.class)
+                .build();
+        categoriesAdaptelingeries  = new GridViewAdapter (options,getActivity());
+        lingerie_shirt = v.findViewById(R.id.lingerie_shirt);
+        lingerie_shirt.setHasFixedSize(true);
+        lingerie_shirt.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
+        lingerie_shirt.setAdapter(categoriesAdaptelingeries);
 
-                for (DocumentChange doc:queryDocumentSnapshots.getDocumentChanges()){
-                    if (doc.getType()==DocumentChange.Type.ADDED){
-                        String idupost=doc.getDocument ().getId ();
-                        ModelGridView categoriesModelTshirt =doc.getDocument().toObject(ModelGridView.class).withId ( idupost );
-                        categoriesModelTshirtList.add(categoriesModelTshirt);
-                        categoriesAdaptelingeries.notifyDataSetChanged();
-                    }
-                }
 
-            }
-        });
     }
 
     public void imagePub(){

@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -90,13 +91,6 @@ public class JupesFragment extends Fragment {
         firebaseFirestore=FirebaseFirestore.getInstance ();
         firebaseAuth=FirebaseAuth.getInstance ();
         curent_user=firebaseAuth.getCurrentUser ().getUid ();
-        //////////
-        jupeRecyclerView=v.findViewById ( R.id.jupeRecyclerView );
-        categoriesModeljupeList=new ArrayList<> (  );
-        categoriesAdaptejupe=new GridViewAdapter ( categoriesModeljupeList,getActivity () );
-        jupeRecyclerView.setAdapter ( categoriesAdaptejupe );
-        jupeRecyclerView.setLayoutManager(new LinearLayoutManager (getActivity(),LinearLayoutManager.VERTICAL,false));
-        ////////pull
         jupeFragmentWeakReference=new WeakReference<>(this);
         asyncTask=new AsyncTask ();
         asyncTask.execute();
@@ -137,21 +131,15 @@ public class JupesFragment extends Fragment {
     public void jupeRecyclerView(){
 
         Query firstQuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "jupes" ).orderBy ( "prix_du_produit",Query.Direction.ASCENDING );
-        firstQuery.addSnapshotListener(getActivity (),new EventListener<QuerySnapshot> () {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+        FirestoreRecyclerOptions<ModelGridView> options = new FirestoreRecyclerOptions.Builder<ModelGridView>()
+                .setQuery(firstQuery, ModelGridView.class)
+                .build();
+        categoriesAdaptejupe  = new GridViewAdapter (options,getActivity());
+        jupeRecyclerView = v.findViewById(R.id.jupeRecyclerView);
+        jupeRecyclerView.setHasFixedSize(true);
+        jupeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
+        jupeRecyclerView.setAdapter(categoriesAdaptejupe);
 
-                for (DocumentChange doc:queryDocumentSnapshots.getDocumentChanges()){
-                    if (doc.getType()==DocumentChange.Type.ADDED){
-                        String idupost=doc.getDocument ().getId ();
-                        ModelGridView categoriesModelpull =doc.getDocument().toObject(ModelGridView.class).withId ( idupost );
-                        categoriesModeljupeList.add(categoriesModelpull);
-                        categoriesAdaptejupe.notifyDataSetChanged();
-                    }
-                }
-
-            }
-        });
     }
     public void imagePub(){
         DocumentReference user_two = firebaseFirestore.collection("sliders").document("images");

@@ -54,8 +54,9 @@ public class  CategoriesAdapteNouveaux extends FirestoreRecyclerAdapter<Categori
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
 
-    public CategoriesAdapteNouveaux(@NonNull FirestoreRecyclerOptions<CategoriesModelNouveaux> options) {
+    public CategoriesAdapteNouveaux(@NonNull FirestoreRecyclerOptions<CategoriesModelNouveaux> options,Context context) {
         super ( options );
+        this.context=context;
     }
 
 
@@ -63,7 +64,6 @@ public class  CategoriesAdapteNouveaux extends FirestoreRecyclerAdapter<Categori
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View v=LayoutInflater.from ( viewGroup.getContext () ).inflate (R.layout.item_nouveautes ,viewGroup,false);
-        viewGroup.getContext();
         firebaseFirestore=FirebaseFirestore.getInstance();
         firebaseAuth=FirebaseAuth.getInstance();
         return new ViewHolder ( v );
@@ -78,9 +78,8 @@ public class  CategoriesAdapteNouveaux extends FirestoreRecyclerAdapter<Categori
         final String nom_id=model.getUtilisateur ();
         String tempsdepub=model.getDate_de_publication ();
         String produinom=model.getNom_du_produit ();
-        final String postId=model.PostId;
         final String current_user=firebaseAuth.getCurrentUser ().getUid ();
-        final String idDuPost=model.PostId;
+        final String idDuPost=model.getPost_id ();
         final String categorie=model.getCategories();
         viewHolder.categorie(categorie);
         viewHolder.imageproduitxi ( imageproduit );
@@ -107,7 +106,6 @@ public class  CategoriesAdapteNouveaux extends FirestoreRecyclerAdapter<Categori
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()){
                     if (task.getResult ().exists ()){
-
                         String name_user= task.getResult ().getString ( "user_name" );
                         String image_user=task.getResult ().getString ( "user_profil_image" );
                         viewHolder.setuserData ( name_user,image_user );
@@ -146,7 +144,6 @@ public class  CategoriesAdapteNouveaux extends FirestoreRecyclerAdapter<Categori
         viewHolder.like.setOnClickListener ( new View.OnClickListener () {
             @Override
             public void onClick(View v) {
-
                 firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "nouveaux" ).document (idDuPost).collection ( "likes" ).document (current_user).get ().addOnCompleteListener ( (Activity) context,new OnCompleteListener<DocumentSnapshot> () {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -181,10 +178,6 @@ public class  CategoriesAdapteNouveaux extends FirestoreRecyclerAdapter<Categori
         } );
     }
 
-    @Override
-    public int getItemCount() {
-        return categoriesModelNouveauxList.size ();
-    }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         TextView description;

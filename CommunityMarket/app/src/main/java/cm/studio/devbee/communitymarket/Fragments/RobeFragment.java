@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -55,7 +56,6 @@ public class RobeFragment extends Fragment {
     private static ProgressDialog progressDialog;
     private static AsyncTask asyncTask;
     private static GridViewAdapter categoriesAdapterobe;
-    private static List<ModelGridView> categoriesModelrobeList;
     private static WeakReference<RobeFragment> robeFragmentWeakReference;
     private static FirebaseAuth firebaseAuth;
     String curent_user;
@@ -87,13 +87,8 @@ public class RobeFragment extends Fragment {
         pubImageThree=v.findViewById ( R.id.pubImageThree);
         pubImageFour=v.findViewById ( R.id.pubImageFour );
         imagePubText=v.findViewById ( R.id.imagePubText );
-        //////////
-        robeRecyclerView=v.findViewById ( R.id.robeRecyclerView );
-        categoriesModelrobeList=new ArrayList<> (  );
-        categoriesAdapterobe=new GridViewAdapter (categoriesModelrobeList,getActivity () );
-        robeRecyclerView.setAdapter ( categoriesAdapterobe );
-        robeRecyclerView.setLayoutManager(new LinearLayoutManager (getActivity(),LinearLayoutManager.VERTICAL,false));
-        ////////pull
+        /////////
+       ////////pull
         firebaseAuth=FirebaseAuth.getInstance ();
         curent_user=firebaseAuth.getCurrentUser ().getUid ();
         asyncTask=new AsyncTask ();
@@ -104,6 +99,8 @@ public class RobeFragment extends Fragment {
         animationDrawable.setEnterFadeDuration(2000);
         animationDrawable.setExitFadeDuration(4000);
         animationDrawable.start();
+        RecyclerView ();
+        imagePub ();
         return v;
     }
     public void userstatus(String status){
@@ -137,20 +134,14 @@ public class RobeFragment extends Fragment {
     public void RecyclerView(){
 
         Query firstQuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "robe" ).orderBy ( "prix_du_produit",Query.Direction.ASCENDING );
-        firstQuery.addSnapshotListener(getActivity (),new EventListener<QuerySnapshot> () {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-
-                for (DocumentChange doc:queryDocumentSnapshots.getDocumentChanges()){
-                    if (doc.getType()==DocumentChange.Type.ADDED){
-                        String idupost=doc.getDocument ().getId ();
-                        ModelGridView categoriesModelpull =doc.getDocument().toObject(ModelGridView.class).withId ( idupost );
-                        categoriesModelrobeList.add(categoriesModelpull);
-                        categoriesAdapterobe.notifyDataSetChanged();
-                    }
-                }
-            }
-        });
+        FirestoreRecyclerOptions<ModelGridView> options = new FirestoreRecyclerOptions.Builder<ModelGridView>()
+                .setQuery(firstQuery, ModelGridView.class)
+                .build();
+        categoriesAdapterobe  = new GridViewAdapter (options,getActivity());
+        robeRecyclerView = v.findViewById(R.id.robeRecyclerView);
+        robeRecyclerView.setHasFixedSize(true);
+        robeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
+        robeRecyclerView.setAdapter(categoriesAdapterobe);
     }
 
     public void imagePub(){
@@ -313,8 +304,7 @@ public class RobeFragment extends Fragment {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            RecyclerView ();
-            imagePub ();
+
             return null;
         }
 
@@ -333,7 +323,6 @@ public class RobeFragment extends Fragment {
         firebaseFirestore=null;
         progressDialog=null;
         categoriesAdapterobe=null;
-        categoriesModelrobeList=null;
     }
 
 }

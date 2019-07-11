@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -92,13 +93,6 @@ public class AccesoireFragment extends Fragment {
         pubImageFour=v.findViewById ( R.id.pubImageFour );
         imagePubText=v.findViewById ( R.id.imagePubText );
         //
-        //////////
-        acessoireRecyclerView=v.findViewById ( R.id.accessoiresRecyclerView );
-        categoriesModelacessoireList=new ArrayList<> (  );
-        categoriesAdapteacessoire=new GridViewAdapter (categoriesModelacessoireList,getActivity () );
-        acessoireRecyclerView.setAdapter ( categoriesAdapteacessoire );
-        acessoireRecyclerView.setLayoutManager(new LinearLayoutManager (getActivity(),LinearLayoutManager.VERTICAL,false));
-        ////////pull
         asyncTask=new AsyncTask ();
         asyncTask.execute();
         acessoireFragmentWeakReference=new WeakReference<> ( this );
@@ -266,20 +260,14 @@ public class AccesoireFragment extends Fragment {
     public void RecyclerView(){
         firebaseFirestore=FirebaseFirestore.getInstance ();
         Query firstQuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "accessoires" ).orderBy ( "prix_du_produit",Query.Direction.ASCENDING );
-        firstQuery.addSnapshotListener(getActivity (),new EventListener<QuerySnapshot> () {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-
-                for (DocumentChange doc:queryDocumentSnapshots.getDocumentChanges()){
-                    if (doc.getType()==DocumentChange.Type.ADDED){
-                        String idupost=doc.getDocument ().getId ();
-                        ModelGridView categoriesModelpull =doc.getDocument().toObject(ModelGridView.class).withId ( idupost );
-                        categoriesModelacessoireList.add(categoriesModelpull);
-                        categoriesAdapteacessoire.notifyDataSetChanged();
-                    }
-                }
-            }
-        });
+        FirestoreRecyclerOptions<ModelGridView> options = new FirestoreRecyclerOptions.Builder<ModelGridView>()
+                .setQuery(firstQuery, ModelGridView.class)
+                .build();
+        categoriesAdapteacessoire  = new GridViewAdapter (options,getActivity());
+        acessoireRecyclerView = v.findViewById(R.id.accessoiresRecyclerView);
+        acessoireRecyclerView.setHasFixedSize(true);
+        acessoireRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
+        acessoireRecyclerView.setAdapter(categoriesAdapteacessoire);
     }
 
     public  class AsyncTask extends android.os.AsyncTask<Void, Void, Void> {

@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -50,7 +51,7 @@ import cm.studio.devbee.communitymarket.gridView_post.ModelGridView;
 public class LocationFragment extends Fragment {
 
     private  static View v;
-    private static RecyclerView chemiseRecyclerView;
+    private static RecyclerView location_recycler;
     private static FirebaseFirestore firebaseFirestore;
     private static ProgressDialog progressDialog;
     private static AsyncTask asyncTask;
@@ -88,13 +89,6 @@ public class LocationFragment extends Fragment {
         pubImageFour=v.findViewById ( R.id.pubImageFour );
         imagePubText=v.findViewById ( R.id.imagePubText );
         //
-        //////////
-        chemiseRecyclerView=v.findViewById ( R.id.locationRecyclerView );
-        categoriesModelchemiseList=new ArrayList<>(  );
-        categoriesAdaptechemise=new GridViewAdapter (categoriesModelchemiseList,getActivity () );
-        chemiseRecyclerView.setAdapter ( categoriesAdaptechemise );
-        chemiseRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
-        ////////pull
         asyncTask=new AsyncTask();
         asyncTask.execute();
         firebaseAuth=FirebaseAuth.getInstance ();
@@ -140,19 +134,14 @@ public class LocationFragment extends Fragment {
     public void RecyclerView(){
 
         Query firstQuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "location" ).orderBy ( "prix_du_produit",Query.Direction.ASCENDING );
-        firstQuery.addSnapshotListener(getActivity (),new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                for (DocumentChange doc:queryDocumentSnapshots.getDocumentChanges()){
-                    if (doc.getType()==DocumentChange.Type.ADDED){
-                        String idupost=doc.getDocument ().getId ();
-                        ModelGridView categoriesModelpull =doc.getDocument().toObject(ModelGridView.class).withId ( idupost );
-                        categoriesModelchemiseList.add(categoriesModelpull);
-                        categoriesAdaptechemise.notifyDataSetChanged();
-                    }
-                }
-            }
-        });
+        FirestoreRecyclerOptions<ModelGridView> options = new FirestoreRecyclerOptions.Builder<ModelGridView>()
+                .setQuery(firstQuery, ModelGridView.class)
+                .build();
+        categoriesAdaptechemise  = new GridViewAdapter (options,getActivity());
+        location_recycler = v.findViewById(R.id.locationRecyclerView);
+        location_recycler.setHasFixedSize(true);
+        location_recycler.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
+        location_recycler.setAdapter(categoriesAdaptechemise);
     }
 
 
@@ -336,7 +325,6 @@ public class LocationFragment extends Fragment {
         asyncTask.cancel(true);
         super.onDestroy();
         asyncTask.cancel(true);
-        chemiseRecyclerView=null;
         firebaseFirestore=null;
         progressDialog=null;
         categoriesAdaptechemise=null;

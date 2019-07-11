@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -92,11 +93,6 @@ public class ChaussureFragment extends Fragment {
         chaussuresFragmentWeakReference=new WeakReference<> ( this );
         chaussuresRecyclerView=v.findViewById ( R.id.chaussureRecyclerView );
         firebaseFirestore=FirebaseFirestore.getInstance();
-        categoriesModelchaussuresList=new ArrayList<> (  );
-        categoriesAdaptechaussures=new GridViewAdapter (categoriesModelchaussuresList,getActivity());
-        chaussuresRecyclerView.setAdapter ( categoriesAdaptechaussures );
-        chaussuresRecyclerView.setLayoutManager(new LinearLayoutManager (getActivity(),LinearLayoutManager.VERTICAL,false));
-        chaussuresRecyclerView=v.findViewById ( R.id.chaussureRecyclerView );
         asyncTask=new AsyncTask ();
         asyncTask.execute (  );
         firebaseAuth=FirebaseAuth.getInstance ();
@@ -291,21 +287,14 @@ public class ChaussureFragment extends Fragment {
 
     public void chaussureRecyclerView(){
         Query firstQuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "Chaussures" ).orderBy ( "prix_du_produit",Query.Direction.ASCENDING );
-        firstQuery.addSnapshotListener(getActivity (),new EventListener<QuerySnapshot> () {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-
-                for (DocumentChange doc:queryDocumentSnapshots.getDocumentChanges()){
-                    if (doc.getType()==DocumentChange.Type.ADDED){
-                        String idupost=doc.getDocument ().getId ();
-                        ModelGridView categoriesModelTshirt =doc.getDocument().toObject(ModelGridView.class).withId ( idupost );
-                        categoriesModelchaussuresList.add(categoriesModelTshirt);
-                        categoriesAdaptechaussures.notifyDataSetChanged();
-                    }
-                }
-
-            }
-        });
+        FirestoreRecyclerOptions<ModelGridView> options = new FirestoreRecyclerOptions.Builder<ModelGridView>()
+                .setQuery(firstQuery, ModelGridView.class)
+                .build();
+        categoriesAdaptechaussures  = new GridViewAdapter (options,getActivity());
+        chaussuresRecyclerView = v.findViewById(R.id.lingerie_shirt);
+        chaussuresRecyclerView.setHasFixedSize(true);
+        chaussuresRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
+        chaussuresRecyclerView.setAdapter(categoriesAdaptechaussures);
     }
 
     public class AsyncTask extends android.os.AsyncTask<Void, Void, Void> {

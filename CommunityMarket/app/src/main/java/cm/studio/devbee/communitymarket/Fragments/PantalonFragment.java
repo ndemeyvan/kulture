@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -88,13 +89,7 @@ public class PantalonFragment extends Fragment {
         pubImageThree=v.findViewById ( R.id.pubImageThree);
         pubImageFour=v.findViewById ( R.id.pubImageFour );
         imagePubText=v.findViewById ( R.id.imagePubText );
-        //////////
-        pantalonsRecyclerView=v.findViewById ( R.id.pantalonRecyclerView );
-        categoriesModelpantalonsList=new ArrayList<> (  );
-        categoriesAdaptepantalons=new GridViewAdapter ( categoriesModelpantalonsList,getActivity () );
-        pantalonsRecyclerView.setAdapter ( categoriesAdaptepantalons );
-        pantalonsRecyclerView.setLayoutManager(new LinearLayoutManager (getActivity(),LinearLayoutManager.VERTICAL,false));
-        ////////pull
+
         firebaseAuth=FirebaseAuth.getInstance ();
         curent_user=firebaseAuth.getCurrentUser ().getUid ();
         asyncTask=new AsyncTask ();
@@ -136,21 +131,15 @@ public class PantalonFragment extends Fragment {
     public void RecyclerView(){
 
         Query firstQuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "Pantalons" ).orderBy ( "prix_du_produit",Query.Direction.ASCENDING );
-        firstQuery.addSnapshotListener(getActivity (),new EventListener<QuerySnapshot> () {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+        FirestoreRecyclerOptions<ModelGridView> options = new FirestoreRecyclerOptions.Builder<ModelGridView>()
+                .setQuery(firstQuery, ModelGridView.class)
+                .build();
+        categoriesAdaptepantalons  = new GridViewAdapter (options,getActivity());
+        pantalonsRecyclerView = v.findViewById(R.id.pantalonRecyclerView);
+        pantalonsRecyclerView.setHasFixedSize(true);
+        pantalonsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
+        pantalonsRecyclerView.setAdapter(categoriesAdaptepantalons);
 
-                for (DocumentChange doc:queryDocumentSnapshots.getDocumentChanges()){
-                    if (doc.getType()==DocumentChange.Type.ADDED){
-                        String idupost=doc.getDocument ().getId ();
-                        ModelGridView categoriesModelpull =doc.getDocument().toObject(ModelGridView.class).withId ( idupost );
-                        categoriesModelpantalonsList.add(categoriesModelpull);
-                        categoriesAdaptepantalons.notifyDataSetChanged();
-                    }
-                }
-
-            }
-        });
     }
     public void imagePub(){
         DocumentReference user_two = firebaseFirestore.collection("sliders").document("images");

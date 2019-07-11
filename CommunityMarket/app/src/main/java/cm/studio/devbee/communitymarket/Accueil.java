@@ -190,7 +190,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
                             menu.getItem(1).setIcon(ContextCompat.getDrawable(getApplicationContext (), R.drawable.message_lu));
 
                         }else{
-                            menu.getItem(1).setIcon(ContextCompat.getDrawable(getApplicationContext (), R.drawable.ic_message_float_icon));
+                         //   menu.getItem(1).setIcon(ContextCompat.getDrawable(getApplicationContext (), R.drawable.ic_message_float_icon));
                         }
                     }else {
                         Intent gotoparam=new Intent(getApplicationContext(),ParametrePorfilActivity.class);
@@ -234,8 +234,8 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
             }
         } );
 
-
-
+        recup();
+        vaTopost ();
     }
 
 
@@ -544,8 +544,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
 
             @Override
             protected Void doInBackground(Void... voids) {
-                recup();
-                vaTopost ();
+
 
                 return null;
             }

@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -90,13 +91,6 @@ public class PullFragment extends Fragment {
         imagePubText=v.findViewById ( R.id.imagePubText );
         firebaseAuth=FirebaseAuth.getInstance ();
         curent_user=firebaseAuth.getCurrentUser ().getUid ();
-        //////////
-        pullRecyclerView=v.findViewById ( R.id.pullRecyclerView );
-        categoriesModelpullList=new ArrayList<> (  );
-        categoriesAdaptepull=new GridViewAdapter ( categoriesModelpullList,getActivity () );
-        pullRecyclerView.setAdapter ( categoriesAdaptepull );
-        pullRecyclerView.setLayoutManager(new LinearLayoutManager (getActivity(),LinearLayoutManager.VERTICAL,false));
-        ////////pull
         pullFragmentWeakReference=new WeakReference<>(this);
         asyncTask=new AsyncTask();
         asyncTask.execute();
@@ -113,21 +107,16 @@ public class PullFragment extends Fragment {
     public void pullRecyclerView(){
 
         Query firstQuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "pull" ).orderBy ( "prix_du_produit",Query.Direction.ASCENDING );;
-        firstQuery.addSnapshotListener(getActivity (),new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
 
-                for (DocumentChange doc:queryDocumentSnapshots.getDocumentChanges()){
-                    if (doc.getType()==DocumentChange.Type.ADDED){
-                        String idupost=doc.getDocument ().getId ();
-                        ModelGridView categoriesModelpull =doc.getDocument().toObject(ModelGridView.class).withId ( idupost );
-                        categoriesModelpullList.add(categoriesModelpull);
-                        categoriesAdaptepull.notifyDataSetChanged();
-                    }
-                }
+        FirestoreRecyclerOptions<ModelGridView> options = new FirestoreRecyclerOptions.Builder<ModelGridView>()
+                .setQuery(firstQuery, ModelGridView.class)
+                .build();
+        categoriesAdaptepull  = new GridViewAdapter (options,getActivity());
+        pullRecyclerView = v.findViewById(R.id.pullRecyclerView);
+        pullRecyclerView.setHasFixedSize(true);
+        pullRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
+        pullRecyclerView.setAdapter(categoriesAdaptepull);
 
-            }
-        });
     }
     public void userstatus(String status){
 

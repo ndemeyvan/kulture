@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -89,13 +90,6 @@ public class CulloteFragment extends Fragment {
         pubImageFour=v.findViewById ( R.id.pubImageFour );
         imagePubText=v.findViewById ( R.id.imagePubText );
         firebaseFirestore=FirebaseFirestore.getInstance ();
-        //////////
-        culloteRecyclerView=v.findViewById ( R.id.culloteRecyclerView );
-        categoriesModelculloteList=new ArrayList<> (  );
-        categoriesAdaptecullote=new GridViewAdapter (categoriesModelculloteList,getActivity () );
-        culloteRecyclerView.setAdapter ( categoriesAdaptecullote );
-        culloteRecyclerView.setLayoutManager(new LinearLayoutManager (getActivity(),LinearLayoutManager.VERTICAL,false));
-        ////////pull
         asyncTask=new AsyncTask ();
         asyncTask.execute();
         culloteFragmentWeakReference=new WeakReference<> ( this );
@@ -135,22 +129,15 @@ public class CulloteFragment extends Fragment {
         userstatus("offline");
     }
     public void RecyclerView(){
-
         Query firstQuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "Cullotes" ).orderBy ( "prix_du_produit",Query.Direction.ASCENDING );
-        firstQuery.addSnapshotListener(getActivity (),new EventListener<QuerySnapshot> () {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-
-                for (DocumentChange doc:queryDocumentSnapshots.getDocumentChanges()){
-                    if (doc.getType()==DocumentChange.Type.ADDED){
-                        String idupost=doc.getDocument ().getId ();
-                        ModelGridView categoriesModelpull =doc.getDocument().toObject(ModelGridView.class).withId ( idupost );
-                        categoriesModelculloteList.add(categoriesModelpull);
-                        categoriesAdaptecullote.notifyDataSetChanged();
-                    }
-                }
-            }
-        });
+        FirestoreRecyclerOptions<ModelGridView> options = new FirestoreRecyclerOptions.Builder<ModelGridView>()
+                .setQuery(firstQuery, ModelGridView.class)
+                .build();
+        categoriesAdaptecullote  = new GridViewAdapter (options,getActivity());
+        culloteRecyclerView = v.findViewById(R.id.culloteRecyclerView);
+        culloteRecyclerView.setHasFixedSize(true);
+        culloteRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
+        culloteRecyclerView.setAdapter(categoriesAdaptecullote);
     }
     public void imagePub(){
         DocumentReference user_two = firebaseFirestore.collection("sliders").document("images");

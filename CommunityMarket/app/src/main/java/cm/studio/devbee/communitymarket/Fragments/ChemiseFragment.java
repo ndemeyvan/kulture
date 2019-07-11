@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -89,12 +90,6 @@ public class ChemiseFragment extends Fragment {
         pubImageThree=v.findViewById ( R.id.pubImageThree);
         pubImageFour=v.findViewById ( R.id.pubImageFour );
         imagePubText=v.findViewById ( R.id.imagePubText );
-        chemiseRecyclerView=v.findViewById ( R.id.chemiseRecyclerView );
-        categoriesModelchemiseList=new ArrayList<> (  );
-        categoriesAdaptechemise=new GridViewAdapter (categoriesModelchemiseList,getActivity () );
-        chemiseRecyclerView.setAdapter ( categoriesAdaptechemise );
-        chemiseRecyclerView.setLayoutManager(new LinearLayoutManager (getActivity(),LinearLayoutManager.VERTICAL,false));
-        ////////pull
         asyncTask=new AsyncTask ();
         asyncTask.execute();
         firebaseAuth=FirebaseAuth.getInstance ();
@@ -136,20 +131,14 @@ public class ChemiseFragment extends Fragment {
     public void RecyclerView(){
 
         Query firstQuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "Chemises" ).orderBy ( "prix_du_produit",Query.Direction.ASCENDING );
-        firstQuery.addSnapshotListener(getActivity (),new EventListener<QuerySnapshot> () {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-
-                for (DocumentChange doc:queryDocumentSnapshots.getDocumentChanges()){
-                    if (doc.getType()==DocumentChange.Type.ADDED){
-                        String idupost=doc.getDocument ().getId ();
-                        ModelGridView categoriesModelpull =doc.getDocument().toObject(ModelGridView.class).withId ( idupost );
-                        categoriesModelchemiseList.add(categoriesModelpull);
-                        categoriesAdaptechemise.notifyDataSetChanged();
-                    }
-                }
-            }
-        });
+        FirestoreRecyclerOptions<ModelGridView> options = new FirestoreRecyclerOptions.Builder<ModelGridView>()
+                .setQuery(firstQuery, ModelGridView.class)
+                .build();
+        categoriesAdaptechemise  = new GridViewAdapter (options,getActivity());
+        chemiseRecyclerView = v.findViewById(R.id.chemiseRecyclerView);
+        chemiseRecyclerView.setHasFixedSize(true);
+        chemiseRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
+        chemiseRecyclerView.setAdapter(categoriesAdaptechemise);
     }
     public void imagePub(){
         DocumentReference user_two = firebaseFirestore.collection("sliders").document("images");
