@@ -72,6 +72,7 @@ import cm.studio.devbee.communitymarket.messagerie.ChatMessageActivity;
 import cm.studio.devbee.communitymarket.postActivity.PostActivity;
 import cm.studio.devbee.communitymarket.profile.ParametrePorfilActivity;
 import cm.studio.devbee.communitymarket.profile.ProfileActivity;
+import cm.studio.devbee.communitymarket.search.ChoiceSearchActivity;
 import cm.studio.devbee.communitymarket.search.SearchActivity;
 import de.hdodenhof.circleimageview.CircleImageView;
 import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence;
@@ -358,7 +359,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
     public boolean onOptionsItemSelected(MenuItem item) {
             int id = item.getItemId ();
             if (id == R.id.search) {
-                Intent gogotoSearch = new Intent(getApplicationContext(),SearchActivity.class);
+                Intent gogotoSearch = new Intent(getApplicationContext(),ChoiceSearchActivity.class);
                 startActivity(gogotoSearch);
                 //finish ();
                 return true;

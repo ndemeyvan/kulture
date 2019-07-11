@@ -99,6 +99,14 @@ public class JupesFragment extends Fragment {
         animationDrawable.setEnterFadeDuration(2000);
         animationDrawable.setExitFadeDuration(4000);
         animationDrawable.start();
+        getActivity ().runOnUiThread
+                (new Runnable() {
+                    @Override
+                    public void run() {
+                        jupeRecyclerView ();
+                        imagePub();
+                    }
+                });
         return v;
     }
     @Override
@@ -306,8 +314,7 @@ public class JupesFragment extends Fragment {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            jupeRecyclerView ();
-           imagePub();
+
             return null;
         }
 

@@ -103,6 +103,14 @@ public class AccesoireFragment extends Fragment {
         animationDrawable.setEnterFadeDuration(2000);
         animationDrawable.setExitFadeDuration(4000);
         animationDrawable.start();
+        getActivity ().runOnUiThread
+                (new Runnable() {
+                    @Override
+                    public void run() {
+                        RecyclerView ();
+                        imagePub ();
+                    }
+                });
         return v;
     }
     public void imagePub(){
@@ -283,8 +291,7 @@ public class AccesoireFragment extends Fragment {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            RecyclerView ();
-            imagePub ();
+
             return null;
         }
 

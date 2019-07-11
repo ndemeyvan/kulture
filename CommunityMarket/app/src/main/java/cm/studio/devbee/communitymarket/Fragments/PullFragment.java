@@ -101,6 +101,14 @@ public class PullFragment extends Fragment {
         animationDrawable.setEnterFadeDuration(2000);
         animationDrawable.setExitFadeDuration(4000);
         animationDrawable.start();
+        getActivity ().runOnUiThread
+                (new Runnable() {
+                    @Override
+                    public void run() {
+                        pullRecyclerView ();
+                        imagePub ();
+                    }
+                });
         return v;
     }
 
@@ -308,8 +316,7 @@ public class PullFragment extends Fragment {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            pullRecyclerView ();
-            imagePub ();
+
             return null;
         }
 

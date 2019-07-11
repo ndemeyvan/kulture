@@ -17,6 +17,9 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
@@ -26,20 +29,18 @@ import cm.studio.devbee.communitymarket.R;
 import cm.studio.devbee.communitymarket.gridView_post.ModelGridView;
 import cm.studio.devbee.communitymarket.postActivity.DetailActivityTwo;
 
-public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
+public class UserAdapter extends FirestoreRecyclerAdapter<ModelGridView,UserAdapter.ViewHolder> {
     List<ModelGridView>modelGridViewList;
     Context context;
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
     String s;
 
-
-
-    public UserAdapter(List<ModelGridView> modelGridViewList, Context context,String s) {
-        this.modelGridViewList = modelGridViewList;
-        this.context = context;
-        this.s=s;
+    public UserAdapter(@NonNull FirestoreRecyclerOptions<ModelGridView> options,Context context) {
+        super ( options );
+        this.context=context;
     }
+
 
     @NonNull
     @Override
@@ -50,16 +51,17 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         return new ViewHolder ( v );
     }
 
+
     @Override
-    public void onBindViewHolder(@NonNull  final ViewHolder viewHolder, int i) {
-        String produit_image =modelGridViewList.get(i).getImage_du_produit();
-        String nom=modelGridViewList.get(i).getNom_du_produit();
-        String desc =modelGridViewList.get ( i).getDecription_du_produit();
-        String prix_produit=modelGridViewList.get(i).getPrix_du_produit();
-        String tempsdepub=modelGridViewList.get ( i ).getDate_de_publication ();
-        final String nom_utilisateur=modelGridViewList.get(i).getUtilisateur();
-        final String idDuPost=modelGridViewList.get ( i ).getPost_id();
-        final String categorie=modelGridViewList.get(i).getCategories();
+    protected void onBindViewHolder(@NonNull ViewHolder viewHolder, int i, @NonNull ModelGridView model) {
+        String produit_image =model.getImage_du_produit();
+        String nom=model.getNom_du_produit();
+        String desc =model.getDecription_du_produit();
+        String prix_produit=model.getPrix_du_produit();
+        String tempsdepub=model.getDate_de_publication ();
+        final String nom_utilisateur=model.getUtilisateur();
+        final String idDuPost=model.getPost_id();
+        final String categorie=model.getCategories();
         //viewHolder.setCatrogies_name(categorie);
         viewHolder.prix_produit(prix_produit);
         viewHolder.image_produit(produit_image);
@@ -94,6 +96,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
             }
         });
+
         /*firebaseFirestore.collection("mes donnees utilisateur").document(nom_utilisateur).get().addOnCompleteListener((Activity) context,new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {

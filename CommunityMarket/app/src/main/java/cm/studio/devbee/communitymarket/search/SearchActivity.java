@@ -10,17 +10,21 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 import cm.studio.devbee.communitymarket.R;
 import cm.studio.devbee.communitymarket.gridView_post.ModelGridView;
+import cm.studio.devbee.communitymarket.utilsForPostPrincipal.PrincipalAdapte;
+import cm.studio.devbee.communitymarket.utilsForPostPrincipal.PrincipalModel;
 import cm.studio.devbee.communitymarket.utilsForUserApp.UserAdapter;
 
 public class SearchActivity extends AppCompatActivity {
@@ -79,29 +83,15 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void search(final String s) {
-        db.collection ( "publication" ).document ("categories").collection ("nouveaux" ).orderBy( "decription_du_produit").startAt(s).endAt(s+"\uf8ff").get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        listUsers.clear ();
-                        for (DocumentSnapshot doc :task.getResult()) {
-                            listUsers.clear ();
-                            search_progress.setVisibility(View.INVISIBLE);
-                            ModelGridView searchModel = new ModelGridView(doc.getString("nom_du_produit"),doc.getString("image_du_produit"),doc.getString("prix_du_produit"),doc.getString("user_profil_image"),doc.getString("utilisateur"),doc.getString("categories"),doc.getString("decription_du_produit"),doc.getString("date_de_publication"),doc.getString("user_image"),doc.getString("like"),doc.getString("post_id"));
-                            if (!current_user.equals ( searchModel.getUtilisateur() )) {
-                                listUsers.add ( searchModel );
-                                search_progress.setVisibility(View.INVISIBLE);
-                            }
-                        }
-                        searchAdapter = new UserAdapter ( listUsers, SearchActivity.this ,s);
-                        search_recyclerview.setAdapter ( searchAdapter );
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-
-            }
-        });
+        Query firstQuery =db.collection ( "publication" ).document ("categories").collection ("nouveaux" ).orderBy( "decription_du_produit").startAt(s).endAt(s+"\uf8ff");
+        FirestoreRecyclerOptions<ModelGridView> options = new FirestoreRecyclerOptions.Builder<ModelGridView>()
+                .setQuery(firstQuery, ModelGridView.class)
+                .build();
+        searchAdapter  = new UserAdapter (options,SearchActivity.this);
+        search_recyclerview = findViewById(R.id.search_recyclerview);
+        search_recyclerview.setHasFixedSize(true);
+        search_recyclerview.setLayoutManager(new LinearLayoutManager(SearchActivity.this,LinearLayoutManager.HORIZONTAL,false));
+        search_recyclerview.setAdapter(searchAdapter);
 
     }
 

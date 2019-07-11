@@ -96,8 +96,14 @@ public class LingerieFragment extends Fragment {
         animationDrawable.setEnterFadeDuration(2000);
         animationDrawable.setExitFadeDuration(4000);
         animationDrawable.start();
-        tshirtRecyclerView();
-        imagePub ();
+        getActivity ().runOnUiThread
+                (new Runnable() {
+                    @Override
+                    public void run() {
+                        tshirtRecyclerView();
+                        imagePub ();
+                    }
+                });
         return v;
     }
     public void userstatus(String status){

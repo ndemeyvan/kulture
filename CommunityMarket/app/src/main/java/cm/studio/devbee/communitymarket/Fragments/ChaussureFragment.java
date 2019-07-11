@@ -101,10 +101,14 @@ public class ChaussureFragment extends Fragment {
         animationDrawable.setEnterFadeDuration(2000);
         animationDrawable.setExitFadeDuration(4000);
         animationDrawable.start();
-        imagePub();
-        chaussureRecyclerView ();
-
-
+        getActivity ().runOnUiThread
+                (new Runnable() {
+                    @Override
+                    public void run() {
+                        imagePub();
+                        chaussureRecyclerView ();
+                    }
+                });
         return v;
     }
     public void imagePub(){

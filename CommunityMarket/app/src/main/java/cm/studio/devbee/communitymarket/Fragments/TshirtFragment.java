@@ -44,8 +44,6 @@ import cm.studio.devbee.communitymarket.PublicityActivity;
 import cm.studio.devbee.communitymarket.R;
 import cm.studio.devbee.communitymarket.gridView_post.GridViewAdapter;
 import cm.studio.devbee.communitymarket.gridView_post.ModelGridView;
-import cm.studio.devbee.communitymarket.utilsForPostPrincipal.PrincipalAdapte;
-import cm.studio.devbee.communitymarket.utilsForPostPrincipal.PrincipalModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -100,8 +98,15 @@ public class TshirtFragment extends Fragment {
         animationDrawable.setEnterFadeDuration(2000);
         animationDrawable.setExitFadeDuration(4000);
         animationDrawable.start();
-        tshirtRecyclerView();
-        imagePub();
+        getActivity ().runOnUiThread
+                (new Runnable() {
+            @Override
+            public void run() {
+                tshirtRecyclerView();
+                imagePub();
+            }
+        });
+
         return v;
     }
     public void userstatus(String status){
@@ -131,6 +136,9 @@ public class TshirtFragment extends Fragment {
         super.onPause ();
         userstatus("offline");
     }
+
+
+
     public void tshirtRecyclerView(){
         Query firstQuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "T-shirts" ).orderBy ( "prix_du_produit",Query.Direction.ASCENDING );
         FirestoreRecyclerOptions<ModelGridView> options = new FirestoreRecyclerOptions.Builder<ModelGridView>()

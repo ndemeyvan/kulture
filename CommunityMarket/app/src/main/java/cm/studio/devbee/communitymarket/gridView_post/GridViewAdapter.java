@@ -65,10 +65,6 @@ public class GridViewAdapter extends FirestoreRecyclerAdapter<ModelGridView,Grid
         return new ViewHolder(v);
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
-
-    }
 
     @Override
     protected void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i, @NonNull ModelGridView model) {

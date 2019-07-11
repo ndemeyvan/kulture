@@ -99,8 +99,15 @@ public class RobeFragment extends Fragment {
         animationDrawable.setEnterFadeDuration(2000);
         animationDrawable.setExitFadeDuration(4000);
         animationDrawable.start();
-        RecyclerView ();
-        imagePub ();
+
+        getActivity ().runOnUiThread
+                (new Runnable() {
+                    @Override
+                    public void run() {
+                        RecyclerView ();
+                        imagePub ();
+                    }
+                });
         return v;
     }
     public void userstatus(String status){
@@ -137,7 +144,6 @@ public class RobeFragment extends Fragment {
     }
 
     public void RecyclerView(){
-
         Query firstQuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "robe" ).orderBy ( "prix_du_produit",Query.Direction.ASCENDING );
         FirestoreRecyclerOptions<ModelGridView> options = new FirestoreRecyclerOptions.Builder<ModelGridView>()
                 .setQuery(firstQuery, ModelGridView.class)

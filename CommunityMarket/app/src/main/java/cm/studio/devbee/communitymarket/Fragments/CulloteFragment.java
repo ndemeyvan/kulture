@@ -100,6 +100,14 @@ public class CulloteFragment extends Fragment {
         animationDrawable.setEnterFadeDuration(2000);
         animationDrawable.setExitFadeDuration(4000);
         animationDrawable.start();
+        getActivity ().runOnUiThread
+                (new Runnable() {
+                    @Override
+                    public void run() {
+                        RecyclerView ();
+                        imagePub ();
+                    }
+                });
         return v;
     }
     public void userstatus(String status){
@@ -128,11 +136,7 @@ public class CulloteFragment extends Fragment {
         super.onPause ();
         userstatus("offline");
     }
-    @Override
-    public void onStart() {
-        super.onStart();
-        categoriesAdaptecullote.startListening();
-    }
+
     public void RecyclerView(){
         Query firstQuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "Cullotes" ).orderBy ( "prix_du_produit",Query.Direction.ASCENDING );
         FirestoreRecyclerOptions<ModelGridView> options = new FirestoreRecyclerOptions.Builder<ModelGridView>()
@@ -143,6 +147,12 @@ public class CulloteFragment extends Fragment {
         culloteRecyclerView.setHasFixedSize(true);
         culloteRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
         culloteRecyclerView.setAdapter(categoriesAdaptecullote);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        categoriesAdaptecullote.startListening();
     }
     public void imagePub(){
         DocumentReference user_two = firebaseFirestore.collection("sliders").document("images");
@@ -303,8 +313,7 @@ public class CulloteFragment extends Fragment {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            RecyclerView ();
-            imagePub ();
+
             return null;
         }
 

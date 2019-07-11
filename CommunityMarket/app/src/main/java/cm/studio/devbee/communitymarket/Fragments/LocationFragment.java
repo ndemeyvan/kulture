@@ -100,7 +100,14 @@ public class LocationFragment extends Fragment {
         animationDrawable.setEnterFadeDuration(2000);
         animationDrawable.setExitFadeDuration(4000);
         animationDrawable.start();*/
-
+        getActivity ().runOnUiThread
+                (new Runnable() {
+                    @Override
+                    public void run() {
+                        RecyclerView ();
+                        imagePub ();
+                    }
+                });
         return v;
     }
 
@@ -311,8 +318,7 @@ public class LocationFragment extends Fragment {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            RecyclerView ();
-            imagePub ();
+
             return null;
         }
 
