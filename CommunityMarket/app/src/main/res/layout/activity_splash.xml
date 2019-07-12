@@ -49,6 +49,7 @@
         android:textAlignment="center"
         android:textSize="@dimen/splash_text_proverb"
         android:textStyle="bold"
+        android:fontFamily="@font/righteous"
         app:layout_constraintEnd_toEndOf="@+id/textView3"
         app:layout_constraintStart_toStartOf="@+id/textView3"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />

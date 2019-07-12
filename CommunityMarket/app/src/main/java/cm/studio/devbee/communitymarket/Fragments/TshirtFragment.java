@@ -88,7 +88,7 @@ public class TshirtFragment extends Fragment {
         pubImageThree=v.findViewById ( R.id.pubImageThree);
         pubImageFour=v.findViewById ( R.id.pubImageFour );
         imagePubText=v.findViewById ( R.id.imagePubText );
-         asyncTask=new AsyncTask ();
+        asyncTask=new AsyncTask ();
         asyncTask.execute (  );
         firebaseAuth=FirebaseAuth.getInstance ();
         curent_user=firebaseAuth.getCurrentUser ().getUid ();
@@ -315,7 +315,6 @@ public class TshirtFragment extends Fragment {
 
         @Override
         protected Void doInBackground(Void... voids) {
-
             return null;
         }
 

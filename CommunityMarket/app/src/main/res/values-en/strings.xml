@@ -46,7 +46,7 @@
      <string name="produc_name">product name (35 characters max)</string>
      <string name="post_description">description (400 characters max)</string>
      <string name="post_prix">price (the value is the fcfa)</string>
-     <string name="post_info_sur_vente">info on your sale</string>
+     <string name="post_info_sur_vente">Ad Post</string>
      <string name="profil_voir_article">see your sales</string>
      <string name="profil_reside">reside at</string>
      <string name="register_button_connect">confirmation Password </string>

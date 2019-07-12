@@ -27,10 +27,10 @@
         android:id="@+id/profil_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:titleTextColor="@color/black"
+        app:titleTextColor="@color/blanc"
         android:elevation="8dp"
-        android:theme="@style/AppTheme.AppBarOverlay_two"
-        android:background="@color/blanc"></android.support.v7.widget.Toolbar>
+        android:theme="@style/ToolbarThemeTwo"
+        android:background="@drawable/toolbar_background"></android.support.v7.widget.Toolbar>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/profilRecycler"

@@ -39,8 +39,9 @@
         android:layout_marginRight="12dp"
         android:layout_marginBottom="0dp"
         android:background="@null"
-        android:fontFamily="sans-serif"
+        android:fontFamily="@font/righteous"
         android:text="@string/cursor_next"
+        android:textAllCaps="false"
         android:textColor="@color/blanc"
         android:textSize="18sp"
         android:visibility="invisible" />
@@ -58,8 +59,9 @@
         android:layout_marginTop="2dp"
         android:layout_marginBottom="0dp"
         android:background="@null"
-        android:fontFamily="sans-serif"
+        android:fontFamily="@font/righteous"
         android:text="@string/passer"
+        android:textAllCaps="false"
         android:textColor="@color/blanc"
         android:textSize="18sp"
         android:textStyle="bold" />

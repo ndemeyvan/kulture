@@ -11,12 +11,13 @@
         android:id="@+id/profil_de_la_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/blanc"
+        android:background="@drawable/toolbar_background"
         android:elevation="10dp"
+        android:theme="@style/ToolbarThemeTwo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:titleTextColor="@color/black"
+        app:titleTextColor="@color/blanc"
         />
 
     <ScrollView
@@ -81,6 +82,7 @@
                     <TextView
                         android:id="@+id/profil_user_email"
                         android:layout_width="@dimen/new_profil_desc_widht"
+                        android:fontFamily="@font/nunito_bold"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/new_profil_margin_top"
                         android:textAlignment="center"
@@ -145,6 +147,7 @@
                         android:text="xxxx"
                         android:textSize="@dimen/new_profil_text_size"
                         android:textStyle="bold"
+                        android:fontFamily="@font/nunito_bold"
                         app:layout_constraintEnd_toEndOf="@+id/imageView2"
                         app:layout_constraintStart_toStartOf="@+id/imageView2"
                         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
@@ -156,6 +159,8 @@
                         android:layout_marginTop="@dimen/new_profil_text_margin_top"
                         android:text="xxxx"
                         android:textSize="@dimen/new_profil_text_size"
+                        android:fontFamily="@font/nunito_bold"
+
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="@+id/imageView3"
                         app:layout_constraintStart_toStartOf="@+id/imageView3"
@@ -169,6 +174,7 @@
                         android:text="xxxx"
                         android:textSize="@dimen/new_profil_text_size"
                         android:textStyle="bold"
+                        android:fontFamily="@font/nunito_bold"
                         app:layout_constraintEnd_toEndOf="@+id/imageView4"
                         app:layout_constraintStart_toStartOf="@+id/imageView4"
                         app:layout_constraintTop_toBottomOf="@+id/imageView4" />
@@ -192,6 +198,7 @@
                         android:layout_marginStart="@dimen/new_profil_button"
                         android:layout_marginTop="@dimen/new_profil_button_margin_top"
                         android:layout_marginEnd="@dimen/new_profil_button"
+                        android:fontFamily="@font/nunito_bold"
                         android:background="@drawable/button_background"
                         android:text="@string/profil_voir_article"
                         android:textAllCaps="false"

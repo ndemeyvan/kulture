@@ -45,9 +45,9 @@
     <dimen name="vendeur_image_weight">120dp</dimen>
     <dimen name="vendeur_image_height">100dp</dimen>
     <!-- item layout principal-->
-    <dimen name="item_principal_image_dim_height_with">35dp</dimen>
+    <dimen name="item_principal_image_dim_height_with">30dp</dimen>
     <dimen name="item_principal_name">14sp</dimen>
-    <dimen name="item_principal_date">11sp</dimen>
+    <dimen name="item_principal_date">14sp</dimen>
     <dimen name="item_principal_desc">14sp</dimen>
     <dimen name="item_principal_prix">14sp</dimen>
     <!-- item layout nvx-->
@@ -154,7 +154,7 @@
     <dimen name="new_detail_date_name_margin_start">24dp</dimen>
     <dimen name="new_detail_edit_text_size">16sp</dimen>
     //////////commentaire layout
-    <dimen name="commentaire_image">36dp</dimen>
+    <dimen name="commentaire_image">50dp</dimen>
     <dimen name="commentaire_name_user">16sp</dimen>
     <dimen name="commentaire_temps">12sp</dimen>
     <dimen name="commentaire_text">14sp</dimen>
@@ -227,6 +227,20 @@
     <dimen name="splash_text_logo_name">20sp</dimen>
     <dimen name="message_activity_height_image">100dp</dimen>
     <dimen name="message_image">100dp</dimen>
-
+    //////////principal
+    <dimen name="principal_card_widht">340dp</dimen>
+    <dimen name="principal_container_height">160dp</dimen>
+    <dimen name="principal_desc_text_start">8dp</dimen>
+    <dimen name="principal_temps_top">2dp</dimen>
+    <dimen name="principal_top_title_prix">12dp</dimen>
+    <dimen name="priincipal_comment">8dp</dimen>
+    <dimen name="principal_width_image">160dp</dimen>
+    <dimen name="principal_image_height">150dp</dimen>
+    <dimen name="principal_round_image_top">8dp</dimen>
+    <dimen name="principal_image_round_start">16dp</dimen>
+    <dimen name="principal_item_desc_text">150dp</dimen>
+    <dimen name="principal_desc_height">80dp</dimen>
+    <dimen name="principal_prix_top_two">2dp</dimen>
+    <dimen name="principal_start">8dp</dimen>
 
 </resources>

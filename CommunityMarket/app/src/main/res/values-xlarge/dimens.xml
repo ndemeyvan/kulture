@@ -55,13 +55,13 @@
     <dimen name="vendeur_image_height">120dp</dimen>
     <dimen name="activity_vendeur_end_image_button">120dp</dimen>
     <!-- item layout principal-->
-    <dimen name="item_principal_image_dim_height_with">35dp</dimen>
-    <dimen name="item_principal_name">14sp</dimen>
+    <dimen name="item_principal_image_dim_height_with">50dp</dimen>
+    <dimen name="item_principal_name">24sp</dimen>
     <dimen name="item_principal_date">11sp</dimen>
-    <dimen name="item_principal_desc">14sp</dimen>
+    <dimen name="item_principal_desc">24sp</dimen>
     <dimen name="item_principal_prix">14sp</dimen>
     <!-- item layout nvx-->
-    <dimen name="nvx_item_nvx_image_dim_height_with">35dp</dimen>
+    <dimen name="nvx_item_nvx_image_dim_height_with">70dp</dimen>
     <dimen name="nvx_item_nvx_name">14sp</dimen>
     <dimen name="nvx_item_nvx_date">11sp</dimen>
     <dimen name="nvx_item_nvx_desc">14sp</dimen>
@@ -166,7 +166,7 @@
     <dimen name="new_detail_date_name_margin_start">280dp</dimen>
     <dimen name="new_detail_edit_text_size">28sp</dimen>
     //////////commentaire layout
-    <dimen name="commentaire_image">60dp</dimen>
+    <dimen name="commentaire_image">100dp</dimen>
     <dimen name="commentaire_name_user">35sp</dimen>
     <dimen name="commentaire_temps">18sp</dimen>
     <dimen name="commentaire_text">30sp</dimen>
@@ -240,6 +240,20 @@
     <dimen name="splash_text_logo_name">30sp</dimen>
     <dimen name="message_activity_height_image">230dp</dimen>
     <dimen name="message_image">210dp</dimen>
-
+    //////////principal
+    <dimen name="principal_card_widht">600dp</dimen>
+    <dimen name="principal_container_height">250dp</dimen>
+    <dimen name="principal_desc_text_start">8dp</dimen>
+    <dimen name="principal_temps_top">2dp</dimen>
+    <dimen name="principal_top_title_prix">12dp</dimen>
+    <dimen name="priincipal_comment">8dp</dimen>
+    <dimen name="principal_width_image">230dp</dimen>
+    <dimen name="principal_image_height">150dp</dimen>
+    <dimen name="principal_round_image_top">8dp</dimen>
+    <dimen name="principal_image_round_start">32dp</dimen>
+    <dimen name="principal_item_desc_text">350dp</dimen>
+    <dimen name="principal_desc_height">95dp</dimen>
+    <dimen name="principal_prix_top_two">8dp</dimen>
+    <dimen name="principal_start">32dp</dimen>
 
 </resources>

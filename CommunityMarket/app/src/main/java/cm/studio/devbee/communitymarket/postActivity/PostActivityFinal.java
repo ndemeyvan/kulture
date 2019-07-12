@@ -19,6 +19,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,6 +28,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.reward.RewardItem;
@@ -67,12 +79,15 @@ import com.microsoft.projectoxford.vision.contract.AnalysisResult;
 import com.microsoft.projectoxford.vision.contract.Caption;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.util.concurrent.Future;
+
+import static android.provider.ContactsContract.CommonDataKinds.Website.URL;
 
 public class PostActivityFinal extends AppCompatActivity implements RewardedVideoAdListener {
     private static  final int MAX_LENGTH =100;
@@ -98,7 +113,9 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
     String id_document;
     private Dialog myDialog;
     public VisionServiceClient visionServiceClient ;
-    private String apilink="https://westcentralus.api.cognitive.microsoft.com/vision/v1.0";
+    private String apilink="https://westcentralus.api.cognitive.microsoft.com/vision/v1.0/analyze?visualFeatures=Categories,Tags,Description&language=en";
+    //private String apilink="https://openmarket.cognitiveservices.azure.com/";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,9 +135,8 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
                 finish ();
             }
         });
-
         //mcrosoft site key : 05222f7bfd274f8bb1f6ac44a6a1d493
-        visionServiceClient = new VisionServiceRestClient ("05222f7bfd274f8bb1f6ac44a6a1d493",apilink);
+        visionServiceClient = new VisionServiceRestClient ("551f0ff04fd7410da44382c9fb282c0b",apilink);
         imageProduit=findViewById ( R.id.imageProduit );
         nomProduit=findViewById ( R.id.post_product_name );
         post_new_button=findViewById ( R.id.post_new_button );
@@ -136,11 +152,7 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
         mad=MobileAds.getRewardedVideoAdInstance(this);
         mad.setRewardedVideoAdListener(this);
         loadRewardedVideo();
-        /*ConstraintLayout constraintLayout=findViewById(R.id.layout);
-        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
-        animationDrawable.setEnterFadeDuration(2000);
-        animationDrawable.setExitFadeDuration(4000);
-        animationDrawable.start();*/
+
         prendreDonner ();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             try {
@@ -162,8 +174,6 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
         }
         //Toast.makeText(getApplicationContext(),getString(R.string.post_remplisser_les_info),Toast.LENGTH_LONG).show();
         postActivityWeakReference=new WeakReference<>(this);
-
-
         //Convert image to stream
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         final ByteArrayInputStream inputStream = new ByteArrayInputStream (outputStream.toByteArray());
@@ -282,7 +292,57 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
                             .compressToBitmap(actualImage);
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
                     compressedImage.compress(Bitmap.CompressFormat.JPEG, 95, baos);
+                    byte[] imageBytes =baos.toByteArray();
                     final ByteArrayInputStream inputStream = new ByteArrayInputStream(baos.toByteArray());
+
+                    /*//debut
+                    final String imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+                    //sending image to server
+                    JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, apilink,null,
+                            new Response.Listener<JSONObject>(){
+
+                        @Override
+                        public void onResponse(JSONObject s) {
+                            if(s.equals("true")){
+                                Toast.makeText(PostActivityFinal.this, "Uploaded Successful", Toast.LENGTH_LONG).show();
+                            }
+                            else{
+                                Toast.makeText(PostActivityFinal.this, "Some error occurred!", Toast.LENGTH_LONG).show();
+                            }
+                            try {
+                                Log.i("result_vision",s.toString(2));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    },new Response.ErrorListener(){
+                        @Override
+                        public void onErrorResponse(VolleyError volleyError) {
+                            Toast.makeText(PostActivityFinal.this, "Some error occurred -> "+volleyError, Toast.LENGTH_LONG).show();
+                            Log.i("vision",volleyError.getMessage());
+                        }
+                    }) {
+
+                        //adding parameters to send
+                        @Override
+                        protected Map<String, String> getParams() throws AuthFailureError {
+                            Map<String, String> parameters = new HashMap<String, String>();
+                            parameters.put("image", imageString);
+                            return parameters;
+                        }
+
+                        @Override
+                        public Map<String, String> getHeaders() throws AuthFailureError {
+                            Map<String,String> headers = new HashMap<>();
+                            headers.put("Content-Type","application/octet-stream");
+                            headers.put("Ocp-Apim-Subscription-Key","1971503e18984bbbb8b1d2cb1675ae5f");
+                            return headers != null ? headers : super.getHeaders();
+                        }
+                    };
+
+                    RequestQueue rQueue = Volley.newRequestQueue(PostActivityFinal.this);
+                    rQueue.add(request);
+                    ////fin*/
                     AsyncTask<InputStream,String,String> visionTask = new AsyncTask<InputStream, String, String>() {
                         ProgressDialog mDialog = new ProgressDialog(PostActivityFinal.this);
                         @Override

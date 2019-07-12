@@ -250,7 +250,7 @@
     <dimen name="item_card_height">230dp</dimen>
     <dimen name="item_text_top">8dp</dimen>
     <dimen name="item_profil_margin_top">20sp</dimen>
-    <dimen name="principal_start">8dp</dimen>
+    <dimen name="principal_start">2dp</dimen>
     <dimen name="principal_top">16dp</dimen>
     <dimen name="principal_end">16dp</dimen>
     <dimen name="principal_item_desc_text">120dp</dimen>
@@ -279,6 +279,19 @@
     <dimen name="splash_text_proverb">12sp</dimen>
     <dimen name="splash_text_logo_name">20sp</dimen>
     <dimen name="message_image">100dp</dimen>
+    //////////principal
+    <dimen name="principal_card_widht">280dp</dimen>
+    <dimen name="principal_container_height">150dp</dimen>
+    <dimen name="principal_desc_text_start">8dp</dimen>
+    <dimen name="principal_temps_top">8dp</dimen>
+    <dimen name="principal_top_title_prix">8dp</dimen>
+    <dimen name="priincipal_comment">8dp</dimen>
+    <dimen name="principal_width_image">140dp</dimen>
+    <dimen name="principal_image_height">150dp</dimen>
+    <dimen name="principal_round_image_top">12dp</dimen>
+    <dimen name="principal_image_round_start">8dp</dimen>
+    <dimen name="principal_desc_height">30dp</dimen>
+    <dimen name="principal_prix_top_two">8dp</dimen>
 
 
 </resources>

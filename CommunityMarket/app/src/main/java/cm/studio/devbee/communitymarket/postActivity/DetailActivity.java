@@ -141,7 +141,6 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
         setSupportActionBar ( detail_image_post_toolbar );
        // toolbar_layout=findViewById ( R.id.toolbar_layout );
         getSupportActionBar ().setDisplayHomeAsUpEnabled ( true );
-
         detail_image_post_toolbar.setNavigationOnClickListener ( new View.OnClickListener () {
             @Override
             public void onClick(View v) {
@@ -156,7 +155,6 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
         iddupost = getIntent ().getExtras ().getString ( "id du post" );
         current_user_id = getIntent ().getExtras ().getString ( "id de l'utilisateur" );
         categories = getIntent ().getExtras ().getString ( "id_categories" );
-        add_progressbar = findViewById ( R.id.add_progressbar );
         detail_image_post = findViewById ( R.id.detail_image_post );
         //detail_post_titre_produit=findViewById(R.id.detail_prix_produit );
         detail_prix_produit = findViewById ( R.id.detail_prix_produit );
@@ -181,6 +179,7 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
 
         asyncTask = new AsyncTask ();
         asyncTask.execute ();
+        add_progressbar=findViewById(R.id.add_progressbar);
         add_progressbar.setVisibility ( INVISIBLE );
         comment_empty_text = findViewById ( R.id.comment_empty_text );
         firebaseFirestore.collection ( "publication" ).document ( "categories" ).collection ( "nouveaux" ).document ( iddupost ).addSnapshotListener ( this, new EventListener<DocumentSnapshot> () {
@@ -213,15 +212,6 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
         });
         showcase_supp_button ();
         showcase_vente_button ();
-        AnimationDrawable animationDrawable = (AnimationDrawable) detail_profil_image.getBackground();
-        animationDrawable.setEnterFadeDuration(2000);
-        animationDrawable.setExitFadeDuration(4000);
-        animationDrawable.start();
-
-        AnimationDrawable animationDrawableTwo = (AnimationDrawable) detail_prix_produit.getBackground();
-        animationDrawable.setEnterFadeDuration(2000);
-        animationDrawable.setExitFadeDuration(4000);
-        animationDrawable.start();
 
     }
     public void showcase_supp_button(){
@@ -240,6 +230,7 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
         }
 
     }
+
     public void showcase_vente_button(){
         if (venteBool==true){
             new MaterialShowcaseView.Builder(this)
@@ -517,7 +508,6 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
             supprime_detail_button.setOnClickListener ( new View.OnClickListener () {
                 @Override
                 public void onClick(View v) {
-
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder ( DetailActivity.this );
                     alertDialogBuilder.setMessage ( getString ( R.string.voulez_vous_supprimer ) );
                     alertDialogBuilder.setPositiveButton ( "oui",
@@ -534,10 +524,7 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
                                                     firebaseFirestore.collection ( "publication" ).document ( "categories" ).collection ( categories ).document ( iddupost ).delete ();
                                                     firebaseFirestore.collection ( "publication" ).document ( "categories" ).collection ( "nouveaux" ).document ( iddupost ).delete ();
                                                     firebaseFirestore.collection ( "publication" ).document ( "post utilisateur" ).collection ( current_user_id ).document ( iddupost ).delete ();
-                                                    // Intent gtohome=new Intent ( getApplicationContext (),Accueil.class );
                                                     myDialog.dismiss();
-                                                    Toast.makeText ( getApplicationContext (), getString ( R.string.supprimer_desnvx ), Toast.LENGTH_LONG ).show ();
-                                                    //startActivity ( gtohome );
                                                     finish ();
 
                                                 } else {
@@ -578,28 +565,28 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
 
     @Override
     public void onRewardedVideoAdLoaded() {
-        Toast.makeText ( getApplicationContext (), getString ( R.string.wait ), Toast.LENGTH_LONG ).show ();
+       // Toast.makeText ( getApplicationContext (), getString ( R.string.wait ), Toast.LENGTH_LONG ).show ();
     }
 
     @Override
     public void onRewardedVideoAdOpened() {
-        Toast.makeText ( getApplicationContext (), getString ( R.string.see_video ), Toast.LENGTH_LONG ).show ();
+      //  Toast.makeText ( getApplicationContext (), getString ( R.string.see_video ), Toast.LENGTH_LONG ).show ();
     }
 
     @Override
     public void onRewardedVideoStarted() {
-        Toast.makeText ( getApplicationContext (), getString ( R.string.see_video ), Toast.LENGTH_LONG ).show ();
+       // Toast.makeText ( getApplicationContext (), getString ( R.string.see_video ), Toast.LENGTH_LONG ).show ();
     }
 
     @Override
     public void onRewardedVideoAdClosed() {
-        Toast.makeText ( getApplicationContext (), getString ( R.string.see_video ), Toast.LENGTH_LONG ).show ();
+        //Toast.makeText ( getApplicationContext (), getString ( R.string.see_video ), Toast.LENGTH_LONG ).show ();
     }
 
     @Override
     public void onRewarded(RewardItem rewardItem) {
         //  mad.destroy(getApplicationContext());
-        Toast.makeText ( getApplicationContext (), getString ( R.string.video_seen_thank ), Toast.LENGTH_LONG ).show ();
+        //Toast.makeText ( getApplicationContext (), getString ( R.string.video_seen_thank ), Toast.LENGTH_LONG ).show ();
         //Toast.makeText(getApplicationContext(),getString(R.string.wait),Toast.LENGTH_LONG).show();
     }
 
@@ -610,12 +597,12 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
 
     @Override
     public void onRewardedVideoAdFailedToLoad(int i) {
-        Toast.makeText ( getApplicationContext (), "si une video publicitaire ce charge regarder la pour soutenir lappli svp.", Toast.LENGTH_LONG ).show ();
+       // Toast.makeText ( getApplicationContext (), "si une video publicitaire ce charge regarder la pour soutenir lappli svp.", Toast.LENGTH_LONG ).show ();
     }
 
     @Override
     public void onRewardedVideoCompleted() {
-        Toast.makeText ( getApplicationContext (), getString ( R.string.video_seen_thank ), Toast.LENGTH_LONG ).show ();
+        //Toast.makeText ( getApplicationContext (), getString ( R.string.video_seen_thank ), Toast.LENGTH_LONG ).show ();
     }
 
 
@@ -657,7 +644,6 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
                                             Picasso.with ( getApplicationContext () ).load ( image_user ).transform(new CircleTransform ()).into ( detail_profil_image );
                                             detail_profil_image.setAnimation ( AnimationUtils.loadAnimation ( getApplicationContext (), R.anim.fade_transition_animation ) );
                                             date_de_publication.setAnimation ( AnimationUtils.loadAnimation ( getApplicationContext (), R.anim.fade_transition_animation ) );
-
                                             //detail_user_name.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_transition_animation));
 
                                         }

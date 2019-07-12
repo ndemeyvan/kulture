@@ -6,12 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".postActivity.PostActivity"
   >
+
     <android.support.v7.widget.Toolbar
-        android:background="@color/blanc"
+        android:id="@+id/post_cat_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/post_cat_toolbar"
-        app:titleTextColor="@color/black"/>
+        android:background="@drawable/toolbar_background"
+        android:theme="@style/ToolbarThemeTwo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleTextColor="@color/blanc" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/post_cat_recycler"

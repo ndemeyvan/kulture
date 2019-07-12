@@ -45,7 +45,7 @@
     <string name="produc_name">nom du produit (35 caractere max)</string>
     <string name="post_description">description (400 caractere max)</string>
     <string name="post_prix">prix ( la valeur est le fcfa )</string>
-    <string name="post_info_sur_vente">info sur votre vente</string>
+    <string name="post_info_sur_vente">Ad Post</string>
     <string name="profil_voir_article">voir vos articles</string>
     <string name="profil_reside">reside a</string>
     <string name="register_login">votre email</string>
@@ -99,7 +99,7 @@
     <string name="accessoire">accessoire</string>
     <string name="location">location</string>
     <string name="enregister">m\'enregistrer</string>
-    <string name="actu">ACTUELLEMENT</string>
+    <string name="actu">Actuellement</string>
     <string name="profil_drawer">profil</string>
     <string name="message_drawer">message</string>
     <string name="parametre_draw">parametre</string>

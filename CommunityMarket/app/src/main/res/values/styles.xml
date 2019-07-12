@@ -26,15 +26,25 @@
     <style name="ToolbarTheme_two" parent="ThemeOverlay.AppCompat.Light">
         <item name="android:fontFamily">@font/nunito_bold</item>
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="android:homeAsUpIndicator">@drawable/ic_arrow_black</item>
+        <item name="android:homeAsUpIndicator">@drawable/ic_back_arrow</item>
     </style>
     <style name="ToolbarThemeTwo" parent="ThemeOverlay.AppCompat.Light">
-        <item name="android:fontFamily">@font/nunito_bold</item>
+        <item name="android:fontFamily">@font/pacifico</item>
+        <item name="colorPrimary">@color/blanc</item>
+        <item name="android:colorAccent">@color/blanc</item>
+        <item name="android:homeAsUpIndicator">@drawable/ic_back_arrow</item>
+    </style>
+    <style name="edit_theme" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:fontFamily">@font/righteous</item>
         <item name="colorPrimary">@color/blanc</item>
         <item name="android:colorAccent">@color/blanc</item>
     </style>
     <style name="progress_theme" parent="ThemeOverlay.AppCompat.Light">
         <item name="android:fontFamily">@font/nunito_bold</item>
         <item name="colorAccent">@color/black</item>
+    </style>
+
+    <style name="price_style">
+        <item name="android:fontFamily">@font/bangers</item>
     </style>
 </resources>

@@ -15,6 +15,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:fontFamily="@font/righteous"
         android:text="@string/pas_de_message"
         android:textColor="@color/blanc"
         android:textStyle="bold"
@@ -28,8 +29,9 @@
         android:id="@+id/message_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/blanc"
+        android:background="@drawable/toolbar_background"
         android:theme="@style/ToolbarThemeTwo"
+        app:titleTextColor="@color/blanc"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -47,8 +49,8 @@
 
     <ProgressBar
         android:id="@+id/chat_progress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/commentaire_circle_widht_height"
+        android:layout_height="@dimen/commentaire_circle_widht_height"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/contatc_recyclerview"
