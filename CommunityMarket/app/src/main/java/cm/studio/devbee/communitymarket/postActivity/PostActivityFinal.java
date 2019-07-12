@@ -145,7 +145,7 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
         vendreButton=findViewById ( R.id.post_button );
         setSupportActionBar ( postfinaltoolbar );
         categoryName=getIntent ().getExtras ().get ( "categoryName" ).toString ();
-        Toast.makeText ( getApplicationContext(),categoryName,Toast.LENGTH_LONG ).show ();
+       // Toast.makeText ( getApplicationContext(),categoryName,Toast.LENGTH_LONG ).show ();
         ///////ads"ca-app-pub-3940256099942544~3347511713
         ////my id : ca-app-pub-4353172129870258~6890094527
         MobileAds.initialize(this,"ca-app-pub-4353172129870258~6890094527");

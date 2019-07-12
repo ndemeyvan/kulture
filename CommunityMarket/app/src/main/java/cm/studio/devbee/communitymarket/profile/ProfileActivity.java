@@ -150,22 +150,7 @@ public class ProfileActivity extends AppCompatActivity {
         } );
     }
 
-   /* @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater ().inflate ( R.menu.profile_menu, menu );
-        return true;
-    }*/
 
-   /* @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId ();
-        if (id == R.id.account_setting) {
-            Intent gotoparam=new Intent ( getApplicationContext (),ParametrePorfilActivity.class );
-            startActivity ( gotoparam );
-            return true;
-        }
-        return super.onOptionsItemSelected ( item );
-    }*/
 
     public class CircleTransform implements Transformation {
         @Override

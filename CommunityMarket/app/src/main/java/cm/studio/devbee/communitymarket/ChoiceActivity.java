@@ -197,8 +197,8 @@ public class ChoiceActivity extends AppCompatActivity {
 
     private void handleFacebookAccesToken(AccessToken loginResult) {
         showPopup();
-        Toast.makeText(getApplicationContext(),getString(R.string.bienvenu),Toast.LENGTH_LONG).show();
-        Toast.makeText(getApplicationContext(),getString(R.string.redirection),Toast.LENGTH_LONG).show();
+       // Toast.makeText(getApplicationContext(),getString(R.string.bienvenu),Toast.LENGTH_LONG).show();
+        //oast.makeText(getApplicationContext(),getString(R.string.redirection),Toast.LENGTH_LONG).show();
         AuthCredential authCredential=FacebookAuthProvider.getCredential(loginResult.getToken());
         firebaseAuth.signInWithCredential(authCredential).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
@@ -391,7 +391,7 @@ public class ChoiceActivity extends AppCompatActivity {
                                             }
                                         } );
                                     }else {
-                                        Toast.makeText ( getApplicationContext (),"connexion",Toast.LENGTH_LONG ).show ();
+                                       // Toast.makeText ( getApplicationContext (),"connexion",Toast.LENGTH_LONG ).show ();
                                         Intent gotoparam=new Intent(getApplicationContext(),Accueil.class);
                                         startActivity ( gotoparam );
                                         finish();

@@ -313,22 +313,22 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
 
     @Override
     public void onRewardedVideoAdLoaded() {
-        Toast.makeText(getApplicationContext(),getString(R.string.wait),Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(),getString(R.string.wait),Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onRewardedVideoAdOpened() {
-        Toast.makeText(getApplicationContext(),getString(R.string.see_video),Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(),getString(R.string.see_video),Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onRewardedVideoStarted() {
-        Toast.makeText(getApplicationContext(),getString(R.string.see_video),Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(),getString(R.string.see_video),Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onRewardedVideoAdClosed() {
-        Toast.makeText(getApplicationContext(),getString(R.string.see_video),Toast.LENGTH_LONG).show();
+       // Toast.makeText(getApplicationContext(),getString(R.string.see_video),Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -345,12 +345,12 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
 
     @Override
     public void onRewardedVideoAdFailedToLoad(int i) {
-        Toast.makeText(getApplicationContext(),"si une video publicitaire ce charge regarder la pour soutenir lappli svp.",Toast.LENGTH_LONG).show();
+      //  Toast.makeText(getApplicationContext(),"si une video publicitaire ce charge regarder la pour soutenir lappli svp.",Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onRewardedVideoCompleted() {
-        Toast.makeText(getApplicationContext(),getString(R.string.video_seen_thank),Toast.LENGTH_LONG).show();
+       // Toast.makeText(getApplicationContext(),getString(R.string.video_seen_thank),Toast.LENGTH_LONG).show();
     }
 
 

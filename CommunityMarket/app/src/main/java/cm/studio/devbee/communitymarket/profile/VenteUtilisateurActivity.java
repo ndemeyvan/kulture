@@ -121,8 +121,6 @@ public class VenteUtilisateurActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed ();
-        /*Intent gotoHome =new Intent ( VenteUtilisateurActivity.this,ProfileActivity.class );
-        startActivity ( gotoHome );*/
         finish ();
     }
 }

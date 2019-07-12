@@ -156,7 +156,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
             @Override
             public void onAdLoaded() {
 
-                Toast.makeText(getApplicationContext(), name +" "+ getString(R.string.soutenir),Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), name +" "+ getString(R.string.soutenir),Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -166,7 +166,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
 
             @Override
             public void onAdOpened() {
-                Toast.makeText(getApplicationContext(),getString(R.string.soutiens_effectif)+" " + name,Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(),getString(R.string.soutiens_effectif)+" " + name,Toast.LENGTH_LONG).show();
             }
 
             @Override
