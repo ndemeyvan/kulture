@@ -76,7 +76,7 @@
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/bangers"
                     android:text="1000 fcfa "
-                    android:background="@drawable/button_background"
+                    android:background="@drawable/background_detail_activity"
                     android:padding="2dp"
                     android:textColor="@color/blanc"
                     android:textSize="@dimen/detail_text_size_two"

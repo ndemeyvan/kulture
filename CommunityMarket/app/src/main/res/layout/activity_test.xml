@@ -80,7 +80,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/profil_detail_start_text"
                     android:layout_marginTop="8dp"
-                    android:background="@drawable/button_background"
+                    android:background="@drawable/background_detail_activity"
                     android:fontFamily="@font/bangers"
                     android:padding="1dp"
                     android:text="1000 fcfa "

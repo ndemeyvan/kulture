@@ -135,6 +135,7 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
                 finish ();
             }
         });
+        vendreButton.setEnabled ( true );
         //mcrosoft site key : 05222f7bfd274f8bb1f6ac44a6a1d493
         visionServiceClient = new VisionServiceRestClient ("551f0ff04fd7410da44382c9fb282c0b",apilink);
         imageProduit=findViewById ( R.id.imageProduit );
@@ -152,7 +153,6 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
         mad=MobileAds.getRewardedVideoAdInstance(this);
         mad.setRewardedVideoAdListener(this);
         loadRewardedVideo();
-
         prendreDonner ();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             try {
@@ -207,7 +207,7 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId ();
         if (id == R.id.send_article) {
-            vendreButton.setEnabled ( false );
+
             if (TextUtils.isEmpty ( nom_du_produit )&&TextUtils.isEmpty ( decription_du_produit )&&TextUtils.isEmpty ( prix_du_produit )&&mImageUri==null){
                 Toast.makeText ( getApplicationContext(),getString(R.string.renplir_tous),Toast.LENGTH_LONG ).show ();
 
@@ -408,8 +408,6 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
         vendreButton.setOnClickListener ( new View.OnClickListener () {
             @Override
             public void onClick(View v) {
-
-                vendreButton.setEnabled ( false );
                 prendreDonnerDevente ();
             }
         } );
@@ -516,7 +514,7 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
 
     @Override
     public void onRewardedVideoAdLoaded() {
-        Toast.makeText(getApplicationContext(),getString(R.string.wait),Toast.LENGTH_LONG).show();
+       //  Toast.makeText(getApplicationContext(),getString(R.string.wait),Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -526,18 +524,18 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
 
     @Override
     public void onRewardedVideoStarted() {
-        Toast.makeText(getApplicationContext(),getString(R.string.see_video),Toast.LENGTH_LONG).show();
+      //  Toast.makeText(getApplicationContext(),getString(R.string.see_video),Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onRewardedVideoAdClosed() {
-        Toast.makeText(getApplicationContext(),getString(R.string.see_video),Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(),getString(R.string.see_video),Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onRewarded(RewardItem rewardItem) {
         //mad.destroy(getApplicationContext());
-        Toast.makeText(getApplicationContext(),getString(R.string.video_seen_thank),Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(),getString(R.string.video_seen_thank),Toast.LENGTH_LONG).show();
         //Toast.makeText(getApplicationContext(),getString(R.string.wait),Toast.LENGTH_LONG).show();
     }
 
@@ -548,12 +546,12 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
 
     @Override
     public void onRewardedVideoAdFailedToLoad(int i) {
-        Toast.makeText(getApplicationContext(),"si une video publicitaire ce charge regarder la pour soutenir lappli svp.",Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(),"si une video publicitaire ce charge regarder la pour soutenir lappli svp.",Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onRewardedVideoCompleted() {
-        Toast.makeText(getApplicationContext(),getString(R.string.video_seen_thank),Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(),getString(R.string.video_seen_thank),Toast.LENGTH_LONG).show();
     }
 
     public void userstatus(String status){

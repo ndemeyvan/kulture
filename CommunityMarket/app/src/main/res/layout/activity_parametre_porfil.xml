@@ -18,7 +18,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="welcome"
         android:theme="@style/ToolbarThemeTwo"
         app:titleTextColor="@color/blanc" />
 
@@ -169,6 +168,7 @@
                         android:inputType="textMultiLine|textPersonName"
                         android:maxLength="250"
                         android:singleLine="false"
+                        android:textSize="@dimen/parametre_text_size"
                         android:textColor="@color/blanc"
                         android:textColorHint="@color/blanc"
                         android:theme="@style/edit_theme"
@@ -188,16 +188,15 @@
                         android:fontFamily="@font/righteous"
                         android:text="@string/parametre_button"
                         android:textAllCaps="false"
-                        android:textColor="@color/blanc"
-                        android:textColorHint="@color/blanc"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/black"
                         android:textSize="14sp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/param_mail"
-                        app:layout_constraintVertical_bias="0.25" />
+                         />
 
                     <ImageButton
                         android:id="@+id/imageButton"
@@ -253,8 +252,6 @@
                         app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
                 </android.support.constraint.ConstraintLayout>
-
-
             </ScrollView>
         </LinearLayout>
     </ScrollView>
