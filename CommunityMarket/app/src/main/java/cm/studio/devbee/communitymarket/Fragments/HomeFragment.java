@@ -697,14 +697,6 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
         super.onDestroy();
         userstatus ( "false" );
         firebaseFirestore=null;
-        imageFour=null;
-        imageThree=null;
-        imageTwo=null;
-        imageOne=null;
-        img1=null;
-        img2=null;
-        img3=null;
-        img4=null;
         content_progresbar=null;
         categoriesAdapte=null;
          chaussureRecyclerView=null;
