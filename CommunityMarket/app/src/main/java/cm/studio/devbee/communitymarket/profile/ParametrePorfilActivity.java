@@ -90,6 +90,19 @@ public class ParametrePorfilActivity extends AppCompatActivity {
         setContentView ( R.layout.activity_parametre_porfil );
         toolbar_parametre=findViewById(R.id.toolbar_parametre);
         setSupportActionBar(toolbar_parametre);
+        nom=findViewById ( R.id.param_nom );
+        premon=findViewById ( R.id.param_premon );
+        telephone=findViewById ( R.id.param_telephone );
+        residence=findViewById ( R.id.param_residence );
+        email=findViewById ( R.id.param_mail );
+        imageButton=findViewById(R.id.imageButton);
+        button_enregister=findViewById ( R.id.param_button );
+        parametreImage=findViewById ( R.id.parametre_image );
+        edit_quartier=findViewById(R.id.edit_quartier);
+        mAuth=FirebaseAuth.getInstance ();
+        storageReference=FirebaseStorage.getInstance ().getReference ();
+        firebaseFirestore=FirebaseFirestore.getInstance ();
+        current_user_id=mAuth.getCurrentUser ().getUid ();
         firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user_id).get ().addOnCompleteListener ( ParametrePorfilActivity.this,new OnCompleteListener<DocumentSnapshot>() {
             @SuppressLint("RestrictedApi")
             @Override
@@ -99,7 +112,7 @@ public class ParametrePorfilActivity extends AppCompatActivity {
                         String pop_up= task.getResult ().getString ( "user_residence" );
                         String nom_user = task.getResult ().getString ("user_name");
                         if (pop_up.equals ( "..." )){
-                         getSupportActionBar().setTitle("Welcome " + nom_user);
+                            getSupportActionBar().setTitle("Welcome " + nom_user);
                         }else{
                             getSupportActionBar ().setDisplayHomeAsUpEnabled ( true );
                             toolbar_parametre.setNavigationOnClickListener(new View.OnClickListener() {
@@ -119,19 +132,6 @@ public class ParametrePorfilActivity extends AppCompatActivity {
             }
         } );
 
-        nom=findViewById ( R.id.param_nom );
-        premon=findViewById ( R.id.param_premon );
-        telephone=findViewById ( R.id.param_telephone );
-        residence=findViewById ( R.id.param_residence );
-        email=findViewById ( R.id.param_mail );
-        imageButton=findViewById(R.id.imageButton);
-        button_enregister=findViewById ( R.id.param_button );
-        parametreImage=findViewById ( R.id.parametre_image );
-        edit_quartier=findViewById(R.id.edit_quartier);
-        mAuth=FirebaseAuth.getInstance ();
-        storageReference=FirebaseStorage.getInstance ().getReference ();
-        firebaseFirestore=FirebaseFirestore.getInstance ();
-        current_user_id=mAuth.getCurrentUser ().getUid ();
         parametre_progressbar=findViewById ( R.id.parametre_progressbar );
         imageButton=findViewById(R.id.imageButton);
         parametrePorfilActivityWeakReference=new WeakReference<>(this);

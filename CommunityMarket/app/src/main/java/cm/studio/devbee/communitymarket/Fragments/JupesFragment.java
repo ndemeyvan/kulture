@@ -109,6 +109,8 @@ public class JupesFragment extends Fragment {
                 });
         return v;
     }
+
+
     @Override
     public void onStart() {
         super.onStart();
@@ -154,6 +156,7 @@ public class JupesFragment extends Fragment {
         jupeRecyclerView.setAdapter(categoriesAdaptejupe);
 
     }
+
     public void imagePub(){
         DocumentReference user_two = firebaseFirestore.collection("sliders").document("images");
         user_two.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
