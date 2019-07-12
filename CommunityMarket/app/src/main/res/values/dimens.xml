@@ -294,6 +294,9 @@
     <dimen name="principal_desc_height">30dp</dimen>
     <dimen name="principal_prix_top_two">8dp</dimen>
     <dimen name="principal_temps_top_two">8dp</dimen>
+    ////
+    <dimen name="login_text_size">40sp</dimen>
+    <dimen name="login_start_end">70dp</dimen>
 
 
 </resources>

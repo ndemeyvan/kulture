@@ -14,7 +14,7 @@
     <dimen name="button_size_text">12sp</dimen>
 
     <!-- choice activity. -->
-    <dimen name="choice_Logo_margin_top">100dp</dimen>
+    <dimen name="choice_Logo_margin_top">120dp</dimen>
     <dimen name="choice_Logo_text_size">70sp</dimen>
     <dimen name="choice_button_top">200dp</dimen>
     <dimen name="choice_button_padding_top">10dp</dimen>
@@ -246,6 +246,7 @@
     <dimen name="principal_start">8dp</dimen>
     <dimen name="principal_item_desc_text_two">170dp</dimen>
     <dimen name="principal_temps_top_two">8dp</dimen>
-
+    <dimen name="login_text_size">40sp</dimen>
+    <dimen name="login_start_end">80dp</dimen>
 
 </resources>
