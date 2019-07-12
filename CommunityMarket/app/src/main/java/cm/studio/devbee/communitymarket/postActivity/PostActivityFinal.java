@@ -135,7 +135,6 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
                 finish ();
             }
         });
-        vendreButton.setEnabled ( true );
         //mcrosoft site key : 05222f7bfd274f8bb1f6ac44a6a1d493
         visionServiceClient = new VisionServiceRestClient ("551f0ff04fd7410da44382c9fb282c0b",apilink);
         imageProduit=findViewById ( R.id.imageProduit );
@@ -144,6 +143,7 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
         descriptionProduit=findViewById ( R.id.post_product_description );
         prixPorduit=findViewById ( R.id.post_production_prix );
         vendreButton=findViewById ( R.id.post_button );
+        vendreButton.setEnabled ( true );
         setSupportActionBar ( postfinaltoolbar );
         categoryName=getIntent ().getExtras ().get ( "categoryName" ).toString ();
        // Toast.makeText ( getApplicationContext(),categoryName,Toast.LENGTH_LONG ).show ();

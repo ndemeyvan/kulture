@@ -199,7 +199,7 @@
                         android:layout_marginTop="@dimen/new_profil_button_margin_top"
                         android:layout_marginEnd="@dimen/new_profil_button"
                         android:fontFamily="@font/nunito_bold"
-                        android:background="@drawable/button_background"
+                        android:background="@drawable/second_button_background"
                         android:text="@string/profil_voir_article"
                         android:textAllCaps="false"
                         android:textColor="@color/blanc"

@@ -87,7 +87,7 @@
                 android:fontFamily="@font/righteous"
                 android:text="plus tard"
                 android:textAllCaps="false"
-                android:textColor="@color/blanc"
+                android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="@+id/non_button"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/non_button" />
