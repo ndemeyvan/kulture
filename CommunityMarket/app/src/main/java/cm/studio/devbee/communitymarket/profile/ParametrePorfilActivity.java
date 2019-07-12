@@ -1,6 +1,7 @@
 package cm.studio.devbee.communitymarket.profile;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -14,6 +15,7 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
@@ -54,6 +56,8 @@ import cm.studio.devbee.communitymarket.R;
 import cm.studio.devbee.communitymarket.postActivity.PostActivityFinal;
 import de.hdodenhof.circleimageview.CircleImageView;
 import id.zelory.compressor.Compressor;
+import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence;
+import uk.co.deanwild.materialshowcaseview.ShowcaseConfig;
 
 public class ParametrePorfilActivity extends AppCompatActivity {
     private static EditText nom;
@@ -64,6 +68,7 @@ public class ParametrePorfilActivity extends AppCompatActivity {
     private  static  EditText edit_quartier;
     private static Button button_enregister;
     private static Uri mImageUri;
+    private static ImageButton imageButton;
     private static CircleImageView parametreImage;
     private static FirebaseAuth mAuth;
     private static StorageReference storageReference;
@@ -72,7 +77,7 @@ public class ParametrePorfilActivity extends AppCompatActivity {
     private static ProgressBar parametre_progressbar;
     private static AsyncTask asyncTask;
     private static boolean ischange=false;
-    private static ImageButton imageButton;
+    private Toolbar toolbar_parametre;
     byte[] final_image;
     String user_residence;
      String quartier;
@@ -83,11 +88,43 @@ public class ParametrePorfilActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate ( savedInstanceState );
         setContentView ( R.layout.activity_parametre_porfil );
+        toolbar_parametre=findViewById(R.id.toolbar_parametre);
+        setSupportActionBar(toolbar_parametre);
+        firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user_id).get ().addOnCompleteListener ( ParametrePorfilActivity.this,new OnCompleteListener<DocumentSnapshot>() {
+            @SuppressLint("RestrictedApi")
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful ()){
+                    if (task.getResult ().exists ()){
+                        String pop_up= task.getResult ().getString ( "user_residence" );
+                        String nom_user = task.getResult ().getString ("user_name");
+                        if (pop_up.equals ( "..." )){
+                         getSupportActionBar().setTitle("Welcome " + nom_user);
+                        }else{
+                            getSupportActionBar ().setDisplayHomeAsUpEnabled ( true );
+                            toolbar_parametre.setNavigationOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    finish ();
+                                }
+                            });
+                        }
+                    }else {
+
+                    }
+                }else{
+
+
+                }
+            }
+        } );
+
         nom=findViewById ( R.id.param_nom );
         premon=findViewById ( R.id.param_premon );
         telephone=findViewById ( R.id.param_telephone );
         residence=findViewById ( R.id.param_residence );
         email=findViewById ( R.id.param_mail );
+        imageButton=findViewById(R.id.imageButton);
         button_enregister=findViewById ( R.id.param_button );
         parametreImage=findViewById ( R.id.parametre_image );
         edit_quartier=findViewById(R.id.edit_quartier);
@@ -103,48 +140,24 @@ public class ParametrePorfilActivity extends AppCompatActivity {
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                parametreImage.setOnClickListener ( new View.OnClickListener () {
-                    @Override
-                    public void onClick(View v) {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                            try {
-                                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 555);
-                                CropImage.activity()
-                                        .setGuidelines(CropImageView.Guidelines.ON)
-                                        .start(ParametrePorfilActivity.this);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    try {
+                        requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 555);
+                        CropImage.activity()
+                                .setGuidelines(CropImageView.Guidelines.ON)
+                                .start(ParametrePorfilActivity.this);
 
-                            }catch (Exception e){
-                                e.printStackTrace ();
-                            }
-                        } else {
-                            CropImage.activity()
-                                    .setGuidelines(CropImageView.Guidelines.ON)
-                                    .start(ParametrePorfilActivity.this);
-                        }
+                    }catch (Exception e){
+                        e.printStackTrace ();
                     }
-                } );
-            }
-        });
-        /*ConstraintLayout constraintLayout=findViewById(R.id.layout);
-        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
-        animationDrawable.setEnterFadeDuration(2000);
-        animationDrawable.setExitFadeDuration(4000);
-        animationDrawable.start();*/
-        Toast.makeText ( getApplicationContext (), getString(R.string.renplir_tous),Toast.LENGTH_LONG ).show ();
-        residence.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                user_residence=parent.getItemAtPosition(position).toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
+                } else {
+                    CropImage.activity()
+                            .setGuidelines(CropImageView.Guidelines.ON)
+                            .start(ParametrePorfilActivity.this);
+                }
             }
         });
 
-    }
-    public void setimage(){
         parametreImage.setOnClickListener ( new View.OnClickListener () {
             @Override
             public void onClick(View v) {
@@ -165,6 +178,23 @@ public class ParametrePorfilActivity extends AppCompatActivity {
                 }
             }
         } );
+        /*ConstraintLayout constraintLayout=findViewById(R.id.layout);
+        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
+        animationDrawable.setEnterFadeDuration(2000);
+        animationDrawable.setExitFadeDuration(4000);
+        animationDrawable.start();*/
+        Toast.makeText ( getApplicationContext (), getString(R.string.renplir_tous),Toast.LENGTH_LONG ).show ();
+        residence.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                user_residence=parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
     }
 
@@ -379,7 +409,6 @@ public class ParametrePorfilActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            setimage();
             getuserdata ();
            // recuperation ();
             firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user_id).get ().addOnCompleteListener ( ParametrePorfilActivity.this,new OnCompleteListener<DocumentSnapshot> () {

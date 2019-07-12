@@ -7,18 +7,37 @@
     tools:context=".profile.ParametrePorfilActivity"
     android:id="@+id/layout"
     android:background="@color/black"
+
    >
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_parametre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/toolbar_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="welcome"
+        android:theme="@style/ToolbarThemeTwo"
+        app:titleTextColor="@color/blanc" />
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_parametre">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -38,7 +57,6 @@
 
                     <EditText
                         android:id="@+id/param_nom"
-                        android:theme="@style/edit_theme"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -53,6 +71,7 @@
                         android:textColor="@color/blanc"
                         android:textColorHint="@color/blanc"
                         android:textSize="@dimen/parametre_text_size"
+                        android:theme="@style/edit_theme"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
@@ -66,7 +85,6 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="16dp"
                         android:alpha="0.5"
-                        android:theme="@style/edit_theme"
                         android:elevation="1dp"
                         android:ems="10"
                         android:fontFamily="@font/righteous"
@@ -75,6 +93,7 @@
                         android:textColor="@color/blanc"
                         android:textColorHint="@color/blanc"
                         android:textSize="@dimen/parametre_text_size"
+                        android:theme="@style/edit_theme"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/param_nom" />
@@ -92,10 +111,10 @@
                         android:fontFamily="@font/righteous"
                         android:hint="phone (exple : +237 xxxxxxxxxx)"
                         android:inputType="number"
-                        android:theme="@style/edit_theme"
                         android:textColor="@color/blanc"
                         android:textColorHint="@color/blanc"
                         android:textSize="@dimen/parametre_text_size"
+                        android:theme="@style/edit_theme"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/param_premon" />
@@ -107,11 +126,11 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="16dp"
+                        android:background="@color/blanc"
                         android:dropDownWidth="match_parent"
                         android:entries="@array/countries"
                         android:padding="15dp"
                         android:theme="@style/edit_theme"
-                        android:background="@color/blanc"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/param_telephone" />
@@ -145,7 +164,6 @@
                         android:alpha="0.5"
                         android:elevation="1dp"
                         android:ems="10"
-                        android:theme="@style/edit_theme"
                         android:fontFamily="@font/righteous"
                         android:hint="@string/parametre_decription"
                         android:inputType="textMultiLine|textPersonName"
@@ -153,6 +171,7 @@
                         android:singleLine="false"
                         android:textColor="@color/blanc"
                         android:textColorHint="@color/blanc"
+                        android:theme="@style/edit_theme"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/edit_quartier" />
@@ -210,7 +229,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="32dp"
-                        android:layout_marginTop="32dp"
+                        android:layout_marginTop="24dp"
                         android:fontFamily="@font/righteous"
                         android:text="Parametre"
                         android:textColor="@color/blanc"
@@ -234,7 +253,6 @@
                         app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
                 </android.support.constraint.ConstraintLayout>
-
 
 
             </ScrollView>

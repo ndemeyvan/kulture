@@ -293,6 +293,7 @@
     <dimen name="principal_image_round_start">8dp</dimen>
     <dimen name="principal_desc_height">30dp</dimen>
     <dimen name="principal_prix_top_two">8dp</dimen>
+    <dimen name="principal_temps_top_two">8dp</dimen>
 
 
 </resources>

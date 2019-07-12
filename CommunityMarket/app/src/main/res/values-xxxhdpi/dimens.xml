@@ -247,5 +247,6 @@
     <dimen name="principal_prix_top_two">8dp</dimen>
     <dimen name="principal_start">8dp</dimen>
     <dimen name="principal_item_desc_text_two">180dp</dimen>
+    <dimen name="principal_temps_top_two">8dp</dimen>
 
 </resources>

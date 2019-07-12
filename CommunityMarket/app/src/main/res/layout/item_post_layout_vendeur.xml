@@ -64,7 +64,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/principal_image_round_start"
-                android:layout_marginTop="@dimen/principal_temps_top"
+                android:layout_marginTop="@dimen/principal_temps_top_two"
                 android:layout_marginEnd="@dimen/principal_end"
                 android:fontFamily="@font/righteous"
                 android:text="17/02/2019"

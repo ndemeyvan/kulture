@@ -272,8 +272,8 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
 
     public void setupViewPager(ViewPager viewPager){
         TabsAdapter tabsAdapter=new TabsAdapter(getSupportFragmentManager());
-        tabsAdapter.addFragment(new HomeFragment(),getString(R.string.decouvrir));
-        tabsAdapter.addFragment(new TshirtFragment(),getString(R.string.T_shirts));
+        tabsAdapter.addFragment(new HomeFragment(),getString(R.string.decouvrir).toLowerCase());
+        tabsAdapter.addFragment(new TshirtFragment(),getString(R.string.T_shirts).toLowerCase());
         tabsAdapter.addFragment(new PullFragment () ,getString(R.string.Pulls));
         tabsAdapter.addFragment(new JupesFragment () ,getString(R.string.jupes));
         tabsAdapter.addFragment(new ChaussureFragment (),getString(R.string.chaussures));
@@ -393,7 +393,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
             }else if (id == R.id.setting) {
                 Intent parametre=new Intent(getApplicationContext(),ParametrePorfilActivity.class);
                 startActivity(parametre);
-                finish ();
+                //finish ();
             }
             else if (id == R.id.nous_contacter) {
                 Intent nous_contacter=new Intent(getApplicationContext(),AproposActivity.class);
