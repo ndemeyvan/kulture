@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:id="@+id/layout"
     tools:context=".postActivity.PostActivityFinal"
-   android:background="@color/blanc">
+   android:background="@color/black">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/final_toolbar"
@@ -61,8 +61,8 @@
                 android:hint="@string/produc_name"
                 android:inputType="textPersonName"
                 android:maxLength="35"
-                android:textColor="@color/black"
-                android:textColorHint="@color/black"
+                android:textColor="@color/blanc"
+                android:textColorHint="@color/blanc"
                 android:textSize="@dimen/parametre_text_size"
                 android:theme="@style/edit_theme"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -85,8 +85,8 @@
                 android:inputType="textMultiLine"
                 android:maxLength="400"
                 android:text=""
-                android:textColor="@color/black"
-                android:textColorHint="@color/black"
+                android:textColor="@color/blanc"
+                android:textColorHint="@color/blanc"
                 android:textSize="@dimen/parametre_text_size"
                 android:theme="@style/edit_theme"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -106,35 +106,14 @@
                 android:fontFamily="@font/righteous"
                 android:hint="@string/post_prix"
                 android:inputType="number"
-                android:textColor="@color/black"
-                android:textColorHint="@color/black"
+                android:textColor="@color/blanc"
+                android:textColorHint="@color/blanc"
                 android:textSize="@dimen/parametre_text_size"
                 android:theme="@style/edit_theme"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/post_product_description"
                 tools:ignore="LabelFor" />
-
-            <Button
-                android:id="@+id/post_button"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:background="@drawable/button_background"
-                android:text="mettre en vendre"
-                android:textAllCaps="false"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:visibility="visible"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/post_production_prix"
-                app:layout_constraintVertical_bias="0.155" />
 
             <ProgressBar
                 android:id="@+id/progressBar_post"
@@ -164,6 +143,27 @@
                 app:layout_constraintTop_toTopOf="@+id/imageProduit"
                 app:layout_constraintVertical_bias="0.361"
                 app:srcCompat="@drawable/ic_ajouter" />
+
+            <Button
+                android:id="@+id/post_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/button_background"
+                android:text="mettre en vendre"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/post_production_prix"
+                app:layout_constraintVertical_bias="1.0" />
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
 
