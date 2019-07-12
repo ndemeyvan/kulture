@@ -254,6 +254,7 @@
     <dimen name="principal_top">16dp</dimen>
     <dimen name="principal_end">16dp</dimen>
     <dimen name="principal_item_desc_text">120dp</dimen>
+    <dimen name="principal_item_desc_text_two">120dp</dimen>
     <dimen name="principal_prix_top">8dp</dimen>
     //////////pub
     <dimen name="pub_title_text_size">30sp</dimen>

@@ -242,7 +242,9 @@
     <dimen name="principal_image_round_start">16dp</dimen>
     <dimen name="principal_item_desc_text">140dp</dimen>
     <dimen name="principal_desc_height">70dp</dimen>
-    <dimen name="principal_prix_top_two">2dp</dimen>
+    <dimen name="principal_prix_top_two">8dp</dimen>
     <dimen name="principal_start">8dp</dimen>
+    <dimen name="principal_item_desc_text_two">170dp</dimen>
+
 
 </resources>
