@@ -299,6 +299,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
                             String  image_profil_user =task.getResult ().getString ("user_profil_image");
                              nom_user = task.getResult ().getString ("user_name");
                             String prenomuser =task.getResult ().getString ("user_prenom");
+                            getSupportActionBar ().setTitle ( "hello " + prenomuser );
                             drawer_user_name.setText ( nom_user + " " + prenomuser);
                             Picasso.with ( getApplicationContext()).load ( image_profil_user ).transform(new CircleTransform()).into ( acceuille_image );
                            // Picasso.with ( getApplicationContext()).load ( image_profil_user ).placeholder(R.drawable.boy).into ( profilbacck_image );

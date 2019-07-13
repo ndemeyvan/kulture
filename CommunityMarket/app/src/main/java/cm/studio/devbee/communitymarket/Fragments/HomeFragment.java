@@ -48,6 +48,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import javax.annotation.Nullable;
+
+import cm.studio.devbee.communitymarket.Accueil;
 import cm.studio.devbee.communitymarket.PublicityActivity;
 import cm.studio.devbee.communitymarket.R;
 import cm.studio.devbee.communitymarket.utilsForNouveautes.CategoriesAdapteNouveaux;
@@ -87,6 +89,7 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
     TextView pubImageTextTwo;
     TextView pubImageTextThree;
     TextView pubImageTextFour;
+    private TextView actuellement_text;
     boolean isfirstload =true;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     CollectionReference notebookRef = db.collection("publication").document("categories").collection("nouveaux");
@@ -121,6 +124,7 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
         img4=v.findViewById(R.id.img4);
         textChausure=v.findViewById(R.id.textChausure);
         ///////fin slider
+        actuellement_text=v.findViewById ( R.id.actuellement_text );
         content_progresbar=v.findViewById ( R.id.content_progresbar );
         viewFlipper=v.findViewById(R.id.viewFlipper);
         firebaseFirestore=FirebaseFirestore.getInstance();
@@ -558,7 +562,27 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
          principalRecyclerView.setHasFixedSize(true);
          principalRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
          principalRecyclerView.setAdapter(adapter);
-    }
+
+         firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user).get ().addOnCompleteListener ( getActivity (),new OnCompleteListener<DocumentSnapshot>() {
+             @Override
+             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                 if (task.isSuccessful ()){
+                     if (task.getResult ().exists ()){
+                         String [] liste = {"venez me tromper ooo","je vends,je perd","tu est mon asso",",tout as petit prix"};
+                         int i ;
+                         Random ran = new Random();
+                         i= ran.nextInt(4);
+                        String nom_user = task.getResult ().getString ("user_name");
+                         actuellement_text.setText (nom_user+" "+liste[i]);
+
+                     }
+                 }else{
+
+
+                 }
+             }
+         } );
+ }
 
     @Override
     public void onStart() {

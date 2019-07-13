@@ -114,6 +114,8 @@ public class ParametrePorfilActivity extends AppCompatActivity {
                         if (pop_up.equals ( "..." )){
                             getSupportActionBar().setTitle("Welcome " + nom_user);
                         }else{
+                            getSupportActionBar().setTitle("");
+
                             getSupportActionBar ().setDisplayHomeAsUpEnabled ( true );
                             toolbar_parametre.setNavigationOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -270,9 +272,6 @@ public class ParametrePorfilActivity extends AppCompatActivity {
         String saveCurrentDate=currentDate.format ( calendar.getTime () );
         String randomKey=saveCurrentDate;
         Map<String, String> donnees_utilisateur = new HashMap<> ();
-        /*donnees_utilisateur.put ( "user_name",user_name.toUpperCase().charAt(0)+""+user_name.substring(1, user_name.length()) );
-        donnees_utilisateur.put ( "user_prenom",user_premon.toUpperCase().charAt(0)+""+user_premon.substring(1, user_premon.length()));*/
-
         donnees_utilisateur.put ( "user_name",user_name);
         donnees_utilisateur.put ( "user_prenom",user_premon);
         donnees_utilisateur.put ( "user_telephone", user_telephone );
