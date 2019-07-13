@@ -789,6 +789,29 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
         super.onBackPressed();
         finish();
     }
+    @Override
+    public boolean onCreateOptionsMenu(final Menu menu) {
+        getMenuInflater ().inflate ( R.menu.detail_menu, menu );
+        this.menu = menu;
+        firebaseFirestore.collection ( "mes donnees utilisateur" ).document (utilisateur_actuel).collection ( "mes favories" ).document(iddupost).get ().addOnCompleteListener ( DetailActivityTwo.this,new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful ()){
+                    if (!task.getResult ().exists ()){
+                        menu.getItem(0).setIcon(ContextCompat.getDrawable(getApplicationContext (), R.drawable.ic_like));
+                    }else{
+                        is_exist=true;
+                        menu.getItem(0).setIcon(ContextCompat.getDrawable(getApplicationContext (), R.mipmap.ic_like_accent));
+                    }
+
+                }else{
+
+                }
+            }
+        } );
+        return true;
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

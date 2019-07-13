@@ -9,16 +9,20 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -107,6 +111,15 @@ public class DetailActivityThree extends AppCompatActivity {
     private static WeakReference<DetailActivityThree> detailActivityThreeWeakReference;
     private String titreDuProduit;
     private String prixduproduit;
+    private String image_user;
+    private String user_mail;
+    private String residence_user;
+    private String derniere_conection;
+    private String description;
+    private String imageduproduit;
+    private String datedepublication;
+    private Menu menu;
+    private boolean is_exist=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -195,16 +208,16 @@ public class DetailActivityThree extends AppCompatActivity {
                     if (task.isSuccessful()){
                         if (task.getResult ().exists ()){
                             String postLike= task.getResult ().getString ( "user_name" );
-                            String image_user=task.getResult ().getString ( "user_profil_image" );
+                             image_user=task.getResult ().getString ( "user_profil_image" );
                             ////sockelerie a faire after
                              titreDuProduit=task.getResult().getString("nom_du_produit");
-                            String description= task.getResult ().getString ( "decription_du_produit" );
-                            String imageduproduit=task.getResult ().getString ( "image_du_produit" );
+                             description= task.getResult ().getString ( "decription_du_produit" );
+                             imageduproduit=task.getResult ().getString ( "image_du_produit" );
                              prixduproduit= task.getResult ().getString ( "prix_du_produit" );
-                            final String datedepublication=task.getResult ().getString ( "date_de_publication" );
-                            detail_post_titre_produit.setText(titreDuProduit);
-                            detail_prix_produit.setText(prixduproduit);
-                            detail_description.setText(description);
+                              datedepublication=task.getResult ().getString ( "date_de_publication" );
+                                detail_post_titre_produit.setText(titreDuProduit);
+                                detail_prix_produit.setText(prixduproduit);
+                                detail_description.setText(description);
                             lien_image=imageduproduit;
                             vendeur_button.setEnabled ( true );
                             getSupportActionBar().setTitle(titreDuProduit);
@@ -480,6 +493,94 @@ public class DetailActivityThree extends AppCompatActivity {
             }
         });
     }
+
+    ////menu
+    @Override
+    public boolean onCreateOptionsMenu(final Menu menu) {
+        getMenuInflater ().inflate ( R.menu.detail_menu, menu );
+        this.menu = menu;
+        firebaseFirestore.collection ( "mes donnees utilisateur" ).document (utilisateur_actuel).collection ( "mes favories" ).document(iddupost).get ().addOnCompleteListener ( DetailActivityThree.this,new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful ()){
+                    if (!task.getResult ().exists ()){
+                        menu.getItem(0).setIcon(ContextCompat.getDrawable(getApplicationContext (), R.drawable.ic_like));
+                    }else{
+                        is_exist=true;
+                        menu.getItem(0).setIcon(ContextCompat.getDrawable(getApplicationContext (), R.mipmap.ic_like_accent));
+                    }
+
+                }else{
+
+                }
+            }
+        } );
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId ();
+        if (id == R.id.ic_like) {
+            final Map <String,Object> user_post = new HashMap ();
+            user_post.put ( "nom_du_produit",titreDuProduit );
+            user_post.put ( "decription_du_produit",description );
+            user_post.put ( "prix_du_produit",prix_produit );
+            user_post.put ( "date_de_publication",datedepublication );
+            user_post.put ( "utilisateur",current_user_id );
+            user_post.put ( "image_du_produit",lien_image);
+            user_post.put ( "dete-en-seconde",datedepublication );
+            user_post.put("search",description);
+            user_post.put("categories",categories);
+            user_post.put("a_liker",utilisateur_actuel);
+            user_post.put("id_du_favorie",iddupost);
+            user_post.put("post_id",iddupost);
+            if (is_exist==false){
+                firebaseFirestore.collection ( "mes donnees utilisateur" ).document (utilisateur_actuel).collection ( "mes favories" ).document(iddupost).set(user_post).addOnSuccessListener(DetailActivityThree.this,new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void documentReference) {
+                        menu.getItem(0).setIcon(ContextCompat.getDrawable(getApplicationContext (), R.mipmap.ic_like_accent));
+                        Toast.makeText ( getApplicationContext (),"ajouter a vos favories",Toast.LENGTH_LONG ).show ();
+                    }
+
+                }).addOnFailureListener ( DetailActivityThree.this, new OnFailureListener () {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText ( getApplicationContext (),"error , try later please",Toast.LENGTH_LONG ).show ();
+                    }
+                } );
+
+            }else {
+                menu.getItem(0).setIcon(ContextCompat.getDrawable(getApplicationContext (), R.drawable.ic_like));
+                firebaseFirestore.collection ( "mes donnees utilisateur" ).document (utilisateur_actuel).collection ( "mes favories" ).document(iddupost).delete ();
+            }
+
+            return true;
+        }
+        if (id==R.id.ic_call){
+            firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user_id).get ().addOnCompleteListener ( DetailActivityThree.this,new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful ()){
+                        if (task.getResult ().exists ()){
+                            String telephone_user =task.getResult ().getString ("user_telephone");
+                            String uri = "tel:"+telephone_user ;
+                            Intent intent = new Intent(Intent.ACTION_DIAL);
+                            intent.setData(Uri.parse(uri));
+                            startActivity(intent);
+                        }
+                    }else{
+
+                    }
+                }
+            } );
+            return true;
+        }
+
+        return super.onOptionsItemSelected ( item );
+    }
+    ////menu
 
 
 
