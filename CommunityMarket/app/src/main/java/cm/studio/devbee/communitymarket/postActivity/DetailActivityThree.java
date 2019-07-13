@@ -557,8 +557,7 @@ public class DetailActivityThree extends AppCompatActivity {
             }
 
             return true;
-        }
-        if (id==R.id.ic_call){
+        }else if (id==R.id.ic_call){
             firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user_id).get ().addOnCompleteListener ( DetailActivityThree.this,new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {

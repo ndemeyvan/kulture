@@ -140,7 +140,8 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".search.ChoiceSearchActivity"></activity>
+        <activity android:name=".search.ChoiceSearchActivity" />
+        <activity android:name=".profile.FavoriesActivity"></activity>
     </application>
 
 </manifest>

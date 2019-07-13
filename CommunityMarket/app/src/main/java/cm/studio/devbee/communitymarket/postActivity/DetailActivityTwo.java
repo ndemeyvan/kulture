@@ -851,8 +851,7 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
             }
 
             return true;
-        }
-        if (id==R.id.ic_call){
+        }else if (id==R.id.ic_call){
             firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user_id).get ().addOnCompleteListener ( DetailActivityTwo.this,new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {

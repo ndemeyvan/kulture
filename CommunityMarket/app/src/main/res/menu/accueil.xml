@@ -17,5 +17,15 @@
 
         />
 
+    <item
+        android:id="@+id/favories"
+        android:orderInCategory="1"
+        android:title="favories"
+        android:icon="@drawable/ic_like"
+        app:showAsAction="always"
+
+        />
+
+
 
 </menu>

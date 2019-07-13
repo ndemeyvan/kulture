@@ -75,6 +75,7 @@ import cm.studio.devbee.communitymarket.Fragments.TshirtFragment;
 import cm.studio.devbee.communitymarket.a_propos.AproposActivity;
 import cm.studio.devbee.communitymarket.messagerie.ChatMessageActivity;
 import cm.studio.devbee.communitymarket.postActivity.PostActivity;
+import cm.studio.devbee.communitymarket.profile.FavoriesActivity;
 import cm.studio.devbee.communitymarket.profile.ParametrePorfilActivity;
 import cm.studio.devbee.communitymarket.profile.ProfileActivity;
 import cm.studio.devbee.communitymarket.search.ChoiceSearchActivity;
@@ -407,6 +408,9 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
                 startActivity(message);
                 //finish ();
                 return true;
+            }else if (id ==R.id.favories){
+                Intent message=new Intent(getApplicationContext(),FavoriesActivity.class);
+                startActivity(message);
             }
 
             return super.onOptionsItemSelected ( item );
@@ -442,6 +446,9 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
                 message.putExtra ( "viens_de_detail","faux" );
                 startActivity(message);
                 //finish ();
+            }else if (id ==R.id.favories){
+                Intent message=new Intent(getApplicationContext(),FavoriesActivity.class);
+                startActivity(message);
             }
             DrawerLayout drawer = (DrawerLayout) findViewById ( R.id.drawer_layout );
             drawer.closeDrawer ( GravityCompat.START );
