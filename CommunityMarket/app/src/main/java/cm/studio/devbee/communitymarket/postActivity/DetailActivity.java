@@ -1,5 +1,6 @@
 package cm.studio.devbee.communitymarket.postActivity;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -12,11 +13,14 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -24,6 +28,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -57,6 +63,8 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -131,6 +139,13 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
     private String user_mail;
     private String residence_user;
     private String derniere_conection;
+    private String titreDuProduit;
+    private String prixduproduit;
+    private String description;
+    private String imageduproduit;
+    private String datedepublication;
+    private Menu menu;
+
 
 
     @Override
@@ -621,14 +636,14 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
                         if (task.getResult ().exists ()) {
                             String postLike = task.getResult ().getString ( "user_name" );
                             String image_user = task.getResult ().getString ( "user_profil_image" );
-                            String titreDuProduit = task.getResult ().getString ( "nom_du_produit" );
+                             titreDuProduit = task.getResult ().getString ( "nom_du_produit" );
                             titre_produit = titreDuProduit;
-                            String description = task.getResult ().getString ( "decription_du_produit" );
-                            String imageduproduit = task.getResult ().getString ( "image_du_produit" );
-                            String prixduproduit = task.getResult ().getString ( "prix_du_produit" );
+                             description = task.getResult ().getString ( "decription_du_produit" );
+                             imageduproduit = task.getResult ().getString ( "image_du_produit" );
+                             prixduproduit = task.getResult ().getString ( "prix_du_produit" );
                             prix_produit = prixduproduit;
                             getSupportActionBar ().setTitle ( titreDuProduit );
-                            final String datedepublication = task.getResult ().getString ( "date_de_publication" );
+                            datedepublication = task.getResult ().getString ( "date_de_publication" );
                             detail_image_post_toolbar.setTitle ( titreDuProduit );
                             // detail_post_titre_produit.setText(titreDuProduit);
                             detail_prix_produit.setText ( prixduproduit );
@@ -721,8 +736,6 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
                             final TextView detail_user= parientView.findViewById(R.id.detail_user);
                             final TextView general_residence= parientView.findViewById(R.id.general_residence);
                             final TextView general_last_view= parientView.findViewById(R.id.general_last_view);
-                            ImageView images_background=parientView.findViewById ( R.id.images_background );
-                            Picasso.with(getApplicationContext()).load(image_user).into(images_background);
                             Picasso.with(getApplicationContext()).load(image_user).into(generalImageProfilUser);
                             general_residence.setText(residence_user);
                             general_last_view.setText(derniere_conection);
@@ -868,6 +881,74 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
                     }
                 } );
     }
+    ////menu
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater ().inflate ( R.menu.detail_menu, menu );
+        this.menu = menu;
+
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId ();
+        if (id == R.id.ic_like) {
+            final Map <String,Object> user_post = new HashMap ();
+            user_post.put ( "nom_du_produit",titreDuProduit );
+            user_post.put ( "decription_du_produit",description );
+            user_post.put ( "prix_du_produit",prix_produit );
+            user_post.put ( "date_de_publication",datedepublication );
+            user_post.put ( "utilisateur",current_user_id );
+            user_post.put ( "image_du_produit",lien_image);
+            user_post.put ( "dete-en-seconde",datedepublication );
+            user_post.put("search",description);
+            user_post.put("categories",categories);
+            user_post.put("a_liker",utilisateur_actuel);
+            DocumentReference post_reference =            firebaseFirestore.collection ( "mes donnees utilisateur" ).document (utilisateur_actuel).collection ( "mes favories" ).document();
+            final String post_id = post_reference.getId();
+            user_post.put("id_du_favorie",post_id);
+            user_post.put("post_id",post_id);
+            post_reference.set(user_post).addOnSuccessListener(DetailActivity.this,new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void documentReference) {
+                    menu.getItem(1).setIcon(ContextCompat.getDrawable(getApplicationContext (), R.mipmap.ic_like_accent));
+                    Toast.makeText ( getApplicationContext (),"ajouter a vos favories",Toast.LENGTH_LONG ).show ();
+                }
+
+            }).addOnFailureListener ( DetailActivity.this, new OnFailureListener () {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText ( getApplicationContext (),"error , try later please",Toast.LENGTH_LONG ).show ();
+                }
+            } );
+
+            return true;
+        }
+        if (id==R.id.ic_call){
+            firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user_id).get ().addOnCompleteListener ( DetailActivity.this,new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful ()){
+                        if (task.getResult ().exists ()){
+                            String telephone_user =task.getResult ().getString ("user_telephone");
+                            String uri = "tel:"+telephone_user ;
+                            Intent intent = new Intent(Intent.ACTION_DIAL);
+                            intent.setData(Uri.parse(uri));
+                            startActivity(intent);
+                        }
+                    }else{
+
+                    }
+                }
+            } );
+            return true;
+        }
+
+        return super.onOptionsItemSelected ( item );
+    }
+    ////menu
 
 
     @Override

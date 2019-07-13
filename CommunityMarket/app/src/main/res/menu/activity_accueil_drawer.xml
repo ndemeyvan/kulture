@@ -23,6 +23,10 @@
             android:icon="@drawable/ic_setting"
             android:title="@string/parametre_draw" />
         <item
+            android:id="@+id/favories"
+            android:icon="@drawable/ic_like"
+            android:title="favories" />
+        <item
             android:id="@+id/nous_contacter"
             android:icon="@drawable/ic_info"
             android:title="@string/publicite_drawer" />

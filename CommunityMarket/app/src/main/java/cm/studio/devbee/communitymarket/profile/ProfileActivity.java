@@ -39,7 +39,6 @@ public class ProfileActivity extends AppCompatActivity {
     private static TextView operation;
     private static ImageView profilImage;
     private static ProgressBar progressBar;
-    private static ImageView images_background;
     private static android.support.v7.widget.Toolbar profil_toolbar;
     private WeakReference<ProfileActivity> profileActivityWeakReference;
     private static AsyncTask asyncTask;
@@ -63,7 +62,6 @@ public class ProfileActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
         profileActivityWeakReference=new WeakReference<>(this);
         asyncTask=new AsyncTask();
-        images_background.findViewById ( R.id.images_background );
         vente_button=findViewById ( R.id.vente_button );
         total_vente=findViewById(R.id.total_vente);
         getSupportActionBar ().setDisplayHomeAsUpEnabled ( true );
@@ -142,7 +140,6 @@ public class ProfileActivity extends AppCompatActivity {
                         total_vente.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_transition_animation));
                         residence.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_transition_animation));
                         telephone.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_transition_animation));
-                        Picasso.with ( getApplicationContext() ).load ( image_profil_user ).transform(new CircleTransform()).into ( images_background );
                         Picasso.with ( getApplicationContext() ).load ( image_profil_user ).transform(new CircleTransform()).into ( profilImage );
                         progressBar.setVisibility(View.INVISIBLE);
                     }
