@@ -77,13 +77,8 @@ public class ChatMessageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //startActivity ( new Intent ( getApplicationContext (),Accueil.class ).setFlags ( Intent.FLAG_ACTIVITY_CLEAR_TOP ) );
-                if (valeur.equals ( "acceuil" )&&viens_de_detail.equals ( "faux" )) {
-                    Intent gotoacceuil = new Intent ( getApplicationContext (), Accueil.class );
-                    startActivity ( gotoacceuil );
-                    finish ();
-                }else if (ouvert.equals ( "ouvert" )&&viens_de_detail.equals ( "vrai" )){
-                    finish ();
-                }
+                finish ();
+
             }
         });
 
@@ -113,13 +108,7 @@ public class ChatMessageActivity extends AppCompatActivity {
     }
     @Override
     public void onBackPressed() {
-        if (valeur.equals ( "acceuil" )&&viens_de_detail.equals ( "faux" )) {
-            Intent gotoacceuil = new Intent ( getApplicationContext (), Accueil.class );
-            startActivity ( gotoacceuil );
-            finish ();
-        }else if (ouvert.equals ( "ouvert" )&&viens_de_detail.equals ( "vrai" )){
-            finish ();
-        }
+             finish ();
     }
 
 
@@ -196,89 +185,5 @@ public class ChatMessageActivity extends AppCompatActivity {
         userstatus("offline");
     }
 
-    /*public class ContactItem extends Item<ViewHolder> {
-        private DiplayAllChat diplayAllChat;
-        public ContactItem(DiplayAllChat diplayAllChat){
-            this.diplayAllChat=diplayAllChat;
-        }
-        @Override
-        public void bind(@NonNull ViewHolder viewHolder, int position) {
-        final TextView lats_message=viewHolder.itemView.findViewById ( R.id.chat_last_message );
-        final TextView nom_utilisateur=viewHolder.itemView.findViewById ( R.id.chat_user_name );
-        final CircleImageView online =viewHolder.itemView.findViewById ( R.id.online );
-        final CircleImageView offline=viewHolder.itemView.findViewById ( R.id.offline );
-        final TextView lu_non_lu=viewHolder.itemView.findViewById ( R.id.lu_non );
-        TextView id_recepteur=viewHolder.itemView.findViewById(R.id.id_recepteur);
-            ConstraintLayout chat_container=viewHolder.itemView.findViewById ( R.id.chat_container );
-            chat_container.setAnimation ( AnimationUtils.loadAnimation ( getApplicationContext (),R.anim.fade_transition_animation ) );
-            CardView chat_card = viewHolder.itemView.findViewById ( R.id.chat_card );
-            TextView temps=viewHolder.itemView.findViewById ( R.id.chat_temps );
-            final CircleImageView profil=viewHolder.itemView.findViewById ( R.id.chat_message_image_profil );
-            lats_message.setText ( diplayAllChat.getDernier_message () );
-            nom_utilisateur.setText ( diplayAllChat.getNom_utilisateur () );
-            temps.setText ( diplayAllChat.getTemps () );
-            if ( diplayAllChat.getLu ().equals ( "non lu" )){
-                lu_non_lu.setText ( "nvx msg" );
-            }
-            id_recepteur.setText(diplayAllChat.getId_recepteur());
-           if ( diplayAllChat.getId_recepteur ().equals ( current_user )){
 
-                firebaseFirestore=FirebaseFirestore.getInstance ();
-                MessageActivity message = new MessageActivity ();
-
-            }else{
-                Picasso.with ( getApplicationContext () ).load (diplayAllChat.getImage_profil ()  ).into ( profil );
-            }
-            chat_card.setOnClickListener ( new View.OnClickListener () {
-                @Override
-                public void onClick(View v) {
-                    if (diplayAllChat.getId_recepteur ().equals ( current_user )){
-                        Intent chatOne =new Intent ( getApplicationContext (),MessageActivity.class );
-                        chatOne.putExtra ( "id de l'utilisateur" ,diplayAllChat.getId_expediteur () );
-                        chatOne.putExtra ( "id_recepteur" ,diplayAllChat.getId_recepteur());
-                        chatOne.putExtra ( "viens_de_detail","faux" );
-                        DocumentReference user = firebaseFirestore.collection("dernier_message" ).document (diplayAllChat.getId_expediteur ()).collection("contacts").document (current_user);
-                        user.update("lu", "lu")
-                                .addOnSuccessListener(new OnSuccessListener<Void> () {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                    }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                    }
-                                });
-                        startActivity ( chatOne );
-                        finish ();
-                    }else{
-                        if (valeur.equals ( "acceuil" )&&viens_de_detail.equals ( "faux" )) {
-                            Intent chat =new Intent ( getApplicationContext (),MessageActivity.class );
-                            chat.putExtra ( "id de l'utilisateur" ,diplayAllChat.getId_recepteur () );
-                            chat.putExtra ( "id_recepteur" ,diplayAllChat.getId_recepteur());
-                            chat.putExtra ( "viens_de_detail","faux" );
-                            startActivity ( chat );
-                            finish ();
-                        }else if (ouvert.equals ( "ouvert" )&&viens_de_detail.equals ( "vrai" )){
-                            Intent chat =new Intent ( getApplicationContext (),MessageActivity.class );
-                            chat.putExtra ( "id de l'utilisateur" ,diplayAllChat.getId_recepteur () );
-                            chat.putExtra ( "id_recepteur" ,diplayAllChat.getId_recepteur());
-                            chat.putExtra ( "viens_de_detail","vrai" );
-                            startActivity ( chat );
-                            finish ();
-
-                        }
-
-                        //finish ();
-                    }
-                }
-            } );
-
-        }
-
-        @Override
-        public int getLayout() {
-            return R.layout.item_contact_chat;
-        }
-    }*/
 }

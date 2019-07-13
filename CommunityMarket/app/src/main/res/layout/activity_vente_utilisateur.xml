@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".profile.VenteUtilisateurActivity"
-    android:background="@color/blanc">
+    android:background="@color/black">
 
     <TextView
         android:id="@+id/vente_presente"
@@ -16,7 +16,9 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:text="vide "
+        android:fontFamily="@font/righteous"
         android:textSize="20sp"
+        android:textColor="@color/blanc"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/profilRecycler"

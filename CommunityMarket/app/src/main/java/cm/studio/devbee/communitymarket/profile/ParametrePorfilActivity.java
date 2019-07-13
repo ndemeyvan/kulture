@@ -79,8 +79,8 @@ public class ParametrePorfilActivity extends AppCompatActivity {
     private static boolean ischange=false;
     private Toolbar toolbar_parametre;
     byte[] final_image;
-    String user_residence;
-     String quartier;
+    private  String user_residence;
+    private String quartier;
     private static WeakReference<ParametrePorfilActivity> parametrePorfilActivityWeakReference;
 
 
@@ -203,24 +203,7 @@ public class ParametrePorfilActivity extends AppCompatActivity {
         button_enregister.setOnClickListener ( new View.OnClickListener () {
             @Override
             public void onClick(View v) {
-
-               /* firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user_id).get ().addOnCompleteListener ( ParametrePorfilActivity.this,new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful ()){
-                            if (task.getResult ().exists ()){
-
-                            }else {
-
-                            }
-                        }else{
-
-                            finish();
-                        }
-                    }
-                } );
-                */
-
+                button_enregister.setEnabled ( false );
                 parametre_progressbar.setVisibility ( View.VISIBLE );
                 final String user_name = nom.getText ().toString ();
                 final String user_premon = premon.getText ().toString ();
@@ -232,9 +215,7 @@ public class ParametrePorfilActivity extends AppCompatActivity {
                     if (!TextUtils.isEmpty ( user_name ) && !TextUtils.isEmpty ( user_telephone ) && !TextUtils.isEmpty ( user_premon ) && !TextUtils.isEmpty ( user_residence ) && mImageUri != null && !TextUtils.isEmpty ( user_email )&& !TextUtils.isEmpty ( quartier )) {
                         parametre_progressbar.setVisibility ( View.VISIBLE );
                         final StorageReference image_de_profil = storageReference.child ( "image_de_profil" ).child ( current_user_id + " .jpg" );
-
                         UploadTask uploadTask = image_de_profil.putBytes(final_image);
-
                         Task<Uri> urlTask = uploadTask.continueWithTask ( new Continuation<UploadTask.TaskSnapshot, Task<Uri>> () {
                             @Override
                             public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
@@ -252,17 +233,19 @@ public class ParametrePorfilActivity extends AppCompatActivity {
                                 } else {
                                     String error = task.getException ().getMessage ();
                                    // Toast.makeText ( getApplicationContext (), error, Toast.LENGTH_LONG ).show ();
-                                    Toast.makeText ( getApplicationContext (), "essayer de changer votre profil aussi", Toast.LENGTH_LONG ).show ();
                                     parametre_progressbar.setVisibility ( View.INVISIBLE );
                                 }
                             }
                         } );
                         ////////fin de l'nvoie
                     } else {
+
+                        button_enregister.setEnabled ( true );
                         Toast.makeText ( getApplicationContext (), getString(R.string.renplir_tous), Toast.LENGTH_LONG ).show ();
                         parametre_progressbar.setVisibility ( View.INVISIBLE );
                     }
                 }else{
+
                     stockage ( null, user_name, user_premon, user_telephone, user_residence +" | "+ quartier, user_email );
 
                 }

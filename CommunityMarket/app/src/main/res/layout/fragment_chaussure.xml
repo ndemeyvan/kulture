@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.ChaussureFragment"
     android:id="@+id/layout"
-    android:background="@drawable/gradient_list">
+    android:background="@color/black">
 
     <ViewFlipper
         android:id="@+id/viewFlippertwo"

@@ -94,12 +94,6 @@ public class RobeFragment extends Fragment {
         asyncTask=new AsyncTask ();
         asyncTask.execute();
         robeFragmentWeakReference=new WeakReference<> ( this );
-        ConstraintLayout constraintLayout=v.findViewById(R.id.layout);
-        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
-        animationDrawable.setEnterFadeDuration(2000);
-        animationDrawable.setExitFadeDuration(4000);
-        animationDrawable.start();
-
         getActivity ().runOnUiThread
                 (new Runnable() {
                     @Override

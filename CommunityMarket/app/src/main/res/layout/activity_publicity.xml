@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PublicityActivity">
+    tools:context=".PublicityActivity"
+    android:background="@color/black"
+    >
     <android.support.v7.widget.Toolbar
         android:id="@+id/entreprise_toolbar"
         android:layout_width="match_parent"
@@ -101,6 +103,7 @@
                     android:text=" le lorem Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500. "
                     android:textSize="@dimen/pub_dec_text_size"
                     android:textStyle="bold"
+                    android:textColor="@color/blanc"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.498"
                     app:layout_constraintStart_toStartOf="parent"
@@ -114,7 +117,7 @@
                     android:layout_marginTop="@dimen/pub_first_image_top"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/publicity_description"
-                    app:srcCompat="@drawable/ic_map" />
+                    app:srcCompat="@drawable/ic_room_black_24dp" />
 
                 <TextView
                     android:id="@+id/publicity_location_entreprise"
@@ -126,6 +129,7 @@
                     android:text="Douala"
                     android:textSize="@dimen/pub_dec_text_size"
                     android:textStyle="bold"
+                    android:textColor="@color/blanc"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView7"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -137,11 +141,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="50dp"
                     android:layout_marginEnd="8dp"
                     android:fontFamily="@font/righteous"
                     android:text="Lorem ipsum"
-                    android:textColor="@color/black"
+                    android:textColor="@color/blanc"
                     android:textSize="@dimen/pub_title_text_size"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -167,6 +171,7 @@
                     android:text="656209008"
                     android:textSize="@dimen/pub_dec_text_size"
                     android:textStyle="bold"
+                    android:textColor="@color/blanc"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView8"
                     app:layout_constraintStart_toEndOf="@+id/imageView8"
                     app:layout_constraintTop_toTopOf="@+id/imageView8" />
@@ -179,12 +184,12 @@
                     android:layout_marginTop="32dp"
                     android:layout_marginEnd="@dimen/pub_button_start_end"
                     android:layout_marginBottom="24dp"
-                    android:background="@drawable/second_button_background"
+                    android:background="@drawable/button_background"
                     android:fontFamily="@font/righteous"
                     android:text="appeler"
                     android:elevation="5dp"
                     android:textAllCaps="false"
-                    android:textColor="@color/blanc"
+                    android:textColor="@color/black"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"

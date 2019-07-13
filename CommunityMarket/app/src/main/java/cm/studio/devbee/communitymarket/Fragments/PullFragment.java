@@ -96,11 +96,7 @@ public class PullFragment extends Fragment {
         asyncTask.execute();
         viewFlippertwo.setOutAnimation(getActivity(),android.R.anim.slide_out_right);
         viewFlippertwo.setInAnimation(getActivity(),android.R.anim.slide_in_left);
-        ConstraintLayout constraintLayout=v.findViewById(R.id.layout);
-        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
-        animationDrawable.setEnterFadeDuration(2000);
-        animationDrawable.setExitFadeDuration(4000);
-        animationDrawable.start();
+
         getActivity ().runOnUiThread
                 (new Runnable() {
                     @Override

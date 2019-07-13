@@ -136,13 +136,9 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
          alertDialog.setCancelable ( false );
          alertDialog.show();
         alertDialog.cancel();*/
-        Toast.makeText(getApplicationContext(),  "appuyer sur la banniere publictaire pour encourager l'application" ,Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(),  "appuyer sur la banniere publictaire pour encourager l'application" ,Toast.LENGTH_LONG).show();
 
-        ConstraintLayout constraintLayout=v.findViewById(R.id.layout);
-        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
-        animationDrawable.setEnterFadeDuration(2000);
-        animationDrawable.setExitFadeDuration(4000);
-        animationDrawable.start();
+
 
         // my id ca-app-pub-4353172129870258~6890094527
         // leur id ca-app-pub-3940256099942544~3347511713
@@ -590,7 +586,6 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
         chaussureRecyclerView.setHasFixedSize(true);
         chaussureRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
         chaussureRecyclerView.setAdapter(categoriesAdapte);
-
     }
 
     public void userstatus(String status){

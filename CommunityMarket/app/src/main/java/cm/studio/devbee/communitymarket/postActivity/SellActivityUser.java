@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,6 +32,8 @@ import javax.annotation.Nullable;
 
 import cm.studio.devbee.communitymarket.R;
 import cm.studio.devbee.communitymarket.gridView_post.ModelGridView;
+import cm.studio.devbee.communitymarket.utilsForPostPrincipal.PrincipalAdapte;
+import cm.studio.devbee.communitymarket.utilsForPostPrincipal.PrincipalModel;
 import cm.studio.devbee.communitymarket.utilsForVendeur.ProfilAdapteur;
 import cm.studio.devbee.communitymarket.utilsForVendeur.VendeurAdapteur;
 
@@ -37,7 +41,6 @@ public class SellActivityUser extends AppCompatActivity {
     String iddupost;
     private static RecyclerView vendeur_recyclerView;
     private static VendeurAdapteur gridViewAdapter;
-    private static List<ModelGridView> modelGridViewList;
     private static FirebaseFirestore firebaseFirestore;
     String current_user_id;
     private static Toolbar vendeur_toolbar;
@@ -53,40 +56,36 @@ public class SellActivityUser extends AppCompatActivity {
         vente_presente=findViewById ( R.id.vente_presente );
         iddupost =getIntent().getExtras().getString("id du post");
         current_user_id =getIntent().getExtras().getString("id de l'utilisateur");
-        vendeur_recyclerView=findViewById(R.id.vendeur_recyclerView);
         firebaseFirestore=FirebaseFirestore.getInstance();
-        modelGridViewList=new ArrayList<>();
         vendeur_toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-        gridViewAdapter=new VendeurAdapteur(modelGridViewList,SellActivityUser.this);
-        vendeur_recyclerView.setAdapter(gridViewAdapter);
-        vendeur_recyclerView.setLayoutManager(new GridLayoutManager (SellActivityUser.this,2));
         vendeur_produit();
         vente_presente.setVisibility ( View.INVISIBLE );
         nom();
     }
     public void vendeur_produit(){
         Query firstQuery =firebaseFirestore.collection ( "publication" ).document ("post utilisateur").collection ( current_user_id ).orderBy ( "prix_du_produit",Query.Direction.DESCENDING );
-        firstQuery.addSnapshotListener(SellActivityUser.this,new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                for (DocumentChange doc:queryDocumentSnapshots.getDocumentChanges()){
-                    if (doc.getType()==DocumentChange.Type.ADDED){
-                        String idupost=doc.getDocument ().getId ();
-                        ModelGridView modelGridView =doc.getDocument().toObject(ModelGridView.class).withId ( idupost );
-                        modelGridViewList.add(modelGridView);
-                        gridViewAdapter.notifyDataSetChanged();
-                    }
-                }
-
-            }
-        });
+        FirestoreRecyclerOptions<ModelGridView> options = new FirestoreRecyclerOptions.Builder<ModelGridView>()
+                .setQuery(firstQuery, ModelGridView.class)
+                .build();
+        gridViewAdapter  = new VendeurAdapteur (options,SellActivityUser.this);
+        vendeur_recyclerView = findViewById(R.id.vendeur_recyclerView);
+        vendeur_recyclerView.setHasFixedSize(true);
+        vendeur_recyclerView.setLayoutManager(new LinearLayoutManager (SellActivityUser.this,LinearLayoutManager.VERTICAL,false));
+        vendeur_recyclerView.setAdapter(gridViewAdapter);
 
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart ();
+        gridViewAdapter.startListening ();
+    }
+
     public void nom(){
         firebaseFirestore.collection("mes donnees utilisateur").document(current_user_id).get().addOnCompleteListener(SellActivityUser.this,new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -96,7 +95,6 @@ public class SellActivityUser extends AppCompatActivity {
                         String prenom=task.getResult ().getString ( "user_prenom" );
                         String name_user= task.getResult ().getString ( "user_name" );
                         getSupportActionBar().setTitle(name_user +" " + prenom);
-
                     }
                 }else {
                     String error=task.getException().getMessage();

@@ -115,7 +115,7 @@
     <string name="com.twitter.sdk.android.CONSUMER_SECRET" tools:ignore="ExtraTranslation">J2b5B2IgQRHTQOEd6p0E2Kwb5IjhDzBDaSAgO4LAakc8TFGcuf</string>
     <string-array id="@+id/countries"
         name="countries">
-        <item>Residence</item>
+        <item>your city ?</item>
         <item>Douala</item>
         <item>Yaounde</item>
         <item>Bamenda</item>

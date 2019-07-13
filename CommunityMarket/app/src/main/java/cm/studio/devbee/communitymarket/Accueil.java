@@ -12,10 +12,12 @@ import android.graphics.Canvas;
 
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
@@ -90,6 +92,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
         private TextView drawer_user_name;
         private FloatingActionButton content_floating_action_btn;
         private TabLayout tabLayout;
+        private Toolbar detail_image_post_toolbar;
         private ViewPager tabsviewpager;
         private static AsyncTask asyncTask;
         private static WeakReference<Accueil> accueilWeakReference;
@@ -115,6 +118,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
         setupViewPager(tabsviewpager);
         tabLayout.setupWithViewPager(tabsviewpager);
         mAuth=FirebaseAuth.getInstance ();
+        detail_image_post_toolbar.findViewById ( R.id.detail_image_post_toolbar );
         content_floating_action_btn=findViewById ( R.id.content_floating_action_btn );
         current_user_id=mAuth.getCurrentUser ().getUid ();
         firebaseFirestore=FirebaseFirestore.getInstance ();
@@ -184,47 +188,8 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
             }
         });
 
-        firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user_id).get ().addOnCompleteListener ( new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful ()){
-                    if (task.getResult ().exists ()){
-                        String message= task.getResult ().getString ( "message" );
-                        if (message.equals ( "non_lu" )){
-                            menu.getItem(1).setIcon(ContextCompat.getDrawable(getApplicationContext (), R.drawable.message_lu));
-
-                        }else{
-                         //   menu.getItem(1).setIcon(ContextCompat.getDrawable(getApplicationContext (), R.drawable.ic_message_float_icon));
-                        }
-                    }else {
-                        Intent gotoparam=new Intent(getApplicationContext(),ParametrePorfilActivity.class);
-                        startActivity ( gotoparam );
-                        finish();
-                    }
-                }else{
 
 
-                }
-            }
-        } );
-
-        final DocumentReference docRef = firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user_id);
-        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot snapshot,
-                                @Nullable FirebaseFirestoreException e) {
-                if (e != null) {
-                    Toast.makeText(getApplicationContext(),"new change",Toast.LENGTH_LONG).show();
-                    return;
-                }
-
-                if (snapshot != null && snapshot.exists()) {
-
-                } else {
-
-                }
-            }
-        });
         myDialog = new Dialog (this);
         asyncTask=new AsyncTask();
         asyncTask.execute();
@@ -258,6 +223,15 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
 
         recup();
         vaTopost ();
+
+        AnimationDrawable animationDrawableOne = (AnimationDrawable) detail_image_post_toolbar.getBackground();
+        animationDrawableOne.setEnterFadeDuration(2000);
+        animationDrawableOne.setExitFadeDuration(4000);
+        animationDrawableOne.start();
+        AnimationDrawable animationDrawableTwo = (AnimationDrawable) tabLayout.getBackground();
+        animationDrawableTwo.setEnterFadeDuration(2000);
+        animationDrawableTwo.setExitFadeDuration(4000);
+        animationDrawableTwo.start();
     }
 
 
@@ -389,7 +363,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
                 message.putExtra ( "viens","acceuil" );
                 message.putExtra ( "viens_de_detail","faux" );
                 startActivity(message);
-                finish ();
+                //finish ();
                 return true;
             }
 
@@ -425,7 +399,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
                 message.putExtra ( "viens","acceuil" );
                 message.putExtra ( "viens_de_detail","faux" );
                 startActivity(message);
-                finish ();
+                //finish ();
             }
             DrawerLayout drawer = (DrawerLayout) findViewById ( R.id.drawer_layout );
             drawer.closeDrawer ( GravityCompat.START );
@@ -566,8 +540,46 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
 
             @Override
             protected Void doInBackground(Void... voids) {
+                final DocumentReference docRef = firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user_id);
+                docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable DocumentSnapshot snapshot,
+                                        @Nullable FirebaseFirestoreException e) {
+                        if (e != null) {
+                            Toast.makeText(getApplicationContext(),"new change",Toast.LENGTH_LONG).show();
+                            return;
+                        }
+
+                        if (snapshot != null && snapshot.exists()) {
+                            firebaseFirestore=FirebaseFirestore.getInstance ();
+                            firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user_id).get ().addOnCompleteListener ( new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.isSuccessful ()){
+                                        if (task.getResult ().exists ()){
+                                            String message= task.getResult ().getString ( "message" );
+                                            if (message.equals ( "non lu" )){
+                                                menu.getItem(1).setIcon(ContextCompat.getDrawable(getApplicationContext (), R.drawable.message_lu));
+                                            }else{
+                                                menu.getItem(1).setIcon(ContextCompat.getDrawable(getApplicationContext (), R.drawable.ic_message_float_icon));
+                                            }
+                                        }else {
+
+                                            Intent gotoparam=new Intent(getApplicationContext(),ParametrePorfilActivity.class);
+                                            startActivity ( gotoparam );
+                                            finish();
+                                        }
+                                    }else{
 
 
+                                    }
+                                }
+                            } );
+                        } else {
+
+                        }
+                    }
+                });
                 return null;
             }
 

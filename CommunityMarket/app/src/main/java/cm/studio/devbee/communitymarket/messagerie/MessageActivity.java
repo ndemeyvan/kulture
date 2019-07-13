@@ -188,7 +188,6 @@ public class MessageActivity extends AppCompatActivity {
                                     notification.put("to", TOPIC);
                                     notification.put("data", notifcationBody);
                                     notifcationBody.put ( "viens_de_detail","faux" );
-
                                 } catch (JSONException e) {
                                 }
                                 sendNotification(notification);

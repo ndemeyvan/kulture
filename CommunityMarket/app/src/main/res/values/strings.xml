@@ -110,7 +110,7 @@
     <string name="com.twitter.sdk.android.CONSUMER_KEY" tools:ignore="ExtraTranslation">VrPx1FzdX0e0MZ4ZQJP9cu1qa</string>
     <string name="com.twitter.sdk.android.CONSUMER_SECRET" tools:ignore="ExtraTranslation">J2b5B2IgQRHTQOEd6p0E2Kwb5IjhDzBDaSAgO4LAakc8TFGcuf</string>
     <string-array name="countries" id="@+id/countries">
-        <item>Residence</item>
+        <item>ou residez vous ?</item>
         <item>Douala</item>
         <item>Yaounde</item>
         <item>Bamenda</item>
