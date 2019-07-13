@@ -145,6 +145,7 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
     private String imageduproduit;
     private String datedepublication;
     private Menu menu;
+    private boolean is_exist=false;
 
 
 
@@ -883,10 +884,25 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
     }
     ////menu
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(final Menu menu) {
         getMenuInflater ().inflate ( R.menu.detail_menu, menu );
         this.menu = menu;
+        firebaseFirestore.collection ( "mes donnees utilisateur" ).document (utilisateur_actuel).collection ( "mes favories" ).document(iddupost).get ().addOnCompleteListener ( DetailActivity.this,new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful ()){
+                    if (!task.getResult ().exists ()){
+                        menu.getItem(0).setIcon(ContextCompat.getDrawable(getApplicationContext (), R.drawable.ic_like));
+                    }else{
+                        is_exist=true;
+                        menu.getItem(0).setIcon(ContextCompat.getDrawable(getApplicationContext (), R.mipmap.ic_like_accent));
+                    }
 
+                }else{
+
+                }
+            }
+        } );
         return true;
     }
 
@@ -906,23 +922,27 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
             user_post.put("search",description);
             user_post.put("categories",categories);
             user_post.put("a_liker",utilisateur_actuel);
-            DocumentReference post_reference =            firebaseFirestore.collection ( "mes donnees utilisateur" ).document (utilisateur_actuel).collection ( "mes favories" ).document();
-            final String post_id = post_reference.getId();
-            user_post.put("id_du_favorie",post_id);
-            user_post.put("post_id",post_id);
-            post_reference.set(user_post).addOnSuccessListener(DetailActivity.this,new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void documentReference) {
-                    menu.getItem(1).setIcon(ContextCompat.getDrawable(getApplicationContext (), R.mipmap.ic_like_accent));
-                    Toast.makeText ( getApplicationContext (),"ajouter a vos favories",Toast.LENGTH_LONG ).show ();
-                }
+            user_post.put("id_du_favorie",iddupost);
+            user_post.put("post_id",iddupost);
+            if (is_exist==false){
+                firebaseFirestore.collection ( "mes donnees utilisateur" ).document (utilisateur_actuel).collection ( "mes favories" ).document(iddupost).set(user_post).addOnSuccessListener(DetailActivity.this,new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void documentReference) {
+                        menu.getItem(0).setIcon(ContextCompat.getDrawable(getApplicationContext (), R.mipmap.ic_like_accent));
+                        Toast.makeText ( getApplicationContext (),"ajouter a vos favories",Toast.LENGTH_LONG ).show ();
+                    }
 
-            }).addOnFailureListener ( DetailActivity.this, new OnFailureListener () {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText ( getApplicationContext (),"error , try later please",Toast.LENGTH_LONG ).show ();
-                }
-            } );
+                }).addOnFailureListener ( DetailActivity.this, new OnFailureListener () {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText ( getApplicationContext (),"error , try later please",Toast.LENGTH_LONG ).show ();
+                    }
+                } );
+
+            }else {
+                menu.getItem(0).setIcon(ContextCompat.getDrawable(getApplicationContext (), R.drawable.ic_like));
+                firebaseFirestore.collection ( "mes donnees utilisateur" ).document (utilisateur_actuel).collection ( "mes favories" ).document(iddupost).delete ();
+            }
 
             return true;
         }

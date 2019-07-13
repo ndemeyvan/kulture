@@ -11,16 +11,20 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -121,6 +125,13 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
     final private String serverKey = "key="+"AAAAfR8BveM:APA91bEgCOmnLz5LKrc4ms8qvCBYqAUwbXpoMswSYyuQJT0cg3FpLSvH-S_nAiaCARSdeolPbGpxTX5nHVm5AP6tI7N9sCYEL4IUkR_eF4lYZXN4oeXhWtCKavTHIaA8pH6eklL4yBO5";
     final private String contentType = "application/json";
     final String TAG = "NOTIFICATION TAG";
+    private String titreDuProduit;
+    private String prixduproduit;
+    private String description;
+    private String imageduproduit;
+    private String datedepublication;
+    private Menu menu;
+    private boolean is_exist=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -542,11 +553,11 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
                         if (task.getResult ().exists ()){
                             String titreDuProduit=task.getResult().getString("nom_du_produit");
                             titre_produit=titreDuProduit;
-                            String description= task.getResult ().getString ( "decription_du_produit" );
-                            String imageduproduit=task.getResult ().getString ( "image_du_produit" );
-                            String prixduproduit= task.getResult ().getString ( "prix_du_produit" );
+                             description= task.getResult ().getString ( "decription_du_produit" );
+                             imageduproduit=task.getResult ().getString ( "image_du_produit" );
+                             prixduproduit= task.getResult ().getString ( "prix_du_produit" );
                             prix_produit=prixduproduit;
-                            final String datedepublication=task.getResult ().getString ( "date_de_publication" );
+                              datedepublication=task.getResult ().getString ( "date_de_publication" );
                              image_user=task.getResult ().getString ( "user_profil_image" );
                             getSupportActionBar().setTitle(titreDuProduit);
                             detail_post_titre_produit.setText(titreDuProduit);
@@ -640,8 +651,6 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
                     final TextView detail_user= parientView.findViewById(R.id.detail_user);
                     final TextView general_residence= parientView.findViewById(R.id.general_residence);
                     final TextView general_last_view= parientView.findViewById(R.id.general_last_view);
-                    ImageView images_background=parientView.findViewById ( R.id.images_background );
-                    Picasso.with(getApplicationContext()).load(image_user).into(images_background);
                     Picasso.with(getApplicationContext()).load(image_user).into(generalImageProfilUser);
                     general_residence.setText(residence_user);
                     general_last_view.setText(derniere_conection);
@@ -780,6 +789,69 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
         super.onBackPressed();
         finish();
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId ();
+        if (id == R.id.ic_like) {
+            final Map <String,Object> user_post = new HashMap ();
+            user_post.put ( "nom_du_produit",titreDuProduit );
+            user_post.put ( "decription_du_produit",description );
+            user_post.put ( "prix_du_produit",prix_produit );
+            user_post.put ( "date_de_publication",datedepublication );
+            user_post.put ( "utilisateur",current_user_id );
+            user_post.put ( "image_du_produit",lien_image);
+            user_post.put ( "dete-en-seconde",datedepublication );
+            user_post.put("search",description);
+            user_post.put("categories",categories);
+            user_post.put("a_liker",utilisateur_actuel);
+            user_post.put("id_du_favorie",iddupost);
+            user_post.put("post_id",iddupost);
+            if (is_exist==false){
+                firebaseFirestore.collection ( "mes donnees utilisateur" ).document (utilisateur_actuel).collection ( "mes favories" ).document(iddupost).set(user_post).addOnSuccessListener(DetailActivityTwo.this,new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void documentReference) {
+                        menu.getItem(0).setIcon(ContextCompat.getDrawable(getApplicationContext (), R.mipmap.ic_like_accent));
+                        Toast.makeText ( getApplicationContext (),"ajouter a vos favories",Toast.LENGTH_LONG ).show ();
+                    }
+
+                }).addOnFailureListener ( DetailActivityTwo.this, new OnFailureListener () {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText ( getApplicationContext (),"error , try later please",Toast.LENGTH_LONG ).show ();
+                    }
+                } );
+
+            }else {
+                menu.getItem(0).setIcon(ContextCompat.getDrawable(getApplicationContext (), R.drawable.ic_like));
+                firebaseFirestore.collection ( "mes donnees utilisateur" ).document (utilisateur_actuel).collection ( "mes favories" ).document(iddupost).delete ();
+            }
+
+            return true;
+        }
+        if (id==R.id.ic_call){
+            firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user_id).get ().addOnCompleteListener ( DetailActivityTwo.this,new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful ()){
+                        if (task.getResult ().exists ()){
+                            String telephone_user =task.getResult ().getString ("user_telephone");
+                            String uri = "tel:"+telephone_user ;
+                            Intent intent = new Intent(Intent.ACTION_DIAL);
+                            intent.setData(Uri.parse(uri));
+                            startActivity(intent);
+                        }
+                    }else{
+
+                    }
+                }
+            } );
+            return true;
+        }
+
+        return super.onOptionsItemSelected ( item );
+    }
+    ////menu
 
     public void userstatus(String status){
         DocumentReference user = firebaseFirestore.collection("mes donnees utilisateur" ).document(current_user_id);
