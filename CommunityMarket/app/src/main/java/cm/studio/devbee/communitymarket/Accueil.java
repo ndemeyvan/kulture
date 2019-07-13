@@ -223,10 +223,12 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
         recup();
         vaTopost ();
         showPopup ();
+
         AnimationDrawable animationDrawableOne = (AnimationDrawable) toolbar.getBackground();
         animationDrawableOne.setEnterFadeDuration(2000);
         animationDrawableOne.setExitFadeDuration(4000);
         animationDrawableOne.start();
+
         AnimationDrawable animationDrawableTwo = (AnimationDrawable) tabLayout.getBackground();
         animationDrawableTwo.setEnterFadeDuration(2000);
         animationDrawableTwo.setExitFadeDuration(4000);

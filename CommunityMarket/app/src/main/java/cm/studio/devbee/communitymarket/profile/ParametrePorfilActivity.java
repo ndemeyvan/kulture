@@ -196,6 +196,11 @@ public class ParametrePorfilActivity extends AppCompatActivity {
             }
         });
 
+        AnimationDrawable animationDrawableOne = (AnimationDrawable) toolbar_parametre.getBackground();
+        animationDrawableOne.setEnterFadeDuration(2000);
+        animationDrawableOne.setExitFadeDuration(4000);
+        animationDrawableOne.start();
+
     }
 
 

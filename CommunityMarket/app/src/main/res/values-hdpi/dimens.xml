@@ -70,7 +70,7 @@
     <!-- parametre activty post-->
     <dimen name="parametre_actibity_image_w_n_h">100dp</dimen>
     <dimen name="parametre_padding_edit_text">8dp</dimen>
-    <dimen name="parametre_image_button">50dp</dimen>
+    <dimen name="parametre_image_button">40dp</dimen>
     <!-- post activty final -->
     <dimen name="post_actibity_final_float_button_top_margin">60dp</dimen>
     <dimen name="post_padding_edit_text">15dp</dimen>

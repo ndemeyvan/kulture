@@ -178,6 +178,10 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         final ByteArrayInputStream inputStream = new ByteArrayInputStream (outputStream.toByteArray());
 
+        AnimationDrawable animationDrawableOne = (AnimationDrawable) postfinaltoolbar.getBackground();
+        animationDrawableOne.setEnterFadeDuration(2000);
+        animationDrawableOne.setExitFadeDuration(4000);
+        animationDrawableOne.start();
     }
 
     public void loadRewardedVideo(){

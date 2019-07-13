@@ -1,6 +1,7 @@
 package cm.studio.devbee.communitymarket.messagerie;
 
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -267,7 +268,10 @@ public class MessageActivity extends AppCompatActivity {
 
         userstatus("online");
         Toast.makeText ( getApplicationContext (),"l'image qui porte sur la vente apparait en haut",Toast.LENGTH_LONG ).show ();
-
+        AnimationDrawable animationDrawableOne = (AnimationDrawable) mesage_toolbar.getBackground();
+        animationDrawableOne.setEnterFadeDuration(2000);
+        animationDrawableOne.setExitFadeDuration(4000);
+        animationDrawableOne.start();
 
 
     }

@@ -1,6 +1,7 @@
 package cm.studio.devbee.communitymarket.search;
 
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -44,5 +45,9 @@ public class ChoiceSearchActivity extends AppCompatActivity {
 
             }
         } );
+        AnimationDrawable animationDrawableOne = (AnimationDrawable) toolbar.getBackground();
+        animationDrawableOne.setEnterFadeDuration(2000);
+        animationDrawableOne.setExitFadeDuration(4000);
+        animationDrawableOne.start();
     }
 }

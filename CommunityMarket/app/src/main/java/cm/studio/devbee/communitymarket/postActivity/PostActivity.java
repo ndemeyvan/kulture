@@ -1,6 +1,7 @@
 package cm.studio.devbee.communitymarket.postActivity;
 
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -56,6 +57,10 @@ public class PostActivity extends AppCompatActivity {
         categoriesAdaptePost=new CategoriesAdaptePost (categoriesModelPostList,PostActivity.this);
         post_cat_recycler.setAdapter ( categoriesAdaptePost );
         post_cat_recycler.setLayoutManager ( new LinearLayoutManager ( getApplicationContext(),LinearLayoutManager.VERTICAL ,false) );
+        AnimationDrawable animationDrawableOne = (AnimationDrawable) toolbar_post.getBackground();
+        animationDrawableOne.setEnterFadeDuration(2000);
+        animationDrawableOne.setExitFadeDuration(4000);
+        animationDrawableOne.start();
     }
 
     @Override

@@ -4,6 +4,7 @@ package cm.studio.devbee.communitymarket.profile;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.AnimationDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -87,6 +88,11 @@ public class VenteUtilisateurActivity extends AppCompatActivity {
                 }
             }
         } );
+
+        AnimationDrawable animationDrawableOne = (AnimationDrawable) profil_toolbar.getBackground();
+        animationDrawableOne.setEnterFadeDuration(2000);
+        animationDrawableOne.setExitFadeDuration(4000);
+        animationDrawableOne.start();
 
 
     }

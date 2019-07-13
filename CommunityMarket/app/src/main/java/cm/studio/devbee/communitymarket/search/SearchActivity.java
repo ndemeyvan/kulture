@@ -1,4 +1,5 @@
 package cm.studio.devbee.communitymarket.search;
+import android.graphics.drawable.AnimationDrawable;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -80,6 +81,11 @@ public class SearchActivity extends AppCompatActivity {
                 }
             }
         });
+
+        AnimationDrawable animationDrawableOne = (AnimationDrawable) toolbar_search.getBackground();
+        animationDrawableOne.setEnterFadeDuration(2000);
+        animationDrawableOne.setExitFadeDuration(4000);
+        animationDrawableOne.start();
     }
 
     @Override

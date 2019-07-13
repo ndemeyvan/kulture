@@ -1,6 +1,7 @@
 package cm.studio.devbee.communitymarket.messagerie;
 
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -133,6 +134,10 @@ public class ChatMessageActivity extends AppCompatActivity {
 
             }
         });
+        AnimationDrawable animationDrawableOne = (AnimationDrawable) message_toolbar.getBackground();
+        animationDrawableOne.setEnterFadeDuration(2000);
+        animationDrawableOne.setExitFadeDuration(4000);
+        animationDrawableOne.start();
         chat_progress.setVisibility(View.INVISIBLE);
     }
 
