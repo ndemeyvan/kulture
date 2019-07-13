@@ -721,6 +721,8 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
                             final TextView detail_user= parientView.findViewById(R.id.detail_user);
                             final TextView general_residence= parientView.findViewById(R.id.general_residence);
                             final TextView general_last_view= parientView.findViewById(R.id.general_last_view);
+                            ImageView images_background=parientView.findViewById ( R.id.images_background );
+                            Picasso.with(getApplicationContext()).load(image_user).into(images_background);
                             Picasso.with(getApplicationContext()).load(image_user).into(generalImageProfilUser);
                             general_residence.setText(residence_user);
                             general_last_view.setText(derniere_conection);

@@ -79,7 +79,7 @@
                 android:fontFamily="@font/righteous"
                 android:text="s'il te plait viens jaimerais te voir"
                 android:textColor="@color/blanc"
-                android:textSize="@dimen/commentaire_text"
+                android:textSize="@dimen/new_detail_desc_text_size"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.019"

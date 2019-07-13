@@ -77,7 +77,7 @@
                 android:ellipsize="end"
                 android:fontFamily="@font/nunito_bold"
                 android:textColor="@color/blanc"
-                android:textSize="@dimen/commentaire_text"
+                android:textSize="@dimen/new_detail_desc_text_size"
                 android:text="s'il te plait viens jaimerais te voir"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

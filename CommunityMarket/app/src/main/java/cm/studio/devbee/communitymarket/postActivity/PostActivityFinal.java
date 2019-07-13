@@ -131,7 +131,8 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
         postfinaltoolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity ( new Intent ( getApplicationContext (),PostActivity.class ).setFlags ( Intent.FLAG_ACTIVITY_CLEAR_TOP ) );
+                Intent gotopost = new Intent ( PostActivityFinal.this,PostActivity.class );
+                startActivity ( gotopost );
                 finish ();
             }
         });
@@ -143,7 +144,6 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
         descriptionProduit=findViewById ( R.id.post_product_description );
         prixPorduit=findViewById ( R.id.post_production_prix );
         vendreButton=findViewById ( R.id.post_button );
-        vendreButton.setEnabled ( true );
         setSupportActionBar ( postfinaltoolbar );
         categoryName=getIntent ().getExtras ().get ( "categoryName" ).toString ();
        // Toast.makeText ( getApplicationContext(),categoryName,Toast.LENGTH_LONG ).show ();
