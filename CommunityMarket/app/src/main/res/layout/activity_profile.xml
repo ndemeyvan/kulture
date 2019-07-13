@@ -12,7 +12,7 @@
         android:id="@+id/profil_de_la_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/toolbar_background"
+        android:background="@drawable/gradient_list"
         android:elevation="10dp"
         android:theme="@style/ToolbarThemeTwo"
         app:layout_constraintEnd_toEndOf="parent"

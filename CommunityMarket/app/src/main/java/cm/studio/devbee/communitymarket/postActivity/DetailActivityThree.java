@@ -120,6 +120,7 @@ public class DetailActivityThree extends AppCompatActivity {
     private String datedepublication;
     private Menu menu;
     private boolean is_exist=false;
+    private TextView detail_titre_vente;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,6 +141,7 @@ public class DetailActivityThree extends AppCompatActivity {
         detail_description=findViewById(R.id.detail_description);
         date_de_publication=findViewById(R.id.date_de_publication);
         firebaseAuth=FirebaseAuth.getInstance();
+        detail_titre_vente=findViewById ( R.id.detail_titre_vente );
         toolbarDetail=findViewById(R.id.toolbarDetail);
         setSupportActionBar(toolbarDetail);
         getSupportActionBar ().setDisplayHomeAsUpEnabled ( true );
@@ -218,6 +220,8 @@ public class DetailActivityThree extends AppCompatActivity {
                                 detail_post_titre_produit.setText(titreDuProduit);
                                 detail_prix_produit.setText(prixduproduit);
                                 detail_description.setText(description);
+                            detail_titre_vente.setText ( titreDuProduit );
+
                             lien_image=imageduproduit;
                             vendeur_button.setEnabled ( true );
                             getSupportActionBar().setTitle(titreDuProduit);

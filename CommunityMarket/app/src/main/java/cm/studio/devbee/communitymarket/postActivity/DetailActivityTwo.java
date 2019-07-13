@@ -61,6 +61,7 @@ import com.squareup.picasso.Transformation;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
@@ -132,6 +133,7 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
     private String datedepublication;
     private Menu menu;
     private boolean is_exist=false;
+    private TextView detail_titre_vente;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,7 +158,7 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
         categories=getIntent().getExtras().getString("id_categories");
         detail_image_post=findViewById(R.id.detail_image_post);
         showPopup();
-
+        detail_titre_vente=findViewById ( R.id.detail_titre_vente );
         detail_post_titre_produit=findViewById(R.id.detail_prix_produit );
         detail_prix_produit=findViewById(R.id.detail_prix_produit);
         detail_profil_image=findViewById(R.id.detail_image_du_profil);
@@ -563,6 +565,8 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
                             detail_post_titre_produit.setText(titreDuProduit);
                             detail_prix_produit.setText(prixduproduit);
                             detail_description.setText(description);
+                            detail_titre_vente.setText ( titreDuProduit );
+
                             firebaseFirestore.collection("mes donnees utilisateur").document(current_user_id).get().addOnCompleteListener(DetailActivityTwo.this,new OnCompleteListener<DocumentSnapshot>() {
                                 @Override
                                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {

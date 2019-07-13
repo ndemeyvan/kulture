@@ -32,7 +32,7 @@
         app:titleTextColor="@color/blanc"
         android:elevation="8dp"
         android:theme="@style/ToolbarThemeTwo"
-        android:background="@drawable/toolbar_background"></android.support.v7.widget.Toolbar>
+        android:background="@drawable/gradient_list"></android.support.v7.widget.Toolbar>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/profilRecycler"

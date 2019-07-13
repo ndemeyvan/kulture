@@ -89,7 +89,7 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
     TextView pubImageTextTwo;
     TextView pubImageTextThree;
     TextView pubImageTextFour;
-    private TextView actuellement_text;
+    private TextView textView16;
     boolean isfirstload =true;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     CollectionReference notebookRef = db.collection("publication").document("categories").collection("nouveaux");
@@ -124,7 +124,7 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
         img4=v.findViewById(R.id.img4);
         textChausure=v.findViewById(R.id.textChausure);
         ///////fin slider
-        actuellement_text=v.findViewById ( R.id.actuellement_text );
+        textView16=v.findViewById ( R.id.actuellement_text );
         content_progresbar=v.findViewById ( R.id.content_progresbar );
         viewFlipper=v.findViewById(R.id.viewFlipper);
         firebaseFirestore=FirebaseFirestore.getInstance();
@@ -573,7 +573,7 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
                          Random ran = new Random();
                          i= ran.nextInt(4);
                         String nom_user = task.getResult ().getString ("user_name");
-                         actuellement_text.setText (nom_user+" "+liste[i]);
+                         textView16.setText (nom_user+" "+liste[i]);
 
                      }
                  }else{

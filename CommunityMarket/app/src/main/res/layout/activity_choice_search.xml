@@ -131,7 +131,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="0dp"
-        android:background="@drawable/toolbar_background"
+        android:background="@drawable/gradient_list"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"

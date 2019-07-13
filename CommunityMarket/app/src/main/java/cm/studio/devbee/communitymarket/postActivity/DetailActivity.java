@@ -146,6 +146,7 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
     private String datedepublication;
     private Menu menu;
     private boolean is_exist=false;
+    private static  TextView detail_titre_vente;
 
 
 
@@ -165,6 +166,7 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
             }
         } );
         showPopup();
+        detail_titre_vente=findViewById ( R.id.detail_titre_vente );
         firebaseAuth = FirebaseAuth.getInstance ();
         utilisateur_actuel = firebaseAuth.getCurrentUser ().getUid ();
         firebaseFirestore = FirebaseFirestore.getInstance ();
@@ -643,6 +645,7 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
                              imageduproduit = task.getResult ().getString ( "image_du_produit" );
                              prixduproduit = task.getResult ().getString ( "prix_du_produit" );
                             prix_produit = prixduproduit;
+                            detail_titre_vente.setText ( titreDuProduit );
                             getSupportActionBar ().setTitle ( titreDuProduit );
                             datedepublication = task.getResult ().getString ( "date_de_publication" );
                             detail_image_post_toolbar.setTitle ( titreDuProduit );

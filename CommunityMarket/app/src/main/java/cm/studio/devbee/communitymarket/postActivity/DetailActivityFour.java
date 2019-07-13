@@ -86,6 +86,8 @@ public class  DetailActivityFour extends AppCompatActivity {
     String name_user;
     FloatingActionButton voir_les_commentaire_btn;
     String categories;
+    private static  TextView detail_titre_vente;
+
 
     private static WeakReference<DetailActivityFour> detailActivityFourWeakReference;
     @Override
@@ -105,6 +107,7 @@ public class  DetailActivityFour extends AppCompatActivity {
         detail_profil_image=findViewById(R.id.detail_image_du_profil);
         //detail_user_name=findViewById(R.id.detail_user_name);
         detail_description=findViewById(R.id.detail_description);
+        detail_titre_vente=findViewById ( R.id.detail_titre_vente );
         date_de_publication=findViewById(R.id.date_de_publication);
         firebaseAuth=FirebaseAuth.getInstance();
         voir_les_commentaire_btn=findViewById(R.id.voir_les_commentaire_btn);
@@ -350,6 +353,7 @@ public class  DetailActivityFour extends AppCompatActivity {
                             String prixduproduit= task.getResult ().getString ( "prix_du_produit" );
                             final String datedepublication=task.getResult ().getString ( "date_de_publication" );
                             detail_post_titre_produit.setText(titreDuProduit);
+                            detail_titre_vente.setText ( titreDuProduit );
                             detail_prix_produit.setText(prixduproduit);
                             detail_description.setText(description);
                             firebaseFirestore.collection("mes donnees utilisateur").document(current_user_id).get().addOnCompleteListener(DetailActivityFour.this,new OnCompleteListener<DocumentSnapshot>() {
