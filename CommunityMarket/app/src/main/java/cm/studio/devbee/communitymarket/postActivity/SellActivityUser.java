@@ -38,7 +38,6 @@ import cm.studio.devbee.communitymarket.utilsForVendeur.ProfilAdapteur;
 import cm.studio.devbee.communitymarket.utilsForVendeur.VendeurAdapteur;
 
 public class SellActivityUser extends AppCompatActivity {
-    String iddupost;
     private static RecyclerView vendeur_recyclerView;
     private static VendeurAdapteur gridViewAdapter;
     private static FirebaseFirestore firebaseFirestore;
@@ -54,7 +53,6 @@ public class SellActivityUser extends AppCompatActivity {
         setSupportActionBar(vendeur_toolbar);
         getSupportActionBar ().setDisplayHomeAsUpEnabled ( true );
         vente_presente=findViewById ( R.id.vente_presente );
-        iddupost =getIntent().getExtras().getString("id du post");
         current_user_id =getIntent().getExtras().getString("id de l'utilisateur");
         firebaseFirestore=FirebaseFirestore.getInstance();
         vendeur_toolbar.setNavigationOnClickListener(new View.OnClickListener() {

@@ -124,7 +124,7 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
         img4=v.findViewById(R.id.img4);
         textChausure=v.findViewById(R.id.textChausure);
         ///////fin slider
-        textView16=v.findViewById ( R.id.actuellement_text );
+        textView16=v.findViewById ( R.id.textView16 );
         content_progresbar=v.findViewById ( R.id.content_progresbar );
         viewFlipper=v.findViewById(R.id.viewFlipper);
         firebaseFirestore=FirebaseFirestore.getInstance();
@@ -568,7 +568,7 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
              public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                  if (task.isSuccessful ()){
                      if (task.getResult ().exists ()){
-                         String [] liste = {"venez me tromper ooo","je vends,je perd","tu est mon asso",",tout as petit prix"};
+                         String [] liste = {" , fait ton choix"," , ici , on vend la sap njorh... :) "," , pour que tu soit frais a prix casse"," , je sais que tu va trouver ton bonheur ici"};
                          int i ;
                          Random ran = new Random();
                          i= ran.nextInt(4);

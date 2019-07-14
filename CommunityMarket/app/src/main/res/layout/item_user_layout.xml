@@ -4,235 +4,84 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="9dp"
-    android:layout_marginTop="7dp">
+    android:background="@color/black"
+    android:id="@+id/user_container"
+    >
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/profil_container"
-        android:layout_width="match_parent"
-        android:layout_height="135dp"
-        app:cardBackgroundColor="@color/blanc"
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/parametre_image"
+        android:layout_width="@dimen/new_profil_image_dimen"
+        android:layout_height="@dimen/new_profil_image_dimen"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/boy"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/righteous"
+        android:text="open market"
+        android:textColor="@color/blanc"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/parametre_image"
+        app:layout_constraintTop_toTopOf="@+id/parametre_image"
+        app:layout_constraintVertical_bias="0.0" />
 
-            <ImageView
-                android:id="@+id/post_image_vendeur"
-                android:layout_width="140dp"
-                android:layout_height="135dp"
-                android:scaleType="centerCrop"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+    <TextView
+        android:id="@+id/user_description"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="13dp"
+        android:layout_marginEnd="24dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/righteous"
+        android:lines="3"
+        android:text="hello guys my name is yannick houdini"
+        android:textColor="@color/blanc"
+        android:textSize="@dimen/pub_dec_text_size"
+        app:layout_constraintEnd_toEndOf="@+id/user_name"
+        app:layout_constraintHorizontal_bias="0.12"
+        app:layout_constraintStart_toStartOf="@+id/user_name"
+        app:layout_constraintTop_toBottomOf="@+id/user_name" />
 
-            <ImageView
-                android:id="@+id/user_image"
-                android:layout_width="@dimen/item_principal_image_dim_height_with"
-                android:layout_height="@dimen/item_principal_image_dim_height_with"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintStart_toEndOf="@+id/post_image_vendeur"
-                app:layout_constraintTop_toTopOf="parent" />
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/user_description"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/user_description"
+        app:layout_constraintTop_toBottomOf="@+id/user_description"
+        app:srcCompat="@drawable/ic_room_black_24dp" />
 
-            <TextView
-                android:id="@+id/nom_user"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:fontFamily="sans-serif-condensed"
-                android:text="yannick houdini"
-                android:textColor="@color/black"
-                android:textSize="@dimen/item_principal_name"
-                android:textStyle="bold"
-                android:theme="@style/ToolbarTheme"
-                app:layout_constraintStart_toEndOf="@+id/user_image"
-                app:layout_constraintTop_toBottomOf="@+id/post_userTemps" />
+    <TextView
+        android:id="@+id/user_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/righteous"
+        android:text="location "
+        android:textColor="@color/blanc"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView6"
+        app:layout_constraintStart_toEndOf="@+id/imageView6"
+        app:layout_constraintTop_toTopOf="@+id/imageView6" />
 
-            <TextView
-                android:id="@+id/post_userTemps"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:text="17 mai 2019"
-                android:textSize="@dimen/item_principal_date"
-                app:layout_constraintStart_toEndOf="@+id/user_image"
-                app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/post_user_description"
-                android:layout_width="180dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="24dp"
-                android:ellipsize="end"
-                android:lines="3"
-                android:text="kdflekfief jnrkg "
-                android:textColor="@color/black"
-                android:textSize="@dimen/item_principal_desc"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.098"
-                app:layout_constraintStart_toEndOf="@+id/postImage"
-                app:layout_constraintTop_toBottomOf="@+id/nom_user" />
-
-            <TextView
-                android:id="@+id/prix_postl_vendeur"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:fontFamily="sans-serif-condensed"
-                android:textColor="@color/orange"
-                android:textSize="@dimen/item_principal_prix"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/text_prix"
-                app:layout_constraintStart_toEndOf="@+id/text_prix"
-                app:layout_constraintTop_toTopOf="@+id/text_prix" />
-
-            <TextView
-                android:id="@+id/text_prix"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="8dp"
-                android:fontFamily="sans-serif-condensed"
-                android:text="@string/item_general"
-                android:textColor="@color/black"
-                android:textSize="@dimen/item_principal_prix"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/post_user_description"
-                app:layout_constraintTop_toBottomOf="@+id/post_user_description" />
-
-            <ProgressBar
-                android:id="@+id/principal_progress"
-                style="?android:attr/progressBarStyle"
-                android:layout_width="@dimen/nvx_item_nvx_like_image"
-                android:layout_height="@dimen/nvx_item_nvx_like_image"
-                android:theme="@style/progress_theme"
-                app:layout_constraintBottom_toBottomOf="@+id/user_image"
-                app:layout_constraintEnd_toEndOf="@+id/user_image"
-                app:layout_constraintStart_toStartOf="@+id/user_image"
-                app:layout_constraintTop_toTopOf="@+id/user_image" />
-
-            <ImageView
-                android:id="@+id/image_comment"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                app:layout_constraintBottom_toBottomOf="@+id/prix_postl_vendeur"
-                app:layout_constraintStart_toEndOf="@+id/prix_postl_vendeur"
-                app:layout_constraintTop_toTopOf="@+id/prix_postl_vendeur"
-                app:srcCompat="@drawable/ic_add_coment" />
-
-            <TextView
-                android:id="@+id/comment_number"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/image_comment"
-                app:layout_constraintStart_toEndOf="@+id/image_comment"
-                app:layout_constraintTop_toTopOf="@+id/image_comment" />
-
-        </android.support.constraint.ConstraintLayout>
-    </android.support.v7.widget.CardView>
-
-    <!--<android.support.constraint.ConstraintLayout
-        android:layout_width="110dp"
-        android:layout_height="110dp">
-        <ImageView
-            android:id="@+id/user_image"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="MissingConstraints" />
-
-        <TextView
-            android:id="@+id/user_text_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="16dp"
-            android:ellipsize="end"
-            android:fontFamily="@font/caveat"
-            android:lines="1"
-            android:theme="@style/ToolbarTheme"
-            android:textColor="@color/blanc"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/user_image" />
-
-        <TextView
-            android:id="@+id/id_utilisateur_user"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:text="TextView"
-            android:visibility="invisible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/online_image"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="16dp"
-            android:src="@mipmap/ic_launcher"
-            android:visibility="invisible"
-            app:civ_border_color="#05df29"
-            app:civ_border_width="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/user_image"
-            app:layout_constraintHorizontal_bias="0.625"
-            app:layout_constraintStart_toEndOf="@+id/user_text_name" />
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/off_image"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="16dp"
-            android:src="@mipmap/ic_launcher"
-            android:visibility="invisible"
-            app:civ_border_color="#9E9E9E"
-            app:civ_border_width="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/user_image"
-            app:layout_constraintHorizontal_bias="0.625"
-            app:layout_constraintStart_toEndOf="@+id/user_text_name" />
-
-        <TextView
-            android:id="@+id/status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:text="TextView"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </android.support.constraint.ConstraintLayout> -->
 </android.support.constraint.ConstraintLayout>

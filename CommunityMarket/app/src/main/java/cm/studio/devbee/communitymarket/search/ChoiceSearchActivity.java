@@ -42,7 +42,8 @@ public class ChoiceSearchActivity extends AppCompatActivity {
         card_utilisateur.setOnClickListener ( new View.OnClickListener () {
             @Override
             public void onClick(View v) {
-
+                Intent intent=new Intent ( ChoiceSearchActivity.this,Search_User_Activity.class );
+                startActivity ( intent );
             }
         } );
         AnimationDrawable animationDrawableOne = (AnimationDrawable) toolbar.getBackground();

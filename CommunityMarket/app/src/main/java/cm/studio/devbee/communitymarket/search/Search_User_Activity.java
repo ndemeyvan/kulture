@@ -1,6 +1,6 @@
 package cm.studio.devbee.communitymarket.search;
+
 import android.graphics.drawable.AnimationDrawable;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,31 +13,25 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import cm.studio.devbee.communitymarket.R;
 import cm.studio.devbee.communitymarket.gridView_post.ModelGridView;
-import cm.studio.devbee.communitymarket.utilsForPostPrincipal.PrincipalAdapte;
-import cm.studio.devbee.communitymarket.utilsForPostPrincipal.PrincipalModel;
 import cm.studio.devbee.communitymarket.utilsForUserApp.UserAdapter;
 
-public class SearchActivity extends AppCompatActivity {
+public class Search_User_Activity extends AppCompatActivity {
     private EditText search_edit_text;
     private RecyclerView search_recyclerview;
     private FirebaseFirestore db;
     private static FirebaseAuth firebaseAuth;
     private static String current_user;
     Toolbar toolbarSearch;
-    private List<ModelGridView> listUsers;
-    private UserAdapter searchAdapter;
+    private Search_user_adapter searchAdapter;
     private ImageView search_button;
     private Toolbar toolbar_search;
     private ProgressBar search_progress;
@@ -49,7 +43,6 @@ public class SearchActivity extends AppCompatActivity {
         setContentView ( R.layout.activity_search );
         search_edit_text=findViewById ( R.id.search_edit_text );
         search_recyclerview=findViewById ( R.id.search_recyclerview );
-        listUsers = new ArrayList<>();
         setSupportActionBar(toolbarSearch);
         search_recyclerview.setLayoutManager ( new LinearLayoutManager ( getApplicationContext (),LinearLayoutManager.VERTICAL,false ) );
         db = FirebaseFirestore.getInstance();
@@ -74,7 +67,7 @@ public class SearchActivity extends AppCompatActivity {
             public void onClick(View v) {
                 search_progress.setVisibility(View.VISIBLE);
                 if (search_edit_text.getText().toString().toLowerCase().equals ( "" )){
-                    Toast.makeText ( SearchActivity.this,"search empty",Toast.LENGTH_LONG ).show ();
+                    Toast.makeText ( Search_User_Activity.this,"search empty",Toast.LENGTH_LONG ).show ();
                     search_progress.setVisibility(View.INVISIBLE);
                 }else{
                     search(search_edit_text.getText().toString().toLowerCase());
@@ -95,14 +88,14 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void search(final String s) {
-        Query firstQuery =db.collection ( "mes donnees utilisateur" ).orderBy( "user_name").startAt(s).endAt(s+"\uf8ff");
-        FirestoreRecyclerOptions<ModelGridView> options = new FirestoreRecyclerOptions.Builder<ModelGridView>()
-                .setQuery(firstQuery, ModelGridView.class)
+        Query firstQuery =db.collection ( "publication" ).document ("categories").collection ("nouveaux" ).orderBy( "decription_du_produit").startAt(s).endAt(s+"\uf8ff");
+        FirestoreRecyclerOptions<Seach_user_model> options = new FirestoreRecyclerOptions.Builder<Seach_user_model>()
+                .setQuery(firstQuery, Seach_user_model.class)
                 .build();
-        searchAdapter  = new UserAdapter (options,SearchActivity.this);
+        searchAdapter  = new Search_user_adapter (options,Search_User_Activity.this);
         search_recyclerview = findViewById(R.id.search_recyclerview);
         search_recyclerview.setHasFixedSize(true);
-        search_recyclerview.setLayoutManager(new LinearLayoutManager(SearchActivity.this,LinearLayoutManager.VERTICAL,false));
+        search_recyclerview.setLayoutManager(new LinearLayoutManager(Search_User_Activity.this,LinearLayoutManager.VERTICAL,false));
         search_recyclerview.setAdapter(searchAdapter);
         searchAdapter.startListening ();
         search_progress.setVisibility(View.INVISIBLE);

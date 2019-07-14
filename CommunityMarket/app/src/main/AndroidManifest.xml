@@ -141,7 +141,8 @@
         </service>
 
         <activity android:name=".search.ChoiceSearchActivity" />
-        <activity android:name=".profile.FavoriesActivity"></activity>
+        <activity android:name=".profile.FavoriesActivity" />
+        <activity android:name=".search.Search_User_Activity"></activity>
     </application>
 
 </manifest>
