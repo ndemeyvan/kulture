@@ -102,7 +102,7 @@ public class List_chat_adapter extends RecyclerView.Adapter<List_chat_adapter.Vi
 
 
         if (lu.equals ( "non lu" )){
-            viewHolder.lu_non_lu.setText ( "new" );
+            viewHolder.new_message_image.setVisibility ( View.VISIBLE );
         }
 
     }
@@ -120,6 +120,7 @@ public class List_chat_adapter extends RecyclerView.Adapter<List_chat_adapter.Vi
     TextView temps;
     ConstraintLayout chat_container;
     CircleImageView profi;
+    CircleImageView new_message_image;
     public class ViewHolder extends  RecyclerView.ViewHolder{
         final TextView lats_message=itemView.findViewById ( R.id.chat_last_message );
         final TextView nom_utilisateur=itemView.findViewById ( R.id.chat_user_name );
@@ -129,6 +130,8 @@ public class List_chat_adapter extends RecyclerView.Adapter<List_chat_adapter.Vi
         final CircleImageView offline=itemView.findViewById ( R.id.offline );
         final TextView temps=itemView.findViewById ( R.id.chat_temps );
         final CircleImageView profil=itemView.findViewById ( R.id.chat_message_image_profil );
+        final CircleImageView new_message_image=itemView.findViewById ( R.id.new_message_image );
+
         public ViewHolder(@NonNull View itemView) {
             super ( itemView );
             chat_container=itemView.findViewById ( R.id.chat_container );

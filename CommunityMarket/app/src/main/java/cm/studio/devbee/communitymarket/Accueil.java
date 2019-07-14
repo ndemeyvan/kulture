@@ -112,7 +112,6 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
         Toolbar toolbar =findViewById ( R.id.detail_image_post_toolbar );
         setSupportActionBar ( toolbar );
         NavigationView navigationView =findViewById ( R.id.nav_view );
-        FirebaseMessaging.getInstance ().subscribeToTopic ( "userABC" );
         tabLayout=findViewById(R.id.tabslayout);
         tabsviewpager=findViewById(R.id.tabsview);
         setupViewPager(tabsviewpager);
@@ -189,6 +188,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
 
 
 
+
         myDialog = new Dialog (this);
         asyncTask=new AsyncTask();
         asyncTask.execute();
@@ -233,6 +233,11 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
         animationDrawableTwo.setEnterFadeDuration(2000);
         animationDrawableTwo.setExitFadeDuration(4000);
         animationDrawableTwo.start();
+        startService ();
+    }
+
+    public void startService() {
+        startService(new Intent(this, notification_service.class));
     }
 
 
@@ -365,6 +370,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
                     return;
                 }
                 if (snapshot != null && snapshot.exists()) {
+                    Toast.makeText ( getApplicationContext (),"new change",Toast.LENGTH_LONG ).show ();
                     firebaseFirestore=FirebaseFirestore.getInstance ();
                     firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user_id).get ().addOnCompleteListener ( new OnCompleteListener<DocumentSnapshot>() {
                         @Override

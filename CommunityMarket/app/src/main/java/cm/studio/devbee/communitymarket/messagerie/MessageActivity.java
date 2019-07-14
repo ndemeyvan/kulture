@@ -268,7 +268,7 @@ public class MessageActivity extends AppCompatActivity {
         });
 
         userstatus("online");
-        Toast.makeText ( getApplicationContext (),"l'image qui porte sur la vente apparait en haut",Toast.LENGTH_LONG ).show ();
+        //Toast.makeText ( getApplicationContext (),"l'image qui porte sur la vente apparait en haut",Toast.LENGTH_LONG ).show ();
         AnimationDrawable animationDrawableOne = (AnimationDrawable) mesage_toolbar.getBackground();
         animationDrawableOne.setEnterFadeDuration(2000);
         animationDrawableOne.setExitFadeDuration(4000);
@@ -383,7 +383,7 @@ public class MessageActivity extends AppCompatActivity {
         SimpleDateFormat sdf= new SimpleDateFormat("d/MM H:mm");
         final String date_avec_seconde=sdf.format(date);
         Calendar calendrier=Calendar.getInstance ();
-        SimpleDateFormat currentDateOne=new SimpleDateFormat (" d/MM H:mm" );
+        SimpleDateFormat currentDateOne=new SimpleDateFormat (" d MMM H:mm" );
         saveCurrentDate=currentDateOne.format ( calendrier.getTime () );
         randomKey=saveCurrentDate;
         final HashMap<String,Object> mesageMap = new HashMap<> (  );
@@ -459,8 +459,8 @@ public class MessageActivity extends AppCompatActivity {
                     }
                 });
 
-        /*DocumentReference user = firebaseFirestore.collection("mes donnees utilisateur" ).document(user_id_message);
-        user.update("message", "non_lu")
+        DocumentReference user = firebaseFirestore.collection("mes donnees utilisateur" ).document(recepteur);
+        user.update("message", "non lu")
                 .addOnSuccessListener(new OnSuccessListener<Void> () {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -470,7 +470,7 @@ public class MessageActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                     }
-                });*/
+                });
     }
 
     @Override
