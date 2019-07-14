@@ -86,11 +86,8 @@ public class notification_service extends Service {
                                     lien_de_limag_du_notifieur = task.getResult ().getString ( "lien_de_limag_du_notifieur" );
                                     lien_du_produit=task.getResult ().getString ( "lien_du_produit" );
                                     if (message.equals ( "non lu" )){
-                                        try {
                                             sendNotif ( message ,nom_du_notifieur ,lien_du_produit);
-                                        } catch (IOException e1) {
-                                            e1.printStackTrace ();
-                                        }
+
 
                                     }else{
                                          }
@@ -121,15 +118,8 @@ public class notification_service extends Service {
 
     }
 
-    public void sendNotif(String message,String nom_du_notifieur,String image_produit) throws IOException {
+    public void sendNotif(String message,String nom_du_notifieur,String image_produit) {
         Intent notificationIntent = new Intent( this, ChatMessageActivity.class);
-        InputStream in;
-        URL url = new URL (image_produit);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setDoInput(true);
-        connection.connect();
-        in = connection.getInputStream();
-        Bitmap myBitmap = BitmapFactory.decodeStream(in);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
         Uri notificationSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
@@ -137,7 +127,6 @@ public class notification_service extends Service {
                 .setContentText(message)
                 .setAutoCancel(true)
                 .setSmallIcon(R.mipmap.ic_launcher_logo_two)
-                .setLargeIcon ( myBitmap )
                 .setSound(notificationSoundUri)
                 .setContentIntent(pendingIntent)
                 .setStyle(new NotificationCompat.BigTextStyle()
