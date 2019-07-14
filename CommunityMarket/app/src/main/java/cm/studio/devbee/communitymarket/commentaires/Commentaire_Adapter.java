@@ -90,7 +90,7 @@ public class Commentaire_Adapter extends RecyclerView.Adapter<Commentaire_Adapte
                     //gotoprofil_user.putExtra("id de l'utilisateur",get_id);
                     context.startActivity(gotoprofil_usertwo);
                 }else{
-                    
+
                 }
 
 
