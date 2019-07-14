@@ -86,10 +86,11 @@ public class Commentaire_Adapter extends RecyclerView.Adapter<Commentaire_Adapte
             @Override
             public void onClick(View v) {
                 if (!get_id.equals(current_user)) {
-                }else{
-                    Intent gotoprofil_usertwo=new Intent(context,ProfileActivity.class);
+                    Intent gotoprofil_usertwo=new Intent(context,SellActivityUser.class);
                     //gotoprofil_user.putExtra("id de l'utilisateur",get_id);
                     context.startActivity(gotoprofil_usertwo);
+                }else{
+                    
                 }
 
 
