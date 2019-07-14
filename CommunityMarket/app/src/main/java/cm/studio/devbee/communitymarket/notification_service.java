@@ -61,6 +61,9 @@ public class notification_service extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        firebaseFirestore=FirebaseFirestore.getInstance ();
+        firebaseAuth=FirebaseAuth.getInstance ();
+        current_user_id=firebaseAuth.getCurrentUser ().getUid ();
         final DocumentReference docRef = firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user_id);
         docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
