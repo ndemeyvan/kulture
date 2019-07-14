@@ -380,10 +380,10 @@ public class MessageActivity extends AppCompatActivity {
         final long milli;
         milli=SystemClock.currentThreadTimeMillis ();
         Date date=new Date();
-        SimpleDateFormat sdf= new SimpleDateFormat("d/MM/y H:mm:ss");
+        SimpleDateFormat sdf= new SimpleDateFormat("d/MM H:mm");
         final String date_avec_seconde=sdf.format(date);
         Calendar calendrier=Calendar.getInstance ();
-        SimpleDateFormat currentDateOne=new SimpleDateFormat (" dd MMM yyyy" );
+        SimpleDateFormat currentDateOne=new SimpleDateFormat (" d/MM H:mm" );
         saveCurrentDate=currentDateOne.format ( calendrier.getTime () );
         randomKey=saveCurrentDate;
         final HashMap<String,Object> mesageMap = new HashMap<> (  );
