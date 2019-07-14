@@ -33,7 +33,6 @@ public class Search_User_Activity extends AppCompatActivity {
     Toolbar toolbarSearch;
     private Search_user_adapter searchAdapter;
     private ImageView search_button;
-    private Toolbar toolbar_search;
     private ProgressBar search_progress;
 
 
@@ -49,13 +48,11 @@ public class Search_User_Activity extends AppCompatActivity {
         firebaseAuth=FirebaseAuth.getInstance ();
         current_user=firebaseAuth.getCurrentUser ().getUid ();
         search_button=findViewById(R.id.search_button);
-        toolbar_search=findViewById(R.id.toolbar_search);
         search_progress=findViewById(R.id.search_progress);
         search_progress.setVisibility(View.INVISIBLE);
-        setSupportActionBar(toolbar_search);
         getSupportActionBar().setTitle("search");
         getSupportActionBar ().setDisplayHomeAsUpEnabled ( true );
-        toolbar_search.setNavigationOnClickListener ( new View.OnClickListener () {
+        toolbarSearch.setNavigationOnClickListener ( new View.OnClickListener () {
             @Override
             public void onClick(View v) {
                 //startActivity ( new Intent ( getApplicationContext (),Accueil.class ).setFlags ( Intent.FLAG_ACTIVITY_CLEAR_TOP ) );
@@ -75,7 +72,7 @@ public class Search_User_Activity extends AppCompatActivity {
             }
         });
 
-        AnimationDrawable animationDrawableOne = (AnimationDrawable) toolbar_search.getBackground();
+        AnimationDrawable animationDrawableOne = (AnimationDrawable) toolbarSearch.getBackground();
         animationDrawableOne.setEnterFadeDuration(2000);
         animationDrawableOne.setExitFadeDuration(4000);
         animationDrawableOne.start();

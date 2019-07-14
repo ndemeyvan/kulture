@@ -35,7 +35,6 @@ public class SearchActivity extends AppCompatActivity {
     private FirebaseFirestore db;
     private static FirebaseAuth firebaseAuth;
     private static String current_user;
-    Toolbar toolbarSearch;
     private List<ModelGridView> listUsers;
     private UserAdapter searchAdapter;
     private ImageView search_button;
@@ -50,7 +49,6 @@ public class SearchActivity extends AppCompatActivity {
         search_edit_text=findViewById ( R.id.search_edit_text );
         search_recyclerview=findViewById ( R.id.search_recyclerview );
         listUsers = new ArrayList<>();
-        setSupportActionBar(toolbarSearch);
         search_recyclerview.setLayoutManager ( new LinearLayoutManager ( getApplicationContext (),LinearLayoutManager.VERTICAL,false ) );
         db = FirebaseFirestore.getInstance();
         firebaseAuth=FirebaseAuth.getInstance ();
