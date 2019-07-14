@@ -157,6 +157,29 @@ public class MessageActivity extends AppCompatActivity {
                 final String message =message_user_send.getText ().toString ();
                 if(!TextUtils.isEmpty ( message )){
                     sendmessage (current_user,user_id_message,message);
+                    DocumentReference user = firebaseFirestore.collection("mes donnees utilisateur" ).document(user_id_message);
+                    user.update("message_du_notifieur", message)
+                            .addOnSuccessListener(new OnSuccessListener<Void> () {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                }
+                            });
+                    user.update("nom_du_notifieur", message)
+                            .addOnSuccessListener(new OnSuccessListener<Void> () {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                }
+                            });
                 }else{
                     Toast.makeText ( getApplicationContext (),getString(R.string.message_vide),Toast.LENGTH_LONG ).show ();
                 }
@@ -461,6 +484,17 @@ public class MessageActivity extends AppCompatActivity {
 
         DocumentReference user = firebaseFirestore.collection("mes donnees utilisateur" ).document(recepteur);
         user.update("message", "non lu")
+                .addOnSuccessListener(new OnSuccessListener<Void> () {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                    }
+                });
+        user.update("message_du_notifieur", "non lu")
                 .addOnSuccessListener(new OnSuccessListener<Void> () {
                     @Override
                     public void onSuccess(Void aVoid) {

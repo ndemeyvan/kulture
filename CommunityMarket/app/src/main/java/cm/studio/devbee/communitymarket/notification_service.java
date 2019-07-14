@@ -1,12 +1,16 @@
 package cm.studio.devbee.communitymarket;
 
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.IBinder;
 import android.support.annotation.NonNull;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -15,14 +19,20 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-
 import androidx.annotation.Nullable;
+import cm.studio.devbee.communitymarket.messagerie.ChatMessageActivity;
 import cm.studio.devbee.communitymarket.profile.ParametrePorfilActivity;
+
+import static cm.studio.devbee.communitymarket.App.CHANNEL_ID;
+
 
 public class notification_service extends Service {
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
     private String current_user_id;
+    private Intent intent;
+    private String contenu;
+    private String nom_du_notifieur;
 
     @Nullable
     @Override
@@ -33,12 +43,16 @@ public class notification_service extends Service {
     @Override
     public void onCreate() {
         super.onCreate ();
-        firebaseAuth=FirebaseAuth.getInstance ();
-        current_user_id=firebaseAuth.getCurrentUser ().getUid ();
+
+        Toast.makeText ( this,"service lance",Toast.LENGTH_LONG ).show ();
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
         final DocumentReference docRef = firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user_id);
         docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
-            public void onEvent(@android.support.annotation.Nullable DocumentSnapshot snapshot,
+            public void onEvent(@android.support.annotation.Nullable final DocumentSnapshot snapshot,
                                 @android.support.annotation.Nullable FirebaseFirestoreException e) {
                 if (e != null) {
                     return;
@@ -52,19 +66,18 @@ public class notification_service extends Service {
                             if (task.isSuccessful ()){
                                 if (task.getResult ().exists ()){
                                     String message= task.getResult ().getString ( "message" );
+                                    contenu = task.getResult ().getString ( "message_du_notifieur" );
+                                    nom_du_notifieur = task.getResult ().getString ( "nom_du_notifieur" );
                                     if (message.equals ( "non lu" )){
 
+                                        sendNotif ( message ,nom_du_notifieur );
 
-                                    }else{
-
-
-                                      }
-
+                                        }else{
+                                         }
                                 }else {
 
                                 }
                             }else{
-
                             }
                         }
                     } );
@@ -72,7 +85,13 @@ public class notification_service extends Service {
                 }
             }
         });
-        Toast.makeText ( this,"service lance",Toast.LENGTH_LONG ).show ();
+
+
+
+        //do heavy work on a background thread
+        //stopSelf();
+
+        return START_NOT_STICKY;
     }
 
     @Override
@@ -81,5 +100,24 @@ public class notification_service extends Service {
         Toast.makeText ( this,"service arrete",Toast.LENGTH_LONG ).show ();
 
     }
+
+    public void sendNotif(String message,String nom_du_notifieur){
+        Intent notificationIntent = new Intent(
+                this, ChatMessageActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
+        Uri notificationSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setContentTitle(nom_du_notifieur)
+                .setContentText(message)
+                .setAutoCancel(true)
+                .setSmallIcon(R.mipmap.ic_launcher_logo_two)
+                .setSound(notificationSoundUri)
+                .setContentIntent(pendingIntent)
+                .setStyle(new NotificationCompat.BigTextStyle()
+                        .bigText(message))
+                .build();
+        startForeground(1, notification);
+    }
+
 
 }
