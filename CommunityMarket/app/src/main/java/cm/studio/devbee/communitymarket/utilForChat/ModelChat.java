@@ -6,18 +6,29 @@ public class ModelChat {
     String recepteur;
     String message;
     String status;
+    String temps_d_envoi;
+
     boolean itseen=false;
 
     public ModelChat() {
     }
 
-    public ModelChat(long temps, String expediteur, String recepteur, String message, String status, boolean itseen) {
+    public ModelChat(long temps, String expediteur, String recepteur, String message, String status, String temps_d_envoi, boolean itseen) {
         this.temps = temps;
         this.expediteur = expediteur;
         this.recepteur = recepteur;
         this.message = message;
         this.status = status;
+        this.temps_d_envoi = temps_d_envoi;
         this.itseen = itseen;
+    }
+
+    public String getTemps_d_envoi() {
+        return temps_d_envoi;
+    }
+
+    public void setTemps_d_envoi(String temps_d_envoi) {
+        this.temps_d_envoi = temps_d_envoi;
     }
 
     public long getTemps() {

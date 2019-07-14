@@ -60,6 +60,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
         ModelChat modelChat=modelChatList.get ( i );
         viewHolder.message.setText ( modelChat.getMessage () );
+        viewHolder.current_date.setText ( modelChat.getTemps_d_envoi () );
         firebaseFirestore.collection("mes donnees utilisateur").document(current_user).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot> () {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -102,6 +103,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         CircleImageView offline_status;
        // ConstraintLayout right_constraint;
         ConstraintLayout left_container;
+        TextView current_date;
         public ViewHolder(@NonNull View itemView) {
             super ( itemView );
             message=itemView.findViewById ( R.id.show_message );
@@ -110,6 +112,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
             offline_status=itemView.findViewById ( R.id.offline_status_image );
             //right_constraint=itemView.findViewById ( R.id.the_constraint );
             left_container=itemView.findViewById ( R.id.the_constraint );
+            current_date=itemView.findViewById ( R.id.current_date );
         }
     }
 

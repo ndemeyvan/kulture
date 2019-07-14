@@ -42,6 +42,7 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -378,11 +379,19 @@ public class MessageActivity extends AppCompatActivity {
         DatabaseReference reference =FirebaseDatabase.getInstance ().getReference ();
         final long milli;
         milli=SystemClock.currentThreadTimeMillis ();
+        Date date=new Date();
+        SimpleDateFormat sdf= new SimpleDateFormat("d/MM/y H:mm:ss");
+        final String date_avec_seconde=sdf.format(date);
+        Calendar calendrier=Calendar.getInstance ();
+        SimpleDateFormat currentDateOne=new SimpleDateFormat (" dd MMM yyyy" );
+        saveCurrentDate=currentDateOne.format ( calendrier.getTime () );
+        randomKey=saveCurrentDate;
         final HashMap<String,Object> mesageMap = new HashMap<> (  );
         mesageMap.put ( "expediteur",expediteur );
         mesageMap.put ( "recepteur",recepteur );
         mesageMap.put ( "message",message );
         mesageMap.put ( "milli",milli);
+        mesageMap.put ( "temps_d_envoi",randomKey );
         reference.child ( "Chats" ).push ().setValue ( mesageMap );
         ///////////////////////////////////////////
         Calendar calendar=Calendar.getInstance ();
