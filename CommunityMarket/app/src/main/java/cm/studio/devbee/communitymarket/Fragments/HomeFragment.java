@@ -568,10 +568,10 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
              public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                  if (task.isSuccessful ()){
                      if (task.getResult ().exists ()){
-                         String [] liste = {" , fait ton choix"," , ici , on vend la sap njorh... :) "," , s'habiller est un art...équilibre."," , cherche , tu va trouver ton bonheur"};
+                         String [] liste = {" , actuellement il y'a ceci"," , fait ton choix"," , ici , on vend la sap njorh... :) "," , s'habiller est un art...équilibre."," , cherche , tu va trouver ton bonheur"};
                          int i ;
                          Random ran = new Random();
-                         i= ran.nextInt(4);
+                         i= ran.nextInt(5);
                          String nom_user = task.getResult ().getString ("user_name");
                          textView16.setText (nom_user+" "+liste[i]);
 

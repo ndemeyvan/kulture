@@ -42,6 +42,7 @@ public class Search_User_Activity extends AppCompatActivity {
         setContentView ( R.layout.activity_search );
         search_edit_text=findViewById ( R.id.search_edit_text );
         search_recyclerview=findViewById ( R.id.search_recyclerview );
+        toolbarSearch=findViewById ( R.id.toolbar_search );
         setSupportActionBar(toolbarSearch);
         search_recyclerview.setLayoutManager ( new LinearLayoutManager ( getApplicationContext (),LinearLayoutManager.VERTICAL,false ) );
         db = FirebaseFirestore.getInstance();

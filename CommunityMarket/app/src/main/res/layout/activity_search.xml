@@ -55,14 +55,10 @@
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_search"
-        android:backgroundTint="@color/blanc"
-        app:popupTheme="@style/ToolbarTheme"
         android:layout_width="0dp"
         app:titleTextColor="@color/black"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="@style/ToolbarTheme_two"
+        android:background="@drawable/gradient_list"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
