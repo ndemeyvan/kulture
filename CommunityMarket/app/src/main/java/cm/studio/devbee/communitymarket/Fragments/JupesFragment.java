@@ -56,8 +56,6 @@ public class JupesFragment extends Fragment {
     private static ProgressDialog progressDialog;
     private static AsyncTask asyncTask;
     private static GridViewAdapter categoriesAdaptejupe;
-    private static List<ModelGridView> categoriesModeljupeList;
-    private static WeakReference<JupesFragment> jupeFragmentWeakReference;
     private static FirebaseAuth firebaseAuth;
     String curent_user;
     ViewFlipper viewFlippertwo;
@@ -91,7 +89,6 @@ public class JupesFragment extends Fragment {
         firebaseFirestore=FirebaseFirestore.getInstance ();
         firebaseAuth=FirebaseAuth.getInstance ();
         curent_user=firebaseAuth.getCurrentUser ().getUid ();
-        jupeFragmentWeakReference=new WeakReference<>(this);
         asyncTask=new AsyncTask ();
         asyncTask.execute();
 
@@ -333,7 +330,6 @@ public class JupesFragment extends Fragment {
         firebaseFirestore=null;
         progressDialog=null;
         categoriesAdaptejupe=null;
-        categoriesModeljupeList=null;
     }
 
 }
