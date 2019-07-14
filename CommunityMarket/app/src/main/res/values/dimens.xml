@@ -297,6 +297,7 @@
     ////
     <dimen name="login_text_size">40sp</dimen>
     <dimen name="login_start_end">70dp</dimen>
+    <dimen name="search_profil_start">8dp</dimen>
 
 
 </resources>

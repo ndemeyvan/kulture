@@ -96,11 +96,11 @@ public class DetailActivityThree extends AppCompatActivity {
     private  static String lien_image;
     private  static String current_user;
     private static  String  categories;
-    FloatingActionButton voir_les_commentaire_btn;
+    private static FloatingActionButton voir_les_commentaire_btn;
     private static List<Commentaires_Model> commentaires_modelList;
     private static Commentaire_Adapter commentaire_adapter;
-    String prenom;
-    String name_user;
+    private static  String prenom;
+    private static String name_user;
     private Dialog myDialog;
     private static String titre_produit;
     private static String prix_produit;
@@ -142,7 +142,7 @@ public class DetailActivityThree extends AppCompatActivity {
         date_de_publication=findViewById(R.id.date_de_publication);
         firebaseAuth=FirebaseAuth.getInstance();
         detail_titre_vente=findViewById ( R.id.detail_titre_vente );
-        toolbarDetail=findViewById(R.id.toolbarDetail);
+        toolbarDetail=findViewById(R.id.detail_image_post_toolbar);
         setSupportActionBar(toolbarDetail);
         getSupportActionBar ().setDisplayHomeAsUpEnabled ( true );
         toolbarDetail.setNavigationOnClickListener(new View.OnClickListener() {
@@ -527,37 +527,45 @@ public class DetailActivityThree extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId ();
         if (id == R.id.ic_like) {
-            final Map <String,Object> user_post = new HashMap ();
-            user_post.put ( "nom_du_produit",titreDuProduit );
-            user_post.put ( "decription_du_produit",description );
-            user_post.put ( "prix_du_produit",prix_produit );
-            user_post.put ( "date_de_publication",datedepublication );
-            user_post.put ( "utilisateur",current_user_id );
-            user_post.put ( "image_du_produit",lien_image);
-            user_post.put ( "dete-en-seconde",datedepublication );
-            user_post.put("search",description);
-            user_post.put("categories",categories);
-            user_post.put("a_liker",utilisateur_actuel);
-            user_post.put("id_du_favorie",iddupost);
-            user_post.put("post_id",iddupost);
-            if (is_exist==false){
-                firebaseFirestore.collection ( "mes donnees utilisateur" ).document (utilisateur_actuel).collection ( "mes favories" ).document(iddupost).set(user_post).addOnSuccessListener(DetailActivityThree.this,new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void documentReference) {
-                        menu.getItem(0).setIcon(ContextCompat.getDrawable(getApplicationContext (), R.mipmap.ic_like_accent));
-                        Toast.makeText ( getApplicationContext (),"ajouter a vos favories",Toast.LENGTH_LONG ).show ();
-                    }
+            if (!utilisateur_actuel.equals ( current_user_id )){
+                final Map <String,Object> user_post = new HashMap ();
+                user_post.put ( "nom_du_produit",titreDuProduit );
+                user_post.put ( "decription_du_produit",description );
+                user_post.put ( "prix_du_produit",prix_produit );
+                user_post.put ( "date_de_publication",datedepublication );
+                user_post.put ( "utilisateur",current_user_id );
+                user_post.put ( "image_du_produit",lien_image);
+                user_post.put ( "dete-en-seconde",datedepublication );
+                user_post.put("search",description);
+                user_post.put("categories",categories);
+                user_post.put("a_liker",utilisateur_actuel);
+                user_post.put("id_du_favorie",iddupost);
+                user_post.put("post_id",iddupost);
+                if (is_exist==false){
+                    is_exist=true;
+                    firebaseFirestore.collection ( "mes donnees utilisateur" ).document (utilisateur_actuel).collection ( "mes favories" ).document(iddupost).set(user_post).addOnSuccessListener(DetailActivityThree.this,new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void documentReference) {
+                            menu.getItem(0).setIcon(ContextCompat.getDrawable(getApplicationContext (), R.mipmap.ic_like_accent));
+                            Toast.makeText ( getApplicationContext (),"ajouter a vos favories",Toast.LENGTH_LONG ).show ();
+                        }
 
-                }).addOnFailureListener ( DetailActivityThree.this, new OnFailureListener () {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText ( getApplicationContext (),"error , try later please",Toast.LENGTH_LONG ).show ();
-                    }
-                } );
+                    }).addOnFailureListener ( DetailActivityThree.this, new OnFailureListener () {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText ( getApplicationContext (),"error , try later please",Toast.LENGTH_LONG ).show ();
+                        }
+                    } );
+
+                }else {
+                    is_exist=false;
+                    menu.getItem(0).setIcon(ContextCompat.getDrawable(getApplicationContext (), R.drawable.ic_like));
+                    firebaseFirestore.collection ( "mes donnees utilisateur" ).document (utilisateur_actuel).collection ( "mes favories" ).document(iddupost).delete ();
+                }
 
             }else {
-                menu.getItem(0).setIcon(ContextCompat.getDrawable(getApplicationContext (), R.drawable.ic_like));
-                firebaseFirestore.collection ( "mes donnees utilisateur" ).document (utilisateur_actuel).collection ( "mes favories" ).document(iddupost).delete ();
+
+                Toast.makeText ( getApplicationContext (),"vous ne pouvez pas ajouter votre propre article aux favories",Toast.LENGTH_LONG ).show ();
             }
 
             return true;

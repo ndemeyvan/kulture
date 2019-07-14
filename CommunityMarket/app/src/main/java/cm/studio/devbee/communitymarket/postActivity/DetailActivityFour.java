@@ -111,7 +111,6 @@ public class  DetailActivityFour extends AppCompatActivity {
         date_de_publication=findViewById(R.id.date_de_publication);
         firebaseAuth=FirebaseAuth.getInstance();
         voir_les_commentaire_btn=findViewById(R.id.voir_les_commentaire_btn);
-        toolbarDetail=findViewById(R.id.toolbarDetail);
         supprime_detail_button=findViewById ( R.id.supprime_detail_button );
         detailActivityFourWeakReference=new WeakReference<>(this);
         toolbarDetail=findViewById(R.id.toolbarDetail);

@@ -362,7 +362,6 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
             public void onEvent(@Nullable DocumentSnapshot snapshot,
                                 @Nullable FirebaseFirestoreException e) {
                 if (e != null) {
-                    Toast.makeText(getApplicationContext(),"new change",Toast.LENGTH_LONG).show();
                     return;
                 }
                 if (snapshot != null && snapshot.exists()) {

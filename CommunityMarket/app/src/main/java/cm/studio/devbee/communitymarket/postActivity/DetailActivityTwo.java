@@ -821,37 +821,45 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId ();
         if (id == R.id.ic_like) {
-            final Map <String,Object> user_post = new HashMap ();
-            user_post.put ( "nom_du_produit",titreDuProduit );
-            user_post.put ( "decription_du_produit",description );
-            user_post.put ( "prix_du_produit",prix_produit );
-            user_post.put ( "date_de_publication",datedepublication );
-            user_post.put ( "utilisateur",current_user_id );
-            user_post.put ( "image_du_produit",lien_image);
-            user_post.put ( "dete-en-seconde",datedepublication );
-            user_post.put("search",description);
-            user_post.put("categories",categories);
-            user_post.put("a_liker",utilisateur_actuel);
-            user_post.put("id_du_favorie",iddupost);
-            user_post.put("post_id",iddupost);
-            if (is_exist==false){
-                firebaseFirestore.collection ( "mes donnees utilisateur" ).document (utilisateur_actuel).collection ( "mes favories" ).document(iddupost).set(user_post).addOnSuccessListener(DetailActivityTwo.this,new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void documentReference) {
-                        menu.getItem(0).setIcon(ContextCompat.getDrawable(getApplicationContext (), R.mipmap.ic_like_accent));
-                        Toast.makeText ( getApplicationContext (),"ajouter a vos favories",Toast.LENGTH_LONG ).show ();
-                    }
+            if (!utilisateur_actuel.equals ( current_user_id )){
+                final Map <String,Object> user_post = new HashMap ();
+                user_post.put ( "nom_du_produit",titreDuProduit );
+                user_post.put ( "decription_du_produit",description );
+                user_post.put ( "prix_du_produit",prix_produit );
+                user_post.put ( "date_de_publication",datedepublication );
+                user_post.put ( "utilisateur",current_user_id );
+                user_post.put ( "image_du_produit",lien_image);
+                user_post.put ( "dete-en-seconde",datedepublication );
+                user_post.put("search",description);
+                user_post.put("categories",categories);
+                user_post.put("a_liker",utilisateur_actuel);
+                user_post.put("id_du_favorie",iddupost);
+                user_post.put("post_id",iddupost);
+                if (is_exist==false){
+                    is_exist=true;
+                    firebaseFirestore.collection ( "mes donnees utilisateur" ).document (utilisateur_actuel).collection ( "mes favories" ).document(iddupost).set(user_post).addOnSuccessListener(DetailActivityTwo.this,new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void documentReference) {
+                            menu.getItem(0).setIcon(ContextCompat.getDrawable(getApplicationContext (), R.mipmap.ic_like_accent));
+                            Toast.makeText ( getApplicationContext (),"ajouter a vos favories",Toast.LENGTH_LONG ).show ();
+                        }
 
-                }).addOnFailureListener ( DetailActivityTwo.this, new OnFailureListener () {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText ( getApplicationContext (),"error , try later please",Toast.LENGTH_LONG ).show ();
-                    }
-                } );
+                    }).addOnFailureListener ( DetailActivityTwo.this, new OnFailureListener () {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText ( getApplicationContext (),"error , try later please",Toast.LENGTH_LONG ).show ();
+                        }
+                    } );
+
+                }else {
+                    is_exist=false;
+                    menu.getItem(0).setIcon(ContextCompat.getDrawable(getApplicationContext (), R.drawable.ic_like));
+                    firebaseFirestore.collection ( "mes donnees utilisateur" ).document (utilisateur_actuel).collection ( "mes favories" ).document(iddupost).delete ();
+                }
 
             }else {
-                menu.getItem(0).setIcon(ContextCompat.getDrawable(getApplicationContext (), R.drawable.ic_like));
-                firebaseFirestore.collection ( "mes donnees utilisateur" ).document (utilisateur_actuel).collection ( "mes favories" ).document(iddupost).delete ();
+
+                Toast.makeText ( getApplicationContext (),"vous ne pouvez pas ajouter votre propre article aux favories",Toast.LENGTH_LONG ).show ();
             }
 
             return true;
@@ -878,7 +886,6 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
         return super.onOptionsItemSelected ( item );
     }
     ////menu
-
     public void userstatus(String status){
         DocumentReference user = firebaseFirestore.collection("mes donnees utilisateur" ).document(current_user_id);
         user.update("status", status)

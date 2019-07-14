@@ -63,7 +63,7 @@
     <!-- login activty post-->
     <dimen name="login_logo_margintop">96dp</dimen>
     <!-- parametre profil activty post-->
-    <dimen name="parametre_actibity_image_w_n_h">120dp</dimen>
+    <dimen name="parametre_actibity_image_w_n_h">90dp</dimen>
     <dimen name="parametre_padding_edit_text">18dp</dimen>
     <dimen name="parametre_image_button">40dp</dimen>
 
@@ -250,4 +250,6 @@
     <dimen name="principal_temps_top_two">8dp</dimen>
     <dimen name="login_text_size">40sp</dimen>
     <dimen name="login_start_end">120dp</dimen>
+    <dimen name="search_profil_start">8dp</dimen>
+
 </resources>

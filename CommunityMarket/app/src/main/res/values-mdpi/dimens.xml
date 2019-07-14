@@ -268,5 +268,6 @@
     <dimen name="principal_temps_top_two">8dp</dimen>
     <dimen name="login_text_size">40sp</dimen>
     <dimen name="login_start_end">90dp</dimen>
+    <dimen name="search_profil_start">8dp</dimen>
 
 </resources>
