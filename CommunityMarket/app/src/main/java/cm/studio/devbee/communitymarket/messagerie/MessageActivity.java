@@ -46,6 +46,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import cm.studio.devbee.communitymarket.MyFirebaseMessagingService;
 import cm.studio.devbee.communitymarket.MySingleton;
 import cm.studio.devbee.communitymarket.R;
 import cm.studio.devbee.communitymarket.utilForChat.ChatAdapter;
@@ -293,6 +295,7 @@ public class MessageActivity extends AppCompatActivity {
         animationDrawableOne.setEnterFadeDuration(2000);
         animationDrawableOne.setExitFadeDuration(4000);
         animationDrawableOne.start();
+        stopService(new Intent(MessageActivity.this,MyFirebaseMessagingService.class));
 
 
     }

@@ -74,6 +74,7 @@ import cm.studio.devbee.communitymarket.Fragments.RobeFragment;
 import cm.studio.devbee.communitymarket.Fragments.TshirtFragment;
 import cm.studio.devbee.communitymarket.a_propos.AproposActivity;
 import cm.studio.devbee.communitymarket.messagerie.ChatMessageActivity;
+import cm.studio.devbee.communitymarket.messagerie.MessageActivity;
 import cm.studio.devbee.communitymarket.postActivity.PostActivity;
 import cm.studio.devbee.communitymarket.profile.FavoriesActivity;
 import cm.studio.devbee.communitymarket.profile.ParametrePorfilActivity;
@@ -365,7 +366,6 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
                     return;
                 }
                 if (snapshot != null && snapshot.exists()) {
-                    Toast.makeText ( getApplicationContext (),"new change",Toast.LENGTH_LONG ).show ();
                     firebaseFirestore=FirebaseFirestore.getInstance ();
                     firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user_id).get ().addOnCompleteListener ( new OnCompleteListener<DocumentSnapshot>() {
                         @Override
@@ -374,7 +374,6 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
                                 if (task.getResult ().exists ()){
                                     String message= task.getResult ().getString ( "message" );
                                     myDialog.dismiss ();
-
                                     contenu = task.getResult ().getString ( "message_du_notifieur" );
                                     if (message.equals ( "non lu" )){
                                         menu.getItem(1).setIcon(ContextCompat.getDrawable(getApplicationContext (), R.drawable.message_lu));
@@ -432,6 +431,8 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
                 //finish ();
             } else if (id == R.id.ic_logout) {
                 userstatus("offline");
+                stopService(new Intent(Accueil.this,MyFirebaseMessagingService.class));
+
                 mAuth.getInstance().signOut();
                 Intent intenttwo = new Intent ( getApplicationContext(),ChoiceActivity.class ).setFlags ( Intent.FLAG_ACTIVITY_CLEAR_TOP );
                 startActivity ( intenttwo );

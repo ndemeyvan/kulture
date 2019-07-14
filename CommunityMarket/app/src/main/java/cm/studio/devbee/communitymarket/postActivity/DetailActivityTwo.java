@@ -478,6 +478,7 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
                     user_comment.put ( "contenu",comment );
                     user_comment.put ( "heure",saveCurrentDate );
                     user_comment.put ( "id_user",utilisateur_actuel );
+                    user_comment.put ( "id du post",iddupost );
                     firebaseFirestore.collection ( "publication" ).document ("categories").collection (categories ).document (iddupost).collection("commentaires").add(user_comment).addOnSuccessListener(DetailActivityTwo.this, new OnSuccessListener<DocumentReference>() {
                         @Override
                         public void onSuccess(DocumentReference documentReference) {

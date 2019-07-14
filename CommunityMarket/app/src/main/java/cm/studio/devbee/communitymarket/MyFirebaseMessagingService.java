@@ -53,6 +53,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private static FirebaseFirestore firebaseFirestore;
     private String current_id;
     private String categories;
+    private String id_du_post;
 
     /*remoteMessage.getData()!=null && remoteMessage.getData().size() > 0*/
     @Override
@@ -66,7 +67,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 intent= new Intent(this, DetailActivityTwo.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             }else if (categories.equals ( "faux" )){
-                intent = new Intent(this, ChatMessageActivity.class);
+                intent = new Intent(this, MessageActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             }
             NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
@@ -74,6 +75,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             title = remoteMessage.getData().get("title");
             message = remoteMessage.getData().get("message");
             id = remoteMessage.getData().get("id");
+            id_du_post=remoteMessage.getData ().get ( "id du post" );
             id_recepteur = remoteMessage.getData().get("id_recepteur");
             viens_de_detail = remoteMessage.getData().get("viens_de_detail");
             image_en_vente = remoteMessage.getData().get("image_en_vente");
@@ -82,9 +84,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             intent.putExtra ("image_en_vente",image_en_vente  );
             intent.putExtra ("viens_de_detail","faux"  );
             intent.putExtra("viens","");
-            intent.putExtra ( "id de l'utilisateur",id );
+            intent.putExtra ( "id de l'utilisateur",id_expediteur );
             intent.putExtra ( "id_categories",categories );
             intent.putExtra ( "viens_de_service","vrai" );
+            intent.putExtra ( "id du post",id_du_post );
 
       /*
         Apps targeting SDK 26 or above (Android O) must implement notification channels and add its notifications
@@ -102,9 +105,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     .setSmallIcon(R.mipmap.ic_launcher_logo_two)
                     .setLargeIcon(largeIcon)
                     .setContentTitle(title)
-                    .setContentText(message)
+                   // .setContentText(message)
                     .addAction(R.drawable.ic_message_flooat_icon, "repondre", pendingIntent)
                     .setAutoCancel(true)
+                    .setStyle(new NotificationCompat.BigTextStyle()
+                            .bigText(message))
                     .setSound(notificationSoundUri)
                     .setContentIntent(pendingIntent);
             //Set notification color to match your app color template
@@ -130,5 +135,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         if (notificationManager != null) {
             notificationManager.createNotificationChannel(adminChannel);
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy ();
     }
 }

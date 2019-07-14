@@ -568,7 +568,7 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
              public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                  if (task.isSuccessful ()){
                      if (task.getResult ().exists ()){
-                         String [] liste = {" , actuellement il y'a ceci :"," , fait ton choix"," , ici , on vend la sap preske njorh... :) "," , s'habiller est un art...équilibre."," , cherche , tu va trouver ton bonheur"};
+                         String [] liste = {" , actuellement il y'a ceci :"," , fait ton choix"," , ici , on vend la sap. "," , s'habiller est un art...équilibre."," , heureux de te voir"};
                          int i ;
                          Random ran = new Random();
                          i= ran.nextInt(5);

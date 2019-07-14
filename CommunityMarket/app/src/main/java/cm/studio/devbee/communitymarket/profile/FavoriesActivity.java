@@ -7,11 +7,17 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import javax.annotation.Nullable;
 
 import cm.studio.devbee.communitymarket.R;
 import cm.studio.devbee.communitymarket.gridView_post.GridViewAdapter;
@@ -26,6 +32,7 @@ public class FavoriesActivity extends AppCompatActivity {
     private String current_user;
     private static FavoriteAdapter favories_adapter;
     private Toolbar favorite_toolbar;
+    TextView text_empty;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +55,18 @@ public class FavoriesActivity extends AppCompatActivity {
         animationDrawableOne.setEnterFadeDuration(2000);
         animationDrawableOne.setExitFadeDuration(4000);
         animationDrawableOne.start();
+        text_empty=findViewById ( R.id.text_empty );
+        firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user).collection ( "mes favories" ).addSnapshotListener(FavoriesActivity.this,new EventListener<QuerySnapshot> () {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                if (!queryDocumentSnapshots.isEmpty()) {
+                    int i = queryDocumentSnapshots.size();
+
+                } else {
+                    text_empty.setVisibility ( View.VISIBLE );
+                }
+            }
+        });
     }
 
     public void favorie(){

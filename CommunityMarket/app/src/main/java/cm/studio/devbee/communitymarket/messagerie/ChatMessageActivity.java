@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Nullable;
 import cm.studio.devbee.communitymarket.Accueil;
+import cm.studio.devbee.communitymarket.MyFirebaseMessagingService;
 import cm.studio.devbee.communitymarket.R;
 import cm.studio.devbee.communitymarket.utilForChat.DiplayAllChat;
 import cm.studio.devbee.communitymarket.utilForChat.List_chat_adapter;
@@ -105,6 +106,9 @@ public class ChatMessageActivity extends AppCompatActivity {
                 }
             }
         } );
+
+        stopService(new Intent(ChatMessageActivity.this,MyFirebaseMessagingService.class));
+
 
     }
     @Override
