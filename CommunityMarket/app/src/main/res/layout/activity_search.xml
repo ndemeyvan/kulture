@@ -56,7 +56,8 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_search"
         android:layout_width="0dp"
-        app:titleTextColor="@color/black"
+        app:titleTextColor="@color/blanc"
+        android:theme="@style/ToolbarThemeTwo"
         android:layout_height="wrap_content"
         android:background="@drawable/gradient_list"
         app:layout_constraintEnd_toEndOf="parent"

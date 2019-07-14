@@ -86,7 +86,7 @@ public class Search_User_Activity extends AppCompatActivity {
     }
 
     private void search(final String s) {
-        Query firstQuery =db.collection ( "publication" ).document ("categories").collection ("nouveaux" ).orderBy( "decription_du_produit").startAt(s).endAt(s+"\uf8ff");
+        Query firstQuery =db.collection ( "mes donnees utilisateur" ).orderBy( "user_name").startAt(s).endAt(s+"\uf8ff");
         FirestoreRecyclerOptions<Seach_user_model> options = new FirestoreRecyclerOptions.Builder<Seach_user_model>()
                 .setQuery(firstQuery, Seach_user_model.class)
                 .build();
