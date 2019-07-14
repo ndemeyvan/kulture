@@ -75,6 +75,7 @@
                 android:layout_marginEnd="@dimen/commentaire_text_end"
                 android:layout_marginBottom="@dimen/commentaire_text_bottom"
                 android:ellipsize="end"
+                android:lines="3"
                 android:fontFamily="@font/nunito_bold"
                 android:textColor="@color/blanc"
                 android:textSize="@dimen/new_detail_desc_text_size"
