@@ -82,9 +82,7 @@ public class notification_service extends Service {
                                     nom_du_notifieur = task.getResult ().getString ( "nom_du_notifieur" );
                                     lien_de_limag_du_notifieur = task.getResult ().getString ( "lien_de_limag_du_notifieur" );
                                     lien_du_produit=task.getResult ().getString ( "lien_du_produit" );
-
                                     if (message.equals ( "non lu" )){
-
                                         try {
                                             sendNotif ( message ,nom_du_notifieur ,lien_du_produit);
                                         } catch (IOException e1) {
