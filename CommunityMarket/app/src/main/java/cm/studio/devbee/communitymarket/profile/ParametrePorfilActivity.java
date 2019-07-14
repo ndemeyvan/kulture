@@ -283,6 +283,13 @@ public class ParametrePorfilActivity extends AppCompatActivity {
         donnees_utilisateur.put ( "search",user_name.toLowerCase());
         donnees_utilisateur.put ( "message","lu" );
         donnees_utilisateur.put ( "derniere_conection",randomKey);
+        donnees_utilisateur.put("id_du_notifieur","");
+        donnees_utilisateur.put("message_du_notifieur","");
+        donnees_utilisateur.put("lien_de_limag_du_notifieur","");
+        donnees_utilisateur.put("viens_de_messagerie","");
+        donnees_utilisateur.put ( "nom_du_notifieur","" );
+        donnees_utilisateur.put ( "lien_du_produit","" );
+
         firebaseFirestore.collection ( "mes donnees utilisateur" ).document ( current_user_id ).set ( donnees_utilisateur ).addOnCompleteListener ( ParametrePorfilActivity.this,new OnCompleteListener<Void> () {
             @Override
             public void onComplete(@NonNull Task<Void> task) {

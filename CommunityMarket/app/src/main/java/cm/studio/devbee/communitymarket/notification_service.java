@@ -4,6 +4,8 @@ import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.IBinder;
@@ -19,6 +21,14 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.squareup.picasso.Picasso;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import androidx.annotation.Nullable;
 import cm.studio.devbee.communitymarket.messagerie.ChatMessageActivity;
 import cm.studio.devbee.communitymarket.profile.ParametrePorfilActivity;
@@ -33,6 +43,8 @@ public class notification_service extends Service {
     private Intent intent;
     private String contenu;
     private String nom_du_notifieur;
+    private String lien_de_limag_du_notifieur;
+    private String lien_du_produit;
 
     @Nullable
     @Override
@@ -68,11 +80,18 @@ public class notification_service extends Service {
                                     String message= task.getResult ().getString ( "message" );
                                     contenu = task.getResult ().getString ( "message_du_notifieur" );
                                     nom_du_notifieur = task.getResult ().getString ( "nom_du_notifieur" );
+                                    lien_de_limag_du_notifieur = task.getResult ().getString ( "lien_de_limag_du_notifieur" );
+                                    lien_du_produit=task.getResult ().getString ( "lien_du_produit" );
+
                                     if (message.equals ( "non lu" )){
 
-                                        sendNotif ( message ,nom_du_notifieur );
+                                        try {
+                                            sendNotif ( message ,nom_du_notifieur ,lien_du_produit);
+                                        } catch (IOException e1) {
+                                            e1.printStackTrace ();
+                                        }
 
-                                        }else{
+                                    }else{
                                          }
                                 }else {
 
@@ -101,9 +120,15 @@ public class notification_service extends Service {
 
     }
 
-    public void sendNotif(String message,String nom_du_notifieur){
-        Intent notificationIntent = new Intent(
-                this, ChatMessageActivity.class);
+    public void sendNotif(String message,String nom_du_notifieur,String image_produit) throws IOException {
+        Intent notificationIntent = new Intent( this, ChatMessageActivity.class);
+        InputStream in;
+        URL url = new URL (image_produit);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setDoInput(true);
+        connection.connect();
+        in = connection.getInputStream();
+        Bitmap myBitmap = BitmapFactory.decodeStream(in);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
         Uri notificationSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
@@ -111,6 +136,7 @@ public class notification_service extends Service {
                 .setContentText(message)
                 .setAutoCancel(true)
                 .setSmallIcon(R.mipmap.ic_launcher_logo_two)
+                .setLargeIcon ( myBitmap )
                 .setSound(notificationSoundUri)
                 .setContentIntent(pendingIntent)
                 .setStyle(new NotificationCompat.BigTextStyle()
