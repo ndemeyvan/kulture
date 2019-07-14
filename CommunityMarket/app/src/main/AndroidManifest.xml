@@ -143,8 +143,6 @@
         <activity android:name=".search.ChoiceSearchActivity" />
         <activity android:name=".profile.FavoriesActivity" />
         <activity android:name=".search.Search_User_Activity"></activity>
-        <service android:name=".notification_service" />
-
     </application>
 
 </manifest>

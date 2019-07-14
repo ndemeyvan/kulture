@@ -175,58 +175,8 @@ public class MessageActivity extends AppCompatActivity {
                                 }
                             });
 
-                    firebaseFirestore.collection("mes donnees utilisateur").document(current_user).get().addOnCompleteListener(MessageActivity.this,new OnCompleteListener<DocumentSnapshot> () {
-                        @Override
-                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                            if (task.isSuccessful()){
-                                if (task.getResult ().exists ()){
-                                    mon_preom=task.getResult ().getString ( "user_prenom" );
-                                    mon_nom= task.getResult ().getString ( "user_name" );
-                                    lien_image_profil=task.getResult ().getString ( "user_profil_image" );
-                                    image_du_produit=task.getResult ().getString ( "user_name" );
-                                    lien_du_produit=task.getResult ().getString ( "lien_du_produit" );
-                                }
-                            }else {
-                                String error=task.getException().getMessage();
-                                Toast.makeText ( getApplicationContext (), error, Toast.LENGTH_LONG ).show ();
 
-                            }
-                        }
-                    });
-                    user.update("nom_du_notifieur", mon_nom+" " + mon_preom)
-                            .addOnSuccessListener(new OnSuccessListener<Void> () {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                }
-                            });
 
-                    user.update("lien_de_limag_du_notifieur", lien_image_profil)
-                            .addOnSuccessListener(new OnSuccessListener<Void> () {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                }
-                            });
-                    user.update("lien_du_produit", lien_du_produit)
-                            .addOnSuccessListener(new OnSuccessListener<Void> () {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                }
-                            });
                 }else{
                     Toast.makeText ( getApplicationContext (),getString(R.string.message_vide),Toast.LENGTH_LONG ).show ();
                 }

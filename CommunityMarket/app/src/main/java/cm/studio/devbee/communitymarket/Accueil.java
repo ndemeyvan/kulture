@@ -235,11 +235,6 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
         animationDrawableTwo.start();
     }
 
-    public void startService() {
-        Intent serviceIntent = new Intent(this, notification_service.class);
-        ContextCompat.startForegroundService(this, serviceIntent);
-    }
-
 
 
     @Override
@@ -378,10 +373,10 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
                             if (task.isSuccessful ()){
                                 if (task.getResult ().exists ()){
                                     String message= task.getResult ().getString ( "message" );
+                                    myDialog.dismiss ();
+
                                     contenu = task.getResult ().getString ( "message_du_notifieur" );
                                     if (message.equals ( "non lu" )){
-                                        startService ();
-                                        myDialog.dismiss ();
                                         menu.getItem(1).setIcon(ContextCompat.getDrawable(getApplicationContext (), R.drawable.message_lu));
                                     }else{
                                         myDialog.dismiss ();
@@ -402,9 +397,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
         });
             return true;
     }
-    public void stopService() {
-        stopService(new Intent(this, notification_service.class));
-    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
             int id = item.getItemId ();
@@ -439,7 +432,6 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
                 //finish ();
             } else if (id == R.id.ic_logout) {
                 userstatus("offline");
-                stopService ();
                 mAuth.getInstance().signOut();
                 Intent intenttwo = new Intent ( getApplicationContext(),ChoiceActivity.class ).setFlags ( Intent.FLAG_ACTIVITY_CLEAR_TOP );
                 startActivity ( intenttwo );
