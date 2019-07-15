@@ -112,7 +112,7 @@ public class VenteUtilisateurActivity extends AppCompatActivity {
         gridViewAdapter  = new ProfilAdapteur (options,this);
         Recycler = findViewById(R.id.profilRecycler);
         Recycler.setHasFixedSize(true);
-        Recycler.setLayoutManager(new LinearLayoutManager (this,LinearLayoutManager.HORIZONTAL,false));
+        Recycler.setLayoutManager(new LinearLayoutManager (this,LinearLayoutManager.VERTICAL,false));
         Recycler.setAdapter(gridViewAdapter);
 
     }

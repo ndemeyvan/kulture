@@ -2,10 +2,13 @@ package cm.studio.devbee.communitymarket.profile;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -80,6 +83,7 @@ public class ParametrePorfilActivity extends AppCompatActivity {
     private Toolbar toolbar_parametre;
     byte[] final_image;
     private  String user_residence;
+    Dialog myDialog;
     private String quartier;
     private static WeakReference<ParametrePorfilActivity> parametrePorfilActivityWeakReference;
 
@@ -204,13 +208,21 @@ public class ParametrePorfilActivity extends AppCompatActivity {
         animationDrawableOne.start();
 
     }
+    public void showPopup() {
+        myDialog=new Dialog(this);
+        myDialog.setContentView(R.layout.load_pop_pup);
+        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        myDialog.setCancelable(false);
+        myDialog.show();
+    }
+
 
 
     public void getuserdata(){
         button_enregister.setOnClickListener ( new View.OnClickListener () {
             @Override
             public void onClick(View v) {
-                button_enregister.setEnabled ( false );
+
                 parametre_progressbar.setVisibility ( View.VISIBLE );
                 final String user_name = nom.getText ().toString ();
                 final String user_premon = premon.getText ().toString ();
@@ -221,6 +233,7 @@ public class ParametrePorfilActivity extends AppCompatActivity {
                 if (ischange) {
                     if (!TextUtils.isEmpty ( user_name ) && !TextUtils.isEmpty ( user_telephone ) && !TextUtils.isEmpty ( user_premon ) && !TextUtils.isEmpty ( user_residence ) && mImageUri != null && !TextUtils.isEmpty ( user_email )&& !TextUtils.isEmpty ( quartier )) {
                         parametre_progressbar.setVisibility ( View.VISIBLE );
+                        showPopup();
                         final StorageReference image_de_profil = storageReference.child ( "image_de_profil" ).child ( current_user_id + " .jpg" );
                         UploadTask uploadTask = image_de_profil.putBytes(final_image);
                         Task<Uri> urlTask = uploadTask.continueWithTask ( new Continuation<UploadTask.TaskSnapshot, Task<Uri>> () {
@@ -246,8 +259,8 @@ public class ParametrePorfilActivity extends AppCompatActivity {
                         } );
                         ////////fin de l'nvoie
                     } else {
+                         myDialog.dismiss();
 
-                        button_enregister.setEnabled ( true );
                         Toast.makeText ( getApplicationContext (), getString(R.string.renplir_tous), Toast.LENGTH_LONG ).show ();
                         parametre_progressbar.setVisibility ( View.INVISIBLE );
                     }

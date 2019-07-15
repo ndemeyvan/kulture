@@ -153,7 +153,12 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
         mad=MobileAds.getRewardedVideoAdInstance(this);
         mad.setRewardedVideoAdListener(this);
         loadRewardedVideo();
-        prendreDonner ();
+        vendreButton.setOnClickListener ( new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+                prendreDonnerDevente ();
+            }
+        } );
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             try {
                 requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 555);
@@ -408,19 +413,13 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
         }
     }
 
-    public void prendreDonner(){
-        vendreButton.setOnClickListener ( new View.OnClickListener () {
-            @Override
-            public void onClick(View v) {
-                prendreDonnerDevente ();
-            }
-        } );
-    }
+
     public void prendreDonnerDevente(){
         nom_du_produit=nomProduit.getText ().toString ();
         decription_du_produit=descriptionProduit.getText ().toString ();
         prix_du_produit=(prixPorduit.getText ().toString ()+" fcfa");
         if (!TextUtils.isEmpty ( nom_du_produit )&&!TextUtils.isEmpty ( decription_du_produit )&&!TextUtils.isEmpty ( prix_du_produit )&&mImageUri!=null){
+            showPopup();
             stocker();
         }else{
             Toast.makeText ( getApplicationContext(),getString(R.string.renplir_tous),Toast.LENGTH_LONG ).show ();
