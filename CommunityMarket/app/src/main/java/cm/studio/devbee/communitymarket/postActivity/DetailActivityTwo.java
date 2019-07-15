@@ -427,6 +427,26 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
             @Override
             public void onClick(View v) {
                 if (!post_detail_comment.getText().toString().equals("")){
+                    ////////
+                    Date date=new Date();
+                    Calendar calendarOne=Calendar.getInstance ();
+                    SimpleDateFormat currentDateOne=new SimpleDateFormat (" dd MMM yyyy" );
+                    String saveCurrentDateOne=currentDateOne.format ( calendarOne.getTime () );
+                    String randomKey=saveCurrentDateOne;
+                    final Map <String,Object> notification_map = new HashMap ();
+                    notification_map.put ( "nom_du_produit",titreDuProduit );
+                    notification_map.put ( "decription_du_produit",description );
+                    notification_map.put ( "prix_du_produit",prix_produit );
+                    notification_map.put ( "date_du_like",randomKey );
+                    notification_map.put ( "image_du_produit",lien_image);
+                    notification_map.put("categories",categories);
+                    notification_map.put("id_de_utilisateur",utilisateur_actuel);
+                    notification_map.put("id_du_post",iddupost);
+                    notification_map.put("post_id",iddupost);
+                    notification_map.put("action","commantaire");
+                    notification_map.put("son commantaire",post_detail_comment.getText().toString());
+
+                    /////
                     firebaseFirestore.collection("mes donnees utilisateur").document(current_user_id).get().addOnCompleteListener(DetailActivityTwo.this,new OnCompleteListener<DocumentSnapshot> () {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -456,6 +476,35 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
                                     sendNotification(notification);
 
                                     ////end test noti
+
+                                    if (!utilisateur_actuel.equals ( current_user_id )){
+                                        firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user_id).collection ( "mes notification" ).document(iddupost).set(notification_map).addOnSuccessListener(DetailActivityTwo.this,new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void documentReference) {
+
+                                            }
+
+                                        }).addOnFailureListener ( DetailActivityTwo.this, new OnFailureListener () {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                            }
+                                        } );
+
+                                        DocumentReference user = firebaseFirestore.collection("mes donnees utilisateur" ).document(utilisateur_actuel);
+                                        user.update("has_notification", "true")
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                    }
+                                                })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                    }
+                                                });
+                                    }
+
+                                    ///////////////////////////
                                 }
                             }else {
                                 String error=task.getException().getMessage();
@@ -468,7 +517,6 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
 
                     post_detail_add_comment_btn.setVisibility(INVISIBLE);
                     progressBar3.setVisibility(VISIBLE);
-                    Date date=new Date();
                     SimpleDateFormat sdf= new SimpleDateFormat("d/MM/y H:mm:ss");
                     Calendar calendar=Calendar.getInstance ();
                     SimpleDateFormat currentDate=new SimpleDateFormat (" dd MMM yyyy" );
@@ -823,6 +871,28 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
         int id = item.getItemId ();
         if (id == R.id.ic_like) {
             if (!utilisateur_actuel.equals ( current_user_id )){
+                Date date=new Date();
+                SimpleDateFormat sdf= new SimpleDateFormat("d/MM/y H:mm:ss");
+                final String date_avec_seconde=sdf.format(date);
+                Calendar calendar=Calendar.getInstance ();
+                SimpleDateFormat currentDate=new SimpleDateFormat (" dd MMM yyyy" );
+                String saveCurrentDate=currentDate.format ( calendar.getTime () );
+                String randomKey=saveCurrentDate;
+                final Map <String,Object> notification_map = new HashMap ();
+                notification_map.put ( "nom_du_produit",titreDuProduit );
+                notification_map.put ( "decription_du_produit",description );
+                notification_map.put ( "prix_du_produit",prix_produit );
+                notification_map.put ( "date_du_like",randomKey );
+                notification_map.put ( "image_du_produit",lien_image);
+                notification_map.put("categories",categories);
+                notification_map.put("id_de_utilisateur",utilisateur_actuel);
+                notification_map.put("id_du_post",iddupost);
+                notification_map.put("post_id",iddupost);
+                notification_map.put("action","a liker");
+                notification_map.put("son commantaire","");
+                /////
+
+
                 final Map <String,Object> user_post = new HashMap ();
                 user_post.put ( "nom_du_produit",titreDuProduit );
                 user_post.put ( "decription_du_produit",description );
@@ -843,6 +913,32 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
                         public void onSuccess(Void documentReference) {
                             menu.getItem(0).setIcon(ContextCompat.getDrawable(getApplicationContext (), R.mipmap.ic_like_accent));
                             Toast.makeText ( getApplicationContext (),"ajouter a vos favories",Toast.LENGTH_LONG ).show ();
+                            //////////////////////////////
+                            firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user_id).collection ( "mes notification" ).document(iddupost).set(notification_map).addOnSuccessListener(DetailActivityTwo.this,new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void documentReference) {
+
+                                }
+
+                            }).addOnFailureListener ( DetailActivityTwo.this, new OnFailureListener () {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                }
+                            } );
+
+                            DocumentReference user = firebaseFirestore.collection("mes donnees utilisateur" ).document(current_user_id);
+                            user.update("has_notification", "true")
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                        }
+                                    });
+                            ///////////////////////////
                         }
 
                     }).addOnFailureListener ( DetailActivityTwo.this, new OnFailureListener () {

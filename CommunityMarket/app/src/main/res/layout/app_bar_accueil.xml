@@ -17,6 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:fontFamily="@font/righteous"
+            android:elevation="15dp"
             android:background="@drawable/gradient_list"
             app:popupTheme="@style/AppTheme.PopupOverlay"
             >
@@ -54,7 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:tabGravity="fill"
-            android:elevation="8dp"
+            android:elevation="15dp"
             android:fontFamily="@font/righteous"
             app:tabIndicatorColor="@color/blanc"
             android:theme="@style/AppTheme.AppBarOverlay_two"
