@@ -13,7 +13,7 @@
     <dimen name="a_propos_button_size_text">14sp</dimen>
     <dimen name="button_size_text">12sp</dimen>
     <!-- choice activity. -->
-    <dimen name="choice_Logo_margin_top">180dp</dimen>
+    <dimen name="choice_Logo_margin_top">200dp</dimen>
     <dimen name="choice_Logo_text_size">80sp</dimen>
     <dimen name="choice_button_top">200dp</dimen>
     <dimen name="choice_button_padding_top">10dp</dimen>
@@ -136,7 +136,7 @@
     <dimen name="new_detail_top_name_date">16dp</dimen>
     <dimen name="new_detail_height_button">40dp</dimen>
     <dimen name="new_detail_desc_margin_top">16dp</dimen>
-    <dimen name="new_detail_desc_text_size">18sp</dimen>
+    <dimen name="new_detail_desc_text_size">16sp</dimen>
     <dimen name="new_detail_height_image">36dp</dimen>
     <dimen name="new_detail_add_button">60dp</dimen>
     <dimen name="new_detail_add_height">40dp</dimen>
@@ -230,7 +230,7 @@
     <dimen name="splash_text_logo_name">24sp</dimen>
 
     <dimen name="message_activity_height_image">100dp</dimen>
-    <dimen name="message_image">100dp</dimen>
+    <dimen name="message_image">120dp</dimen>
     //////////principal
     <dimen name="principal_card_widht">340dp</dimen>
     <dimen name="principal_container_height">160dp</dimen>
@@ -251,5 +251,9 @@
     <dimen name="login_text_size">40sp</dimen>
     <dimen name="login_start_end">120dp</dimen>
     <dimen name="search_profil_start">8dp</dimen>
+    <dimen name="nouveaute_test_desc">200dp</dimen>
+    <dimen name="nouveaute_card_width_height">240dp</dimen>
+    <dimen name="nouveaut_image_height">110dp</dimen>
+    <dimen name="profil_place_witdh">100dp</dimen>
 
 </resources>

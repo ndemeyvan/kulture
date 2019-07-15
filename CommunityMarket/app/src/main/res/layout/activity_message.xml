@@ -176,6 +176,7 @@
             <ImageView
                 android:id="@+id/image_de_discutions"
                 android:layout_width="@dimen/message_image"
+                android:src="@drawable/t_shirt"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -203,7 +204,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/pub_button_start_end"
-                android:layout_marginTop="@dimen/message_activity_prix_top"
                 android:layout_marginBottom="8dp"
                 android:fontFamily="@font/nunito_bold"
                 android:text="lolipop"
@@ -212,7 +212,8 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/image_de_discutions"
-                app:layout_constraintTop_toBottomOf="@+id/titre_produit" />
+                app:layout_constraintTop_toBottomOf="@+id/titre_produit"
+                app:layout_constraintVertical_bias="0.0" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -225,6 +226,7 @@
 
 
                 <ImageView
+                    android:src="@drawable/t_shirt"
                     android:id="@+id/image_de_fond"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

@@ -99,9 +99,12 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
         private static WeakReference<Accueil> accueilWeakReference;
         private Menu menu;
         private AdView mAdView;
-        String name;
-        Dialog myDialog;
+        private String name;
+        private Dialog myDialog;
+        private  ImageView image_user;
         private String nom_user;
+        private CircleImageView notification_enable;
+
     private String contenu;
 
 
@@ -118,6 +121,8 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
         setupViewPager(tabsviewpager);
         tabLayout.setupWithViewPager(tabsviewpager);
         mAuth=FirebaseAuth.getInstance ();
+        image_user=findViewById(R.id.image_user);
+        notification_enable=findViewById(R.id.notification_enable);
         content_floating_action_btn=findViewById ( R.id.content_floating_action_btn );
         current_user_id=mAuth.getCurrentUser ().getUid ();
         firebaseFirestore=FirebaseFirestore.getInstance ();
@@ -193,7 +198,6 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
         myDialog = new Dialog (this);
         asyncTask=new AsyncTask();
         asyncTask.execute();
-
         firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user_id).get ().addOnCompleteListener ( Accueil.this,new OnCompleteListener<DocumentSnapshot>() {
             @SuppressLint("RestrictedApi")
             @Override
@@ -302,6 +306,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
                             String prenomuser =task.getResult ().getString ("user_prenom");
                             getSupportActionBar ().setTitle ( "hello " + prenomuser );
                             drawer_user_name.setText ( nom_user + " " + prenomuser);
+                            Picasso.with(Accueil.this).load(image_profil_user).into(image_user);
                             Picasso.with ( getApplicationContext()).load ( image_profil_user ).transform(new CircleTransform()).into ( acceuille_image );
                            // Picasso.with ( getApplicationContext()).load ( image_profil_user ).placeholder(R.drawable.boy).into ( profilbacck_image );
                         }
@@ -375,6 +380,12 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
                                     String message= task.getResult ().getString ( "message" );
                                     myDialog.dismiss ();
                                     contenu = task.getResult ().getString ( "message_du_notifieur" );
+                                    String notification = task.getResult().getString("has_notification");
+                                    if (notification.equals("true")){
+                                        notification_enable.setVisibility(View.VISIBLE);
+                                    }else{
+                                        notification_enable.setVisibility(View.INVISIBLE);
+                                    }
                                     if (message.equals ( "non lu" )){
                                         menu.getItem(1).setIcon(ContextCompat.getDrawable(getApplicationContext (), R.drawable.message_lu));
                                     }else{

@@ -163,6 +163,7 @@
                     android:layout_marginEnd="8dp"
                     android:fontFamily="@font/righteous"
                     android:lineSpacingExtra="8dp"
+                    android:textAlignment="center"
                     android:textColor="@color/black"
                     android:textSize="@dimen/new_detail_desc_text_size"
                     android:textStyle="bold"

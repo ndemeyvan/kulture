@@ -4,11 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/the_constraint"
-        >
+
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/chat_imag_item"
             android:layout_width="40dp"
@@ -22,38 +18,35 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/show_message"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/background_dipla_left"
-            android:fontFamily="@font/nunito_bold"
-            android:maxWidth="250dp"
-            android:padding="8dp"
-            android:text="Hello"
-            android:textColor="@color/blanc"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/show_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/background_dipla_left"
+        android:fontFamily="@font/nunito_bold"
+        android:maxWidth="250dp"
+        android:padding="8dp"
+        android:text="Hello"
+        android:textColor="@color/blanc"
+        android:textSize="@dimen/item_principal_desc"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/current_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="4dp"
-            android:fontFamily="@font/righteous"
-            android:textColor="@color/blanc"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/show_message"
-            app:layout_constraintStart_toStartOf="@+id/show_message"
-            app:layout_constraintTop_toBottomOf="@+id/show_message" />
+    <TextView
+        android:id="@+id/current_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:fontFamily="@font/righteous"
+        android:textColor="@color/blanc"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/show_message"
+        app:layout_constraintStart_toStartOf="@+id/show_message"
+        app:layout_constraintTop_toBottomOf="@+id/show_message" />
     </android.support.constraint.ConstraintLayout>
 
 
 
-</android.support.constraint.ConstraintLayout>

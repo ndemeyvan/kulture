@@ -458,12 +458,9 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
                                         user_post.put ( "date_de_publication",randomKey );
                                         user_post.put ( "utilisateur",current_user_id );
                                         user_post.put ( "image_du_produit",downloadUri.toString() );
-                                        user_post.put ( "dete-en-seconde",date_avec_seconde );
                                         user_post.put("search",decription_du_produit);
                                         user_post.put("categories",categoryName);
-
-
-
+                                        user_post.put("priority","1");
                                         DocumentReference post_reference =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( categoryName ).document();
                                         final String post_id = post_reference.getId();
                                         user_post.put("post_id",post_id);

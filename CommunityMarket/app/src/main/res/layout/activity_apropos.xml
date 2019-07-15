@@ -5,17 +5,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".a_propos.AproposActivity"
-    android:background="@color/colorPrimary">
+    >
+
     <android.support.v7.widget.Toolbar
+        android:id="@+id/aporpos_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/aporpos_toolbar"
-        app:titleTextColor="@color/blanc"/>
+        android:background="@drawable/gradient_list"
+        android:theme="@style/ToolbarThemeTwo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleTextColor="@color/blanc" />
 
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/aporpos_toolbar">
 
         <ImageView
             android:layout_width="match_parent"
@@ -48,7 +56,7 @@
         android:layout_marginTop="@dimen/choice_Logo_margin_top"
         android:layout_marginEnd="8dp"
         android:fontFamily="@font/righteous"
-        android:text="Advert"
+        android:text="Advert."
         android:textAlignment="center"
         android:textColor="@color/blanc"
         android:textSize="@dimen/choice_Logo_text_size"

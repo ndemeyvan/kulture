@@ -13,7 +13,7 @@
     <dimen name="a_propos_button_size_text">14sp</dimen>
     <dimen name="button_size_text">20sp</dimen>
     <!-- choice activity. -->
-    <dimen name="choice_Logo_margin_top">190dp</dimen>
+    <dimen name="choice_Logo_margin_top">220dp</dimen>
     <dimen name="choice_Logo_text_size">80sp</dimen>
     <dimen name="choice_button_top">400dp</dimen>
     <dimen name="choice_button_text_size">25dp</dimen>
@@ -54,7 +54,7 @@
     <dimen name="nvx_item_nvx_date">11sp</dimen>
     <dimen name="nvx_item_nvx_desc">14sp</dimen>
     <dimen name="nvx_item_nvx_prix">14sp</dimen>
-    <dimen name="nvx_item_nvx_titre">12sp</dimen>
+    <dimen name="nvx_item_nvx_titre">14sp</dimen>
     <dimen name="nvx_item_nvx_like_image">20sp</dimen>
     <!-- item layout post-->
     <dimen name="post_item_prix">12sp</dimen>
@@ -135,7 +135,7 @@
     <dimen name="new_detail_top_name_date">20dp</dimen>
     <dimen name="new_detail_height_button">45dp</dimen>
     <dimen name="new_detail_desc_margin_top">16dp</dimen>
-    <dimen name="new_detail_desc_text_size">24sp</dimen>
+    <dimen name="new_detail_desc_text_size">20sp</dimen>
     <dimen name="new_detail_height_image">50dp</dimen>
     <dimen name="new_detail_add_button">120dp</dimen>
     <dimen name="new_detail_add_height">50dp</dimen>
@@ -216,7 +216,7 @@
     <dimen name="pub_button_start_end">45dp</dimen>
     <dimen name="pub_desc_top">24dp</dimen>
     ///detail_two
-    <dimen name="detail_image_top">450dp</dimen>
+    <dimen name="detail_image_top">400dp</dimen>
     <dimen name="detail_image_start">32dp</dimen>
     <dimen name="profil_detail_start_text">32dp</dimen>
     <dimen name="detail_text_size_two">22sp</dimen>
@@ -228,8 +228,8 @@
     <dimen name="splash_progress_top">530dp</dimen>
     <dimen name="splash_text_proverb">18sp</dimen>
     <dimen name="splash_text_logo_name">30sp</dimen>
-    <dimen name="message_activity_height_image">210dp</dimen>
-    <dimen name="message_image">200dp</dimen>
+    <dimen name="message_activity_height_image">180dp</dimen>
+    <dimen name="message_image">230dp</dimen>
     //////////principal
     <dimen name="principal_card_widht">520dp</dimen>
     <dimen name="principal_container_height">220dp</dimen>
@@ -250,5 +250,11 @@
     <dimen name="login_text_size">70sp</dimen>
     <dimen name="login_start_end">150dp</dimen>
     <dimen name="search_profil_start">80dp</dimen>
+    <dimen name="nouveaute_test_desc">290dp</dimen>
+    <dimen name="nouveaute_card_width_height">300dp</dimen>
+    <dimen name="nouveaut_image_height">105dp</dimen>
+    <dimen name="nouveaute_text_price">18sp</dimen>
+    <dimen name="profil_place_witdh">130dp</dimen>
+
 
 </resources>

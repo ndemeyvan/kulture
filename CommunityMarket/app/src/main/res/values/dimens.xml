@@ -298,6 +298,11 @@
     <dimen name="login_text_size">40sp</dimen>
     <dimen name="login_start_end">70dp</dimen>
     <dimen name="search_profil_start">8dp</dimen>
+    <dimen name="nouveaute_test_desc">200dp</dimen>
+    <dimen name="nouveaute_card_width_height">220dp</dimen>
+    <dimen name="nouveaut_image_height">105dp</dimen>
+    <dimen name="nouveaute_text_price">14sp</dimen>
+    <dimen name="profil_place_witdh">100dp</dimen>
 
 
 </resources>

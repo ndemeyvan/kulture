@@ -102,7 +102,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         CircleImageView online_status;
         CircleImageView offline_status;
        // ConstraintLayout right_constraint;
-        ConstraintLayout left_container;
+
         TextView current_date;
         public ViewHolder(@NonNull View itemView) {
             super ( itemView );
@@ -111,7 +111,6 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
             online_status=itemView.findViewById ( R.id.online_status_image );
             offline_status=itemView.findViewById ( R.id.offline_status_image );
             //right_constraint=itemView.findViewById ( R.id.the_constraint );
-            left_container=itemView.findViewById ( R.id.the_constraint );
             current_date=itemView.findViewById ( R.id.current_date );
         }
     }

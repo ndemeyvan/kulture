@@ -296,7 +296,7 @@ public class ParametrePorfilActivity extends AppCompatActivity {
         donnees_utilisateur.put ( "search",user_name.toLowerCase());
         donnees_utilisateur.put ( "message","lu" );
         donnees_utilisateur.put ( "derniere_conection",randomKey);
-
+        donnees_utilisateur.put ( "has_notification","false");
 
         firebaseFirestore.collection ( "mes donnees utilisateur" ).document ( current_user_id ).set ( donnees_utilisateur ).addOnCompleteListener ( ParametrePorfilActivity.this,new OnCompleteListener<Void> () {
             @Override

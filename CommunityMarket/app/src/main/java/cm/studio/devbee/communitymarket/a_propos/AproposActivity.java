@@ -25,6 +25,15 @@ public class AproposActivity extends AppCompatActivity {
         aporpos_toolbar=findViewById(R.id.aporpos_toolbar);
         setSupportActionBar(aporpos_toolbar);
         getSupportActionBar().setTitle(getString(R.string.publicite));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        aporpos_toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent nous_contacter=new Intent(getApplicationContext(),Accueil.class);
+                startActivity(nous_contacter);
+                finish ();
+            }
+        });
         aproposActivityWeakReference=new WeakReference<>(this);
         call_button.setOnClickListener ( new View.OnClickListener () {
             @Override

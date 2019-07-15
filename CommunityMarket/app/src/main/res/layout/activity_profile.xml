@@ -137,7 +137,7 @@
 
             <TextView
                 android:id="@+id/profil_user_residence"
-                android:layout_width="100dp"
+                android:layout_width="@dimen/profil_place_witdh"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/new_profil_text_margin_top"
                 android:fontFamily="@font/righteous"
@@ -185,12 +185,12 @@
                 android:layout_width="@dimen/new_profil_view_widht"
                 android:layout_height="@dimen/new_profil_view_height"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="@dimen/new_profil_view_margin_top"
                 android:layout_marginEnd="@dimen/new_profil_view_margin_end"
+                android:layout_marginTop="@dimen/new_profil_view_margin_top"
                 android:background="@color/blanc"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/profil_user_phone" />
+                app:layout_constraintTop_toBottomOf="@+id/profil_user_residence" />
 
             <Button
                 android:id="@+id/vente_button"
