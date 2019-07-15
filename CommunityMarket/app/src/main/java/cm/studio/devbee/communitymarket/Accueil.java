@@ -77,6 +77,7 @@ import cm.studio.devbee.communitymarket.messagerie.ChatMessageActivity;
 import cm.studio.devbee.communitymarket.messagerie.MessageActivity;
 import cm.studio.devbee.communitymarket.postActivity.PostActivity;
 import cm.studio.devbee.communitymarket.profile.FavoriesActivity;
+import cm.studio.devbee.communitymarket.profile.NotificationActivity;
 import cm.studio.devbee.communitymarket.profile.ParametrePorfilActivity;
 import cm.studio.devbee.communitymarket.profile.ProfileActivity;
 import cm.studio.devbee.communitymarket.search.ChoiceSearchActivity;
@@ -101,7 +102,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
         private AdView mAdView;
         private String name;
         private Dialog myDialog;
-        private  ImageView image_user;
+        private  CircleImageView image_user;
         private String nom_user;
         private CircleImageView notification_enable;
 
@@ -238,6 +239,13 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
         animationDrawableTwo.setEnterFadeDuration(2000);
         animationDrawableTwo.setExitFadeDuration(4000);
         animationDrawableTwo.start();
+        image_user.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Accueil.this,NotificationActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 

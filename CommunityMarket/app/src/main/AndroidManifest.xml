@@ -142,7 +142,8 @@
 
         <activity android:name=".search.ChoiceSearchActivity" />
         <activity android:name=".profile.FavoriesActivity" />
-        <activity android:name=".search.Search_User_Activity"></activity>
+        <activity android:name=".search.Search_User_Activity" />
+        <activity android:name=".profile.NotificationActivity"></activity>
     </application>
 
 </manifest>

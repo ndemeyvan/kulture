@@ -31,6 +31,7 @@
                     android:layout_height="35dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
+                    android:src="@drawable/boy"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -39,13 +40,13 @@
                     android:id="@+id/notification_enable"
                     android:layout_width="12dp"
                     android:layout_height="12dp"
-                    android:src="@mipmap/ic_launcher"
-                    android:visibility="invisible"
                     app:civ_border_color="#05df29"
                     app:civ_border_width="10dp"
+                    android:visibility="invisible"
                     app:layout_constraintBottom_toBottomOf="@+id/image_user"
                     app:layout_constraintEnd_toEndOf="@+id/image_user" />
-
+                <!-- app:civ_border_color="#05df29"-->
+                <!--app:civ_border_width="10dp"-->
             </android.support.constraint.ConstraintLayout>
 
         </android.support.v7.widget.Toolbar>

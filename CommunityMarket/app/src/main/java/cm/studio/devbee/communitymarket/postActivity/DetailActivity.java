@@ -337,7 +337,7 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
                     notification_map.put("id_du_post",iddupost);
                     notification_map.put("post_id",iddupost);
                     notification_map.put("action","commantaire");
-                    notification_map.put("son commantaire",post_detail_comment.getText().toString());
+                    notification_map.put("commantaire",post_detail_comment.getText().toString());
 
                     /////
 
@@ -988,7 +988,7 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
                 notification_map.put("id_du_post",iddupost);
                 notification_map.put("post_id",iddupost);
                 notification_map.put("action","a liker");
-                notification_map.put("son commantaire","");
+                notification_map.put("commantaire","");
                /////
 
                 final Map <String,Object> user_post = new HashMap ();

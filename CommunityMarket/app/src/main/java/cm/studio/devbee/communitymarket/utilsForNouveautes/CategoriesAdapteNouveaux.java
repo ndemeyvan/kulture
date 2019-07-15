@@ -49,7 +49,7 @@ import cm.studio.devbee.communitymarket.utilsForUserApp.UserAdapter;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class  CategoriesAdapteNouveaux extends FirestoreRecyclerAdapter<CategoriesModelNouveaux,CategoriesAdapteNouveaux.ViewHolder> {
-    List<CategoriesModelNouveaux> categoriesModelNouveauxList;
+
     Context context;
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
