@@ -1,5 +1,6 @@
 package cm.studio.devbee.communitymarket.profile;
 
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,7 +9,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
@@ -43,6 +47,19 @@ public class NotificationActivity extends AppCompatActivity {
                 finish ();
             }
         });
+
+        DocumentReference user = firebaseFirestore.collection("mes donnees utilisateur" ).document(current_user_id);
+        user.update("has_notification", "false")
+                .addOnSuccessListener(new OnSuccessListener<Void> () {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener () {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                    }
+                });
 
         chaussureRecyclerView();
 

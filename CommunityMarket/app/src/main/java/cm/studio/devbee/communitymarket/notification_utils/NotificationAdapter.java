@@ -2,11 +2,14 @@ package cm.studio.devbee.communitymarket.notification_utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,14 +24,17 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
 import cm.studio.devbee.communitymarket.R;
+import cm.studio.devbee.communitymarket.postActivity.DetailActivityTwo;
 import cm.studio.devbee.communitymarket.utilForChat.ModelChat;
 import de.hdodenhof.circleimageview.CircleImageView;
+import pl.droidsonroids.gif.GifImageView;
 
 public class NotificationAdapter extends FirestoreRecyclerAdapter<Model_notification,NotificationAdapter.ViewHolder> {
 
     Context context;
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
+    private String current_user;
 
     public NotificationAdapter(@NonNull FirestoreRecyclerOptions<Model_notification> options,Context context) {
         super(options);
@@ -53,6 +59,8 @@ public class NotificationAdapter extends FirestoreRecyclerAdapter<Model_notifica
         String action =model.getAction();
         String commentaire =model.getCommantaire();
         String image_du_produit =model.getImage_du_produit();
+        final String categories =model.getCategories ();
+        final String id_du_post=model.getId_du_post ();
         Picasso.with(context).load(image_du_produit).into(holder.image_du_produit);
         if (action.equals("commantaire")){
             holder.text_des_commentaires.setVisibility(View.VISIBLE);
@@ -83,18 +91,35 @@ public class NotificationAdapter extends FirestoreRecyclerAdapter<Model_notifica
                 }
             }
         });
+
+        holder . notification_container . setAnimation ( AnimationUtils. loadAnimation (context, R.anim.fade_transition_animation));
+        holder.notification_container.setOnClickListener ( new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+                current_user=firebaseAuth.getCurrentUser ().getUid ();
+                Intent intent = new Intent ( context,DetailActivityTwo.class );
+                intent.putExtra ( "id du post",id_du_post );
+                intent.putExtra ( "id de l'utilisateur",current_user );
+                intent.putExtra ( "id_categories",categories );
+
+
+
+
+                context.startActivity ( intent );
+            }
+        } );
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         ImageView image_du_produit;
-        ImageView image_des_like;
+        GifImageView image_des_like;
         CircleImageView image_du_profil;
         ImageView image_des_commentaire;
         TextView nom_du_profil;
         TextView text_des_likes;
         TextView text_des_commentaires;
         TextView temps_de_la_notification;
-
+        ConstraintLayout notification_container;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             image_du_produit=itemView.findViewById(R.id.image_du_produit);
@@ -105,7 +130,7 @@ public class NotificationAdapter extends FirestoreRecyclerAdapter<Model_notifica
             text_des_likes=itemView.findViewById(R.id.text_des_likes);
             text_des_commentaires=itemView.findViewById(R.id.text_des_commentaires);
             temps_de_la_notification=itemView.findViewById(R.id.temps_de_la_notification);
-
+            notification_container=itemView.findViewById ( R.id.notification_container );
 
         }
     }
