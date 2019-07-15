@@ -30,12 +30,6 @@ public class NotificationAdapter extends FirestoreRecyclerAdapter<Model_notifica
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
 
-    /**
-     * Create a new RecyclerView adapter that listens to a Firestore Query.  See {@link
-     * FirestoreRecyclerOptions} for configuration options.
-     *
-     * @param options
-     */
     public NotificationAdapter(@NonNull FirestoreRecyclerOptions<Model_notification> options,Context context) {
         super(options);
         this.context=context;

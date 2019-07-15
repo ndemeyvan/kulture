@@ -53,10 +53,6 @@ public class ChaussureFragment extends Fragment {
     private static View v;
     private static RecyclerView chaussuresRecyclerView;
     private static GridViewAdapter categoriesAdaptechaussures;
-    private static List<ModelGridView> categoriesModelchaussuresList;
-    private static ImageView imagePubchaussures;
-    private static TextView textPubchaussures;
-    private static ProgressDialog progressDialog;
     private static WeakReference<ChaussureFragment> chaussuresFragmentWeakReference;
     private AsyncTask asyncTask;
     private static FirebaseAuth firebaseAuth;
@@ -330,10 +326,6 @@ public class ChaussureFragment extends Fragment {
         chaussuresRecyclerView=null;
         v=null;
         categoriesAdaptechaussures=null;
-        categoriesModelchaussuresList=null;
-        imagePubchaussures=null;
-        textPubchaussures=null;
-        progressDialog=null;
     }
 
 }

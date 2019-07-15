@@ -4,6 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,6 +24,7 @@ public class NotificationActivity extends AppCompatActivity {
     private String current_user_id;
     private static RecyclerView chaussuresRecyclerView;
     private static NotificationAdapter categoriesAdaptechaussures;
+    private Toolbar detail_image_post_toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,17 +33,42 @@ public class NotificationActivity extends AppCompatActivity {
         firebaseFirestore=FirebaseFirestore.getInstance();
         firebaseAuth=FirebaseAuth.getInstance();
         current_user_id=firebaseAuth.getCurrentUser().getUid();
+        detail_image_post_toolbar=findViewById(R.id.toolbar_notification);
+        setSupportActionBar(detail_image_post_toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        detail_image_post_toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //startActivity ( new Intent ( getApplicationContext (),Accueil.class ).setFlags ( Intent.FLAG_ACTIVITY_CLEAR_TOP ) );
+                finish ();
+            }
+        });
+
+        chaussureRecyclerView();
+
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        categoriesAdaptechaussures.startListening();
+    }
     public void chaussureRecyclerView(){
         Query firstQuery =firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user_id).collection ( "mes notification" ).orderBy ( "date_du_like",Query.Direction.ASCENDING );
         FirestoreRecyclerOptions<Model_notification> options = new FirestoreRecyclerOptions.Builder<Model_notification>()
                 .setQuery(firstQuery, Model_notification.class)
                 .build();
-        categoriesAdaptechaussures  = new NotificationAdapter(options,this);
+        categoriesAdaptechaussures  = new NotificationAdapter(options,NotificationActivity.this);
         chaussuresRecyclerView = findViewById(R.id.notification_recycler);
         chaussuresRecyclerView.setHasFixedSize(true);
-        chaussuresRecyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        chaussuresRecyclerView.setLayoutManager(new LinearLayoutManager(NotificationActivity.this,LinearLayoutManager.VERTICAL,false));
         chaussuresRecyclerView.setAdapter(categoriesAdaptechaussures);
+    }
+
+
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }
