@@ -53,6 +53,7 @@ public class NotificationActivity extends AppCompatActivity {
         super.onStart();
         categoriesAdaptechaussures.startListening();
     }
+
     public void chaussureRecyclerView(){
         Query firstQuery =firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user_id).collection ( "mes notification" ).orderBy ( "date_du_like",Query.Direction.ASCENDING );
         FirestoreRecyclerOptions<Model_notification> options = new FirestoreRecyclerOptions.Builder<Model_notification>()
