@@ -101,15 +101,15 @@
         android:id="@+id/cardview_nnotification"
         android:layout_width="250dp"
         android:layout_height="150dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         app:cardCornerRadius="10dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/text_des_likes"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/text_des_commentaires"
-        app:layout_constraintTop_toBottomOf="@+id/text_des_likes">
+        app:layout_constraintTop_toBottomOf="@+id/text_des_commentaires">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="wrap_content"

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.IBinder;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -20,8 +21,13 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
 
     @Override
     public void onTokenRefresh() {
-        firebaseAuth=FirebaseAuth.getInstance ();
-        current_id=firebaseAuth.getCurrentUser ().getUid ();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            firebaseAuth=FirebaseAuth.getInstance ();
+            current_id=firebaseAuth.getCurrentUser ().getUid ();
+        } else {
+            // No user is signed in
+        }
         SUBSCRIBE_TO=current_id;
         /*
           This method is invoked whenever the token refreshes

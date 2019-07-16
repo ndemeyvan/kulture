@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -58,8 +59,14 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     /*remoteMessage.getData()!=null && remoteMessage.getData().size() > 0*/
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        firebaseAuth=FirebaseAuth.getInstance ();
-        current_id=firebaseAuth.getCurrentUser ().getUid ();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            firebaseAuth=FirebaseAuth.getInstance ();
+            current_id=firebaseAuth.getCurrentUser ().getUid ();
+        } else {
+            // No user is signed in
+        }
+
 
         if (remoteMessage.getData()!=null && remoteMessage.getData().size() > 0) {
             categories=remoteMessage.getData ().get ( "viens_de_detail" );
