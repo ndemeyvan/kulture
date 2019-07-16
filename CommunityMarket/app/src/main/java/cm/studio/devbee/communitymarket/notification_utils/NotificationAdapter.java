@@ -188,7 +188,7 @@ public class NotificationAdapter extends FirestoreRecyclerAdapter<Model_notifica
                 gotoMessage.putExtra ( "viens_de_detail","vrai" );
                 gotoMessage.putExtra ( "viens_de_notification","vrai" );
                 gotoMessage.putExtra ( "contenu",name_user + " " + user_prenom + " :  vous avez reagis a mon post : " + finalCommentaire +" pouvons nous en parler d'avantage ?");
-
+                context.startActivity ( gotoMessage );
 
             }
         } );
