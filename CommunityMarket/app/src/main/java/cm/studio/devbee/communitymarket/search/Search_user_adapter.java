@@ -8,6 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +26,7 @@ import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cm.studio.devbee.communitymarket.R;
@@ -31,8 +34,10 @@ import cm.studio.devbee.communitymarket.gridView_post.ModelGridView;
 import cm.studio.devbee.communitymarket.postActivity.SellActivityUser;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class Search_user_adapter extends FirestoreRecyclerAdapter<Seach_user_model,Search_user_adapter.ViewHolder> {
+public class Search_user_adapter extends RecyclerView.Adapter<Search_user_adapter.ViewHolder>implements Filterable {
     List<Seach_user_model> modelGridViewList;
+    List<Seach_user_model>modelGridViewListTwoFiltered;
+
     Context context;
     String current_user_id;
     private FirebaseFirestore firebaseFirestore;
@@ -44,23 +49,43 @@ public class Search_user_adapter extends FirestoreRecyclerAdapter<Seach_user_mod
     private String image_profil;
     private String id_utilisateur;
 
-    public Search_user_adapter(@NonNull FirestoreRecyclerOptions<Seach_user_model> options,Context context) {
-        super ( options );
-        this.context=context;
+
+    public Search_user_adapter(List<Seach_user_model> modelGridViewList, Context context) {
+        this.modelGridViewList = modelGridViewList;
+        this.context = context;
+        this.modelGridViewListTwoFiltered = modelGridViewList;
+
+    }
+
+    public Search_user_adapter(List<Seach_user_model> modelGridViewList, Context context, String prenom) {
+        this.modelGridViewList = modelGridViewList;
+        this.context = context;
+        this.prenom = prenom;
+        this.modelGridViewListTwoFiltered = modelGridViewList;
+
+    }
+    @NonNull
+    @Override
+    public Search_user_adapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        firebaseFirestore=FirebaseFirestore.getInstance();
+        firebaseAuth=FirebaseAuth.getInstance();
+        current_user_id=firebaseAuth.getCurrentUser ().getUid ();
+        View v=LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_user_layout,viewGroup,false);
+        return new ViewHolder ( v );
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull final Search_user_adapter.ViewHolder viewHolder, int position, @NonNull Seach_user_model model) {
+    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
         firebaseFirestore.collection ( "mes donnees utilisateur" ).document ( current_user_id ).get ().addOnCompleteListener ( new OnCompleteListener<DocumentSnapshot> () {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.getResult ().exists ()){
-                     residence= task.getResult ().getString ( "user_residence" );
-                     nom_user = task.getResult ().getString ("user_name");
-                     prenom = task.getResult ().getString ("user_prenom");
-                     description = task.getResult ().getString ("user_mail");
-                     image_profil = task.getResult ().getString ("user_profil_image");
-                     id_utilisateur = task.getResult ().getString ("id_utilisateur");
+                    residence= task.getResult ().getString ( "user_residence" );
+                    nom_user = task.getResult ().getString ("user_name");
+                    prenom = task.getResult ().getString ("user_prenom");
+                    description = task.getResult ().getString ("user_mail");
+                    image_profil = task.getResult ().getString ("user_profil_image");
+                    id_utilisateur = task.getResult ().getString ("id_utilisateur");
                     viewHolder.user_description.setText ( description );
                     viewHolder.user_location.setText ( residence );
                     viewHolder.user_name.setText ( nom_user +" " + prenom );
@@ -79,15 +104,41 @@ public class Search_user_adapter extends FirestoreRecyclerAdapter<Seach_user_mod
 
     }
 
-    @NonNull
+
     @Override
-    public Search_user_adapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        firebaseFirestore=FirebaseFirestore.getInstance();
-        firebaseAuth=FirebaseAuth.getInstance();
-        current_user_id=firebaseAuth.getCurrentUser ().getUid ();
-        View v=LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_user_layout,viewGroup,false);
-        return new ViewHolder ( v );
+    public int getItemCount() {
+        return modelGridViewListTwoFiltered.size ();
     }
+    @Override
+    public Filter getFilter() {
+        return new Filter () {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                String key =constraint.toString ();
+                if (key.isEmpty ()){
+                    modelGridViewListTwoFiltered=modelGridViewList;
+                }else {
+                    List<Seach_user_model> isfiltered = new ArrayList<> (  );
+                    for (Seach_user_model row : modelGridViewList){
+                        if (row.getUser_name ().toLowerCase ().contains ( key.toLowerCase () )){
+                            isfiltered.add ( row );
+                        }
+                    }
+                    modelGridViewListTwoFiltered=isfiltered;
+                }
+                FilterResults filterResults = new FilterResults ();
+                filterResults.values=modelGridViewListTwoFiltered;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                modelGridViewListTwoFiltered= (List<Seach_user_model>)results.values;
+                notifyDataSetChanged ();
+            }
+        };
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder{
         CircleImageView parametre_image;
         TextView user_name;
