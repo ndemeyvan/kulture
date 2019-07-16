@@ -225,6 +225,8 @@ public class ChoiceActivity extends AppCompatActivity {
                                 donnees_utilisateur.put ( "search",user.getDisplayName().toLowerCase());
                                 donnees_utilisateur.put ( "message","lu" );
                                 donnees_utilisateur.put ( "derniere_conection",randomKey);
+                                donnees_utilisateur.put ( "has_notification","false");
+
                                 firebaseFirestore.collection ( "mes donnees utilisateur" ).document ( user.getUid()).set ( donnees_utilisateur ).addOnCompleteListener ( ChoiceActivity.this,new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
@@ -373,6 +375,7 @@ public class ChoiceActivity extends AppCompatActivity {
                                         donnees_utilisateur.put ( "search",personFamilyName);
                                         donnees_utilisateur.put ( "message","lu" );
                                         donnees_utilisateur.put ( "derniere_conection",randomKey);
+                                        donnees_utilisateur.put ( "has_notification","false");
                                         firebaseFirestore.collection ( "mes donnees utilisateur" ).document ( personId).set ( donnees_utilisateur ).addOnCompleteListener ( ChoiceActivity.this,new OnCompleteListener<Void>() {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {

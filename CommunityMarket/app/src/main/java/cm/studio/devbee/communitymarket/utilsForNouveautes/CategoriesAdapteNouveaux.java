@@ -116,66 +116,12 @@ public class  CategoriesAdapteNouveaux extends FirestoreRecyclerAdapter<Categori
                 }
             }
         });
-        firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "nouveaux" ).document (idDuPost).collection ( "likes" ).addSnapshotListener ( (Activity) context,new EventListener<QuerySnapshot> () {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                if (!queryDocumentSnapshots.isEmpty ()){
-                    int i=queryDocumentSnapshots.size ();
-                    viewHolder.likexa ( i );
 
-                }else{
-                    viewHolder.likexa ( 0 );
-                }
-            }
-        } );
 
-        firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "nouveaux" ).document (idDuPost).collection ( "likes" ).document (current_user).addSnapshotListener ( (Activity) context,new EventListener<DocumentSnapshot> () {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                if (documentSnapshot.exists ()){
-                    viewHolder.like.setImageDrawable ( context.getDrawable ( R.mipmap.ic_like_accent ));
-                }else {
-                    viewHolder.like.setImageDrawable ( context.getDrawable ( R.drawable.ic_like ));
 
-                }
-            }
-        } );
 
-        viewHolder.like.setOnClickListener ( new View.OnClickListener () {
-            @Override
-            public void onClick(View v) {
-                firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "nouveaux" ).document (idDuPost).collection ( "likes" ).document (current_user).get ().addOnCompleteListener ( (Activity) context,new OnCompleteListener<DocumentSnapshot> () {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (!task.getResult ().exists ()){
-                            Map<String,String>likesMaps=new HashMap<> (  );
-                            likesMaps.put ("lol" ,"lol" );
-                            firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "nouveaux" ).document (idDuPost).collection ( "likes" ).document (current_user).set ( likesMaps );
 
-                        }else {
-                            firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "nouveaux" ).document (idDuPost).collection ( "likes" ).document (current_user).delete ();
 
-                        }
-                    }
-                } );
-
-                firebaseFirestore.collection ( "publication" ).document ("categories").collection ( categorie ).document (idDuPost).collection ( "likes" ).document (current_user).get ().addOnCompleteListener ( (Activity) context,new OnCompleteListener<DocumentSnapshot> () {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (!task.getResult ().exists ()){
-                            Map<String,String>likesMaps=new HashMap<> (  );
-                            likesMaps.put ("lol" ,"lol" );
-                            firebaseFirestore.collection ( "publication" ).document ("categories").collection ( categorie).document (idDuPost).collection ( "likes" ).document (current_user).set ( likesMaps );
-
-                        }else {
-                            firebaseFirestore.collection ( "publication" ).document ("categories").collection ( categorie ).document (idDuPost).collection ( "likes" ).document (current_user).delete ();
-
-                        }
-                    }
-                } );
-
-            }
-        } );
     }
 
 

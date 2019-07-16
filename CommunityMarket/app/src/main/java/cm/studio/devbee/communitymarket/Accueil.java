@@ -199,32 +199,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
         myDialog = new Dialog (this);
         asyncTask=new AsyncTask();
         asyncTask.execute();
-        firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user_id).get ().addOnCompleteListener ( Accueil.this,new OnCompleteListener<DocumentSnapshot>() {
-            @SuppressLint("RestrictedApi")
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful ()){
-                    if (task.getResult ().exists ()){
-                        String pop_up= task.getResult ().getString ( "user_residence" );
-                        if (pop_up.equals ( "..." )){
-                            content_floating_action_btn.setVisibility(View.INVISIBLE);
-                            ShowPopup ();
-                        }else{
-                            ShowcaseConfig config = new ShowcaseConfig();
-                            MaterialShowcaseSequence sequence = new MaterialShowcaseSequence(Accueil.this, String.valueOf(1));
-                            sequence.setConfig(config);
-                            sequence.addSequenceItem(content_floating_action_btn, "Hello cliquez ici pour ajouter une vente. \" ok \" pour continuer", "ok");
-                            sequence.start();
-                        }
-                    }else {
 
-                    }
-                }else{
-
-
-                }
-            }
-        } );
 
         recup();
         vaTopost ();
@@ -387,6 +362,32 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
                                 if (task.getResult ().exists ()){
                                     String message= task.getResult ().getString ( "message" );
                                     myDialog.dismiss ();
+                                    firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user_id).get ().addOnCompleteListener ( Accueil.this,new OnCompleteListener<DocumentSnapshot>() {
+                                        @SuppressLint("RestrictedApi")
+                                        @Override
+                                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                            if (task.isSuccessful ()){
+                                                if (task.getResult ().exists ()){
+                                                    String pop_up= task.getResult ().getString ( "user_residence" );
+                                                    if (pop_up.equals ( "..." )){
+                                                        content_floating_action_btn.setVisibility(View.INVISIBLE);
+                                                        ShowPopup ();
+                                                    }else{
+                                                        ShowcaseConfig config = new ShowcaseConfig();
+                                                        MaterialShowcaseSequence sequence = new MaterialShowcaseSequence(Accueil.this, String.valueOf(1));
+                                                        sequence.setConfig(config);
+                                                        sequence.addSequenceItem(content_floating_action_btn, "Hello cliquez ici pour ajouter une vente. \" ok \" pour continuer", "ok");
+                                                        sequence.start();
+                                                    }
+                                                }else {
+
+                                                }
+                                            }else{
+
+
+                                            }
+                                        }
+                                    } );
                                     contenu = task.getResult ().getString ( "message_du_notifieur" );
                                     String notification = task.getResult().getString("has_notification");
                                     if (notification.equals("true")){

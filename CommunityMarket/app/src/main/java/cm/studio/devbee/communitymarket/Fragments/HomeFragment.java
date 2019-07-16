@@ -553,7 +553,7 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
     }
 
  public void nouveautes(){
-         Query firstQuery =notebookRef.orderBy ( "prix_du_produit",Query.Direction.ASCENDING );
+         Query firstQuery =notebookRef.orderBy ( "priority",Query.Direction.DESCENDING );
          FirestoreRecyclerOptions<PrincipalModel> options = new FirestoreRecyclerOptions.Builder<PrincipalModel>()
                  .setQuery(firstQuery, PrincipalModel.class)
                  .build();
@@ -601,7 +601,7 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
        a_charger = liste[i];
        String text = liste[i];
        textChausure.setText(  text.replaceAll("(?!^)([A-Z])", " $1").toUpperCase());
-        Query queryuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( a_charger ).orderBy ( "prix_du_produit",Query.Direction.ASCENDING );
+        Query queryuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( a_charger ).orderBy ( "priority",Query.Direction.DESCENDING );
         FirestoreRecyclerOptions<CategoriesModelNouveaux> options = new FirestoreRecyclerOptions.Builder<CategoriesModelNouveaux>()
                 .setQuery(queryuery, CategoriesModelNouveaux.class)
                 .build();
