@@ -64,7 +64,7 @@
                         android:layout_width="@dimen/new_profil_image_dimen"
                         android:layout_height="@dimen/new_profil_image_dimen"
                         android:layout_marginStart="8dp"
-                        android:layout_marginTop="70dp"
+                        android:layout_marginTop="@dimen/bottom_sheet_profil_top"
                         android:layout_marginEnd="8dp"
                         android:src="@drawable/boy"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -250,10 +250,9 @@
                     <View
                         android:id="@+id/view4"
                         android:layout_width="wrap_content"
-                        android:layout_height="0dp"
+                        android:layout_height="@dimen/bottom_shit_view_height"
                         android:layout_marginBottom="8dp"
                         android:background="@color/blanc"
-                        app:layout_constraintBottom_toTopOf="@+id/generalImageProfilUser"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -263,7 +262,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:layout_marginEnd="32dp"
+                        android:layout_marginEnd="@dimen/image_enplacement_new_profil_margin_start"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:srcCompat="@drawable/ic_close_bottom_sheet" />
@@ -272,7 +271,7 @@
                         android:id="@+id/ic_bottom_sheet_up"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="32dp"
+                        android:layout_marginStart="@dimen/image_enplacement_new_profil_margin_start"
                         android:layout_marginTop="16dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"

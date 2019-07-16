@@ -255,5 +255,7 @@
     <dimen name="nouveaute_card_width_height">240dp</dimen>
     <dimen name="nouveaut_image_height">110dp</dimen>
     <dimen name="profil_place_witdh">100dp</dimen>
+    <dimen name="bottom_sheet_profil_top">130dp</dimen>
+    <dimen name="bottom_shit_view_height">55dp</dimen>
 
 </resources>

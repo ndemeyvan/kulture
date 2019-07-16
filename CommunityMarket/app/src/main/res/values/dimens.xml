@@ -304,5 +304,8 @@
     <dimen name="nouveaute_text_price">14sp</dimen>
     <dimen name="profil_place_witdh">100dp</dimen>
 
+    <dimen name="bottom_sheet_profil_top">70dp</dimen>
+    <dimen name="bottom_shit_view_height">55dp</dimen>
+
 
 </resources>

@@ -255,6 +255,8 @@
     <dimen name="nouveaut_image_height">105dp</dimen>
     <dimen name="nouveaute_text_price">18sp</dimen>
     <dimen name="profil_place_witdh">130dp</dimen>
+    <dimen name="bottom_sheet_profil_top">135dp</dimen>
+    <dimen name="bottom_shit_view_height">55dp</dimen>
 
 
 </resources>
