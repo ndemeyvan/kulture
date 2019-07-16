@@ -73,7 +73,7 @@ public class NotificationAdapter extends FirestoreRecyclerAdapter<Model_notifica
         holder.temps_de_la_notification.setText(le_temps_de_la_notification);
         final String id_du_profil_qui_notifie = model.getId_de_utilisateur();
         String action =model.getAction();
-        String commentaire =model.getCommantaire();
+        String commentaire ="<< "+model.getCommantaire()+" >>";
         final String image_du_produit =model.getImage_du_produit();
         final String categories =model.getCategories ();
         final String id_du_post=model.getId_du_post ();
