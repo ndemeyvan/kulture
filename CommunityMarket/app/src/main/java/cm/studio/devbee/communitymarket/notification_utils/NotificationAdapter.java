@@ -49,6 +49,7 @@ public class NotificationAdapter extends FirestoreRecyclerAdapter<Model_notifica
     private String prixduproduit;
     private String name_user;
     private String user_prenom;
+    private String action_faite;
 
     public NotificationAdapter(@NonNull FirestoreRecyclerOptions<Model_notification> options,Context context) {
         super(options);
@@ -83,11 +84,13 @@ public class NotificationAdapter extends FirestoreRecyclerAdapter<Model_notifica
             holder.image_des_like.setVisibility(View.INVISIBLE);
             holder.text_des_likes.setVisibility(View.INVISIBLE);
             holder.text_des_commentaires.setText(commentaire);
+            action_faite=" vous avez commenté";
         }else{
             holder.image_des_like.setVisibility(View.VISIBLE);
             holder.image_des_commentaire.setVisibility(View.INVISIBLE);
             holder.text_des_commentaires.setVisibility(View.INVISIBLE);
             holder.text_des_likes.setVisibility(View.VISIBLE);
+            action_faite=" vous ajouter à vos favories";
             commentaire="";
         }
         firebaseFirestore.collection("mes donnees utilisateur").document(id_du_profil_qui_notifie).get().addOnCompleteListener((Activity) context,new OnCompleteListener<DocumentSnapshot>() {
@@ -187,7 +190,8 @@ public class NotificationAdapter extends FirestoreRecyclerAdapter<Model_notifica
                 gotoMessage.putExtra ( "id_recepteur",current_user );
                 gotoMessage.putExtra ( "viens_de_detail","vrai" );
                 gotoMessage.putExtra ( "viens_de_notification","vrai" );
-                gotoMessage.putExtra ( "contenu",name_user + " " + user_prenom + " :  vous avez reagis a mon post : " + finalCommentaire +" pouvons nous en parler d'avantage ?");
+                String mon_post_test="ma publication";
+                gotoMessage.putExtra ( "contenu",name_user + " " + user_prenom + " : "+action_faite+" "+" "+mon_post_test+" :"+  " " + finalCommentaire +" \npouvons nous en parler d'avantage ?");
                 context.startActivity ( gotoMessage );
 
             }
