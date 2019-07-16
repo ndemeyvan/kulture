@@ -62,6 +62,7 @@ public class NotificationAdapter extends FirestoreRecyclerAdapter<Model_notifica
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_notification,viewGroup,false);
         firebaseFirestore=FirebaseFirestore.getInstance();
         firebaseAuth=FirebaseAuth.getInstance();
+        current_user=firebaseAuth.getCurrentUser ().getUid ();
         return new ViewHolder(v);
     }
 
@@ -71,7 +72,7 @@ public class NotificationAdapter extends FirestoreRecyclerAdapter<Model_notifica
         holder.temps_de_la_notification.setText(le_temps_de_la_notification);
         final String id_du_profil_qui_notifie = model.getId_de_utilisateur();
         String action =model.getAction();
-        final String commentaire =model.getCommantaire();
+        String commentaire =model.getCommantaire();
         final String image_du_produit =model.getImage_du_produit();
         final String categories =model.getCategories ();
         final String id_du_post=model.getId_du_post ();
@@ -87,6 +88,7 @@ public class NotificationAdapter extends FirestoreRecyclerAdapter<Model_notifica
             holder.image_des_commentaire.setVisibility(View.INVISIBLE);
             holder.text_des_commentaires.setVisibility(View.INVISIBLE);
             holder.text_des_likes.setVisibility(View.VISIBLE);
+            commentaire="";
         }
         firebaseFirestore.collection("mes donnees utilisateur").document(id_du_profil_qui_notifie).get().addOnCompleteListener((Activity) context,new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -126,7 +128,6 @@ public class NotificationAdapter extends FirestoreRecyclerAdapter<Model_notifica
         holder.image_du_produit.setOnClickListener ( new View.OnClickListener () {
             @Override
             public void onClick(View v) {
-                current_user=firebaseAuth.getCurrentUser ().getUid ();
                 Intent intent = new Intent ( context,DetailActivityTwo.class );
                 intent.putExtra ( "id du post",id_du_post );
                 intent.putExtra ( "id de l'utilisateur",current_user );
@@ -135,6 +136,7 @@ public class NotificationAdapter extends FirestoreRecyclerAdapter<Model_notifica
             }
         } );
 
+        final String finalCommentaire = commentaire;
         holder.image_lancerç_la_reponse.setOnClickListener ( new View.OnClickListener () {
             @Override
             public void onClick(View v) {
@@ -147,11 +149,11 @@ public class NotificationAdapter extends FirestoreRecyclerAdapter<Model_notifica
 
                     }
                 } );
-
                 Map<String, String> donnees_utilisateur = new HashMap<> ();
                 donnees_utilisateur.put("image_en_vente", image_du_produit);
                 donnees_utilisateur.put("titre_produit", titreDuProduit);
                 donnees_utilisateur.put("prix_produit", prixduproduit);
+
                 firebaseFirestore.collection("sell_image").document(id_du_profil_qui_notifie).collection(current_user).document(current_user).set(donnees_utilisateur).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -185,7 +187,7 @@ public class NotificationAdapter extends FirestoreRecyclerAdapter<Model_notifica
                 gotoMessage.putExtra ( "id_recepteur",current_user );
                 gotoMessage.putExtra ( "viens_de_detail","vrai" );
                 gotoMessage.putExtra ( "viens_de_notification","vrai" );
-                gotoMessage.putExtra ( "contenu",name_user + " " + user_prenom + " :  vous avez reagis a mon post : " +commentaire +" pouvons nous en parler d'avantage ?");
+                gotoMessage.putExtra ( "contenu",name_user + " " + user_prenom + " :  vous avez reagis a mon post : " + finalCommentaire +" pouvons nous en parler d'avantage ?");
 
 
             }
