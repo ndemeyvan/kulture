@@ -134,7 +134,7 @@
     <dimen name="new_detail_top_name_date">16dp</dimen>
     <dimen name="new_detail_height_button">40dp</dimen>
     <dimen name="new_detail_desc_margin_top">16dp</dimen>
-    <dimen name="new_detail_desc_text_size">14sp</dimen>
+    <dimen name="new_detail_desc_text_size">15sp</dimen>
     <dimen name="new_detail_height_image">36dp</dimen>
     <dimen name="new_detail_add_button">60dp</dimen>
     <dimen name="new_detail_add_height">35dp</dimen>
@@ -245,7 +245,7 @@
     <dimen name="principal_item_desc_text_two">180dp</dimen>
     <dimen name="principal_temps_top_two">8dp</dimen>
     <dimen name="login_text_size">40sp</dimen>
-    <dimen name="login_start_end">105dp</dimen>
+    <dimen name="login_start_end">85dp</dimen>
     <dimen name="search_profil_start">8dp</dimen>
     <dimen name="nouveaute_test_desc">200dp</dimen>
     <dimen name="nouveaute_card_width_height">220dp</dimen>

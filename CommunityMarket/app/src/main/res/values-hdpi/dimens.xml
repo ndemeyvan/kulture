@@ -6,7 +6,7 @@
     <dimen name="nav_header_height">176dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <!-- a propos activity. -->
-    <dimen name="a_propos_margin_top">200dp</dimen>
+    <dimen name="a_propos_margin_top">160dp</dimen>
     <dimen name="a_propos_text_size">16sp</dimen>
     <dimen name="a_propos_contacter_nous">16sp</dimen>
     <dimen name="a_propos_nuttoon_padding">68dp</dimen>

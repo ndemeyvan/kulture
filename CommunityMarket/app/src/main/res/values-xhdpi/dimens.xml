@@ -6,7 +6,7 @@
     <dimen name="nav_header_height">176dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <!-- a propos activity. -->
-    <dimen name="a_propos_margin_top">200dp</dimen>
+    <dimen name="a_propos_margin_top">170dp</dimen>
     <dimen name="a_propos_text_size">20sp</dimen>
     <dimen name="a_propos_contacter_nous">18sp</dimen>
     <dimen name="a_propos_nuttoon_padding">68dp</dimen>
@@ -135,7 +135,7 @@
     <dimen name="new_detail_top_name_date">16dp</dimen>
     <dimen name="new_detail_height_button">40dp</dimen>
     <dimen name="new_detail_desc_margin_top">16dp</dimen>
-    <dimen name="new_detail_desc_text_size">13sp</dimen>
+    <dimen name="new_detail_desc_text_size">15sp</dimen>
     <dimen name="new_detail_height_image">36dp</dimen>
     <dimen name="new_detail_add_button">60dp</dimen>
     <dimen name="new_detail_add_height">30dp</dimen>
