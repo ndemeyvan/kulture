@@ -92,7 +92,7 @@ import static android.provider.ContactsContract.CommonDataKinds.Website.URL;
 
 public class PostActivityFinal extends AppCompatActivity implements RewardedVideoAdListener {
     private static  final int MAX_LENGTH =100;
-    private static Toolbar postfinaltoolbar;
+    private static Toolbar final_toolbar;
     private static EditText nomProduit;
     private static EditText descriptionProduit;
     private static EditText prixPorduit;
@@ -126,10 +126,10 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
         storageReference=FirebaseStorage.getInstance ().getReference ();
         firebaseFirestore=FirebaseFirestore.getInstance ();
         current_user_id=firebaseAuth.getCurrentUser ().getUid ();
-        postfinaltoolbar=findViewById ( R.id.final_toolbar );
-        setSupportActionBar(postfinaltoolbar);
+        final_toolbar=findViewById ( R.id.final_toolbar );
+        setSupportActionBar(final_toolbar);
         getSupportActionBar ().setDisplayHomeAsUpEnabled ( true );
-        postfinaltoolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        final_toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent gotopost = new Intent ( PostActivityFinal.this,PostActivity.class );
@@ -145,7 +145,6 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
         descriptionProduit=findViewById ( R.id.post_product_description );
         prixPorduit=findViewById ( R.id.post_production_prix );
         vendreButton=findViewById ( R.id.post_button );
-        setSupportActionBar ( postfinaltoolbar );
         categoryName=getIntent ().getExtras ().get ( "categoryName" ).toString ();
        // Toast.makeText ( getApplicationContext(),categoryName,Toast.LENGTH_LONG ).show ();
         ///////ads"ca-app-pub-3940256099942544~3347511713
@@ -184,7 +183,7 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         final ByteArrayInputStream inputStream = new ByteArrayInputStream (outputStream.toByteArray());
 
-        AnimationDrawable animationDrawableOne = (AnimationDrawable) postfinaltoolbar.getBackground();
+        AnimationDrawable animationDrawableOne = (AnimationDrawable) final_toolbar.getBackground();
         animationDrawableOne.setEnterFadeDuration(2000);
         animationDrawableOne.setExitFadeDuration(4000);
         animationDrawableOne.start();
@@ -605,7 +604,6 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
     @Override
     protected void onDestroy() {
             super.onDestroy();
-            postfinaltoolbar=null;;
             nomProduit=null;;
             descriptionProduit=null;;
             prixPorduit=null;;
