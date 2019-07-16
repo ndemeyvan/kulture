@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.AnimationDrawable;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -14,8 +15,14 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -120,5 +127,40 @@ public class VenteUtilisateurActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed ();
         finish ();
+    }
+
+    public void userstatus(final String status){
+        firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user_id).get ().addOnCompleteListener (VenteUtilisateurActivity.this, new OnCompleteListener<DocumentSnapshot> () {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (!task.isSuccessful ()){
+                    DocumentReference user = firebaseFirestore.collection("mes donnees utilisateur" ).document(current_user_id);
+                    user.update("status", status)
+                            .addOnSuccessListener(VenteUtilisateurActivity.this,new OnSuccessListener<Void> () {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                }
+                            })
+                            .addOnFailureListener(VenteUtilisateurActivity.this,new OnFailureListener () {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                }
+                            });
+                }
+            }
+        } );
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume ();
+        userstatus("online");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause ();
+        userstatus("offline");
+
     }
 }

@@ -135,12 +135,12 @@ public class SearchActivity extends AppCompatActivity {
     public void userstatus(String status){
         DocumentReference user = db.collection("mes donnees utilisateur" ).document(current_user);
         user.update("status", status)
-                .addOnSuccessListener(new OnSuccessListener<Void> () {
+                .addOnSuccessListener(SearchActivity.this,new OnSuccessListener<Void> () {
                     @Override
                     public void onSuccess(Void aVoid) {
                     }
                 })
-                .addOnFailureListener(new OnFailureListener() {
+                .addOnFailureListener(SearchActivity.this,new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                     }

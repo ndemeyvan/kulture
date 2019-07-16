@@ -112,7 +112,7 @@ public class NotificationAdapter extends FirestoreRecyclerAdapter<Model_notifica
             }
         });
 
-        firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user).collection ( "mes notification" ).document(id_du_post).get ().addOnCompleteListener ( new OnCompleteListener<DocumentSnapshot> () {
+        firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user).collection ( "mes notification" ).document(id_du_post).get ().addOnCompleteListener ( (Activity) context,new OnCompleteListener<DocumentSnapshot> () {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful ()){
@@ -145,7 +145,7 @@ public class NotificationAdapter extends FirestoreRecyclerAdapter<Model_notifica
             @Override
             public void onClick(View v) {
                 current_user=firebaseAuth.getCurrentUser ().getUid ();
-                firebaseFirestore.collection ( "publication" ).document ( "categories" ).collection ( "nouveaux" ).document ( id_du_post ).get ().addOnCompleteListener ( new OnCompleteListener<DocumentSnapshot> () {
+                firebaseFirestore.collection ( "publication" ).document ( "categories" ).collection ( "nouveaux" ).document ( id_du_post ).get ().addOnCompleteListener ( (Activity) context,new OnCompleteListener<DocumentSnapshot> () {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         titreDuProduit = task.getResult ().getString ( "nom_du_produit" );
@@ -158,13 +158,13 @@ public class NotificationAdapter extends FirestoreRecyclerAdapter<Model_notifica
                 donnees_utilisateur.put("titre_produit", titreDuProduit);
                 donnees_utilisateur.put("prix_produit", prixduproduit);
 
-                firebaseFirestore.collection("sell_image").document(id_du_profil_qui_notifie).collection(current_user).document(current_user).set(donnees_utilisateur).addOnCompleteListener(new OnCompleteListener<Void>() {
+                firebaseFirestore.collection("sell_image").document(id_du_profil_qui_notifie).collection(current_user).document(current_user).set(donnees_utilisateur).addOnCompleteListener((Activity) context,new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
 
                     }
                 });
-                firebaseFirestore.collection("sell_image").document(current_user).collection(id_du_profil_qui_notifie).document(current_user).set(donnees_utilisateur).addOnCompleteListener(new OnCompleteListener<Void>() {
+                firebaseFirestore.collection("sell_image").document(current_user).collection(id_du_profil_qui_notifie).document(current_user).set(donnees_utilisateur).addOnCompleteListener((Activity) context,new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
 
@@ -172,12 +172,12 @@ public class NotificationAdapter extends FirestoreRecyclerAdapter<Model_notifica
                 });
                 DocumentReference user = firebaseFirestore.collection("sell_image").document(id_du_profil_qui_notifie).collection(current_user).document(id_du_profil_qui_notifie);
                 user.update("image_en_vente", image_du_produit)
-                        .addOnSuccessListener(new OnSuccessListener<Void> () {
+                        .addOnSuccessListener((Activity) context,new OnSuccessListener<Void> () {
                             @Override
                             public void onSuccess(Void aVoid) {
                             }
                         })
-                        .addOnFailureListener(new OnFailureListener () {
+                        .addOnFailureListener((Activity) context,new OnFailureListener () {
                             @Override
                             public void onFailure(@NonNull Exception e) {
                             }

@@ -206,12 +206,12 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
 
         DocumentReference userTwo = firebaseFirestore.collection ( "mes donnees utilisateur" ).document (utilisateur_actuel).collection ( "mes notification" ).document(iddupost);
         userTwo.update("is_new_notification", "false")
-                .addOnSuccessListener(new OnSuccessListener<Void> () {
+                .addOnSuccessListener(DetailActivityTwo.this,new OnSuccessListener<Void> () {
                     @Override
                     public void onSuccess(Void aVoid) {
                     }
                 })
-                .addOnFailureListener(new OnFailureListener () {
+                .addOnFailureListener(DetailActivityTwo.this,new OnFailureListener () {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                     }
@@ -518,12 +518,12 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
 
                                         DocumentReference user = firebaseFirestore.collection("mes donnees utilisateur" ).document(current_user_id);
                                         user.update("has_notification", "true")
-                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                .addOnSuccessListener(DetailActivityTwo.this,new OnSuccessListener<Void>() {
                                                     @Override
                                                     public void onSuccess(Void aVoid) {
                                                     }
                                                 })
-                                                .addOnFailureListener(new OnFailureListener() {
+                                                .addOnFailureListener(DetailActivityTwo.this,new OnFailureListener() {
                                                     @Override
                                                     public void onFailure(@NonNull Exception e) {
                                                     }
@@ -771,7 +771,7 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
                                         public void onSuccess(Void aVoid) {
                                         }
                                     })
-                                    .addOnFailureListener(new OnFailureListener() {
+                                    .addOnFailureListener(DetailActivityTwo.this,new OnFailureListener() {
                                         @Override
                                         public void onFailure(@NonNull Exception e) {
                                         }
@@ -827,13 +827,13 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
                 donnees_utilisateur.put("image_en_vente", lien_image);
                 donnees_utilisateur.put("titre_produit", titre_produit);
                 donnees_utilisateur.put("prix_produit", prix_produit);
-                firebaseFirestore.collection("sell_image").document(current_user_id).collection(utilisateur_actuel).document(current_user_id).set(donnees_utilisateur).addOnCompleteListener(new OnCompleteListener<Void>() {
+                firebaseFirestore.collection("sell_image").document(current_user_id).collection(utilisateur_actuel).document(current_user_id).set(donnees_utilisateur).addOnCompleteListener(DetailActivityTwo.this,new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
 
                     }
                 });
-                firebaseFirestore.collection("sell_image").document(utilisateur_actuel).collection(current_user_id).document(utilisateur_actuel).set(donnees_utilisateur).addOnCompleteListener(new OnCompleteListener<Void>() {
+                firebaseFirestore.collection("sell_image").document(utilisateur_actuel).collection(current_user_id).document(utilisateur_actuel).set(donnees_utilisateur).addOnCompleteListener(DetailActivityTwo.this,new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
 
@@ -841,12 +841,12 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
                 });
                 DocumentReference user = firebaseFirestore.collection("sell_image").document(current_user_id).collection(utilisateur_actuel).document(current_user_id);
                 user.update("image_en_vente", lien_image)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        .addOnSuccessListener(DetailActivityTwo.this,new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
                             }
                         })
-                        .addOnFailureListener(new OnFailureListener() {
+                        .addOnFailureListener(DetailActivityTwo.this,new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
                             }
@@ -958,12 +958,12 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
 
                             DocumentReference user = firebaseFirestore.collection("mes donnees utilisateur" ).document(current_user_id);
                             user.update("has_notification", "true")
-                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    .addOnSuccessListener(DetailActivityTwo.this,new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
                                         }
                                     })
-                                    .addOnFailureListener(new OnFailureListener() {
+                                    .addOnFailureListener(DetailActivityTwo.this,new OnFailureListener() {
                                         @Override
                                         public void onFailure(@NonNull Exception e) {
                                         }
@@ -1016,12 +1016,12 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
     public void userstatus(String status){
         DocumentReference user = firebaseFirestore.collection("mes donnees utilisateur" ).document(current_user_id);
         user.update("status", status)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                .addOnSuccessListener(this,new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                     }
                 })
-                .addOnFailureListener(new OnFailureListener() {
+                .addOnFailureListener(this,new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                     }});

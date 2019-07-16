@@ -827,13 +827,13 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
                                     donnees_utilisateur.put("image_en_vente", lien_image);
                                     donnees_utilisateur.put("titre_produit", titre_produit);
                                     donnees_utilisateur.put("prix_produit", prix_produit);
-                                    firebaseFirestore.collection("sell_image").document(current_user_id).collection(utilisateur_actuel).document(current_user_id).set(donnees_utilisateur).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    firebaseFirestore.collection("sell_image").document(current_user_id).collection(utilisateur_actuel).document(current_user_id).set(donnees_utilisateur).addOnCompleteListener(DetailActivity.this,new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
 
                                         }
                                     });
-                                    firebaseFirestore.collection("sell_image").document(utilisateur_actuel).collection(current_user_id).document(utilisateur_actuel).set(donnees_utilisateur).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    firebaseFirestore.collection("sell_image").document(utilisateur_actuel).collection(current_user_id).document(utilisateur_actuel).set(donnees_utilisateur).addOnCompleteListener(DetailActivity.this,new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
 
@@ -841,12 +841,12 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
                                     });
                                     DocumentReference user = firebaseFirestore.collection("sell_image").document(current_user_id).collection(utilisateur_actuel).document(current_user_id);
                                     user.update("image_en_vente", lien_image)
-                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            .addOnSuccessListener(DetailActivity.this,new OnSuccessListener<Void>() {
                                                 @Override
                                                 public void onSuccess(Void aVoid) {
                                                 }
                                             })
-                                            .addOnFailureListener(new OnFailureListener() {
+                                            .addOnFailureListener(DetailActivity.this,new OnFailureListener() {
                                                 @Override
                                                 public void onFailure(@NonNull Exception e) {
                                                 }
@@ -915,12 +915,12 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
                 });
                 DocumentReference user = firebaseFirestore.collection("sell_image").document(current_user_id).collection(utilisateur_actuel).document(current_user_id);
                 user.update("image_en_vente", lien_image)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        .addOnSuccessListener(DetailActivity.this,new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
                             }
                         })
-                        .addOnFailureListener(new OnFailureListener() {
+                        .addOnFailureListener(DetailActivity.this,new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
                             }
@@ -942,12 +942,12 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
     public void userstatus(String status) {
         DocumentReference user = firebaseFirestore.collection ( "mes donnees utilisateur" ).document ( current_user_id );
         user.update ( "status", status )
-                .addOnSuccessListener ( new OnSuccessListener<Void> () {
+                .addOnSuccessListener ( DetailActivity.this,new OnSuccessListener<Void> () {
                     @Override
                     public void onSuccess(Void aVoid) {
                     }
                 } )
-                .addOnFailureListener ( new OnFailureListener () {
+                .addOnFailureListener (DetailActivity.this, new OnFailureListener () {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                     }

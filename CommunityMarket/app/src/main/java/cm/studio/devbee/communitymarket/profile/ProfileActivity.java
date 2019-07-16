@@ -16,8 +16,11 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -231,6 +234,41 @@ public class ProfileActivity extends AppCompatActivity {
         profilImage=null;
         progressBar=null;
         profil_toolbar=null;
+
+    }
+
+    public void userstatus(final String status){
+        firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user_id).get ().addOnCompleteListener (ProfileActivity.this, new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (!task.isSuccessful ()){
+                    DocumentReference user = firebaseFirestore.collection("mes donnees utilisateur" ).document(current_user_id);
+                    user.update("status", status)
+                            .addOnSuccessListener(new OnSuccessListener<Void> () {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener () {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                }
+                            });
+                }
+            }
+        } );
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume ();
+        userstatus("online");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause ();
+        userstatus("offline");
 
     }
 }

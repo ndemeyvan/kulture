@@ -174,12 +174,12 @@ public class MessageActivity extends AppCompatActivity {
                     sendmessage (current_user,user_id_message,message);
                     DocumentReference user = firebaseFirestore.collection("mes donnees utilisateur" ).document(user_id_message);
                     user.update("message_du_notifieur", message)
-                            .addOnSuccessListener(new OnSuccessListener<Void> () {
+                            .addOnSuccessListener(MessageActivity.this,new OnSuccessListener<Void> () {
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                 }
                             })
-                            .addOnFailureListener(new OnFailureListener() {
+                            .addOnFailureListener(MessageActivity.this,new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
                                 }
@@ -245,18 +245,18 @@ public class MessageActivity extends AppCompatActivity {
         String randomKey=saveCurrentDate;
         DocumentReference user = firebaseFirestore.collection("mes donnees utilisateur" ).document(current_user);
         user.update("derniere_conection", randomKey)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                .addOnSuccessListener(this,new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                     }
                 })
-                .addOnFailureListener(new OnFailureListener() {
+                .addOnFailureListener(this,new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                     }
                 });
 
-        firebaseFirestore.collection ( "sell_image" ).document ( user_id_message ).collection ( current_user ).document (user_id_message).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        firebaseFirestore.collection ( "sell_image" ).document ( user_id_message ).collection ( current_user ).document (user_id_message).get().addOnCompleteListener(this,new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()){
@@ -272,7 +272,7 @@ public class MessageActivity extends AppCompatActivity {
             }
         });
 
-        firebaseFirestore.collection ( "sell_image" ).document ( current_user ).collection ( user_id_message ).document (current_user).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        firebaseFirestore.collection ( "sell_image" ).document ( current_user ).collection ( user_id_message ).document (current_user).get().addOnCompleteListener(this,new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()){
@@ -342,12 +342,12 @@ public class MessageActivity extends AppCompatActivity {
     public void userstatus(String status){
         DocumentReference user = firebaseFirestore.collection("mes donnees utilisateur" ).document(current_user);
         user.update("status", status)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                .addOnSuccessListener(this,new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                     }
                 })
-                .addOnFailureListener(new OnFailureListener() {
+                .addOnFailureListener(this,new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                     }
@@ -371,12 +371,12 @@ public class MessageActivity extends AppCompatActivity {
         String randomKey=saveCurrentDate;
         DocumentReference user = firebaseFirestore.collection("mes donnees utilisateur" ).document(current_user);
         user.update("derniere_conection", randomKey)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                .addOnSuccessListener(this,new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                     }
                 })
-                .addOnFailureListener(new OnFailureListener() {
+                .addOnFailureListener(this,new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                     }
@@ -393,12 +393,12 @@ public class MessageActivity extends AppCompatActivity {
         String randomKey=saveCurrentDate;
         DocumentReference user = firebaseFirestore.collection("mes donnees utilisateur" ).document(current_user);
         user.update("derniere_conection", randomKey)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                .addOnSuccessListener(this,new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                     }
                 })
-                .addOnFailureListener(new OnFailureListener() {
+                .addOnFailureListener(this,new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                     }
@@ -465,12 +465,12 @@ public class MessageActivity extends AppCompatActivity {
         ///////////////////////////////////////////////////
         DocumentReference read_or_not = firebaseFirestore.collection("dernier_message" ).document (recepteur).collection("contacts").document (expediteur);
         read_or_not.update("lu", "non lu")
-                .addOnSuccessListener(new OnSuccessListener<Void> () {
+                .addOnSuccessListener(this,new OnSuccessListener<Void> () {
                     @Override
                     public void onSuccess(Void aVoid) {
                     }
                 })
-                .addOnFailureListener(new OnFailureListener() {
+                .addOnFailureListener(this,new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                     }
@@ -478,12 +478,12 @@ public class MessageActivity extends AppCompatActivity {
 
         DocumentReference read_or_not_two = firebaseFirestore.collection("dernier_message" ).document (expediteur).collection("contacts").document (recepteur);
         read_or_not_two.update("lu", "lu")
-                .addOnSuccessListener(new OnSuccessListener<Void> () {
+                .addOnSuccessListener(this,new OnSuccessListener<Void> () {
                     @Override
                     public void onSuccess(Void aVoid) {
                     }
                 })
-                .addOnFailureListener(new OnFailureListener() {
+                .addOnFailureListener(this,new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                     }
@@ -491,23 +491,23 @@ public class MessageActivity extends AppCompatActivity {
 
         DocumentReference user = firebaseFirestore.collection("mes donnees utilisateur" ).document(recepteur);
         user.update("message", "non lu")
-                .addOnSuccessListener(new OnSuccessListener<Void> () {
+                .addOnSuccessListener(this,new OnSuccessListener<Void> () {
                     @Override
                     public void onSuccess(Void aVoid) {
                     }
                 })
-                .addOnFailureListener(new OnFailureListener() {
+                .addOnFailureListener(this,new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                     }
                 });
         user.update("message_du_notifieur", "non lu")
-                .addOnSuccessListener(new OnSuccessListener<Void> () {
+                .addOnSuccessListener(this,new OnSuccessListener<Void> () {
                     @Override
                     public void onSuccess(Void aVoid) {
                     }
                 })
-                .addOnFailureListener(new OnFailureListener() {
+                .addOnFailureListener(this,new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                     }
@@ -569,12 +569,12 @@ public class MessageActivity extends AppCompatActivity {
 
             DocumentReference usertwo = firebaseFirestore.collection("dernier_message" ).document (current_user).collection("contacts").document (user_id_message);
             usertwo.update("lu", "lu")
-                    .addOnSuccessListener(new OnSuccessListener<Void> () {
+                    .addOnSuccessListener(this,new OnSuccessListener<Void> () {
                         @Override
                         public void onSuccess(Void aVoid) {
                         }
                     })
-                    .addOnFailureListener(new OnFailureListener() {
+                    .addOnFailureListener(this,new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                         }
@@ -582,12 +582,12 @@ public class MessageActivity extends AppCompatActivity {
         }else{
             DocumentReference usertwo = firebaseFirestore.collection("dernier_message" ).document (current_user).collection("contacts").document (user_id_message);
             usertwo.update("lu", "lu")
-                    .addOnSuccessListener(new OnSuccessListener<Void> () {
+                    .addOnSuccessListener(this,new OnSuccessListener<Void> () {
                         @Override
                         public void onSuccess(Void aVoid) {
                         }
                     })
-                    .addOnFailureListener(new OnFailureListener() {
+                    .addOnFailureListener(this,new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                         }

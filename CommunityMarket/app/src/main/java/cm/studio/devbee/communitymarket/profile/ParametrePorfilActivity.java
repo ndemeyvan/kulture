@@ -356,12 +356,12 @@ public class ParametrePorfilActivity extends AppCompatActivity {
                 if (!task.isSuccessful ()){
                     DocumentReference user = firebaseFirestore.collection("mes donnees utilisateur" ).document(current_user_id);
                     user.update("status", status)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            .addOnSuccessListener(ParametrePorfilActivity.this,new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                 }
                             })
-                            .addOnFailureListener(new OnFailureListener() {
+                            .addOnFailureListener(ParametrePorfilActivity.this,new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
                                 }
@@ -374,32 +374,14 @@ public class ParametrePorfilActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume ();
-        firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user_id).get ().addOnCompleteListener ( ParametrePorfilActivity.this,new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (!task.isSuccessful ()){
-
-                }else {
-                    userstatus("online");
-                }
-            }
-        } );
-
+        userstatus("online");
     }
 
     @Override
     protected void onPause() {
         super.onPause ();
-        firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user_id).get ().addOnCompleteListener ( ParametrePorfilActivity.this,new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (!task.isSuccessful ()){
+        userstatus("offline");
 
-                }else {
-                    userstatus("offline");
-                }
-            }
-        } );
     }
 
 

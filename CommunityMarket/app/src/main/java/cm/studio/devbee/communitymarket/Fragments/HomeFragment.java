@@ -155,7 +155,7 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
         mAdView.setAdListener(new AdListener() {
             @Override
             public void onAdLoaded() {
-                Toast.makeText(getApplicationContext(),  "appuyer sur la banniere publictaire pour encourager l'application" ,Toast.LENGTH_LONG).show();
+               // Toast.makeText(getApplicationContext(),  "appuyer sur la banniere publictaire pour encourager l'application" ,Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -165,7 +165,7 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
 
             @Override
             public void onAdOpened() {
-                Toast.makeText(getApplicationContext(),"merci pour votre soutient",Toast.LENGTH_LONG).show();
+               // Toast.makeText(getApplicationContext(),"merci pour votre soutient",Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -253,7 +253,7 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
                     viewFlipper.setInAnimation(getActivity(),android.R.anim.slide_in_left);
                     content_progresbar.setVisibility ( View.INVISIBLE );
                     //image_one
-                    firebaseFirestore.collection("slider_home_one").document("imageOne").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    firebaseFirestore.collection("slider_home_one").document("imageOne").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             if (task.isSuccessful()){
@@ -286,7 +286,7 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
                     });
 
                     //image_two
-                    firebaseFirestore.collection("slider_home_one").document("imageTwo").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    firebaseFirestore.collection("slider_home_one").document("imageTwo").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             if (task.isSuccessful()){
@@ -319,7 +319,7 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
                     });
 
                     //image_three
-                    firebaseFirestore.collection("slider_home_one").document("imageThree").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    firebaseFirestore.collection("slider_home_one").document("imageThree").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             if (task.isSuccessful()){
@@ -352,7 +352,7 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
                     });
 
                     //image_four
-                    firebaseFirestore.collection("slider_home_one").document("imageFour").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    firebaseFirestore.collection("slider_home_one").document("imageFour").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             if (task.isSuccessful()){

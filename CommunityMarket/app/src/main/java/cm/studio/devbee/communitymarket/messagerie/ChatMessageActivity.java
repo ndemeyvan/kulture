@@ -149,7 +149,7 @@ public class ChatMessageActivity extends AppCompatActivity {
     public void userstatus(String status){
         DocumentReference user = firebaseFirestore.collection("mes donnees utilisateur" ).document(current_user);
         user.update("status", status)
-                .addOnSuccessListener(new OnSuccessListener<Void> () {
+                .addOnSuccessListener(this,new OnSuccessListener<Void> () {
                     @Override
                     public void onSuccess(Void aVoid) {
                     }
@@ -162,7 +162,7 @@ public class ChatMessageActivity extends AppCompatActivity {
 
         DocumentReference link = firebaseFirestore.collection("mes donnees utilisateur" ).document(current_user);
         link.update("message", "lu")
-                .addOnSuccessListener(new OnSuccessListener<Void> () {
+                .addOnSuccessListener(this,new OnSuccessListener<Void> () {
                     @Override
                     public void onSuccess(Void aVoid) {
                     }

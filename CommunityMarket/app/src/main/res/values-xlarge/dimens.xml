@@ -268,6 +268,9 @@
     <dimen name="bottom_sheet_profil_top">170dp</dimen>
 
     <dimen name="bottom_shit_view_height">55dp</dimen>
-
+    <dimen name="card_widht">300dp</dimen>
+    <dimen name="card_text_exit_top">32dp</dimen>
+    <dimen name="card_start">40dp</dimen>
+    <dimen name="card_top_button">8dp</dimen>
 
 </resources>

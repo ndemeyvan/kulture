@@ -477,12 +477,12 @@ public class  DetailActivityFour extends AppCompatActivity {
     public void userstatus(String status){
         DocumentReference user = firebaseFirestore.collection("mes donnees utilisateur" ).document(utilisateur_actuel);
         user.update("status", status)
-                .addOnSuccessListener(new OnSuccessListener<Void> () {
+                .addOnSuccessListener(DetailActivityFour.this,new OnSuccessListener<Void> () {
                     @Override
                     public void onSuccess(Void aVoid) {
                     }
                 })
-                .addOnFailureListener(new OnFailureListener () {
+                .addOnFailureListener(DetailActivityFour.this,new OnFailureListener () {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                     }

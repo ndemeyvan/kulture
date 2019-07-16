@@ -52,12 +52,12 @@ public class NotificationActivity extends AppCompatActivity {
         });
         DocumentReference user = firebaseFirestore.collection("mes donnees utilisateur" ).document(current_user_id);
         user.update("has_notification", "false")
-                .addOnSuccessListener(new OnSuccessListener<Void> () {
+                .addOnSuccessListener(NotificationActivity.this,new OnSuccessListener<Void> () {
                     @Override
                     public void onSuccess(Void aVoid) {
                     }
                 })
-                .addOnFailureListener(new OnFailureListener () {
+                .addOnFailureListener(NotificationActivity.this,new OnFailureListener () {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                     }

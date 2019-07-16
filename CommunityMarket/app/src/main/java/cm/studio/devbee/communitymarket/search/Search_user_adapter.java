@@ -1,5 +1,6 @@
 package cm.studio.devbee.communitymarket.search;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -80,7 +81,7 @@ public class Search_user_adapter extends RecyclerView.Adapter<Search_user_adapte
         prenom=modelGridViewListTwoFiltered.get ( i ).getUser_prenom ();
         final String id =modelGridViewListTwoFiltered.get ( i ).getId_utilisateur ();
         viewHolder.user_name.setText ( nom_user +" " + prenom );
-        firebaseFirestore.collection ( "mes donnees utilisateur" ).document ( id ).get ().addOnCompleteListener ( new OnCompleteListener<DocumentSnapshot> () {
+        firebaseFirestore.collection ( "mes donnees utilisateur" ).document ( id ).get ().addOnCompleteListener ( (Activity)context,new OnCompleteListener<DocumentSnapshot> () {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.getResult ().exists ()){
