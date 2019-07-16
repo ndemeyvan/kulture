@@ -102,6 +102,7 @@ public class MessageActivity extends AppCompatActivity {
     private String lien_du_produit;
     private String viens_de_notification;
     private String contenu;
+    private String iddupost;
 
 
     @Override
@@ -121,6 +122,7 @@ public class MessageActivity extends AppCompatActivity {
         image_de_fond=findViewById(R.id.image_de_fond);
         firebaseFirestore=FirebaseFirestore.getInstance();
         current_user=firebaseAuth.getCurrentUser ().getUid ();
+        iddupost =getIntent().getExtras().getString("id du post");
         user_id_message=intent.getStringExtra ( "id de l'utilisateur" );
         lien_image=intent.getStringExtra ( "image_en_vente" );
         id_recepteur=intent.getStringExtra ( "id_recepteur" );
@@ -304,7 +306,18 @@ public class MessageActivity extends AppCompatActivity {
         animationDrawableOne.start();
         stopService(new Intent(MessageActivity.this,MyFirebaseMessagingService.class));
 
-
+        DocumentReference userTwo = firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user).collection ( "mes notification" ).document(iddupost);
+        userTwo.update("is_new_notification", "false")
+                .addOnSuccessListener(new OnSuccessListener<Void> () {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener () {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                    }
+                });
     }
 
     private void sendNotification(JSONObject notification) {
