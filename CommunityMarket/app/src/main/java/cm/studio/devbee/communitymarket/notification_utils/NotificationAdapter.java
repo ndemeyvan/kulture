@@ -90,7 +90,7 @@ public class NotificationAdapter extends FirestoreRecyclerAdapter<Model_notifica
             holder.image_des_commentaire.setVisibility(View.INVISIBLE);
             holder.text_des_commentaires.setVisibility(View.INVISIBLE);
             holder.text_des_likes.setVisibility(View.VISIBLE);
-            action_faite=" vous ajouter à vos favories";
+            action_faite=" vous avez ajouter à vos favories";
             commentaire="";
         }
         firebaseFirestore.collection("mes donnees utilisateur").document(id_du_profil_qui_notifie).get().addOnCompleteListener((Activity) context,new OnCompleteListener<DocumentSnapshot>() {
