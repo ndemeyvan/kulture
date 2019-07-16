@@ -122,7 +122,7 @@ public class Search_user_adapter extends RecyclerView.Adapter<Search_user_adapte
                 }else {
                     List<Seach_user_model> isfiltered = new ArrayList<> (  );
                     for (Seach_user_model row : modelGridViewList){
-                        if (row.getUser_name ().toLowerCase ().contains ( key.toLowerCase () )){
+                        if (row.getUser_name ().toLowerCase ().contains ( key.toLowerCase () )||row.getUser_prenom ().toLowerCase ().contains ( key.toLowerCase () )){
                             isfiltered.add ( row );
                         }
                     }
