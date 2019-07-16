@@ -100,6 +100,8 @@ public class MessageActivity extends AppCompatActivity {
     private String lien_image_profil;
     private String image_du_produit;
     private String lien_du_produit;
+    private String viens_de_notification;
+    private String contenu;
 
 
     @Override
@@ -123,7 +125,9 @@ public class MessageActivity extends AppCompatActivity {
         lien_image=intent.getStringExtra ( "image_en_vente" );
         id_recepteur=intent.getStringExtra ( "id_recepteur" );
         viens_detail=getIntent ().getStringExtra ( "viens_de_detail" );
-        send_button=findViewById ( R.id.imageButton_to_send );
+        viens_de_notification=getIntent ().getStringExtra ( "viens_de_notification" );
+        contenu=getIntent ().getStringExtra ( "contenu" );
+        send_button=findViewById ( R.id.image_lancerç_la_reponse );
         message_user_send=findViewById ( R.id.user_message_to_send );
         message_recyclerview=findViewById ( R.id.message_recyclerView );
         image_de_discutions=findViewById ( R.id.image_de_discutions );
@@ -136,6 +140,9 @@ public class MessageActivity extends AppCompatActivity {
         nomEtImageProfil ();
         online_status=findViewById ( R.id.online_status_image );
         offline_status=findViewById ( R.id.offline_status_image );
+        if (viens_de_notification.equals ( "vrai" )){
+            message_user_send.setText ( contenu );
+        }
         mesage_toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

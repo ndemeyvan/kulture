@@ -323,7 +323,7 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
                     ////////
                     Date date=new Date();
                     Calendar calendarOne=Calendar.getInstance ();
-                    SimpleDateFormat currentDateOne=new SimpleDateFormat (" dd MMM yyyy" );
+                    SimpleDateFormat currentDateOne=new SimpleDateFormat (" dd MMM yyyy hh:mm" );
                     String saveCurrentDateOne=currentDateOne.format ( calendarOne.getTime () );
                     String randomKey=saveCurrentDateOne;
                     final Map <String,Object> notification_map = new HashMap ();
@@ -338,6 +338,7 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
                     notification_map.put("post_id",iddupost);
                     notification_map.put("action","commantaire");
                     notification_map.put("commantaire",post_detail_comment.getText().toString());
+                    notification_map.put("is_new_notification","true");
 
                     /////
 
@@ -883,6 +884,8 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
                 gotoMessage.putExtra("image_en_vente", lien_image);
                 gotoMessage.putExtra ( "id_recepteur",current_user_id );
                 gotoMessage.putExtra ( "viens_de_detail","vrai" );
+                gotoMessage.putExtra ( "viens_de_notification","faux" );
+                gotoMessage.putExtra ( "contenu","" );
                 Map<String, String> donnees_utilisateur = new HashMap<>();
                 donnees_utilisateur.put("image_en_vente", lien_image);
                 donnees_utilisateur.put("titre_produit", titre_produit);
@@ -974,7 +977,7 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
                 SimpleDateFormat sdf= new SimpleDateFormat("d/MM/y H:mm:ss");
                 final String date_avec_seconde=sdf.format(date);
                 Calendar calendar=Calendar.getInstance ();
-                SimpleDateFormat currentDate=new SimpleDateFormat (" dd MMM yyyy" );
+                SimpleDateFormat currentDate=new SimpleDateFormat (" dd MMM yyyy hh:mm" );
                 String saveCurrentDate=currentDate.format ( calendar.getTime () );
                 String randomKey=saveCurrentDate;
                 final Map <String,Object> notification_map = new HashMap ();
@@ -989,7 +992,8 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
                 notification_map.put("post_id",iddupost);
                 notification_map.put("action","a liker");
                 notification_map.put("commantaire","");
-               /////
+                notification_map.put("is_new_notification","true");
+                /////
 
                 final Map <String,Object> user_post = new HashMap ();
                 user_post.put ( "nom_du_produit",titreDuProduit );

@@ -463,6 +463,8 @@ public class DetailActivityThree extends AppCompatActivity {
                 gotoMessage.putExtra("image_en_vente", lien_image);
                 gotoMessage.putExtra ( "id_recepteur",current_user_id );
                 gotoMessage.putExtra ( "viens_de_detail","vrai" );
+                gotoMessage.putExtra ( "viens_de_notification","faux" );
+                gotoMessage.putExtra ( "contenu","" );
                 Map<String, String> donnees_utilisateur = new HashMap<>();
                 donnees_utilisateur.put("image_en_vente", lien_image);
                 donnees_utilisateur.put("titre_produit", titre_produit);

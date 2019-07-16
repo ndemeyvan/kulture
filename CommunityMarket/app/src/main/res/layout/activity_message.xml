@@ -135,11 +135,11 @@
         android:textColor="@color/black"
         android:textColorHint="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton_to_send"
+        app:layout_constraintEnd_toStartOf="@+id/image_lancerç_la_reponse"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
-        android:id="@+id/imageButton_to_send"
+        android:id="@+id/image_lancerç_la_reponse"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginEnd="8dp"

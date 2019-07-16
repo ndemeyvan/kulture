@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,17 +18,26 @@ import android.widget.Toast;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import cm.studio.devbee.communitymarket.R;
+import cm.studio.devbee.communitymarket.messagerie.MessageActivity;
 import cm.studio.devbee.communitymarket.postActivity.DetailActivityTwo;
 import cm.studio.devbee.communitymarket.utilForChat.ModelChat;
 import de.hdodenhof.circleimageview.CircleImageView;
 import pl.droidsonroids.gif.GifImageView;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class NotificationAdapter extends FirestoreRecyclerAdapter<Model_notification,NotificationAdapter.ViewHolder> {
 
@@ -35,6 +45,8 @@ public class NotificationAdapter extends FirestoreRecyclerAdapter<Model_notifica
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
     private String current_user;
+    private String titreDuProduit;
+    private String prixduproduit;
 
     public NotificationAdapter(@NonNull FirestoreRecyclerOptions<Model_notification> options,Context context) {
         super(options);
@@ -55,10 +67,10 @@ public class NotificationAdapter extends FirestoreRecyclerAdapter<Model_notifica
     protected void onBindViewHolder(@NonNull final ViewHolder holder, int position, @NonNull Model_notification model) {
         String le_temps_de_la_notification = model.getDate_du_like();
         holder.temps_de_la_notification.setText(le_temps_de_la_notification);
-        String id_du_profil_qui_notifie = model.getId_de_utilisateur();
+        final String id_du_profil_qui_notifie = model.getId_de_utilisateur();
         String action =model.getAction();
-        String commentaire =model.getCommantaire();
-        String image_du_produit =model.getImage_du_produit();
+        final String commentaire =model.getCommantaire();
+        final String image_du_produit =model.getImage_du_produit();
         final String categories =model.getCategories ();
         final String id_du_post=model.getId_du_post ();
         Picasso.with(context).load(image_du_produit).into(holder.image_du_produit);
@@ -92,8 +104,24 @@ public class NotificationAdapter extends FirestoreRecyclerAdapter<Model_notifica
             }
         });
 
-        holder . notification_container . setAnimation ( AnimationUtils. loadAnimation (context, R.anim.fade_transition_animation));
-        holder.notification_container.setOnClickListener ( new View.OnClickListener () {
+        firebaseFirestore.collection ( "mes donnees utilisateur" ).document (id_du_profil_qui_notifie).collection ( "mes notification" ).document(id_du_post).get ().addOnCompleteListener ( new OnCompleteListener<DocumentSnapshot> () {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful ()){
+                    if (task.getResult ().exists ()){
+                        String is_new_notification = task.getResult ().getString ( "dd MMM yyyy hh:mm" );
+                        if (is_new_notification.equals ( "true" )){
+                            holder.notification_enable.setVisibility ( View.VISIBLE );
+                        }else{
+                            holder.notification_enable.setVisibility ( View.INVISIBLE );
+                        }
+                    }
+                }
+            }
+        } );
+
+        holder . image_du_produit . setAnimation ( AnimationUtils. loadAnimation (context, R.anim.fade_transition_animation));
+        holder.image_du_produit.setOnClickListener ( new View.OnClickListener () {
             @Override
             public void onClick(View v) {
                 current_user=firebaseAuth.getCurrentUser ().getUid ();
@@ -101,11 +129,64 @@ public class NotificationAdapter extends FirestoreRecyclerAdapter<Model_notifica
                 intent.putExtra ( "id du post",id_du_post );
                 intent.putExtra ( "id de l'utilisateur",current_user );
                 intent.putExtra ( "id_categories",categories );
-
-
-
-
                 context.startActivity ( intent );
+            }
+        } );
+
+        holder.image_lancerç_la_reponse.setOnClickListener ( new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+                current_user=firebaseAuth.getCurrentUser ().getUid ();
+                firebaseFirestore.collection ( "publication" ).document ( "categories" ).collection ( "nouveaux" ).document ( id_du_post ).get ().addOnCompleteListener ( new OnCompleteListener<DocumentSnapshot> () {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        titreDuProduit = task.getResult ().getString ( "nom_du_produit" );
+                        prixduproduit = task.getResult ().getString ( "prix_du_produit" );
+
+                    }
+                } );
+
+                Map<String, String> donnees_utilisateur = new HashMap<> ();
+                donnees_utilisateur.put("image_en_vente", image_du_produit);
+                donnees_utilisateur.put("titre_produit", titreDuProduit);
+                donnees_utilisateur.put("prix_produit", prixduproduit);
+                firebaseFirestore.collection("sell_image").document(id_du_profil_qui_notifie).collection(current_user).document(current_user).set(donnees_utilisateur).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+
+                    }
+                });
+                firebaseFirestore.collection("sell_image").document(current_user).collection(id_du_profil_qui_notifie).document(current_user).set(donnees_utilisateur).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+
+                    }
+                });
+                DocumentReference user = firebaseFirestore.collection("sell_image").document(id_du_profil_qui_notifie).collection(current_user).document(id_du_profil_qui_notifie);
+                user.update("image_en_vente", image_du_produit)
+                        .addOnSuccessListener(new OnSuccessListener<Void> () {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener () {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                            }
+                        });
+
+                Intent gotoMessage = new Intent(context, MessageActivity.class);
+                gotoMessage.putExtra("id du post", id_du_post);
+                gotoMessage.putExtra("id de l'utilisateur", id_du_profil_qui_notifie);
+                gotoMessage.putExtra("id_categories", categories);
+                gotoMessage.putExtra("image_en_vente", image_du_produit);
+                gotoMessage.putExtra ( "id_recepteur",current_user );
+                gotoMessage.putExtra ( "viens_de_detail","vrai" );
+
+                gotoMessage.putExtra ( "viens_de_notification","vrai" );
+                gotoMessage.putExtra ( "contenu",commentaire );
+
+
             }
         } );
     }
@@ -120,6 +201,8 @@ public class NotificationAdapter extends FirestoreRecyclerAdapter<Model_notifica
         TextView text_des_commentaires;
         TextView temps_de_la_notification;
         ConstraintLayout notification_container;
+        ImageButton image_lancerç_la_reponse;
+        CircleImageView notification_enable;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             image_du_produit=itemView.findViewById(R.id.image_du_produit);
@@ -131,6 +214,9 @@ public class NotificationAdapter extends FirestoreRecyclerAdapter<Model_notifica
             text_des_commentaires=itemView.findViewById(R.id.text_des_commentaires);
             temps_de_la_notification=itemView.findViewById(R.id.temps_de_la_notification);
             notification_container=itemView.findViewById ( R.id.notification_container );
+            image_lancerç_la_reponse=itemView.findViewById ( R.id.image_lancerç_la_reponse );
+            notification_enable=itemView.findViewById ( R.id.notification_enable );
+
 
         }
     }
