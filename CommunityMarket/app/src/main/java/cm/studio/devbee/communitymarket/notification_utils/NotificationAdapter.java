@@ -106,12 +106,12 @@ public class NotificationAdapter extends FirestoreRecyclerAdapter<Model_notifica
             }
         });
 
-        firebaseFirestore.collection ( "mes donnees utilisateur" ).document (id_du_profil_qui_notifie).collection ( "mes notification" ).document(id_du_post).get ().addOnCompleteListener ( new OnCompleteListener<DocumentSnapshot> () {
+        firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user).collection ( "mes notification" ).document(id_du_post).get ().addOnCompleteListener ( new OnCompleteListener<DocumentSnapshot> () {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful ()){
                     if (task.getResult ().exists ()){
-                        String is_new_notification = task.getResult ().getString ( "dd MMM yyyy hh:mm" );
+                        String is_new_notification = task.getResult ().getString ( "is_new_notification" );
                         if (is_new_notification.equals ( "true" )){
                             holder.notification_enable.setVisibility ( View.VISIBLE );
                         }else{
