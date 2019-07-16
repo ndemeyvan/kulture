@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -127,7 +128,7 @@ public class NotificationAdapter extends FirestoreRecyclerAdapter<Model_notifica
             }
         } );
 
-        holder . image_du_produit . setAnimation ( AnimationUtils. loadAnimation (context, R.anim.fade_transition_animation));
+        holder . cardview_nnotification . setAnimation ( AnimationUtils. loadAnimation (context, R.anim.fade_transition_animation));
         holder.image_du_produit.setOnClickListener ( new View.OnClickListener () {
             @Override
             public void onClick(View v) {
@@ -211,6 +212,7 @@ public class NotificationAdapter extends FirestoreRecyclerAdapter<Model_notifica
         TextView temps_de_la_notification;
         ConstraintLayout notification_container;
         ImageButton image_lancerç_la_reponse;
+        CardView cardview_nnotification;
         CircleImageView notification_enable;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -225,6 +227,7 @@ public class NotificationAdapter extends FirestoreRecyclerAdapter<Model_notifica
             notification_container=itemView.findViewById ( R.id.notification_container );
             image_lancerç_la_reponse=itemView.findViewById ( R.id.image_lancerç_la_reponse );
             notification_enable=itemView.findViewById ( R.id.notification_enable );
+            cardview_nnotification=itemView.findViewById ( R.id.cardview_nnotification );
 
 
         }

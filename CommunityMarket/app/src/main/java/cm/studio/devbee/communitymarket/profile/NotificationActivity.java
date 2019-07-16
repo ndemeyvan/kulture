@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -29,6 +30,7 @@ public class NotificationActivity extends AppCompatActivity {
     private static RecyclerView chaussuresRecyclerView;
     private static NotificationAdapter categoriesAdaptechaussures;
     private Toolbar detail_image_post_toolbar;
+    private ProgressBar notification_progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,7 @@ public class NotificationActivity extends AppCompatActivity {
         firebaseAuth=FirebaseAuth.getInstance();
         current_user_id=firebaseAuth.getCurrentUser().getUid();
         detail_image_post_toolbar=findViewById(R.id.toolbar_notification);
+        notification_progress=findViewById ( R.id.notification_progress );
         setSupportActionBar(detail_image_post_toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         detail_image_post_toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -80,6 +83,7 @@ public class NotificationActivity extends AppCompatActivity {
         chaussuresRecyclerView.setHasFixedSize(true);
         chaussuresRecyclerView.setLayoutManager(new LinearLayoutManager(NotificationActivity.this,LinearLayoutManager.VERTICAL,false));
         chaussuresRecyclerView.setAdapter(categoriesAdaptechaussures);
+        notification_progress.setVisibility ( View.INVISIBLE );
     }
 
 
