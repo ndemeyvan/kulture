@@ -505,7 +505,7 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
                                             }
                                         } );
 
-                                        DocumentReference user = firebaseFirestore.collection("mes donnees utilisateur" ).document(utilisateur_actuel);
+                                        DocumentReference user = firebaseFirestore.collection("mes donnees utilisateur" ).document(current_user_id);
                                         user.update("has_notification", "true")
                                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                     @Override
