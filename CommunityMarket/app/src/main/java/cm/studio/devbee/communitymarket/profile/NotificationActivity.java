@@ -47,7 +47,6 @@ public class NotificationActivity extends AppCompatActivity {
                 finish ();
             }
         });
-
         DocumentReference user = firebaseFirestore.collection("mes donnees utilisateur" ).document(current_user_id);
         user.update("has_notification", "false")
                 .addOnSuccessListener(new OnSuccessListener<Void> () {
@@ -72,7 +71,7 @@ public class NotificationActivity extends AppCompatActivity {
     }
 
     public void chaussureRecyclerView(){
-        Query firstQuery =firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user_id).collection ( "mes notification" ).orderBy ( "date_du_like",Query.Direction.ASCENDING );
+        Query firstQuery =firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user_id).collection ( "mes notification" ).orderBy ( "date_du_like",Query.Direction.DESCENDING );
         FirestoreRecyclerOptions<Model_notification> options = new FirestoreRecyclerOptions.Builder<Model_notification>()
                 .setQuery(firstQuery, Model_notification.class)
                 .build();
