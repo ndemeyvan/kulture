@@ -33,7 +33,7 @@
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/image_des_commentaire"
         android:layout_width="30dp"
-        android:layout_height="35dp"
+        android:layout_height="30dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:src="@drawable/ic_add_coment_blanc"
@@ -76,6 +76,8 @@
         android:layout_marginTop="8dp"
         android:fontFamily="@font/righteous"
         android:text=""
+        android:lines="3"
+        android:ellipsize="end"
         android:textColor="@color/blanc"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="@+id/nom_du_profil"
