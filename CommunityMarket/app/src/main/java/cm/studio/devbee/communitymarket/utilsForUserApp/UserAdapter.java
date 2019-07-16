@@ -155,7 +155,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> im
                 }else {
                     List<ModelGridView> isfiltered = new ArrayList<> (  );
                     for (ModelGridView row : modelGridViewList){
-                        if (row.getDecription_du_produit ().toLowerCase ().contains ( key.toLowerCase () )){
+                        if (row.getDecription_du_produit ().toLowerCase ().contains ( key.toLowerCase ()) || row.getNom_du_produit ().toLowerCase ().contains ( key.toLowerCase () )){
                             isfiltered.add ( row );
                         }
                     }
