@@ -16,6 +16,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -33,23 +35,34 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
+
+import java.util.ArrayList;
 import java.util.List;
 import cm.studio.devbee.communitymarket.R;
 import cm.studio.devbee.communitymarket.gridView_post.ModelGridView;
 import cm.studio.devbee.communitymarket.postActivity.DetailActivityTwo;
 
-public class UserAdapter extends FirestoreRecyclerAdapter<ModelGridView,UserAdapter.ViewHolder> {
+public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> implements Filterable {
     List<ModelGridView>modelGridViewList;
+    List<ModelGridView>modelGridViewListTwoFiltered;
+
     Context context;
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
     String s;
 
-    public UserAdapter(@NonNull FirestoreRecyclerOptions<ModelGridView> options,Context context) {
-        super ( options );
-        this.context=context;
+    public UserAdapter(List<ModelGridView> modelGridViewList, Context context) {
+        this.modelGridViewList = modelGridViewList;
+        this.modelGridViewListTwoFiltered = modelGridViewList;
+        this.context = context;
     }
 
+    public UserAdapter(List<ModelGridView> modelGridViewList, Context context, String s) {
+        this.modelGridViewList = modelGridViewList;
+        this.modelGridViewListTwoFiltered = modelGridViewList;
+        this.context = context;
+        this.s = s;
+    }
 
     @NonNull
     @Override
@@ -60,17 +73,16 @@ public class UserAdapter extends FirestoreRecyclerAdapter<ModelGridView,UserAdap
         return new ViewHolder ( v );
     }
 
-
     @Override
-    protected void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i, @NonNull ModelGridView model) {
-        String produit_image =model.getImage_du_produit();
-        String nom=model.getNom_du_produit();
-        String desc =model.getDecription_du_produit();
-        String prix_produit=model.getPrix_du_produit();
-        String tempsdepub=model.getDate_de_publication ();
-        final String nom_utilisateur=model.getUtilisateur();
-        final String idDuPost=model.getPost_id();
-        final String categorie=model.getCategories();
+    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
+        String produit_image =modelGridViewListTwoFiltered.get ( i ).getImage_du_produit();
+        String nom=modelGridViewListTwoFiltered.get ( i ).getNom_du_produit();
+        String desc =modelGridViewListTwoFiltered.get ( i ).getDecription_du_produit();
+        String prix_produit=modelGridViewListTwoFiltered.get ( i ).getPrix_du_produit();
+        String tempsdepub=modelGridViewListTwoFiltered.get ( i ).getDate_de_publication ();
+        final String nom_utilisateur=modelGridViewListTwoFiltered.get ( i ).getUtilisateur();
+        final String idDuPost=modelGridViewListTwoFiltered.get ( i ).getPost_id();
+        final String categorie=modelGridViewListTwoFiltered.get ( i ).getCategories();
         //viewHolder.setCatrogies_name(categorie);
         viewHolder.prix_produit(prix_produit);
         viewHolder.image_produit(produit_image);
@@ -126,6 +138,43 @@ public class UserAdapter extends FirestoreRecyclerAdapter<ModelGridView,UserAdap
                 }
             }
         });
+    }
+
+
+
+    @Override
+    public int getItemCount() {
+        return modelGridViewListTwoFiltered.size ();
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter () {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                String key =constraint.toString ();
+                if (key.isEmpty ()){
+                    modelGridViewListTwoFiltered=modelGridViewList;
+                }else {
+                    List<ModelGridView> isfiltered = new ArrayList<> (  );
+                    for (ModelGridView row : modelGridViewList){
+                        if (row.getDecription_du_produit ().toLowerCase ().contains ( key.toLowerCase () )){
+                            isfiltered.add ( row );
+                        }
+                    }
+                    modelGridViewListTwoFiltered=isfiltered;
+                }
+                FilterResults filterResults = new FilterResults ();
+                filterResults.values=modelGridViewListTwoFiltered;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                modelGridViewListTwoFiltered= (List<ModelGridView>)results.values;
+                notifyDataSetChanged ();
+            }
+        };
     }
 
 

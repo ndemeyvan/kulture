@@ -17,6 +17,8 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:alpha="0.5"
+        android:drawableLeft="@drawable/ic_search"
+        android:drawablePadding="8dp"
         android:ems="10"
         android:fontFamily="@font/righteous"
         android:hint="search ... "
@@ -25,7 +27,7 @@
         android:textColor="@color/blanc"
         android:textColorHint="@color/blanc"
         android:theme="@style/edit_theme"
-        app:layout_constraintEnd_toStartOf="@+id/search_button"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_search" />
 
@@ -55,18 +57,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search_edit_text" />
 
-    <ImageButton
-        android:id="@+id/search_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/background_message_button"
-        app:layout_constraintBottom_toBottomOf="@+id/search_edit_text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/search_edit_text"
-        app:srcCompat="@drawable/ic_search"
-        android:padding="8dp"
-        />
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_search"
