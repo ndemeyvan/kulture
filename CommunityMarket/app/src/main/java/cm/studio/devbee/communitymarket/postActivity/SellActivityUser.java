@@ -14,9 +14,12 @@ import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -42,6 +45,8 @@ public class SellActivityUser extends AppCompatActivity {
     private static RecyclerView vendeur_recyclerView;
     private static VendeurAdapteur gridViewAdapter;
     private static FirebaseFirestore firebaseFirestore;
+    private  static  FirebaseAuth firebaseAuth;
+    private  static  String utilisateur_actuel;
     String current_user_id;
     private static Toolbar vendeur_toolbar;
     TextView vente_presente;
@@ -54,6 +59,8 @@ public class SellActivityUser extends AppCompatActivity {
         setSupportActionBar(vendeur_toolbar);
         getSupportActionBar ().setDisplayHomeAsUpEnabled ( true );
         vente_presente=findViewById ( R.id.vente_presente );
+        firebaseAuth=FirebaseAuth.getInstance ();
+        utilisateur_actuel=firebaseAuth.getCurrentUser ().getUid ();
         current_user_id =getIntent().getExtras().getString("id de l'utilisateur");
         firebaseFirestore=FirebaseFirestore.getInstance();
         vendeur_toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -113,5 +120,33 @@ public class SellActivityUser extends AppCompatActivity {
                 }
             }
         });
+    }
+
+
+    public void userstatus(String status){
+        DocumentReference user = firebaseFirestore.collection("mes donnees utilisateur" ).document(utilisateur_actuel);
+        user.update("status", status)
+                .addOnSuccessListener(new OnSuccessListener<Void> () {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener () {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                    }
+                });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume ();
+        userstatus("online");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause ();
+        userstatus("offline");
     }
 }

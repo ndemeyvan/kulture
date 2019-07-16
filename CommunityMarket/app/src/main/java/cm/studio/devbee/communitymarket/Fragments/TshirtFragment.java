@@ -136,7 +136,7 @@ public class TshirtFragment extends Fragment {
 
 
     public void tshirtRecyclerView(){
-        Query firstQuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "T-shirts" ).orderBy ( "prix_du_produit",Query.Direction.ASCENDING );
+        Query firstQuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "T-shirts" ).orderBy ( "priority",Query.Direction.DESCENDING );
         FirestoreRecyclerOptions<ModelGridView> options = new FirestoreRecyclerOptions.Builder<ModelGridView>()
                 .setQuery(firstQuery, ModelGridView.class)
                 .build();

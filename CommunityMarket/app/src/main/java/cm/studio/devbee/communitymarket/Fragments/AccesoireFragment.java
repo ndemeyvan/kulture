@@ -268,7 +268,7 @@ public class AccesoireFragment extends Fragment {
     }
     public void RecyclerView(){
         firebaseFirestore=FirebaseFirestore.getInstance ();
-        Query firstQuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "accessoires" ).orderBy ( "prix_du_produit",Query.Direction.ASCENDING );
+        Query firstQuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "accessoires" ).orderBy ( "priority",Query.Direction.DESCENDING );
         FirestoreRecyclerOptions<ModelGridView> options = new FirestoreRecyclerOptions.Builder<ModelGridView>()
                 .setQuery(firstQuery, ModelGridView.class)
                 .build();
@@ -309,6 +309,33 @@ public class AccesoireFragment extends Fragment {
         progressDialog=null;
         categoriesAdapteacessoire=null;
         categoriesModelacessoireList=null;
+    }
+
+    public void userstatus(String status){
+        DocumentReference user = firebaseFirestore.collection("mes donnees utilisateur" ).document(curent_user);
+        user.update("status", status)
+                .addOnSuccessListener(new OnSuccessListener<Void> () {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                    }
+                });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume ();
+        userstatus("online");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause ();
+        userstatus("offline");
     }
 
 }

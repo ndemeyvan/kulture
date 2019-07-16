@@ -79,4 +79,6 @@ public class PostActivity extends AppCompatActivity {
         categoriesAdaptePost=null;
         categoriesModelPostList=null;
     }
+
+
 }

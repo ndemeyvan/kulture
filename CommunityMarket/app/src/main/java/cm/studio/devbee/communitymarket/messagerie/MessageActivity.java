@@ -385,7 +385,6 @@ public class MessageActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        userstatus("offline");
         super.onDestroy ();
         userstatus("offline");
         Calendar calendar=Calendar.getInstance ();
@@ -638,6 +637,11 @@ public class MessageActivity extends AppCompatActivity {
         });
 
     }
+
+
+
+
+
 
 
 

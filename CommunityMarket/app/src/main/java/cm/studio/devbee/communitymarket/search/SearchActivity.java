@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -129,6 +130,33 @@ public class SearchActivity extends AppCompatActivity {
         search_recyclerview.setLayoutManager(new LinearLayoutManager(SearchActivity.this,LinearLayoutManager.VERTICAL,false));
         search_recyclerview.setAdapter(searchAdapter);
         search_progress.setVisibility(View.INVISIBLE);*/
+    }
+
+    public void userstatus(String status){
+        DocumentReference user = db.collection("mes donnees utilisateur" ).document(current_user);
+        user.update("status", status)
+                .addOnSuccessListener(new OnSuccessListener<Void> () {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                    }
+                });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume ();
+        userstatus("online");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause ();
+        userstatus("offline");
     }
 
 
