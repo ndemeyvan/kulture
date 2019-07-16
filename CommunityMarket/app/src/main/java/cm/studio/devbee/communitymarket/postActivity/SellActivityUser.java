@@ -32,6 +32,7 @@ import javax.annotation.Nullable;
 
 import cm.studio.devbee.communitymarket.R;
 import cm.studio.devbee.communitymarket.gridView_post.ModelGridView;
+import cm.studio.devbee.communitymarket.profile.FavoriesActivity;
 import cm.studio.devbee.communitymarket.utilsForPostPrincipal.PrincipalAdapte;
 import cm.studio.devbee.communitymarket.utilsForPostPrincipal.PrincipalModel;
 import cm.studio.devbee.communitymarket.utilsForVendeur.ProfilAdapteur;
@@ -63,6 +64,17 @@ public class SellActivityUser extends AppCompatActivity {
         });
         vendeur_produit();
         vente_presente.setVisibility ( View.INVISIBLE );
+        firebaseFirestore.collection ( "publication" ).document ("post utilisateur").collection ( current_user_id ).addSnapshotListener(SellActivityUser.this,new EventListener<QuerySnapshot> () {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                if (!queryDocumentSnapshots.isEmpty()) {
+                    int i = queryDocumentSnapshots.size();
+
+                } else {
+                    vente_presente.setVisibility ( View.VISIBLE );
+                }
+            }
+        });
         nom();
     }
     public void vendeur_produit(){
