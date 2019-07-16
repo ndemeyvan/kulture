@@ -47,6 +47,8 @@ public class NotificationAdapter extends FirestoreRecyclerAdapter<Model_notifica
     private String current_user;
     private String titreDuProduit;
     private String prixduproduit;
+    private String name_user;
+    private String user_prenom;
 
     public NotificationAdapter(@NonNull FirestoreRecyclerOptions<Model_notification> options,Context context) {
         super(options);
@@ -91,8 +93,8 @@ public class NotificationAdapter extends FirestoreRecyclerAdapter<Model_notifica
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()){
                     if (task.getResult ().exists ()){
-                        String name_user= task.getResult ().getString ( "user_name" );
-                        String user_prenom= task.getResult ().getString ( "user_prenom" );
+                         name_user= task.getResult ().getString ( "user_name" );
+                         user_prenom= task.getResult ().getString ( "user_prenom" );
                         String image_user=task.getResult ().getString ( "user_profil_image" );
                       holder.nom_du_profil.setText(name_user + " " + user_prenom);
                         Picasso.with(context).load(image_user).into(holder.image_du_profil);
@@ -182,9 +184,8 @@ public class NotificationAdapter extends FirestoreRecyclerAdapter<Model_notifica
                 gotoMessage.putExtra("image_en_vente", image_du_produit);
                 gotoMessage.putExtra ( "id_recepteur",current_user );
                 gotoMessage.putExtra ( "viens_de_detail","vrai" );
-
                 gotoMessage.putExtra ( "viens_de_notification","vrai" );
-                gotoMessage.putExtra ( "contenu",commentaire );
+                gotoMessage.putExtra ( "contenu",name_user + " " + user_prenom + " :  vous avez reagis a mon post : " +commentaire +" pouvons nous en parler d'avantage ?");
 
 
             }

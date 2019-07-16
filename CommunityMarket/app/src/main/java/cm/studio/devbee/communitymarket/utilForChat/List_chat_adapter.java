@@ -72,6 +72,8 @@ public class List_chat_adapter extends RecyclerView.Adapter<List_chat_adapter.Vi
                 chat.putExtra ( "id de l'utilisateur" ,id_recepteu_lien);
                 chat.putExtra ( "id_recepteur" ,id_expediteur_lien);
                 chat.putExtra ( "viens_de_detail","vrai" );
+                chat.putExtra ( "viens_de_notification","faux" );
+                chat.putExtra ( "contenu","" );
                 context.startActivity ( chat );
                 ((Activity) context).finish ();
             }
