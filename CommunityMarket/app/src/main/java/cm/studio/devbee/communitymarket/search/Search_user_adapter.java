@@ -76,14 +76,17 @@ public class Search_user_adapter extends RecyclerView.Adapter<Search_user_adapte
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
-        firebaseFirestore.collection ( "mes donnees utilisateur" ).document ( current_user_id ).get ().addOnCompleteListener ( new OnCompleteListener<DocumentSnapshot> () {
+         nom_user = modelGridViewListTwoFiltered.get ( i ).getUser_name ();
+        prenom=modelGridViewListTwoFiltered.get ( i ).getUser_prenom ();
+        String id =modelGridViewListTwoFiltered.get ( i ).getId_utilisateur ();
+        firebaseFirestore.collection ( "mes donnees utilisateur" ).document ( id ).get ().addOnCompleteListener ( new OnCompleteListener<DocumentSnapshot> () {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.getResult ().exists ()){
                     residence= task.getResult ().getString ( "user_residence" );
-                    nom_user = task.getResult ().getString ("user_name");
-                    prenom = task.getResult ().getString ("user_prenom");
-                    description = task.getResult ().getString ("user_mail");
+                    //nom_user = task.getResult ().getString ("user_name");
+                   // prenom = task.getResult ().getString ("user_prenom");
+                    //description = task.getResult ().getString ("user_mail");
                     image_profil = task.getResult ().getString ("user_profil_image");
                     id_utilisateur = task.getResult ().getString ("id_utilisateur");
                     viewHolder.user_description.setText ( description );

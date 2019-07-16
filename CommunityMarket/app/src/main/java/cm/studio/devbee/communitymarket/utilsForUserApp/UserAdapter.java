@@ -89,9 +89,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> im
         //viewHolder.nom_produit(nom);
         viewHolder.post_user_description.setText ( desc );
         viewHolder.post_userTemps.setText ( tempsdepub );
-        Log.i("id",idDuPost);
-        Log.i("cat",categorie);
-        Log.i("id_user",nom_utilisateur);
         // viewHolder.setUser(nom_utilisateur);
         firebaseFirestore.collection ( "publication" ).document ("categories").collection ( categorie ).document (idDuPost).collection ( "commentaires" ).addSnapshotListener ( (Activity) context,new EventListener<QuerySnapshot> () {
             @Override
