@@ -205,7 +205,8 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                 if (!documentSnapshot.exists ()) {
                     Toast.makeText ( DetailActivity.this, getString ( R.string.vente_retire ), Toast.LENGTH_SHORT ).show ();
-
+                    myDialog.dismiss ();
+                    finish ();
                 } else {
 
                 }
@@ -588,6 +589,16 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
                                 @Override
                                 public void onClick(DialogInterface arg0, int arg1) {
                                     showPopup();
+                                    firebaseFirestore.collection ( "mes donnees utilisateur" ).document (utilisateur_actuel).collection ( "mes notification" ).document ( iddupost ).get ().addOnCompleteListener ( DetailActivity.this, new OnCompleteListener<DocumentSnapshot> () {
+                                        @Override
+                                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                            if (task.isSuccessful ()){
+                                                if (task.getResult ().exists ()){
+                                                    firebaseFirestore.collection ( "mes donnees utilisateur" ).document (utilisateur_actuel).collection ( "mes favories" ).document ( iddupost ).delete ();
+                                                }
+                                            }
+                                        }
+                                    } );
                                     firebaseFirestore.collection ( "publication" ).document ( "categories" ).collection ( "nouveaux" ).document ( iddupost ).get ().addOnCompleteListener ( DetailActivity.this, new OnCompleteListener<DocumentSnapshot> () {
                                         @Override
                                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {

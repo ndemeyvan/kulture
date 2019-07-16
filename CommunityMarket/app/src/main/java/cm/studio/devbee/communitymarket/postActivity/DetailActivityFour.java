@@ -286,6 +286,16 @@ public class  DetailActivityFour extends AppCompatActivity {
                             new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface arg0, int arg1) {
+                                    firebaseFirestore.collection ( "mes donnees utilisateur" ).document (utilisateur_actuel).collection ( "mes notification" ).document ( iddupost ).get ().addOnCompleteListener ( DetailActivityFour.this, new OnCompleteListener<DocumentSnapshot> () {
+                                        @Override
+                                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                            if (task.isSuccessful ()){
+                                                if (task.getResult ().exists ()){
+                                                    firebaseFirestore.collection ( "mes donnees utilisateur" ).document (utilisateur_actuel).collection ( "mes favories" ).document ( iddupost ).delete ();
+                                                }
+                                            }
+                                        }
+                                    } );
                                     firebaseFirestore.collection ( "publication" ).document ("post utilisateur").collection ( current_user_id ).document (iddupost).get ().addOnCompleteListener ( DetailActivityFour.this,new OnCompleteListener<DocumentSnapshot> () {
                                         @Override
                                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
