@@ -11,6 +11,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
@@ -430,7 +431,7 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
                             SimpleDateFormat sdf= new SimpleDateFormat("d/MM/y H:mm:ss");
                             final String date_avec_seconde=sdf.format(date);
                             Calendar calendar=Calendar.getInstance ();
-                            SimpleDateFormat currentDate=new SimpleDateFormat (" dd MMM yyyy" );
+                            SimpleDateFormat currentDate=new SimpleDateFormat (" dd MMM yyyy H:mm:ss" );
                             saveCurrentDate=currentDate.format ( calendar.getTime () );
                             randomKey=saveCurrentDate;
                             String random =random ();
@@ -460,7 +461,7 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
                                         user_post.put ( "image_du_produit",downloadUri.toString() );
                                         user_post.put("search",decription_du_produit);
                                         user_post.put("categories",categoryName);
-                                        user_post.put("priority","1");
+                                        user_post.put("priority",randomKey);
                                         DocumentReference post_reference =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( categoryName ).document();
                                         final String post_id = post_reference.getId();
                                         user_post.put("post_id",post_id);
