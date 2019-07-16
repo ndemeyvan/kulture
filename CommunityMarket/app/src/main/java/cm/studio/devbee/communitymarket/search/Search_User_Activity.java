@@ -107,7 +107,10 @@ public class Search_User_Activity extends AppCompatActivity {
                 for (DocumentChange doc : queryDocumentSnapshots.getDocumentChanges () ){
                     if (doc.getType ()==DocumentChange.Type.ADDED){
                         Seach_user_model modelGridView = doc.getDocument ().toObject ( Seach_user_model.class );
-                        listUsers.add ( modelGridView);
+                        if (!modelGridView.getId_utilisateur ().equals ( current_user )){
+                            listUsers.add ( modelGridView);
+
+                        }
                         searchAdapter.notifyDataSetChanged ();
                     }
                 }
