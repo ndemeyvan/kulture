@@ -191,7 +191,8 @@ public class NotificationAdapter extends FirestoreRecyclerAdapter<Model_notifica
                 gotoMessage.putExtra ( "viens_de_detail","vrai" );
                 gotoMessage.putExtra ( "viens_de_notification","vrai" );
                 String mon_post_test="ma publication";
-                gotoMessage.putExtra ( "contenu",name_user + " " + user_prenom + " : "+action_faite+" "+" "+mon_post_test+" :"+  " " + finalCommentaire +" \npouvons nous en parler d'avantage ?");
+                String parler_davantage ="pouvons nous en parler d'avantage ?";
+                gotoMessage.putExtra ( "contenu",name_user + " " + user_prenom + " : "+action_faite+" "+" "+mon_post_test+" :"+  " " + finalCommentaire +" \n"+parler_davantage);
                 context.startActivity ( gotoMessage );
 
             }
