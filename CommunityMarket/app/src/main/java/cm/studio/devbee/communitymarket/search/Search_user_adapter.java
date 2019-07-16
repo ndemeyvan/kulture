@@ -78,7 +78,8 @@ public class Search_user_adapter extends RecyclerView.Adapter<Search_user_adapte
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
          nom_user = modelGridViewListTwoFiltered.get ( i ).getUser_name ();
         prenom=modelGridViewListTwoFiltered.get ( i ).getUser_prenom ();
-        String id =modelGridViewListTwoFiltered.get ( i ).getId_utilisateur ();
+        final String id =modelGridViewListTwoFiltered.get ( i ).getId_utilisateur ();
+        viewHolder.user_name.setText ( nom_user +" " + prenom );
         firebaseFirestore.collection ( "mes donnees utilisateur" ).document ( id ).get ().addOnCompleteListener ( new OnCompleteListener<DocumentSnapshot> () {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -86,12 +87,10 @@ public class Search_user_adapter extends RecyclerView.Adapter<Search_user_adapte
                     residence= task.getResult ().getString ( "user_residence" );
                     //nom_user = task.getResult ().getString ("user_name");
                    // prenom = task.getResult ().getString ("user_prenom");
-                    //description = task.getResult ().getString ("user_mail");
+                    description = task.getResult ().getString ("user_mail");
                     image_profil = task.getResult ().getString ("user_profil_image");
-                    id_utilisateur = task.getResult ().getString ("id_utilisateur");
                     viewHolder.user_description.setText ( description );
                     viewHolder.user_location.setText ( residence );
-                    viewHolder.user_name.setText ( nom_user +" " + prenom );
                     Picasso.with ( context ).load ( image_profil ).into ( viewHolder.parametre_image );
                 }
             }
@@ -100,7 +99,7 @@ public class Search_user_adapter extends RecyclerView.Adapter<Search_user_adapte
             @Override
             public void onClick(View v) {
                 Intent gotosell = new Intent ( context,SellActivityUser.class );
-                gotosell.putExtra (  "id de l'utilisateur",id_utilisateur);
+                gotosell.putExtra (  "id de l'utilisateur",id);
                 context.startActivity ( gotosell );
             }
         } );
