@@ -108,7 +108,6 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
         private String contenu;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //"..."
@@ -228,6 +227,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
 
         recup();
         vaTopost ();
+
         AnimationDrawable animationDrawableOne = (AnimationDrawable) toolbar.getBackground();
         animationDrawableOne.setEnterFadeDuration(2000);
         animationDrawableOne.setExitFadeDuration(4000);
@@ -381,6 +381,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
                                     String message= task.getResult ().getString ( "message" );
                                     contenu = task.getResult ().getString ( "message_du_notifieur" );
                                     String notification = task.getResult().getString("has_notification");
+
                                     if (notification.equals("true")){
                                         notification_enable.setVisibility(View.VISIBLE);
                                     }else{
