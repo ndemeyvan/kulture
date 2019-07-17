@@ -117,7 +117,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             }*/
             Uri notificationSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
             NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, ADMIN_CHANNEL_ID)
-                    //.setSmallIcon(R.mipmap.ic_launcher_logo_two)
+                    .setSmallIcon(R.mipmap.ic_launcher_logo_two)
                    .setLargeIcon(icon)
                     .setContentTitle(title)
                    .setContentText(message)
