@@ -365,8 +365,8 @@ public class ChoiceActivity extends AppCompatActivity {
                                         SimpleDateFormat currentDate=new SimpleDateFormat (" dd MMM yyyy" );
                                         String saveCurrentDate=currentDate.format ( calendar.getTime () );
                                         String randomKey=saveCurrentDate;
-                                        donnees_utilisateur.put ( "user_name",personFamilyName);
-                                        donnees_utilisateur.put ( "user_prenom",personName);
+                                        donnees_utilisateur.put ( "user_name",personName);
+                                        donnees_utilisateur.put ( "user_prenom",personFamilyName);
                                         donnees_utilisateur.put ( "user_telephone", "..." );
                                         donnees_utilisateur.put ( "user_residence", "...");
                                         donnees_utilisateur.put ( "user_mail","...");

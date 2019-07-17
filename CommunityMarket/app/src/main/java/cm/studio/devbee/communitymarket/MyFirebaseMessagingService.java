@@ -1,10 +1,12 @@
 package cm.studio.devbee.communitymarket;
 
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -73,13 +75,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             categories=remoteMessage.getData ().get ( "viens_de_detail" );
             if (categories.equals ( "vrai" )){
                 intent= new Intent(this, DetailActivityTwo.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             }else if (categories.equals ( "faux" )){
                 intent = new Intent(this, MessageActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             }
-            NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-            int notificationID = new Random().nextInt(9000);
+            NotificationManager notificationManager = (NotificationManager)this.getSystemService(Context.NOTIFICATION_SERVICE);
+            //int notificationID = new Random().nextInt(9000);
             title = remoteMessage.getData().get("title");
             message = remoteMessage.getData().get("message");
             id = remoteMessage.getData().get("id");
@@ -104,31 +106,36 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
                 setupChannels(notificationManager);
             }
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP| Intent.FLAG_ACTIVITY_NEW_TASK);
+           // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             PendingIntent pendingIntent = PendingIntent.getActivity(this , 0, intent,
-                    PendingIntent.FLAG_ONE_SHOT);
-            Bitmap largeIcon = null;
-            try {
-                largeIcon = Picasso.with(this).load(Uri.parse(image_en_vente)).placeholder(getDrawable(R.mipmap.ic_launcher_logo_two)).get();
+                    PendingIntent.FLAG_CANCEL_CURRENT);
+            Bitmap icon = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_logo_two);
+          /*  try {
+              //  largeIcon = Picasso.with(this).load(Uri.parse(image_en_vente)).placeholder(getDrawable(R.mipmap.ic_launcher_logo_two)).get();
             } catch (IOException e) {
                 e.printStackTrace();
-            }
+            }*/
             Uri notificationSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
             NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, ADMIN_CHANNEL_ID)
-                    .setSmallIcon(R.mipmap.ic_launcher_logo_two)
-                    .setLargeIcon(largeIcon)
+                    //.setSmallIcon(R.mipmap.ic_launcher_logo_two)
+                   .setLargeIcon(icon)
                     .setContentTitle(title)
                    .setContentText(message)
                     .setAutoCancel(true)
+                    .setPriority(2)
+                    .setWhen(System.currentTimeMillis())
                     .setStyle(new NotificationCompat.BigTextStyle()
                             .bigText(message))
                     .setSound(notificationSoundUri)
                     .setContentIntent(pendingIntent);
+                Notification n = notificationBuilder.getNotification();
+
             //Set notification color to match your app color template
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
                 notificationBuilder.setColor(getResources().getColor(R.color.colorPrimaryDark));
             }
-            notificationManager.notify(notificationID, notificationBuilder.build());
+            n.defaults |= Notification.DEFAULT_ALL;
+            notificationManager.notify(0, notificationBuilder.build());
         }
 
 

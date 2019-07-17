@@ -1,5 +1,6 @@
 package cm.studio.devbee.communitymarket.messagerie;
 
+import android.app.Notification;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.SystemClock;
@@ -630,18 +631,13 @@ public class MessageActivity extends AppCompatActivity {
                     }
                 }else {
                     String error=task.getException().getMessage();
-                    Toast.makeText ( getApplicationContext (), error, Toast.LENGTH_LONG ).show ();
+                   /// Toast.makeText ( getApplicationContext (), error, Toast.LENGTH_LONG ).show ();
 
                 }
             }
         });
 
     }
-
-
-
-
-
 
 
 

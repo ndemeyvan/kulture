@@ -40,7 +40,7 @@
         <item name="android:fontFamily">@font/righteous</item>
         <item name="colorPrimary">@color/blanc</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/blanc</item>
     </style>
     <style name="progress_theme" parent="ThemeOverlay.AppCompat.Light">
         <item name="android:fontFamily">@font/righteous</item>

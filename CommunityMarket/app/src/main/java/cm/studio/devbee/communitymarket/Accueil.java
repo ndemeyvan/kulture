@@ -109,6 +109,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
         private String nom_user;
         private CircleImageView notification_enable;
         private String contenu;
+        String ma_version ="1.0";
 
 
     @Override
@@ -247,6 +248,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
                 startActivity(intent);
             }
         });
+        check_version ();
     }
 
 
@@ -317,6 +319,41 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
                 Intent gotoparam = new Intent ( Accueil.this,ParametrePorfilActivity.class );
                 startActivity ( gotoparam );
                 finish ();
+            }
+        } );
+        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable (Color.TRANSPARENT));
+        myDialog.setCancelable(false);
+        myDialog.show();
+    }
+    public void check_version(){
+        firebaseFirestore.collection ( "new_version" ).document ("new_version").get ().addOnCompleteListener ( Accueil.this,new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful ()){
+                    if (task.getResult ().exists ()){
+                        String  avalable =task.getResult ().getString ("new_version");
+                        String  oline_version =task.getResult ().getString ("version");
+                        if (ma_version.equals ( "1.0" )&&avalable.equals ( "true" )){
+                            versionDialog();
+                        }
+
+                    }
+                }else{
+
+
+                }
+            }
+        } );
+    }
+
+    public void versionDialog() {
+        Button compris_button;
+        myDialog.setContentView(R.layout.new_version_layout);
+        compris_button=myDialog.findViewById ( R.id.compris_button);
+        compris_button.setOnClickListener ( new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+                myDialog.dismiss();
             }
         } );
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable (Color.TRANSPARENT));
