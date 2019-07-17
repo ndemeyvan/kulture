@@ -8,14 +8,20 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import javax.annotation.Nullable;
 
 import cm.studio.devbee.communitymarket.R;
 import cm.studio.devbee.communitymarket.gridView_post.GridViewAdapter;
@@ -29,6 +35,7 @@ public class NotificationActivity extends AppCompatActivity {
     private String current_user_id;
     private static RecyclerView chaussuresRecyclerView;
     private static NotificationAdapter categoriesAdaptechaussures;
+    private TextView text_empty;
     private Toolbar detail_image_post_toolbar;
     private ProgressBar notification_progress;
 
@@ -43,11 +50,23 @@ public class NotificationActivity extends AppCompatActivity {
         notification_progress=findViewById ( R.id.notification_progress );
         setSupportActionBar(detail_image_post_toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        text_empty=findViewById ( R.id.text_empty );
         detail_image_post_toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //startActivity ( new Intent ( getApplicationContext (),Accueil.class ).setFlags ( Intent.FLAG_ACTIVITY_CLEAR_TOP ) );
                 finish ();
+            }
+        });
+        firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user_id).collection ( "mes notification" ).addSnapshotListener(NotificationActivity.this,new EventListener<QuerySnapshot> () {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                if (!queryDocumentSnapshots.isEmpty()) {
+                    int i = queryDocumentSnapshots.size();
+
+                } else {
+                    text_empty.setVisibility ( View.VISIBLE );
+                }
             }
         });
         DocumentReference user = firebaseFirestore.collection("mes donnees utilisateur" ).document(current_user_id);

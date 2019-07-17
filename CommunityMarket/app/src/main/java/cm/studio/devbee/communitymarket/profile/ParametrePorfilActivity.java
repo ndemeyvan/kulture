@@ -297,7 +297,7 @@ public class ParametrePorfilActivity extends AppCompatActivity {
                 if (task.isSuccessful ()){
                     if (task.getResult ().exists ()){
                         is_master= task.getResult ().getString ( "is_master" );
-                       
+
                     }else {
                     }
                 }else{

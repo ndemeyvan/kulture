@@ -335,12 +335,12 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
                 drawer.closeDrawer ( GravityCompat.START );
             } else {
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder ( Accueil.this );
-                alertDialogBuilder.setMessage ( "vous nous laissez ? je suis triste !!!!" );
+                alertDialogBuilder.setMessage ( "sortir d'open market ?" );
                 alertDialogBuilder.setPositiveButton ( "oui",
                         new DialogInterface.OnClickListener () {
                             @Override
                             public void onClick(DialogInterface arg0, int arg1) {
-
+                                    finish ();
                                 }
                         } );
                 alertDialogBuilder.setNegativeButton ( "non", new DialogInterface.OnClickListener () {
