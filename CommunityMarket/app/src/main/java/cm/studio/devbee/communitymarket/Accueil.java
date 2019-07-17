@@ -390,7 +390,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
                                     if (message.equals ( "non lu" )){
                                         menu.getItem(1).setIcon(ContextCompat.getDrawable(getApplicationContext (), R.drawable.message_lu));
                                     }else{
-                                        myDialog.dismiss ();
+
                                         menu.getItem(1).setIcon(ContextCompat.getDrawable(getApplicationContext (), R.drawable.ic_message_float_icon));
                                     }
                                 }else {
