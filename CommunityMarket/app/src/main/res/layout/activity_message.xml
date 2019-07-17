@@ -176,7 +176,6 @@
             <ImageView
                 android:id="@+id/image_de_discutions"
                 android:layout_width="@dimen/message_image"
-                android:src="@drawable/t_shirt"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -226,7 +225,6 @@
 
 
                 <ImageView
-                    android:src="@drawable/t_shirt"
                     android:id="@+id/image_de_fond"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

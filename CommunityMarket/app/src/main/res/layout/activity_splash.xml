@@ -45,7 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:text="all  you  want  is  here"
+        android:text="Wear you choice"
         android:textAlignment="center"
         android:textSize="@dimen/splash_text_proverb"
         android:textStyle="bold"

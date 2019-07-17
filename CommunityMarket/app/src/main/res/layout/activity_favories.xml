@@ -33,7 +33,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="favoris"
+        app:title="favories"
         app:titleTextColor="@color/blanc"></android.support.v7.widget.Toolbar>
 
     <android.support.v7.widget.RecyclerView

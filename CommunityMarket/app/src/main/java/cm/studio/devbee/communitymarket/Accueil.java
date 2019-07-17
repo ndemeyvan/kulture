@@ -106,7 +106,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
         private String nom_user;
         private CircleImageView notification_enable;
         private String contenu;
-        private Dialog myDialogTwo;
+
 
 
     @Override
@@ -228,8 +228,6 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
 
         recup();
         vaTopost ();
-        showPopup ();
-
         AnimationDrawable animationDrawableOne = (AnimationDrawable) toolbar.getBackground();
         animationDrawableOne.setEnterFadeDuration(2000);
         animationDrawableOne.setExitFadeDuration(4000);
@@ -296,13 +294,8 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
         viewPager.setAdapter(tabsAdapter);
 
     }
-    public void showPopup() {
-        myDialogTwo=new Dialog(this);
-        myDialogTwo.setContentView(R.layout.load_pop_pup);
-        myDialogTwo.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        myDialogTwo.setCancelable(false);
-        myDialogTwo.show();
-    }
+
+
     public void recup(){
             firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user_id).get ().addOnCompleteListener ( Accueil.this,new OnCompleteListener<DocumentSnapshot>() {
                 @Override
@@ -388,7 +381,6 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
                                     String message= task.getResult ().getString ( "message" );
                                     contenu = task.getResult ().getString ( "message_du_notifieur" );
                                     String notification = task.getResult().getString("has_notification");
-                                    myDialogTwo.dismiss ();
                                     if (notification.equals("true")){
                                         notification_enable.setVisibility(View.VISIBLE);
                                     }else{

@@ -244,7 +244,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:fontFamily="@font/nunito_bold"
-                        android:text="Dites en plus sur vous ..."
+                        android:text="Dit en plus sur toi ..."
                         android:textColor="@color/blanc"
                         app:layout_constraintEnd_toEndOf="@+id/parametre_text"
                         app:layout_constraintHorizontal_bias="0.0"

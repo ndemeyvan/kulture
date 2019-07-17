@@ -258,7 +258,7 @@
     <dimen name="card_widht">300dp</dimen>
     <dimen name="card_text_exit_top">64dp</dimen>
     <dimen name="card_start">40dp</dimen>
-    <dimen name="card_top_button">8dp</dimen>
+    <dimen name="card_top_button">24dp</dimen>
 
 
 

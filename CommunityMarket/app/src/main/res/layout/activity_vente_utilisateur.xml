@@ -17,7 +17,7 @@
         android:layout_marginBottom="8dp"
         android:text="vide "
         android:fontFamily="@font/righteous"
-        android:textSize="20sp"
+        android:textSize="@dimen/new_detail_text_size"
         android:textColor="@color/blanc"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
