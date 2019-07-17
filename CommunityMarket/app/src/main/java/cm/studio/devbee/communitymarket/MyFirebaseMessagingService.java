@@ -98,6 +98,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             intent.putExtra ( "id_categories",categories );
             intent.putExtra ( "viens_de_service","vrai" );
             intent.putExtra ( "id du post",id_du_post );
+            intent.putExtra ( "viens_de_notification","faux" );
+
+
 
       /*
         Apps targeting SDK 26 or above (Android O) must implement notification channels and add its notifications
