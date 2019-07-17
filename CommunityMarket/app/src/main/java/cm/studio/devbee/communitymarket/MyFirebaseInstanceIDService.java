@@ -25,6 +25,8 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
         if (user != null) {
             firebaseAuth=FirebaseAuth.getInstance ();
             current_id=firebaseAuth.getCurrentUser ().getUid ();
+            String token = FirebaseInstanceId.getInstance().getToken();
+            FirebaseMessaging.getInstance().subscribeToTopic(SUBSCRIBE_TO);
         } else {
             // No user is signed in
         }
@@ -35,9 +37,9 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
           or manage this apps subscriptions on the server side,
           you can send this token to your server.
         */
-        String token = FirebaseInstanceId.getInstance().getToken();
+
 
         // Once the token is generated, subscribe to topic with the userId
-        FirebaseMessaging.getInstance().subscribeToTopic(SUBSCRIBE_TO);
+
     }
 }
