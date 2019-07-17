@@ -2,8 +2,10 @@ package cm.studio.devbee.communitymarket.profile;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -56,11 +58,14 @@ import java.util.Map;
 
 import cm.studio.devbee.communitymarket.Accueil;
 import cm.studio.devbee.communitymarket.R;
+import cm.studio.devbee.communitymarket.postActivity.DetailActivity;
 import cm.studio.devbee.communitymarket.postActivity.PostActivityFinal;
 import de.hdodenhof.circleimageview.CircleImageView;
 import id.zelory.compressor.Compressor;
 import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence;
 import uk.co.deanwild.materialshowcaseview.ShowcaseConfig;
+
+import static android.view.View.VISIBLE;
 
 public class ParametrePorfilActivity extends AppCompatActivity {
     private static EditText nom;
@@ -85,7 +90,9 @@ public class ParametrePorfilActivity extends AppCompatActivity {
     private  String user_residence;
     Dialog myDialog;
     private String quartier;
+    String est_maitre ="faux";
     private static WeakReference<ParametrePorfilActivity> parametrePorfilActivityWeakReference;
+    private String is_master;
 
 
     @Override
@@ -280,6 +287,31 @@ public class ParametrePorfilActivity extends AppCompatActivity {
         }else{
             downloadUri=mImageUri;
         }
+
+
+        //////////////////////
+        firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user_id).get ().addOnCompleteListener ( ParametrePorfilActivity.this,new OnCompleteListener<DocumentSnapshot>() {
+            @SuppressLint("RestrictedApi")
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful ()){
+                    if (task.getResult ().exists ()){
+                        is_master= task.getResult ().getString ( "is_master" );
+                        if (is_master.equals("true")){
+
+                            est_maitre = is_master;
+                            
+                        }else{
+                            est_maitre = "false";
+                        }
+                    }else {
+                    }
+                }else{
+                }
+            }
+        } );
+
+        ///////////////
         Calendar calendar=Calendar.getInstance ();
         SimpleDateFormat currentDate=new SimpleDateFormat (" dd MMM yyyy" );
         String saveCurrentDate=currentDate.format ( calendar.getTime () );
@@ -297,7 +329,7 @@ public class ParametrePorfilActivity extends AppCompatActivity {
         donnees_utilisateur.put ( "message","lu" );
         donnees_utilisateur.put ( "derniere_conection",randomKey);
         donnees_utilisateur.put ( "has_notification","false");
-        donnees_utilisateur.put ( "is_master","false");
+        donnees_utilisateur.put ( "is_master","faux");
 
         firebaseFirestore.collection ( "mes donnees utilisateur" ).document ( current_user_id ).set ( donnees_utilisateur ).addOnCompleteListener ( ParametrePorfilActivity.this,new OnCompleteListener<Void> () {
             @Override

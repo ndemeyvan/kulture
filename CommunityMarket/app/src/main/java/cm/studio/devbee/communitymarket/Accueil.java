@@ -1,9 +1,11 @@
 package cm.studio.devbee.communitymarket;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
@@ -75,6 +77,7 @@ import cm.studio.devbee.communitymarket.Fragments.TshirtFragment;
 import cm.studio.devbee.communitymarket.a_propos.AproposActivity;
 import cm.studio.devbee.communitymarket.messagerie.ChatMessageActivity;
 import cm.studio.devbee.communitymarket.messagerie.MessageActivity;
+import cm.studio.devbee.communitymarket.postActivity.DetailActivity;
 import cm.studio.devbee.communitymarket.postActivity.PostActivity;
 import cm.studio.devbee.communitymarket.profile.FavoriesActivity;
 import cm.studio.devbee.communitymarket.profile.NotificationActivity;
@@ -254,29 +257,6 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
 
     }
 
-    public void exit_pop_up(){
-        Button button_pop_up;
-        Button plus_tard_pop_up;
-        myDialog.setContentView(R.layout.exit_pop_up);
-        button_pop_up=myDialog.findViewById ( R.id.non_button);
-        plus_tard_pop_up=myDialog.findViewById ( R.id.exit_button);
-        plus_tard_pop_up.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-              finish();
-            }
-        });
-        button_pop_up.setOnClickListener ( new View.OnClickListener () {
-            @Override
-            public void onClick(View v) {
-               myDialog.dismiss();
-            }
-        } );
-        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable (Color.TRANSPARENT));
-        myDialog.setCancelable(false);
-        myDialog.show();
-    }
-
     public void setupViewPager(ViewPager viewPager){
         TabsAdapter tabsAdapter=new TabsAdapter(getSupportFragmentManager());
         tabsAdapter.addFragment(new HomeFragment(),getString(R.string.decouvrir).toLowerCase());
@@ -354,8 +334,23 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
             if (drawer.isDrawerOpen ( GravityCompat.START )) {
                 drawer.closeDrawer ( GravityCompat.START );
             } else {
-                //super.onBackPressed ();
-                exit_pop_up();
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder ( Accueil.this );
+                alertDialogBuilder.setMessage ( "vous nous laissez ? je suis triste !!!!" );
+                alertDialogBuilder.setPositiveButton ( "oui",
+                        new DialogInterface.OnClickListener () {
+                            @Override
+                            public void onClick(DialogInterface arg0, int arg1) {
+
+                                }
+                        } );
+                alertDialogBuilder.setNegativeButton ( "non", new DialogInterface.OnClickListener () {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel ();
+                    }
+                } );
+                AlertDialog alertDialog = alertDialogBuilder.create ();
+                alertDialog.show ();
             }
     }
 

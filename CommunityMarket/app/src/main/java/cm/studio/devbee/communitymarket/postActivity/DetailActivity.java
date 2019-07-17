@@ -583,53 +583,43 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
                 if (task.isSuccessful ()){
                     if (task.getResult ().exists ()){
                         is_master= task.getResult ().getString ( "is_master" );
+                        if (is_master.equals("true")){
+                            is_master_button.setVisibility(VISIBLE);
+                            is_master_button.setOnClickListener ( new View.OnClickListener () {
+                                @Override
+                                public void onClick(View v) {
+                                   AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder ( DetailActivity.this );
+                                    alertDialogBuilder.setMessage ( getString ( R.string.voulez_vous_supprimer ) );
+                                    alertDialogBuilder.setPositiveButton ( "oui",
+                                            new DialogInterface.OnClickListener () {
+                                                @Override
+                                                public void onClick(DialogInterface arg0, int arg1) {
+                                                    showPopup();
+                                                    firebaseFirestore.collection ( "publication" ).document ( "categories" ).collection ( categories ).document ( iddupost ).delete ();
+                                                    firebaseFirestore.collection ( "publication" ).document ( "categories" ).collection ( "nouveaux" ).document ( iddupost ).delete ();
+                                                    firebaseFirestore.collection ( "publication" ).document ( "post utilisateur" ).collection ( current_user_id ).document ( iddupost ).delete ();
+                                                }
+                                            } );
+                                    alertDialogBuilder.setNegativeButton ( "non", new DialogInterface.OnClickListener () {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.cancel ();
 
+                                        }
+                                    } );
+                                    AlertDialog alertDialog = alertDialogBuilder.create ();
+                                    alertDialog.show ();
+                                }
+                            } );
+                        }
                     }else {
-
                     }
                 }else{
-
-
                 }
             }
         } );
 
-        if (is_master.equals("true")){
-            is_master_button.setVisibility(VISIBLE);
-            firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user_id).collection ( "mes notification" ).document ( iddupost ).get ().addOnCompleteListener ( DetailActivity.this, new OnCompleteListener<DocumentSnapshot> () {
-                @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    if (task.isSuccessful ()){
-                        if (task.getResult ().exists ()){
-                            firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user_id).collection ( "mes favories" ).document ( iddupost ).delete ();
-                            firebaseFirestore.collection ( "publication" ).document ( "categories" ).collection ( "nouveaux" ).document ( iddupost ).get ().addOnCompleteListener ( DetailActivity.this, new OnCompleteListener<DocumentSnapshot> () {
-                                @Override
-                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                    if (task.getResult ().exists ()) {
-                                        if (task.isSuccessful ()) {
-                                            detail_progress.setVisibility ( View.VISIBLE );
-                                            firebaseFirestore.collection ( "publication" ).document ( "categories" ).collection ( categories ).document ( iddupost ).delete ();
-                                            firebaseFirestore.collection ( "publication" ).document ( "categories" ).collection ( "nouveaux" ).document ( iddupost ).delete ();
-                                            firebaseFirestore.collection ( "publication" ).document ( "post utilisateur" ).collection ( current_user_id ).document ( iddupost ).delete ();
-                                            myDialog.dismiss();
-                                            finish ();
 
-                                        } else {
-                                            detail_progress.setVisibility ( INVISIBLE );
-                                            String error = task.getException ().getMessage ();
-                                            Toast.makeText ( getApplicationContext (), error, Toast.LENGTH_LONG ).show ();
-
-                                        }
-                                    } else {
-
-                                    }
-                                }
-                            } );
-                        }
-                    }
-                }
-            } );
-        }
         if (current_user_id.equals ( utilisateur_actuel )) {
             //supprime_detail_button.setText ( "supprimer de cette categories ?");
             vendeur_button.setVisibility ( INVISIBLE );
