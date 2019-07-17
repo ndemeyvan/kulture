@@ -158,7 +158,7 @@ public class RobeFragment extends Fragment {
                     viewFlippertwo.setOutAnimation(getActivity(),android.R.anim.slide_out_right);
                     viewFlippertwo.setInAnimation(getActivity(),android.R.anim.slide_in_left);
                     //image_one
-                    firebaseFirestore.collection("slider_home_two").document("imageOne").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
+                    firebaseFirestore.collection("slider_robes").document("imageOne").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             if (task.isSuccessful()){
@@ -191,7 +191,7 @@ public class RobeFragment extends Fragment {
                     });
 
                     //image_two
-                    firebaseFirestore.collection("slider_home_two").document("imageTwo").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
+                    firebaseFirestore.collection("slider_robes").document("imageTwo").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             if (task.isSuccessful()){
@@ -223,7 +223,7 @@ public class RobeFragment extends Fragment {
                         }
                     });
                     //image_three
-                    firebaseFirestore.collection("slider_home_two").document("imageThree").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
+                    firebaseFirestore.collection("slider_robes").document("imageThree").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             if (task.isSuccessful()){
@@ -256,7 +256,7 @@ public class RobeFragment extends Fragment {
                     });
 
                     //image_four
-                    firebaseFirestore.collection("slider_home_two").document("imageFour").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
+                    firebaseFirestore.collection("slider_robes").document("imageFour").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             if (task.isSuccessful()){

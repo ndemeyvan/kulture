@@ -85,6 +85,7 @@ import cm.studio.devbee.communitymarket.R;
 import cm.studio.devbee.communitymarket.commentaires.Commentaire_Adapter;
 import cm.studio.devbee.communitymarket.commentaires.Commentaires_Model;
 import cm.studio.devbee.communitymarket.messagerie.MessageActivity;
+import cm.studio.devbee.communitymarket.profile.ParametrePorfilActivity;
 import cm.studio.devbee.communitymarket.profile.ProfileActivity;
 import de.hdodenhof.circleimageview.CircleImageView;
 import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence;
@@ -147,7 +148,8 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
     private Menu menu;
     private boolean is_exist=false;
     private static  TextView detail_titre_vente;
-
+    private String is_master;
+    private Button is_master_button;
 
 
     @Override
@@ -179,7 +181,7 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
         detail_profil_image = findViewById ( R.id.detail_image_du_profil );
         vendeur_button = findViewById ( R.id.vendeur_button );
         post_detail_currentuser_img = findViewById ( R.id.post_detail_user_image);
-
+        is_master_button=findViewById(R.id.is_master_button);
         voir_les_commentaire_btn=findViewById(R.id.voir_les_commentaire_btn);
         //detail_user_name=findViewById(R.id.detail_user_name);
         detail_description = findViewById ( R.id.detail_description );
@@ -573,6 +575,61 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
 
     @SuppressLint("RestrictedApi")
     public void supprime() {
+        String est_maitre="true";
+        firebaseFirestore.collection ( "mes donnees utilisateur" ).document (utilisateur_actuel).get ().addOnCompleteListener ( DetailActivity.this,new OnCompleteListener<DocumentSnapshot>() {
+            @SuppressLint("RestrictedApi")
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful ()){
+                    if (task.getResult ().exists ()){
+                        is_master= task.getResult ().getString ( "is_master" );
+
+                    }else {
+
+                    }
+                }else{
+
+
+                }
+            }
+        } );
+
+        if (is_master.equals("true")){
+            is_master_button.setVisibility(VISIBLE);
+            firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user_id).collection ( "mes notification" ).document ( iddupost ).get ().addOnCompleteListener ( DetailActivity.this, new OnCompleteListener<DocumentSnapshot> () {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful ()){
+                        if (task.getResult ().exists ()){
+                            firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user_id).collection ( "mes favories" ).document ( iddupost ).delete ();
+                            firebaseFirestore.collection ( "publication" ).document ( "categories" ).collection ( "nouveaux" ).document ( iddupost ).get ().addOnCompleteListener ( DetailActivity.this, new OnCompleteListener<DocumentSnapshot> () {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.getResult ().exists ()) {
+                                        if (task.isSuccessful ()) {
+                                            detail_progress.setVisibility ( View.VISIBLE );
+                                            firebaseFirestore.collection ( "publication" ).document ( "categories" ).collection ( categories ).document ( iddupost ).delete ();
+                                            firebaseFirestore.collection ( "publication" ).document ( "categories" ).collection ( "nouveaux" ).document ( iddupost ).delete ();
+                                            firebaseFirestore.collection ( "publication" ).document ( "post utilisateur" ).collection ( current_user_id ).document ( iddupost ).delete ();
+                                            myDialog.dismiss();
+                                            finish ();
+
+                                        } else {
+                                            detail_progress.setVisibility ( INVISIBLE );
+                                            String error = task.getException ().getMessage ();
+                                            Toast.makeText ( getApplicationContext (), error, Toast.LENGTH_LONG ).show ();
+
+                                        }
+                                    } else {
+
+                                    }
+                                }
+                            } );
+                        }
+                    }
+                }
+            } );
+        }
         if (current_user_id.equals ( utilisateur_actuel )) {
             //supprime_detail_button.setText ( "supprimer de cette categories ?");
             vendeur_button.setVisibility ( INVISIBLE );

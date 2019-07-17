@@ -29,6 +29,7 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Random;
 
@@ -106,7 +107,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP| Intent.FLAG_ACTIVITY_NEW_TASK);
             PendingIntent pendingIntent = PendingIntent.getActivity(this , 0, intent,
                     PendingIntent.FLAG_ONE_SHOT);
-            Bitmap largeIcon = BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher_logo_two);
+            Bitmap largeIcon = null;
+            try {
+                largeIcon = Picasso.with(this).load(Uri.parse(image_en_vente)).placeholder(getDrawable(R.mipmap.ic_launcher_logo_two)).get();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             Uri notificationSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
             NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, ADMIN_CHANNEL_ID)
                     .setSmallIcon(R.mipmap.ic_launcher_logo_two)

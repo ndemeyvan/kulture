@@ -70,7 +70,6 @@ public class PrincipalAdapte extends FirestoreRecyclerAdapter<PrincipalModel,Pri
         String nvxPrix=model.getPrix_du_produit();
         String imageproduit=model.getImage_du_produit ();
         final String nom_id=model.getUtilisateur ();
-        Log.i("nom",model.getUtilisateur ());
         String tempsdepub=model.getDate_de_publication ();
         String produinom=model.getNom_du_produit ();
         final String postId=model.getPost_id();

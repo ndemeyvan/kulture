@@ -62,7 +62,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         ModelChat modelChat=modelChatList.get ( i );
         viewHolder.message.setText ( modelChat.getMessage () );
         viewHolder.current_date.setText ( modelChat.getTemps_d_envoi () );
-        firebaseFirestore.collection("mes donnees utilisateur").document(current_user).get().addOnCompleteListener((Activity)context,new OnCompleteListener<DocumentSnapshot> () {
+        firebaseFirestore.collection("mes donnees utilisateur").document(current_user).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot> () {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()){
@@ -75,7 +75,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
                 }
             }
         });
-        firebaseFirestore.collection("mes donnees utilisateur").document(modelChat.getRecepteur ()).get().addOnCompleteListener((Activity)context,new OnCompleteListener<DocumentSnapshot> () {
+        firebaseFirestore.collection("mes donnees utilisateur").document(modelChat.getRecepteur ()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot> () {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()){
