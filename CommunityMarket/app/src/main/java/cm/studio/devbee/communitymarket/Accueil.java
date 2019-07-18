@@ -490,7 +490,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
             else if (id == R.id.nous_contacter) {
                 Intent nous_contacter=new Intent(getApplicationContext(),AproposActivity.class);
                 startActivity(nous_contacter);
-                //finish ();
+                finish ();
             }else if(id==R.id.ic_message){
                 Intent message=new Intent(getApplicationContext(),ChatMessageActivity.class);
                 message.putExtra ( "viens","acceuil" );

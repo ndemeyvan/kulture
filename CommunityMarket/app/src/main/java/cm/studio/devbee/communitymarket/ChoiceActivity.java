@@ -48,17 +48,6 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.TwitterAuthProvider;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.twitter.sdk.android.core.Callback;
-import com.twitter.sdk.android.core.DefaultLogger;
-import com.twitter.sdk.android.core.Result;
-import com.twitter.sdk.android.core.Twitter;
-import com.twitter.sdk.android.core.TwitterAuthConfig;
-import com.twitter.sdk.android.core.TwitterAuthToken;
-import com.twitter.sdk.android.core.TwitterConfig;
-import com.twitter.sdk.android.core.TwitterCore;
-import com.twitter.sdk.android.core.TwitterException;
-import com.twitter.sdk.android.core.TwitterSession;
-import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 import java.lang.ref.WeakReference;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -72,7 +61,6 @@ import java.util.Map;
 public class ChoiceActivity extends AppCompatActivity {
         private static GoogleSignInClient mGoogleSignInClient;
         private static SignInButton gotoLogin;
-    private TwitterLoginButton mLoginButton;
         private static ImageView devant;
         private static WeakReference<ChoiceActivity> choiceActivityWeakReference;
         private static LoginButton facebook_button;
@@ -89,32 +77,13 @@ public class ChoiceActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate ( savedInstanceState );
         //Twitter.initialize(this);
-        TwitterConfig config = new TwitterConfig.Builder(this)
-                .logger(new DefaultLogger(Log.DEBUG))
-                .twitterAuthConfig(new TwitterAuthConfig("VrPx1FzdX0e0MZ4ZQJP9cu1qa", "J2b5B2IgQRHTQOEd6p0E2Kwb5IjhDzBDaSAgO4LAakc8TFGcuf"))
-                .debug(true)
-                .build();
-        Twitter.initialize(config);
+
         setContentView ( R.layout.activity_choice );
         gotoLogin=findViewById ( R.id.gotoLogin );
 
         firebaseAuth=FirebaseAuth.getInstance();
-        mLoginButton=findViewById ( R.id.gotoRegister );
         facebook_button=findViewById(R.id.facebook_button);
         //image_de_choix=findViewById(R.id.image_de_choix);
-        mLoginButton.setCallback(new Callback<TwitterSession>() {
-            @Override
-            public void success(Result<TwitterSession> result) {
-                handleTwitterSession(result.data);
-                loginTwo(result.data);
-            }
-
-            @Override
-            public void failure(TwitterException exception) {
-
-            }
-        });
-
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken("537391119843-njqfai8ka55g6doo947bnklqcap3ih8c.apps.googleusercontent.com")
                 .requestEmail()
@@ -159,12 +128,7 @@ public class ChoiceActivity extends AppCompatActivity {
         //image_de_choix.animate().scaleX(2).scaleY(2).setDuration(2000).start();
     }
 
-    public void loginTwo(TwitterSession session) {
-        String username = session.getUserName();
-        Intent intent = new Intent(ChoiceActivity.this, Accueil.class);
-        intent.putExtra("username", username);
-        startActivity(intent);
-    }
+
 
 
     private void facebookSignIn() {
@@ -270,28 +234,6 @@ public class ChoiceActivity extends AppCompatActivity {
         });
     }
 
-    private void handleTwitterSession(TwitterSession session) {
-        AuthCredential credential = TwitterAuthProvider.getCredential(
-                session.getAuthToken().token,
-                session.getAuthToken().secret);
-        firebaseAuth.signInWithCredential(credential)
-                .addOnCompleteListener(ChoiceActivity.this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-
-                            FirebaseUser user = firebaseAuth.getCurrentUser();
-
-                        } else {
-                            // If sign in fails, display a message to the user.
-                        Toast.makeText(getApplicationContext(),"failed",Toast.LENGTH_LONG).show();
-                        }
-
-                        // ...
-                    }
-                });
-    }
 
 
 
@@ -299,7 +241,6 @@ public class ChoiceActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode,resultCode,data);
-        mLoginButton.onActivityResult(requestCode, resultCode, data);
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);

@@ -634,7 +634,7 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
         loadRewardedVideo();
         mInterstitialAd.show();
         if (!mInterstitialAd.isLoaded()) {
-           // mInterstitialAd.show();
+            mInterstitialAd.show();
         }
         userstatus("online");
 

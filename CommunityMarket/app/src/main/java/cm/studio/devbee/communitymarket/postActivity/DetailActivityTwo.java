@@ -194,7 +194,7 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
         mad.setRewardedVideoAdListener(this);
         loadRewardedVideo();
         if (mad.isLoaded()) {
-            //mad.show();
+            mad.show();
         }
         detail_progress.setVisibility ( View.VISIBLE );
         voir_les_commentaire_btn=findViewById(R.id.voir_les_commentaire_btn);

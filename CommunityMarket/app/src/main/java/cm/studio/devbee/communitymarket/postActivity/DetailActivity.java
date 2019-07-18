@@ -214,7 +214,7 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
         mad.setRewardedVideoAdListener ( this );
         loadRewardedVideo ();
         if (mad.isLoaded ()) {
-            //mad.show ();
+            mad.show ();
         }
         donne ();
         detail_progress.setVisibility ( View.VISIBLE );
