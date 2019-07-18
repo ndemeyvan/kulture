@@ -192,8 +192,6 @@ public class MessageActivity extends AppCompatActivity {
                     Toast.makeText ( getApplicationContext (),getString(R.string.message_vide),Toast.LENGTH_LONG ).show ();
                 }
                 message_user_send.setText ( "" );
-
-
                 /////test noti
                 firebaseFirestore.collection("mes donnees utilisateur").document(current_user).get().addOnCompleteListener(MessageActivity.this,new OnCompleteListener<DocumentSnapshot> () {
                     @Override
@@ -224,7 +222,6 @@ public class MessageActivity extends AppCompatActivity {
                                 } catch (JSONException e) {
                                 }
                                 sendNotification(notification);
-
                                 ////end test noti
                             }
                         }else {
@@ -237,8 +234,6 @@ public class MessageActivity extends AppCompatActivity {
 
             }
         } );
-
-
 
         Calendar calendar=Calendar.getInstance ();
         SimpleDateFormat currentDate=new SimpleDateFormat (" dd MMM yyyy" );
@@ -309,35 +304,46 @@ public class MessageActivity extends AppCompatActivity {
 
     }
 
-    private void sendNotification(JSONObject notification) {
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest (FCM_API, notification,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Log.i(TAG, "onResponse: " + response.toString());
-
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(MessageActivity.this, "Request error", Toast.LENGTH_LONG).show();
-                        Log.i(TAG, "onErrorResponse: Didn't work");
-                    }
-                }){
+    private void sendNotification(final JSONObject notification) {
+        firebaseFirestore.collection("mes donnees utilisateur" ).document(user_id_message).get ().addOnCompleteListener ( MessageActivity.this, new OnCompleteListener<DocumentSnapshot> () {
             @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("Authorization", serverKey);
-                params.put("Content-Type", contentType);
-                return params;
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful ()){
+                    if (task.getResult ().exists ()){
+                        String status=task.getResult ().getString ( "status" );
+                        if (!status.equals ( "online" )){
+                            ///////////////////////////
+                            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest (FCM_API, notification,
+                                    new Response.Listener<JSONObject>() {
+                                        @Override
+                                        public void onResponse(JSONObject response) {
+                                            Log.i(TAG, "onResponse: " + response.toString());
+                                        }
+                                    },
+                                    new Response.ErrorListener() {
+                                        @Override
+                                        public void onErrorResponse(VolleyError error) {
+                                            Toast.makeText(MessageActivity.this, "Request error", Toast.LENGTH_LONG).show();
+                                            Log.i(TAG, "onErrorResponse: Didn't work");
+                                        }
+                                    }){
+                                @Override
+                                public Map<String, String> getHeaders() throws AuthFailureError {
+                                    Map<String, String> params = new HashMap<>();
+                                    params.put("Authorization", serverKey);
+                                    params.put("Content-Type", contentType);
+                                    return params;
+                                }
+                            };
+                            MySingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
+                            /////////////////////////////////
+                        }
+                    }
+                }
             }
-        };
-        MySingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
+        } );
+
     }
-
-
-
 
 
     public void userstatus(String status){
