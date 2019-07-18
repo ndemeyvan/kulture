@@ -209,7 +209,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
                 if (task.isSuccessful ()){
                     if (task.getResult ().exists ()){
                         String pop_up= task.getResult ().getString ( "user_residence" );
-                        if (pop_up.equals ( "..." )){
+                        if (pop_up.equals ( "" )){
                             content_floating_action_btn.setVisibility(View.INVISIBLE);
                             paramDialog();
                         }else{
@@ -318,6 +318,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
             public void onClick(View v) {
                 Intent gotoparam = new Intent ( Accueil.this,ParametrePorfilActivity.class );
                 startActivity ( gotoparam );
+                finish ();
             }
         } );
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable (Color.TRANSPARENT));
@@ -484,7 +485,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
             }else if (id == R.id.setting) {
                 Intent parametre=new Intent(getApplicationContext(),ParametrePorfilActivity.class);
                 startActivity(parametre);
-                //finish ();
+                finish ();
             }
             else if (id == R.id.nous_contacter) {
                 Intent nous_contacter=new Intent(getApplicationContext(),AproposActivity.class);

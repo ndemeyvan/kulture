@@ -25,12 +25,12 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
         if (user != null) {
             firebaseAuth=FirebaseAuth.getInstance ();
             current_id=firebaseAuth.getCurrentUser ().getUid ();
+            SUBSCRIBE_TO=current_id;
             String token = FirebaseInstanceId.getInstance().getToken();
             FirebaseMessaging.getInstance().subscribeToTopic(SUBSCRIBE_TO);
         } else {
             // No user is signed in
         }
-        SUBSCRIBE_TO=current_id;
         /*
           This method is invoked whenever the token refreshes
           OPTIONAL: If you want to send messages to this application instance

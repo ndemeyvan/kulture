@@ -131,8 +131,9 @@ public class ParametrePorfilActivity extends AppCompatActivity {
                             toolbar_parametre.setNavigationOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    finish ();
-                                }
+                                    Intent parametre=new Intent(getApplicationContext(),Accueil.class);
+                                    startActivity(parametre);
+                                    finish ();                                }
                             });
                         }
                     }else {
@@ -329,6 +330,8 @@ public class ParametrePorfilActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful ()) {
+                    Intent parametre=new Intent(getApplicationContext(),Accueil.class);
+                    startActivity(parametre);
                     finish ();
                     Toast.makeText ( getApplicationContext (), getString(R.string.param_compte_enregister), Toast.LENGTH_LONG ).show ();
                 } else {
@@ -342,6 +345,8 @@ public class ParametrePorfilActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed ();
+        Intent parametre=new Intent(getApplicationContext(),Accueil.class);
+        startActivity(parametre);
         finish ();
     }
     @Override
