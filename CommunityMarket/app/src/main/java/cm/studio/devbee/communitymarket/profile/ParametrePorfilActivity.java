@@ -90,7 +90,6 @@ public class ParametrePorfilActivity extends AppCompatActivity {
     private  String user_residence;
     Dialog myDialog;
     private String quartier;
-    String est_maitre ="faux";
     private static WeakReference<ParametrePorfilActivity> parametrePorfilActivityWeakReference;
     private String is_master;
 
@@ -122,7 +121,7 @@ public class ParametrePorfilActivity extends AppCompatActivity {
                     if (task.getResult ().exists ()){
                         String pop_up= task.getResult ().getString ( "user_residence" );
                         String nom_user = task.getResult ().getString ("user_name");
-                        if (pop_up.equals ( "..." )){
+                        if (pop_up.equals ( "" )){
                             getSupportActionBar().setTitle("Welcome " + nom_user);
                         }else{
                             getSupportActionBar().setTitle("");
@@ -200,8 +199,28 @@ public class ParametrePorfilActivity extends AppCompatActivity {
         Toast.makeText ( getApplicationContext (), getString(R.string.renplir_tous),Toast.LENGTH_LONG ).show ();
         residence.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemSelected(final AdapterView<?> parent, View view, final int position, long id) {
                 user_residence=parent.getItemAtPosition(position).toString();
+                if (user_residence.equals ( "ou residez vous ?" )||user_residence.equals ( "your city ?" )){
+                    firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user_id).get ().addOnCompleteListener ( ParametrePorfilActivity.this,new OnCompleteListener<DocumentSnapshot>() {
+                        @SuppressLint("RestrictedApi")
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if (task.isSuccessful ()){
+                                if (task.getResult ().exists ()){
+                                    String la_residence= task.getResult ().getString ( "user_residence" );
+                                    user_residence="";
+                                }else {
+                                    user_residence=parent.getItemAtPosition(position).toString();
+                                }
+                            }else{
+
+
+                            }
+                        }
+                    } );
+                }
+
             }
 
             @Override
@@ -230,18 +249,20 @@ public class ParametrePorfilActivity extends AppCompatActivity {
         button_enregister.setOnClickListener ( new View.OnClickListener () {
             @Override
             public void onClick(View v) {
-
+                showPopup();
                 parametre_progressbar.setVisibility ( View.VISIBLE );
                 final String user_name = nom.getText ().toString ();
                 final String user_premon = premon.getText ().toString ();
                 final String user_telephone = telephone.getText ().toString ();
                 final String user_email = email.getText ().toString ();
                 quartier =edit_quartier.getText().toString();
+                ///////////
+
+                //////////
                 /////////// envoi des fichier dans la base de donnee
                 if (ischange) {
-                    if (!TextUtils.isEmpty ( user_name ) && !TextUtils.isEmpty ( user_telephone ) && !TextUtils.isEmpty ( user_premon ) && !TextUtils.isEmpty ( user_residence ) && mImageUri != null && !TextUtils.isEmpty ( user_email )&& !TextUtils.isEmpty ( quartier )) {
+                    if (!TextUtils.isEmpty ( user_name ) && !TextUtils.isEmpty ( user_telephone ) && !TextUtils.isEmpty ( user_premon )&& mImageUri != null && !TextUtils.isEmpty ( user_email )&& !TextUtils.isEmpty ( quartier )) {
                         parametre_progressbar.setVisibility ( View.VISIBLE );
-                        showPopup();
                         final StorageReference image_de_profil = storageReference.child ( "image_de_profil" ).child ( current_user_id + " .jpg" );
                         UploadTask uploadTask = image_de_profil.putBytes(final_image);
                         Task<Uri> urlTask = uploadTask.continueWithTask ( new Continuation<UploadTask.TaskSnapshot, Task<Uri>> () {
@@ -257,7 +278,7 @@ public class ParametrePorfilActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Uri> task) {
                                 if (task.isSuccessful ()) {
-                                    stockage ( task, user_name, user_premon, user_telephone, user_residence +" | "+ quartier, user_email );
+                                    stockage ( task, user_name, user_premon, user_telephone, user_residence +" "+ quartier, user_email );
                                 } else {
                                     String error = task.getException ().getMessage ();
                                    // Toast.makeText ( getApplicationContext (), error, Toast.LENGTH_LONG ).show ();
@@ -268,13 +289,12 @@ public class ParametrePorfilActivity extends AppCompatActivity {
                         ////////fin de l'nvoie
                     } else {
                          myDialog.dismiss();
-
                         Toast.makeText ( getApplicationContext (), getString(R.string.renplir_tous), Toast.LENGTH_LONG ).show ();
                         parametre_progressbar.setVisibility ( View.INVISIBLE );
                     }
                 }else{
 
-                    stockage ( null, user_name, user_premon, user_telephone, user_residence +" | "+ quartier, user_email );
+                    stockage ( null, user_name, user_premon, user_telephone, user_residence +" "+ quartier, user_email );
 
                 }
             }
