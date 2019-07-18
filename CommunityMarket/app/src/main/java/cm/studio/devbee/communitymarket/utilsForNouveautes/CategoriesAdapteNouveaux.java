@@ -108,7 +108,9 @@ public class  CategoriesAdapteNouveaux extends FirestoreRecyclerAdapter<Categori
                     if (task.getResult ().exists ()){
                         String name_user= task.getResult ().getString ( "user_name" );
                         String image_user=task.getResult ().getString ( "user_profil_image" );
-                        viewHolder.setuserData ( name_user,image_user );
+                        String user_prenom=task.getResult ().getString ( "user_prenom" );
+
+                        viewHolder.setuserData ( name_user,user_prenom,image_user );
                     }
                 }else {
                     String error=task.getException().getMessage();
@@ -177,8 +179,8 @@ public class  CategoriesAdapteNouveaux extends FirestoreRecyclerAdapter<Categori
         public void imageproduitxi(String image){
             Picasso.with(context).load(image).into (imageDuproduit );
         }
-        public void setuserData(String name,String image){
-            nom_utilisateur.setText ( name );
+        public void setuserData(String name,String prenom,String image){
+            nom_utilisateur.setText ( name +" "+prenom);
             Picasso.with(context).load(image).transform(new CircleTransform()).into (profil_utilisateur );
             nouveaux_progress.setVisibility ( View.INVISIBLE );
         }

@@ -121,7 +121,7 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
     private String user_mail;
     private String residence_user;
     private String derniere_conection;
-
+    private Button is_master_button;
     final private String FCM_API = "https://fcm.googleapis.com/fcm/send";
     final private String serverKey = "key="+"AAAAfR8BveM:APA91bEgCOmnLz5LKrc4ms8qvCBYqAUwbXpoMswSYyuQJT0cg3FpLSvH-S_nAiaCARSdeolPbGpxTX5nHVm5AP6tI7N9sCYEL4IUkR_eF4lYZXN4oeXhWtCKavTHIaA8pH6eklL4yBO5";
     final private String contentType = "application/json";
@@ -164,6 +164,7 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
         detail_profil_image=findViewById(R.id.detail_image_du_profil);
         vendeur_button=findViewById(R.id.vendeur_button);
         vendeur_button.setEnabled ( true );
+        is_master_button=findViewById(R.id.is_master_button);
         //detail_user_name=findViewById(R.id.detail_user_name);
         detail_description=findViewById(R.id.detail_description);
         date_de_publication=findViewById(R.id.date_de_publication);
@@ -285,6 +286,48 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
 
     @SuppressLint("RestrictedApi")
     public void supprime(){
+        firebaseFirestore.collection ( "mes donnees utilisateur" ).document (utilisateur_actuel).get ().addOnCompleteListener ( DetailActivityTwo.this,new OnCompleteListener<DocumentSnapshot>() {
+            @SuppressLint("RestrictedApi")
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful ()){
+                    if (task.getResult ().exists ()){
+                        String is_master= task.getResult ().getString ( "is_master" );
+                        if (is_master.equals("true")){
+                            is_master_button.setVisibility(VISIBLE);
+                            is_master_button.setOnClickListener ( new View.OnClickListener () {
+                                @Override
+                                public void onClick(View v) {
+                                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder ( DetailActivityTwo.this );
+                                    alertDialogBuilder.setMessage ( getString ( R.string.voulez_vous_supprimer ) );
+                                    alertDialogBuilder.setPositiveButton ( "oui",
+                                            new DialogInterface.OnClickListener () {
+                                                @Override
+                                                public void onClick(DialogInterface arg0, int arg1) {
+                                                    showPopup();
+                                                    firebaseFirestore.collection ( "publication" ).document ( "categories" ).collection ( categories ).document ( iddupost ).delete ();
+                                                    firebaseFirestore.collection ( "publication" ).document ( "categories" ).collection ( "nouveaux" ).document ( iddupost ).delete ();
+                                                    firebaseFirestore.collection ( "publication" ).document ( "post utilisateur" ).collection ( current_user_id ).document ( iddupost ).delete ();
+                                                }
+                                            } );
+                                    alertDialogBuilder.setNegativeButton ( "non", new DialogInterface.OnClickListener () {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.cancel ();
+
+                                        }
+                                    } );
+                                    AlertDialog alertDialog = alertDialogBuilder.create ();
+                                    alertDialog.show ();
+                                }
+                            } );
+                        }
+                    }else {
+                    }
+                }else{
+                }
+            }
+        } );
         if (current_user_id.equals ( utilisateur_actuel )){
             vendeur_button.setVisibility ( INVISIBLE );
             supprime_detail_button.setEnabled ( true );

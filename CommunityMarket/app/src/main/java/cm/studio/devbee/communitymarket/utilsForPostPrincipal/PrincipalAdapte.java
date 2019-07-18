@@ -114,7 +114,9 @@ public class PrincipalAdapte extends FirestoreRecyclerAdapter<PrincipalModel,Pri
                     if (task.getResult ().exists ()){
                         String name_user= task.getResult ().getString ( "user_name" );
                         String image_user=task.getResult ().getString ( "user_profil_image" );
-                        viewHolder.setuserData ( name_user,image_user );
+                        String user_prenom=task.getResult ().getString ( "user_prenom" );
+
+                        viewHolder.setuserData ( name_user,user_prenom,image_user );
                     }
                 }else {
                     String error=task.getException().getMessage();
@@ -179,8 +181,8 @@ public class PrincipalAdapte extends FirestoreRecyclerAdapter<PrincipalModel,Pri
 
             Picasso.with(context).load(image).into (imageDuproduit );
         }
-        public void setuserData(String name,String image){
-            nom_utilisateur.setText ( name );
+        public void setuserData(String name,String prnom,String image){
+            nom_utilisateur.setText ( name +" "+ prnom);
             Picasso.with(context).load(image).transform(new CircleTransform()).into (profil_utilisateur );
             principal_progress.setVisibility ( View.INVISIBLE );
             comment_number=itemView.findViewById ( R.id.comment_number );

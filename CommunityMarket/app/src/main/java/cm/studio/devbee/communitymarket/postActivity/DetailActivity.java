@@ -575,7 +575,6 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
 
     @SuppressLint("RestrictedApi")
     public void supprime() {
-        String est_maitre="true";
         firebaseFirestore.collection ( "mes donnees utilisateur" ).document (utilisateur_actuel).get ().addOnCompleteListener ( DetailActivity.this,new OnCompleteListener<DocumentSnapshot>() {
             @SuppressLint("RestrictedApi")
             @Override
