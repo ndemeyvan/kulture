@@ -463,7 +463,7 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
     }
 
     private void sendNotification(final JSONObject notification) {
-        firebaseFirestore.collection("mes donnees utilisateur" ).document(user_id_message).get ().addOnCompleteListener ( DetailActivity.this, new OnCompleteListener<DocumentSnapshot> () {
+        firebaseFirestore.collection("mes donnees utilisateur" ).document(current_user_id).get ().addOnCompleteListener ( DetailActivity.this, new OnCompleteListener<DocumentSnapshot> () {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful ()){

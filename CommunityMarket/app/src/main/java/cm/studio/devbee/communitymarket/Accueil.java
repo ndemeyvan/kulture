@@ -420,6 +420,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
                                         notification_enable.setVisibility(View.INVISIBLE);
                                     }
                                     if (message.equals ( "non lu" )){
+                                        Toast.makeText ( getApplicationContext (),"new messgae",Toast.LENGTH_LONG ).show ();
                                         menu.getItem(1).setIcon(ContextCompat.getDrawable(getApplicationContext (), R.drawable.message_lu));
                                     }else{
 
