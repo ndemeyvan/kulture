@@ -308,6 +308,8 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
                                                     firebaseFirestore.collection ( "publication" ).document ( "categories" ).collection ( categories ).document ( iddupost ).delete ();
                                                     firebaseFirestore.collection ( "publication" ).document ( "categories" ).collection ( "nouveaux" ).document ( iddupost ).delete ();
                                                     firebaseFirestore.collection ( "publication" ).document ( "post utilisateur" ).collection ( current_user_id ).document ( iddupost ).delete ();
+                                                    firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user_id).collection ( "mes notification" ).document ( iddupost ).delete ();                                                   myDialog.dismiss();
+
                                                 }
                                             } );
                                     alertDialogBuilder.setNegativeButton ( "non", new DialogInterface.OnClickListener () {
@@ -360,6 +362,8 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
                                                     firebaseFirestore.collection ( "publication" ).document ("categories").collection ( categories ).document (iddupost).delete ();
                                                     firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "nouveaux" ).document (iddupost).delete ();
                                                     firebaseFirestore.collection ( "publication" ).document ("post utilisateur").collection ( current_user_id ).document(iddupost).delete ();
+                                                    firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user_id).collection ( "mes notification" ).document ( iddupost ).delete ();                                                   myDialog.dismiss();
+
                                                     finish ();
                                                 }else {
                                                     detail_progress.setVisibility ( INVISIBLE );

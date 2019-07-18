@@ -344,7 +344,6 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
                     notification_map.put("is_new_notification","true");
 
                     /////
-
                     firebaseFirestore.collection("mes donnees utilisateur").document(current_user_id).get().addOnCompleteListener(DetailActivity.this,new OnCompleteListener<DocumentSnapshot> () {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -353,24 +352,29 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
                                     String prenom=task.getResult ().getString ( "user_prenom" );
                                     String name_user= task.getResult ().getString ( "user_name" );
                                     String image_user=task.getResult ().getString ( "user_profil_image" );
-                                    String TOPIC = "/topics/"+user_id_message; //topic has to match what the receiver subscribed to
-                                    JSONObject notification = new JSONObject();
-                                    JSONObject notifcationBody = new JSONObject ();
-                                    try {
-                                        notifcationBody.put("title", "nouvelle reaction");
-                                        notifcationBody.put("message",name_user +" "+prenom +" reagi sur votre post") ;
-                                        notifcationBody.put("id", user_id_message);
-                                        notifcationBody.put ( "viens_de_detail","faux" );
-                                        notifcationBody.put ( "id_recepteur",user_id_message );
-                                        notifcationBody.put ( "image_en_vente",lien_image );
-                                        notification.put("to", TOPIC);
-                                        notification.put("data", notifcationBody);
-                                        notifcationBody.put ( "viens_de_detail","vrai" );
+                                        if (!current_user_id.equals ( utilisateur_actuel )){
+                                            /////////////
+                                            String TOPIC = "/topics/"+user_id_message; //topic has to match what the receiver subscribed to
+                                            JSONObject notification = new JSONObject();
+                                            JSONObject notifcationBody = new JSONObject ();
+                                            try {
+                                                notifcationBody.put("title", "nouvelle reaction");
+                                                notifcationBody.put("message",name_user +" "+prenom +" reagi sur votre post") ;
+                                                notifcationBody.put("id", user_id_message);
+                                                notifcationBody.put ( "viens_de_detail","faux" );
+                                                notifcationBody.put ( "id_recepteur",user_id_message );
+                                                notifcationBody.put ( "image_en_vente",lien_image );
+                                                notification.put("to", TOPIC);
+                                                notification.put("data", notifcationBody);
+                                                notifcationBody.put ( "viens_de_detail","vrai" );
 
-                                    } catch (JSONException e) {
-                                        Log.e(TAG, "onCreate: " + e.getMessage() );
-                                    }
-                                    sendNotification(notification);
+                                            } catch (JSONException e) {
+                                                Log.e(TAG, "onCreate: " + e.getMessage() );
+                                            }
+                                            sendNotification(notification);
+                                            /////////////
+                                        }
+
 
                                     ////end test noti
 
@@ -597,6 +601,8 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
                                                     firebaseFirestore.collection ( "publication" ).document ( "categories" ).collection ( categories ).document ( iddupost ).delete ();
                                                     firebaseFirestore.collection ( "publication" ).document ( "categories" ).collection ( "nouveaux" ).document ( iddupost ).delete ();
                                                     firebaseFirestore.collection ( "publication" ).document ( "post utilisateur" ).collection ( current_user_id ).document ( iddupost ).delete ();
+                                                    firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user_id).collection ( "mes notification" ).document ( iddupost ).delete ();                                                   myDialog.dismiss();
+
                                                 }
                                             } );
                                     alertDialogBuilder.setNegativeButton ( "non", new DialogInterface.OnClickListener () {
@@ -654,7 +660,7 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
                                                     firebaseFirestore.collection ( "publication" ).document ( "categories" ).collection ( categories ).document ( iddupost ).delete ();
                                                     firebaseFirestore.collection ( "publication" ).document ( "categories" ).collection ( "nouveaux" ).document ( iddupost ).delete ();
                                                     firebaseFirestore.collection ( "publication" ).document ( "post utilisateur" ).collection ( current_user_id ).document ( iddupost ).delete ();
-                                                    myDialog.dismiss();
+                                                    firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user_id).collection ( "mes notification" ).document ( iddupost ).delete ();                                                   myDialog.dismiss();
                                                     finish ();
 
                                                 } else {
