@@ -305,6 +305,7 @@ public class  DetailActivityFour extends AppCompatActivity {
                                                     firebaseFirestore.collection ( "publication" ).document ("categories").collection ( categories ).document (iddupost).delete ();
                                                     firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "nouveaux" ).document (iddupost).delete ();
                                                     firebaseFirestore.collection ( "publication" ).document ("post utilisateur").collection ( current_user_id ).document(iddupost).delete ();
+                                                    firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user_id).collection ( "mes notification" ).document ( iddupost ).delete ();
                                                     Intent gotovente = new Intent ( getApplicationContext (),VenteUtilisateurActivity.class );
                                                     startActivity ( gotovente );
                                                     finish ();

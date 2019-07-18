@@ -427,10 +427,10 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
     }
     public void stocker(){
                             Date date=new Date();
-                            SimpleDateFormat sdf= new SimpleDateFormat("d/MM/y H:mm:ss");
+                            SimpleDateFormat sdf= new SimpleDateFormat("d/MM/y H:mm");
                             final String date_avec_seconde=sdf.format(date);
                             Calendar calendar=Calendar.getInstance ();
-                            SimpleDateFormat currentDate=new SimpleDateFormat (" dd MMM yyyy H:mm:ss" );
+                            SimpleDateFormat currentDate=new SimpleDateFormat (" dd MMM yyyy H:mm" );
                             saveCurrentDate=currentDate.format ( calendar.getTime () );
                             randomKey=saveCurrentDate;
                             String random =random ();
