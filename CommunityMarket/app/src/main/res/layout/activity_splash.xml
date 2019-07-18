@@ -45,11 +45,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:text="Wear you choice"
+        android:fontFamily="@font/righteous"
+        android:text="wear what you want"
         android:textAlignment="center"
         android:textSize="@dimen/splash_text_proverb"
         android:textStyle="bold"
-        android:fontFamily="@font/righteous"
         app:layout_constraintEnd_toEndOf="@+id/textView3"
         app:layout_constraintStart_toStartOf="@+id/textView3"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />

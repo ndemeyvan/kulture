@@ -365,7 +365,7 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
                                             } catch (JSONException e) {
                                                 Log.e(TAG, "onCreate: " + e.getMessage() );
                                             }
-                                            sendNotification(notification);
+                                            //sendNotification(notification);
                                             /////////////
                                         }
 
@@ -417,7 +417,7 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
                     progressBar3.setVisibility(VISIBLE);
                     SimpleDateFormat sdf= new SimpleDateFormat("d/MM/y H:mm:ss");
                     Calendar calendar=Calendar.getInstance ();
-                    SimpleDateFormat currentDate=new SimpleDateFormat (" dd MMM yyyy" );
+                    SimpleDateFormat currentDate=new SimpleDateFormat (" dd MMM yyyy H:mm" );
                     String saveCurrentDate=currentDate.format ( calendar.getTime () );
                     final Map<String,Object> user_comment = new HashMap();
                     comment = post_detail_comment.getText().toString();
@@ -501,13 +501,12 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
 
     ////envoi du commentaire
     public void commentaire() {
-        Query firstQuery = firebaseFirestore.collection ( "publication" ).document ( "categories" ).collection ( "nouveaux" ).document ( iddupost ).collection ( "commentaires" );
+        Query firstQuery = firebaseFirestore.collection ( "publication" ).document ( "categories" ).collection ( "nouveaux" ).document ( iddupost ).collection ( "commentaires" ).orderBy ( "heure",Query.Direction.ASCENDING );
         // .limit(3);
         firstQuery.addSnapshotListener ( DetailActivity.this, new EventListener<QuerySnapshot> () {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                 for (DocumentChange doc : queryDocumentSnapshots.getDocumentChanges ()) {
-
                     if (doc.getType () == DocumentChange.Type.ADDED) {
                         Commentaires_Model principalAdaptemodel = doc.getDocument ().toObject ( Commentaires_Model.class );
                         commentaires_modelList.add ( principalAdaptemodel );

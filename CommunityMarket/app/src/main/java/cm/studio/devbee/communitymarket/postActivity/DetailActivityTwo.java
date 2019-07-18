@@ -231,7 +231,7 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
 
 
     public void commentaire(){
-        Query firstQuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( categories ).document (iddupost).collection("commentaires");
+        Query firstQuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( categories ).document (iddupost).collection("commentaires").orderBy ( "heure",Query.Direction.ASCENDING );;
         firstQuery.addSnapshotListener(DetailActivityTwo.this,new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
@@ -547,7 +547,7 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
                                     } catch (JSONException e) {
                                         Log.e(TAG, "onCreate: " + e.getMessage() );
                                     }
-                                    sendNotification(notification);
+                                    //sendNotification(notification);
 
                                     ////end test noti
 
@@ -593,7 +593,7 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
                     progressBar3.setVisibility(VISIBLE);
                     SimpleDateFormat sdf= new SimpleDateFormat("d/MM/y H:mm:ss");
                     Calendar calendar=Calendar.getInstance ();
-                    SimpleDateFormat currentDate=new SimpleDateFormat (" dd MMM yyyy" );
+                    SimpleDateFormat currentDate=new SimpleDateFormat (" dd MMM yyyy H:mm:" );
                     String saveCurrentDate=currentDate.format ( calendar.getTime () );
                     final Map<String,Object> user_comment = new HashMap();
                     comment = post_detail_comment.getText().toString();

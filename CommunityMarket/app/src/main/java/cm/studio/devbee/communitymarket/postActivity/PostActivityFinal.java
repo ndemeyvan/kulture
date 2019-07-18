@@ -352,7 +352,7 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
                     RequestQueue rQueue = Volley.newRequestQueue(PostActivityFinal.this);
                     rQueue.add(request);
                     ////fin*/
-                    AsyncTask<InputStream,String,String> visionTask = new AsyncTask<InputStream, String, String>() {
+                    /*AsyncTask<InputStream,String,String> visionTask = new AsyncTask<InputStream, String, String>() {
                         ProgressDialog mDialog = new ProgressDialog(PostActivityFinal.this);
                         @Override
                         protected String doInBackground(InputStream... params) {
@@ -400,7 +400,7 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
                         }
                     };
 
-                    visionTask.execute(inputStream);
+                    visionTask.execute(inputStream);*/
                     final_image = baos.toByteArray();
                 }catch (Exception e){
 
