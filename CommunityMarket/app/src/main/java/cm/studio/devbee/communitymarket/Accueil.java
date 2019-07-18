@@ -416,11 +416,13 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
 
                                     if (notification.equals("true")){
                                         notification_enable.setVisibility(View.VISIBLE);
+                                        Toast.makeText ( getApplicationContext (),"new notification",Toast.LENGTH_LONG ).show ();
+
                                     }else{
                                         notification_enable.setVisibility(View.INVISIBLE);
                                     }
                                     if (message.equals ( "non lu" )){
-                                        Toast.makeText ( getApplicationContext (),"new messgae",Toast.LENGTH_LONG ).show ();
+                                        Toast.makeText ( getApplicationContext (),"new message",Toast.LENGTH_LONG ).show ();
                                         menu.getItem(1).setIcon(ContextCompat.getDrawable(getApplicationContext (), R.drawable.message_lu));
                                     }else{
 
