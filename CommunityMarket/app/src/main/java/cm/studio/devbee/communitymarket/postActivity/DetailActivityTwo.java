@@ -540,6 +540,7 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
                                         notifcationBody.put ( "image_en_vente",lien_image );
                                         notifcationBody.put ( "categorie",categories );
                                         notification.put("to", TOPIC);
+                                        notification.put("categories_name", categories);
                                         notification.put("data", notifcationBody);
                                         notifcationBody.put ( "viens_de_detail","vrai" );
 

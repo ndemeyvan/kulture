@@ -365,6 +365,7 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
                                                 notifcationBody.put ( "id_recepteur",user_id_message );
                                                 notifcationBody.put ( "image_en_vente",lien_image );
                                                 notification.put("to", TOPIC);
+                                                notification.put("categories_name", categories);
                                                 notification.put("data", notifcationBody);
                                                 notifcationBody.put ( "viens_de_detail","vrai" );
 

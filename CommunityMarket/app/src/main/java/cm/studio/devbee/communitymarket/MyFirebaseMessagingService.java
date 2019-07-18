@@ -58,6 +58,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private String current_id;
     private String categories;
     private String id_du_post;
+    private String categories_name;
 
     /*remoteMessage.getData()!=null && remoteMessage.getData().size() > 0*/
     @Override
@@ -90,12 +91,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             viens_de_detail = remoteMessage.getData().get("viens_de_detail");
             image_en_vente = remoteMessage.getData().get("image_en_vente");
             id_expediteur=remoteMessage.getData ().get ( "id_expediteur" );
+            categories_name=remoteMessage.getData ().get ( "categories_name" );
             intent.putExtra ("id_recepteur",id_recepteur  );
             intent.putExtra ("image_en_vente",image_en_vente  );
             intent.putExtra ("viens_de_detail","faux"  );
             intent.putExtra("viens","");
             intent.putExtra ( "id de l'utilisateur",id_expediteur );
-            intent.putExtra ( "id_categories",categories );
+            intent.putExtra ( "id_categories",categories_name );
             intent.putExtra ( "viens_de_service","vrai" );
             intent.putExtra ( "id du post",id_du_post );
             intent.putExtra ( "viens_de_notification","faux" );
