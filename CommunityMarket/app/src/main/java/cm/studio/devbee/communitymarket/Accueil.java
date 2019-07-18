@@ -469,7 +469,6 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
             int id = item.getItemId ();
-
             if (id == R.id.ic_user) {
                 Intent intent = new Intent ( getApplicationContext(),ProfileActivity.class );
                 startActivity ( intent );
@@ -650,10 +649,8 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
 
     @Override
     protected void onDestroy() {
-            userstatus("offline");
             asyncTask.cancel(true);
             super.onDestroy();
-            userstatus("offline");
             recup();
             asyncTask.cancel(true);
             mAuth=null;

@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -36,7 +38,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.squareup.picasso.Picasso;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -51,6 +55,7 @@ import java.util.Map;
 import cm.studio.devbee.communitymarket.MyFirebaseMessagingService;
 import cm.studio.devbee.communitymarket.MySingleton;
 import cm.studio.devbee.communitymarket.R;
+import cm.studio.devbee.communitymarket.profile.ParametrePorfilActivity;
 import cm.studio.devbee.communitymarket.utilForChat.ChatAdapter;
 import cm.studio.devbee.communitymarket.utilForChat.DiplayAllChat;
 import cm.studio.devbee.communitymarket.utilForChat.ModelChat;
@@ -643,6 +648,48 @@ public class MessageActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void checkOnline(){
+        final DocumentReference docRef = firebaseFirestore.collection ( "mes donnees utilisateur" ).document (user_id_message);
+        docRef.addSnapshotListener(new EventListener<DocumentSnapshot> () {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot snapshot,
+                                @Nullable FirebaseFirestoreException e) {
+                if (e != null) {
+                    return;
+                }
+                if (snapshot != null && snapshot.exists()) {
+                    firebaseFirestore=FirebaseFirestore.getInstance ();
+                    firebaseFirestore.collection ( "mes donnees utilisateur" ).document (user_id_message).get ().addOnCompleteListener ( new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if (task.isSuccessful ()){
+                                if (task.getResult ().exists ()){
+                                    String status= task.getResult ().getString ( "status" );
+                                    if (status.equals ( "online" )){
+
+                                        online_status.setVisibility ( View.VISIBLE );
+                                        offline_status.setVisibility ( View.INVISIBLE );
+
+                                    }else {
+                                        online_status.setVisibility ( View.INVISIBLE );
+                                        offline_status.setVisibility ( View.VISIBLE );
+
+                                    }
+
+
+                                }else {
+
+                                }
+                            }else{
+                            }
+                        }
+                    } );
+                } else {
+                }
+            }
+        });
     }
 
 

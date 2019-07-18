@@ -89,6 +89,16 @@ public class List_chat_adapter extends RecyclerView.Adapter<List_chat_adapter.Vi
                             String prenom=task.getResult ().getString ( "user_prenom" );
                             String name_user= task.getResult ().getString ( "user_name" );
                             String lien_profil_contact =task.getResult ().getString ( "user_profil_image" );
+                            String status =task.getResult ().getString ( "status" );
+                                if (status.equals ( "online" )){
+                                    viewHolder.online.setVisibility ( View.VISIBLE );
+                                    viewHolder.offline.setVisibility ( View.INVISIBLE );
+
+                                }else {
+                                    viewHolder.online.setVisibility ( View.INVISIBLE );
+                                    viewHolder.offline.setVisibility ( View.VISIBLE );
+
+                                }
                             Picasso.with ( context ).load ( lien_profil_contact ).into ( profil );
                             viewHolder.nom_utilisateur.setText (name_user +" "+ prenom);
                         }
@@ -103,7 +113,6 @@ public class List_chat_adapter extends RecyclerView.Adapter<List_chat_adapter.Vi
             Picasso.with ( context ).load ( image_profil ).into ( profil );
 
         }
-
 
         if (lu.equals ( "non lu" )){
             viewHolder.new_message_image.setVisibility ( View.VISIBLE );
