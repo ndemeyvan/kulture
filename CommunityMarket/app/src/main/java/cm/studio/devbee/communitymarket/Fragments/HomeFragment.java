@@ -634,7 +634,7 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
         loadRewardedVideo();
         mInterstitialAd.show();
         if (!mInterstitialAd.isLoaded()) {
-            mInterstitialAd.show();
+           // mInterstitialAd.show();
         }
         userstatus("online");
 
@@ -712,9 +712,7 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
 
     @Override
     public void onDestroy() {
-        userstatus ( "false" );
         super.onDestroy();
-        userstatus ( "false" );
         firebaseFirestore=null;
         content_progresbar=null;
         categoriesAdapte=null;

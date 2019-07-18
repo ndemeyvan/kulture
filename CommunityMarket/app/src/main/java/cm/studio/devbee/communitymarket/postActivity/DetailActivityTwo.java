@@ -194,7 +194,7 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
         mad.setRewardedVideoAdListener(this);
         loadRewardedVideo();
         if (mad.isLoaded()) {
-            mad.show();
+            //mad.show();
         }
         detail_progress.setVisibility ( View.VISIBLE );
         voir_les_commentaire_btn=findViewById(R.id.voir_les_commentaire_btn);
@@ -1077,7 +1077,7 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
     }
     ////menu
     public void userstatus(String status){
-        DocumentReference user = firebaseFirestore.collection("mes donnees utilisateur" ).document(current_user_id);
+        DocumentReference user = firebaseFirestore.collection("mes donnees utilisateur" ).document(utilisateur_actuel);
         user.update("status", status)
                 .addOnSuccessListener(this,new OnSuccessListener<Void>() {
                     @Override

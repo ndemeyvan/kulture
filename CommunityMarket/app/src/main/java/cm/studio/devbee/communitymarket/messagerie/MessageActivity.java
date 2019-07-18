@@ -305,7 +305,7 @@ public class MessageActivity extends AppCompatActivity {
         animationDrawableOne.setExitFadeDuration(4000);
         animationDrawableOne.start();
         stopService(new Intent(MessageActivity.this,MyFirebaseMessagingService.class));
-
+        checkOnline ();
 
     }
 

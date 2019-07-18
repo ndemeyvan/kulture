@@ -215,10 +215,10 @@ public class ChoiceActivity extends AppCompatActivity {
                                 String saveCurrentDate=currentDate.format ( calendar.getTime () );
                                 String randomKey=saveCurrentDate;
                                 donnees_utilisateur.put ( "user_name",user.getDisplayName());
-                                donnees_utilisateur.put ( "user_prenom","...");
+                                donnees_utilisateur.put ( "user_prenom"," ");
                                 donnees_utilisateur.put ( "user_telephone", user.getPhoneNumber() );
-                                donnees_utilisateur.put ( "user_residence", "...");
-                                donnees_utilisateur.put ( "user_mail","...");
+                                donnees_utilisateur.put ( "user_residence", " ");
+                                donnees_utilisateur.put ( "user_mail"," ");
                                 donnees_utilisateur.put ( "user_profil_image", String.valueOf(user.getPhotoUrl()));
                                 donnees_utilisateur.put ( "id_utilisateur", user.getUid());
                                 donnees_utilisateur.put ( "status","online" );
@@ -367,9 +367,9 @@ public class ChoiceActivity extends AppCompatActivity {
                                         String randomKey=saveCurrentDate;
                                         donnees_utilisateur.put ( "user_name",personName);
                                         donnees_utilisateur.put ( "user_prenom",personFamilyName);
-                                        donnees_utilisateur.put ( "user_telephone", "..." );
-                                        donnees_utilisateur.put ( "user_residence", "...");
-                                        donnees_utilisateur.put ( "user_mail","...");
+                                        donnees_utilisateur.put ( "user_telephone", " " );
+                                        donnees_utilisateur.put ( "user_residence", " ");
+                                        donnees_utilisateur.put ( "user_mail"," ");
                                         donnees_utilisateur.put ( "user_profil_image", String.valueOf(personPhoto));
                                         donnees_utilisateur.put ( "id_utilisateur", personId);
                                         donnees_utilisateur.put ( "status","online" );

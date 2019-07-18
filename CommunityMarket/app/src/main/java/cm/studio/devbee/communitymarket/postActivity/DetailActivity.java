@@ -190,13 +190,6 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
         detail_progress = findViewById ( R.id.detail_progress );
         supprime_detail_button = findViewById ( R.id.supprime_detail_button );
         vendeur_button.setEnabled ( true );
-       /* new MaterialShowcaseView.Builder(this)
-                .setTarget(detail_profil_image)
-                .setDismissText("ok")
-                .setContentText("cliquez ici pour voir plus de sur le vendeur actuel")
-                .singleUse(String.valueOf(4)) // provide a unique ID used to ensure it is only shown once
-                .show();*/
-
         asyncTask = new AsyncTask ();
         asyncTask.execute ();
         add_progressbar=findViewById(R.id.add_progressbar);
@@ -221,7 +214,7 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
         mad.setRewardedVideoAdListener ( this );
         loadRewardedVideo ();
         if (mad.isLoaded ()) {
-            mad.show ();
+            //mad.show ();
         }
         donne ();
         detail_progress.setVisibility ( View.VISIBLE );

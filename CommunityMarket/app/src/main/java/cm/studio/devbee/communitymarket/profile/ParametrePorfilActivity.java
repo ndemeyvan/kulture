@@ -329,8 +329,6 @@ public class ParametrePorfilActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful ()) {
-                    Intent intent = new Intent ( getApplicationContext (), Accueil.class );
-                    startActivity ( intent );
                     finish ();
                     Toast.makeText ( getApplicationContext (), getString(R.string.param_compte_enregister), Toast.LENGTH_LONG ).show ();
                 } else {
@@ -408,6 +406,7 @@ public class ParametrePorfilActivity extends AppCompatActivity {
         userstatus("offline");
 
     }
+
 
 
     public class AsyncTask extends android.os.AsyncTask<Void, Void, Void> {

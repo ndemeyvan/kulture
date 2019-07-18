@@ -1,6 +1,7 @@
 package cm.studio.devbee.communitymarket.search;
 
 import android.graphics.drawable.AnimationDrawable;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,8 +16,11 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -116,6 +120,33 @@ public class Search_User_Activity extends AppCompatActivity {
                 }
             }
         } );
+    }
+
+    public void userstatus(String status){
+        DocumentReference user = db.collection("mes donnees utilisateur" ).document(current_user);
+        user.update("status", status)
+                .addOnSuccessListener(new OnSuccessListener<Void> () {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener () {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                    }
+                });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume ();
+        userstatus("online");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause ();
+        userstatus("offline");
     }
 
 

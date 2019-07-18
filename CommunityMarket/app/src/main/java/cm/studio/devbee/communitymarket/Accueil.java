@@ -318,7 +318,6 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
             public void onClick(View v) {
                 Intent gotoparam = new Intent ( Accueil.this,ParametrePorfilActivity.class );
                 startActivity ( gotoparam );
-                finish ();
             }
         } );
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable (Color.TRANSPARENT));
