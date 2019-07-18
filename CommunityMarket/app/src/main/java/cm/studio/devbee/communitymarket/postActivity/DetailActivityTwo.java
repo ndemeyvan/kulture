@@ -593,7 +593,7 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
                     progressBar3.setVisibility(VISIBLE);
                     SimpleDateFormat sdf= new SimpleDateFormat("d/MM/y H:mm:ss");
                     Calendar calendar=Calendar.getInstance ();
-                    SimpleDateFormat currentDate=new SimpleDateFormat (" dd MMM yyyy H:mm:" );
+                    SimpleDateFormat currentDate=new SimpleDateFormat (" dd MMM yyyy H:mm" );
                     String saveCurrentDate=currentDate.format ( calendar.getTime () );
                     final Map<String,Object> user_comment = new HashMap();
                     comment = post_detail_comment.getText().toString();
