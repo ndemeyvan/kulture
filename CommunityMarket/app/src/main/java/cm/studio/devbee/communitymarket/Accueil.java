@@ -477,7 +477,6 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
             } else if (id == R.id.ic_logout) {
                 userstatus("offline");
                 stopService(new Intent(Accueil.this,MyFirebaseMessagingService.class));
-
                 mAuth.getInstance().signOut();
                 Intent intenttwo = new Intent ( getApplicationContext(),ChoiceActivity.class ).setFlags ( Intent.FLAG_ACTIVITY_CLEAR_TOP );
                 startActivity ( intenttwo );
@@ -490,7 +489,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
             else if (id == R.id.nous_contacter) {
                 Intent nous_contacter=new Intent(getApplicationContext(),AproposActivity.class);
                 startActivity(nous_contacter);
-                finish ();
+                //finish ();
             }else if(id==R.id.ic_message){
                 Intent message=new Intent(getApplicationContext(),ChatMessageActivity.class);
                 message.putExtra ( "viens","acceuil" );

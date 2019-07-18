@@ -80,9 +80,7 @@ public class ProfileActivity extends AppCompatActivity {
         vente_button.setOnClickListener ( new View.OnClickListener () {
             @Override
             public void onClick(View v) {
-                Intent vendre=new Intent ( ProfileActivity.this ,VenteUtilisateurActivity.class);
-                startActivity ( vendre );
-                //finish ();
+                finish ();
             }
         } );
         current_user_id=mAuth.getCurrentUser ().getUid ();

@@ -344,8 +344,6 @@ public class ParametrePorfilActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed ();
-        Intent parametre=new Intent(getApplicationContext(),Accueil.class);
-        startActivity(parametre);
         finish ();
     }
     @Override
