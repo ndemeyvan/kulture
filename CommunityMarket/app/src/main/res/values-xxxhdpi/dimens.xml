@@ -262,5 +262,6 @@
     <dimen name="card_start">40dp</dimen>
     <dimen name="card_top_button">32dp</dimen>
     <dimen name="open_sart_word">85dp</dimen>
+    <dimen name="item_layout_name_widht">210dp</dimen>
 
 </resources>

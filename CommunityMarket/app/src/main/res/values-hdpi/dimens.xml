@@ -260,6 +260,7 @@
     <dimen name="card_start">40dp</dimen>
     <dimen name="card_top_button">24dp</dimen>
     <dimen name="open_sart_word">40dp</dimen>
+    <dimen name="item_layout_name_widht">190dp</dimen>
 
 
 
