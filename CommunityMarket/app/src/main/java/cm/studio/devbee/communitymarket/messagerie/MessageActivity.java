@@ -398,7 +398,6 @@ public class MessageActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy ();
-        userstatus("offline");
         Calendar calendar=Calendar.getInstance ();
         SimpleDateFormat currentDate=new SimpleDateFormat (" dd MMM yyyy" );
         String saveCurrentDate=currentDate.format ( calendar.getTime () );

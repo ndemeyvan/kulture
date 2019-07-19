@@ -129,28 +129,16 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/open_sart_word"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="@dimen/a_propos_margin_top"
+        android:layout_marginEnd="8dp"
         android:fontFamily="@font/righteous"
-        android:text="Open"
+        android:text="Open Market"
         android:textColor="@color/blanc"
         android:textSize="@dimen/login_text_size"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView14"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="@dimen/login_start_end"
-        android:fontFamily="@font/righteous"
-        android:text="Market"
-        android:textColor="#ff17"
-        android:textSize="@dimen/login_text_size"
-        app:layout_constraintBottom_toBottomOf="@+id/textView2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView2"
-        app:layout_constraintTop_toTopOf="@+id/textView2" />
 
 </android.support.constraint.ConstraintLayout>

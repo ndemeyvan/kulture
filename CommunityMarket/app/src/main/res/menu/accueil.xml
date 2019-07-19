@@ -5,13 +5,11 @@
         android:id="@+id/search"
         android:title="search"
         android:icon="@drawable/ic_search"
-        android:orderInCategory="0"
         app:showAsAction="always"
 
         />
     <item
         android:id="@+id/message"
-        android:orderInCategory="1"
         android:title="messages"
         android:icon="@drawable/ic_message_float_icon"
         app:showAsAction="always"
@@ -20,12 +18,18 @@
 
     <item
         android:id="@+id/favories"
-        android:orderInCategory="1"
         android:title="favories"
         android:icon="@drawable/ic_like"
-        app:showAsAction="always"
 
         />
+    <item
+        android:id="@+id/notification"
+        android:title="notifications"
+        android:icon="@drawable/notification_diseable"
+        app:showAsAction="always"
+        />
+
+
 
 
 

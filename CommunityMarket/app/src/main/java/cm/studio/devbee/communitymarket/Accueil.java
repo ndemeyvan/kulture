@@ -423,8 +423,11 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
 
                                     if (notification.equals("true")){
                                         notification_enable.setVisibility(View.VISIBLE);
+                                        menu.getItem(3).setIcon(ContextCompat.getDrawable(getApplicationContext (), R.drawable.notification_enable));
+
 
                                     }else{
+                                        menu.getItem(3).setIcon(ContextCompat.getDrawable(getApplicationContext (), R.drawable.notification_diseable));
                                         notification_enable.setVisibility(View.INVISIBLE);
                                     }
                                     if (message.equals ( "non lu" )){
@@ -467,6 +470,9 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
             }else if (id ==R.id.favories){
                 Intent message=new Intent(getApplicationContext(),FavoriesActivity.class);
                 startActivity(message);
+            }else if (id==R.id.notification){
+                Intent message=new Intent(getApplicationContext(),NotificationActivity.class);
+                startActivity(message);
             }
 
             return super.onOptionsItemSelected ( item );
@@ -504,6 +510,9 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
                 //finish ();
             }else if (id ==R.id.favories){
                 Intent message=new Intent(getApplicationContext(),FavoriesActivity.class);
+                startActivity(message);
+            }else if (id==R.id.notification){
+                Intent message=new Intent(getApplicationContext(),NotificationActivity.class);
                 startActivity(message);
             }
             DrawerLayout drawer = (DrawerLayout) findViewById ( R.id.drawer_layout );
