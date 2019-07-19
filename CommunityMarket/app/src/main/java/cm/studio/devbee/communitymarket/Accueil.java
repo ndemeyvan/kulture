@@ -251,7 +251,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
         image_user.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Accueil.this,NotificationActivity.class);
+                Intent intent = new Intent(Accueil.this,ProfileActivity.class);
                 startActivity(intent);
             }
         });
