@@ -316,7 +316,36 @@ public class MessageActivity extends AppCompatActivity {
                 if (task.isSuccessful ()){
                     if (task.getResult ().exists ()){
                         String status=task.getResult ().getString ( "status" );
+                        String is_on_main=task.getResult ().getString ( "is_on_main" );
                         if (!status.equals ( "online" )){
+                            ///////////////////////////
+                            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest (FCM_API, notification,
+                                    new Response.Listener<JSONObject>() {
+                                        @Override
+                                        public void onResponse(JSONObject response) {
+                                            Log.i(TAG, "onResponse: " + response.toString());
+                                        }
+                                    },
+                                    new Response.ErrorListener() {
+                                        @Override
+                                        public void onErrorResponse(VolleyError error) {
+                                            Toast.makeText(MessageActivity.this, "Request error", Toast.LENGTH_LONG).show();
+                                            Log.i(TAG, "onErrorResponse: Didn't work");
+                                        }
+                                    }){
+                                @Override
+                                public Map<String, String> getHeaders() throws AuthFailureError {
+                                    Map<String, String> params = new HashMap<>();
+                                    params.put("Authorization", serverKey);
+                                    params.put("Content-Type", contentType);
+                                    return params;
+                                }
+                            };
+                            MySingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
+                            /////////////////////////////////
+                        }
+
+                        if (is_on_main.equals ( "online" )){
                             ///////////////////////////
                             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest (FCM_API, notification,
                                     new Response.Listener<JSONObject>() {

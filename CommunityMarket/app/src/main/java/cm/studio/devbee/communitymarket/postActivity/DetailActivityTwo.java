@@ -73,6 +73,7 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.Nullable;
 
+import cm.studio.devbee.communitymarket.Accueil;
 import cm.studio.devbee.communitymarket.MySingleton;
 import cm.studio.devbee.communitymarket.R;
 import cm.studio.devbee.communitymarket.commentaires.Commentaire_Adapter;
@@ -1088,6 +1089,17 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
                     @Override
                     public void onFailure(@NonNull Exception e) {
                     }});
+        user.update("is_on_main", status)
+                .addOnSuccessListener(DetailActivityTwo.this,new OnSuccessListener<Void> () {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                    }
+                })
+                .addOnFailureListener(DetailActivityTwo.this,new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                    }
+                });
     }
 
 

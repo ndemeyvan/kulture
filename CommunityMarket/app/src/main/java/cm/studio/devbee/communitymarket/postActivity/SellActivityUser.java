@@ -33,6 +33,7 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import cm.studio.devbee.communitymarket.Accueil;
 import cm.studio.devbee.communitymarket.R;
 import cm.studio.devbee.communitymarket.gridView_post.ModelGridView;
 import cm.studio.devbee.communitymarket.profile.FavoriesActivity;
@@ -132,6 +133,17 @@ public class SellActivityUser extends AppCompatActivity {
                     }
                 })
                 .addOnFailureListener(this,new OnFailureListener () {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                    }
+                });
+        user.update("is_on_main", status)
+                .addOnSuccessListener(SellActivityUser.this,new OnSuccessListener<Void> () {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                    }
+                })
+                .addOnFailureListener(SellActivityUser.this,new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                     }

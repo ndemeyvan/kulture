@@ -191,6 +191,7 @@ public class ChoiceActivity extends AppCompatActivity {
                                 donnees_utilisateur.put ( "derniere_conection",randomKey);
                                 donnees_utilisateur.put ( "has_notification","false");
                                 donnees_utilisateur.put ( "is_master","false");
+                                donnees_utilisateur.put ( "is_on_main","false");
 
                                 firebaseFirestore.collection ( "mes donnees utilisateur" ).document ( user.getUid()).set ( donnees_utilisateur ).addOnCompleteListener ( ChoiceActivity.this,new OnCompleteListener<Void>() {
                                     @Override
@@ -319,6 +320,7 @@ public class ChoiceActivity extends AppCompatActivity {
                                         donnees_utilisateur.put ( "derniere_conection",randomKey);
                                         donnees_utilisateur.put ( "has_notification","false");
                                         donnees_utilisateur.put ( "is_master","false");
+                                        donnees_utilisateur.put ( "is_on_main","false");
                                         firebaseFirestore.collection ( "mes donnees utilisateur" ).document ( personId).set ( donnees_utilisateur ).addOnCompleteListener ( ChoiceActivity.this,new OnCompleteListener<Void>() {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {

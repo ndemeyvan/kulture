@@ -378,7 +378,8 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
             if (drawer.isDrawerOpen ( GravityCompat.START )) {
                 drawer.closeDrawer ( GravityCompat.START );
             } else {
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder ( Accueil.this );
+                finish ();
+               /* AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder ( Accueil.this );
                 alertDialogBuilder.setMessage ( "sortir d'open market ?" );
                 alertDialogBuilder.setPositiveButton ( "oui",
                         new DialogInterface.OnClickListener () {
@@ -394,7 +395,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
                     }
                 } );
                 AlertDialog alertDialog = alertDialogBuilder.create ();
-                alertDialog.show ();
+                alertDialog.show ();*/
             }
     }
 
@@ -422,13 +423,13 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
                                     String notification = task.getResult().getString("has_notification");
 
                                     if (notification.equals("true")){
-                                        notification_enable.setVisibility(View.VISIBLE);
+                                      //  notification_enable.setVisibility(View.VISIBLE);
                                         menu.getItem(3).setIcon(ContextCompat.getDrawable(getApplicationContext (), R.drawable.notification_enable));
 
 
                                     }else{
                                         menu.getItem(3).setIcon(ContextCompat.getDrawable(getApplicationContext (), R.drawable.notification_diseable));
-                                        notification_enable.setVisibility(View.INVISIBLE);
+                                       // notification_enable.setVisibility(View.INVISIBLE);
                                     }
                                     if (message.equals ( "non lu" )){
                                         menu.getItem(1).setIcon(ContextCompat.getDrawable(getApplicationContext (), R.drawable.message_lu));
@@ -541,6 +542,18 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
                         public void onFailure(@NonNull Exception e) {
                         }
                     });
+
+        user.update("is_on_main", status)
+                .addOnSuccessListener(Accueil.this,new OnSuccessListener<Void> () {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                    }
+                })
+                .addOnFailureListener(Accueil.this,new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                    }
+                });
     }
 
 

@@ -54,6 +54,7 @@ import java.util.Map;
 
 import javax.annotation.Nullable;
 
+import cm.studio.devbee.communitymarket.Accueil;
 import cm.studio.devbee.communitymarket.R;
 import cm.studio.devbee.communitymarket.commentaires.Commentaire_Adapter;
 import cm.studio.devbee.communitymarket.commentaires.Commentaires_Model;
@@ -484,6 +485,17 @@ public class  DetailActivityFour extends AppCompatActivity {
                     }
                 })
                 .addOnFailureListener(DetailActivityFour.this,new OnFailureListener () {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                    }
+                });
+        user.update("is_on_main", status)
+                .addOnSuccessListener(DetailActivityFour.this,new OnSuccessListener<Void> () {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                    }
+                })
+                .addOnFailureListener(DetailActivityFour.this,new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                     }

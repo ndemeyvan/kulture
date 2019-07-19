@@ -1013,6 +1013,18 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
                     public void onFailure(@NonNull Exception e) {
                     }
                 } );
+
+        user.update("is_on_main", status)
+                .addOnSuccessListener(DetailActivity.this,new OnSuccessListener<Void> () {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                    }
+                })
+                .addOnFailureListener(DetailActivity.this,new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                    }
+                });
     }
     ////menu
     @Override

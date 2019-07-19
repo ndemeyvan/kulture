@@ -570,6 +570,17 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
                     public void onFailure(@NonNull Exception e) {
                     }
                 });
+        user.update("is_on_main", status)
+                .addOnSuccessListener(PostActivityFinal.this,new OnSuccessListener<Void> () {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                    }
+                })
+                .addOnFailureListener(PostActivityFinal.this,new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                    }
+                });
     }
 
     @Override
