@@ -1050,7 +1050,7 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
 
             }else {
 
-                Toast.makeText ( getApplicationContext (),"vous ne pouvez pas ajouter votre propre article aux favories",Toast.LENGTH_LONG ).show ();
+                Toast.makeText ( getApplicationContext (),"you can not add your own article to favories",Toast.LENGTH_LONG ).show ();
             }
 
             return true;

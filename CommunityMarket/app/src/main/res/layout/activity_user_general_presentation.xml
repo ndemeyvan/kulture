@@ -221,7 +221,7 @@
                         android:layout_marginEnd="@dimen/new_profil_button"
                         android:background="@drawable/button_background"
                         android:fontFamily="@font/righteous"
-                        android:text="voir ventes "
+                        android:text="@string/user_general_voir_vente"
                         android:textAllCaps="false"
 
                         android:textColor="@color/black"

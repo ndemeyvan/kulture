@@ -109,6 +109,14 @@
     <string name="client_id">537391119843-njqfai8ka55g6doo947bnklqcap3ih8c.apps.googleusercontent.com</string>
     <string name="com.twitter.sdk.android.CONSUMER_KEY" tools:ignore="ExtraTranslation">VrPx1FzdX0e0MZ4ZQJP9cu1qa</string>
     <string name="com.twitter.sdk.android.CONSUMER_SECRET" tools:ignore="ExtraTranslation">J2b5B2IgQRHTQOEd6p0E2Kwb5IjhDzBDaSAgO4LAakc8TFGcuf</string>
+    <string name="choice_intro_text">Open market est votre nouveau partenaire en affaires , vendez partout au cameroun,sans frais.Inscrivez vous ,c\'est simple et rapide.</string>
+    <string name="choice_rejoind_nous">Join us now .</string>
+    <string name="search_activity_que_voulez_vous">what do you want to search ?</string>
+    <string name="favories_text">favories</string>
+    <string name="prarametre_dite_en_plus_text">Dit en plus sur toi ...</string>
+    <string name="parametre_text">Parametre</string>
+    <string name="sell_empty_text">empty</string>
+    <string name="user_general_voir_vente">voir ses ventes</string>
     <string-array name="countries" id="@+id/countries">
         <item>ou residez vous ?</item>
         <item>Douala</item>

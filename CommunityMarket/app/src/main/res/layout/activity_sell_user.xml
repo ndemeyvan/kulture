@@ -17,7 +17,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:fontFamily="@font/righteous"
-        android:text="empty"
+        android:text="@string/sell_empty_text"
         android:textColor="@color/blanc"
         android:textSize="@dimen/detail_text_size"
         android:textStyle="bold"
