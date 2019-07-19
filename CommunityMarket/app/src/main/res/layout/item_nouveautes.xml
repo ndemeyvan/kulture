@@ -199,6 +199,16 @@
                     app:layout_constraintTop_toTopOf="@+id/nouveaux_image_profile"
                     app:layout_constraintVertical_bias="0.588" />
 
+                <ImageView
+                    android:id="@+id/imageView10"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toTopOf="@+id/nouveaux_description_du_produit"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/nouveaute_image"
+                    app:srcCompat="@drawable/gradient_bg" />
+
             </android.support.constraint.ConstraintLayout>
         </android.support.v7.widget.CardView>
     </android.support.constraint.ConstraintLayout>
