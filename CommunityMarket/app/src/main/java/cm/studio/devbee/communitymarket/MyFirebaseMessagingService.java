@@ -121,24 +121,19 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 e.printStackTrace();
             }*/
             Uri notificationSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-            NotificationCompat.Builder notificationBuilder = null;
-            try {
-                notificationBuilder = new NotificationCompat.Builder(this, ADMIN_CHANNEL_ID)
-                        .setSmallIcon(R.mipmap.ic_launcher_logo_two)
-                       .setLargeIcon(Picasso.with ( this ).load ( image_user ).get ())
-                        .setContentTitle(title)
-                       .setContentText(message)
-                        .setAutoCancel(true)
-                        .setPriority(2)
-                        .setWhen(System.currentTimeMillis())
-                        .setStyle(new NotificationCompat.BigTextStyle()
-                                .bigText(message))
-                        .setSound(notificationSoundUri)
-                        .setContentIntent(pendingIntent);
-            } catch (IOException e) {
-                e.printStackTrace ();
-            }
-            Notification n = notificationBuilder.getNotification();
+            NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, ADMIN_CHANNEL_ID)
+                    .setSmallIcon(R.mipmap.ic_launcher_logo_two)
+                   .setLargeIcon(icon)
+                    .setContentTitle(title)
+                   .setContentText(message)
+                    .setAutoCancel(true)
+                    .setPriority(2)
+                    .setWhen(System.currentTimeMillis())
+                    .setStyle(new NotificationCompat.BigTextStyle()
+                            .bigText(message))
+                    .setSound(notificationSoundUri)
+                    .setContentIntent(pendingIntent);
+                Notification n = notificationBuilder.getNotification();
 
             //Set notification color to match your app color template
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){

@@ -310,10 +310,10 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
 
     public void paramDialog() {
         Button button_pop_up;
-        Button plus_tard_pop_up;
+        ImageView plus_tard_pop_up;
         myDialog.setContentView(R.layout.custum_pop_up);
         button_pop_up=myDialog.findViewById ( R.id.non_button);
-        plus_tard_pop_up=myDialog.findViewById ( R.id.exit_button);
+        plus_tard_pop_up=myDialog.findViewById ( R.id.close_image);
         plus_tard_pop_up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

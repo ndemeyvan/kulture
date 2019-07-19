@@ -1,21 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="300dp"
-    android:layout_height="300dp"
-    android:layout_gravity="center"
-    >
+    android:layout_width="@dimen/nouveaute_card_width_height"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center">
 
     <android.support.v7.widget.CardView
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        app:cardCornerRadius="10dp"
+        android:layout_width="@dimen/nouveaute_card_width_height"
+        android:layout_height="wrap_content"
         android:elevation="8dp"
         app:cardBackgroundColor="@color/black"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="8dp"
+        app:cardCornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,48 +19,51 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <pl.droidsonroids.gif.GifImageView
                 android:id="@+id/image_pop_up"
                 android:layout_width="0dp"
-                android:layout_height="150dp"
-                android:src="@drawable/hello"
+                android:layout_height="@dimen/nouveaut_image_height"
                 android:background="@color/blanc"
                 android:scaleType="centerCrop"
+                android:src="@drawable/hello"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/text_pop_up"
-                android:layout_width="250dp"
+                android:layout_width="@dimen/nouveaute_test_desc"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:fontFamily="@font/righteous"
-                android:text="Bienvenu sur Open Market Beta ,avant de pouvoir poster, modifier les donnees de votre compte ."
+                android:lines="3"
+                android:text="@string/cuustum_text"
                 android:textAlignment="center"
                 android:textColor="@color/blanc"
                 android:textStyle="bold"
+                android:textSize="@dimen/new_detail_desc_text_size"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/image_pop_up" />
 
             <Button
                 android:id="@+id/non_button"
-                android:layout_width="90dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
+                android:layout_marginStart="32dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="32dp"
                 android:background="@drawable/main_background"
                 android:fontFamily="@font/righteous"
                 android:text="modifier"
                 android:textAlignment="center"
                 android:textAllCaps="false"
                 android:textColor="@color/blanc"
-                app:layout_constraintEnd_toStartOf="@+id/exit_button"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_pop_up" />
 
@@ -74,25 +73,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:visibility="invisible"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_cloxe" />
-
-            <Button
-                android:id="@+id/exit_button"
-                android:layout_width="90dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="40dp"
-                android:background="@drawable/button_background"
-                android:fontFamily="@font/righteous"
-                android:text="plus tard"
-                android:textAllCaps="false"
-                android:textColor="@color/black"
-                app:layout_constraintBottom_toBottomOf="@+id/non_button"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/non_button" />
-
 
 
         </android.support.constraint.ConstraintLayout>

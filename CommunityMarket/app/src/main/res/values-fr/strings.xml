@@ -119,6 +119,7 @@
     <string name="parametre_text">Parametre</string>
     <string name="sell_empty_text">vide</string>
     <string name="user_general_voir_vente">voir ventes</string>
+    <string name="cuustum_text">modifier les donnees de votre compte pour poster un article .</string>
 
 
     <string-array id="@+id/countries"

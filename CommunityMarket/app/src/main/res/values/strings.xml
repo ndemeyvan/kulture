@@ -117,6 +117,7 @@
     <string name="parametre_text">Parametre</string>
     <string name="sell_empty_text">empty</string>
     <string name="user_general_voir_vente">voir ses ventes</string>
+    <string name="cuustum_text">modifier les donnees de votre compte pour poster un article .</string>
     <string-array name="countries" id="@+id/countries">
         <item>ou residez vous ?</item>
         <item>Douala</item>
