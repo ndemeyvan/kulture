@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -14,6 +15,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
 import cm.studio.devbee.communitymarket.profile.ParametrePorfilActivity;
@@ -34,6 +40,9 @@ public class PublicityActivity extends AppCompatActivity {
     TextView publicity_contact;
     Button publicity_call_button;
     String telephone;
+    private FirebaseFirestore firebaseFirestore;
+    private FirebaseAuth firebaseAuth;
+    private String current_user;
     Dialog myDialog;
     private static ViewFlipper viewFlipper;
     Toolbar rise_toolbar;
@@ -52,6 +61,10 @@ public class PublicityActivity extends AppCompatActivity {
 
             }
         });
+        firebaseFirestore=FirebaseFirestore.getInstance ();
+        firebaseAuth=FirebaseAuth.getInstance ();
+        current_user=firebaseAuth.getCurrentUser ().getUid ();
+
         viewFlipper=findViewById(R.id.viewFlipper);
         viewFlipper.setOutAnimation(getApplicationContext(),android.R.anim.slide_out_right);
         viewFlipper.setInAnimation(getApplicationContext(),android.R.anim.slide_in_left);
@@ -103,5 +116,35 @@ public class PublicityActivity extends AppCompatActivity {
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         myDialog.setCancelable(false);
         myDialog.show();
+    }
+
+    public void userstatus(String status){
+        DocumentReference user = firebaseFirestore.collection("mes donnees utilisateur" ).document(current_user);
+        user.update("status", status)
+                .addOnSuccessListener(PublicityActivity.this,new OnSuccessListener<Void> () {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                    }
+                })
+                .addOnFailureListener(PublicityActivity.this,new OnFailureListener () {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                    }
+                });
+    }
+
+
+
+    @Override
+    public void onResume() {
+        super.onResume ();
+        userstatus("online");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause ();
+        userstatus("offline");
+
     }
 }

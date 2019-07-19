@@ -1001,7 +1001,7 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
     }
 
     public void userstatus(String status) {
-        DocumentReference user = firebaseFirestore.collection ( "mes donnees utilisateur" ).document ( current_user_id );
+        DocumentReference user = firebaseFirestore.collection ( "mes donnees utilisateur" ).document ( utilisateur_actuel );
         user.update ( "status", status )
                 .addOnSuccessListener ( DetailActivity.this,new OnSuccessListener<Void> () {
                     @Override

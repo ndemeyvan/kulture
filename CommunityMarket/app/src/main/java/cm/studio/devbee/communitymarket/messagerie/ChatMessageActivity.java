@@ -188,11 +188,7 @@ public class ChatMessageActivity extends AppCompatActivity {
         userstatus("offline");
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy ();
-        userstatus("offline");
-    }
+
 
 
 }

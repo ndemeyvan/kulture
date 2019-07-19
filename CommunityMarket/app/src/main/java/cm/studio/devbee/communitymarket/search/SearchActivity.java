@@ -51,6 +51,7 @@ public class SearchActivity extends AppCompatActivity {
     private ProgressBar search_progress;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate ( savedInstanceState );

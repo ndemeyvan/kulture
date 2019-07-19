@@ -23,6 +23,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import javax.annotation.Nullable;
 
+import cm.studio.devbee.communitymarket.Accueil;
 import cm.studio.devbee.communitymarket.R;
 import cm.studio.devbee.communitymarket.gridView_post.GridViewAdapter;
 import cm.studio.devbee.communitymarket.gridView_post.ModelGridView;
@@ -103,6 +104,35 @@ public class NotificationActivity extends AppCompatActivity {
         chaussuresRecyclerView.setLayoutManager(new LinearLayoutManager(NotificationActivity.this,LinearLayoutManager.VERTICAL,false));
         chaussuresRecyclerView.setAdapter(categoriesAdaptechaussures);
         notification_progress.setVisibility ( View.INVISIBLE );
+    }
+    public void userstatus(String status){
+        DocumentReference user = firebaseFirestore.collection("mes donnees utilisateur" ).document(current_user_id);
+        user.update("status", status)
+                .addOnSuccessListener(NotificationActivity.this,new OnSuccessListener<Void> () {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                    }
+                })
+                .addOnFailureListener(NotificationActivity.this,new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                    }
+                });
+    }
+
+
+
+    @Override
+    public void onResume() {
+        super.onResume ();
+        userstatus("online");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause ();
+        userstatus("offline");
+
     }
 
 
