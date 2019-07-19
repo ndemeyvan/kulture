@@ -310,6 +310,7 @@
     <dimen name="card_text_exit_top">32dp</dimen>
     <dimen name="card_start">40dp</dimen>
     <dimen name="card_top_button">8dp</dimen>
+    <dimen name="open_sart_word">50dp</dimen>
 
 
 </resources>

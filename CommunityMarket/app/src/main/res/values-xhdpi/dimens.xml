@@ -239,7 +239,7 @@
     <dimen name="principal_width_image">145dp</dimen>
     <dimen name="principal_image_height">150dp</dimen>
     <dimen name="principal_round_image_top">8dp</dimen>
-    <dimen name="principal_image_round_start">16dp</dimen>
+    <dimen name="principal_image_round_start">4dp</dimen>
     <dimen name="principal_item_desc_text">140dp</dimen>
     <dimen name="principal_desc_height">70dp</dimen>
     <dimen name="principal_prix_top_two">8dp</dimen>
@@ -247,11 +247,11 @@
     <dimen name="principal_item_desc_text_two">170dp</dimen>
     <dimen name="principal_temps_top_two">8dp</dimen>
     <dimen name="login_text_size">40sp</dimen>
-    <dimen name="login_start_end">100dp</dimen>
+    <dimen name="login_start_end">40dp</dimen>
     <dimen name="search_profil_start">8dp</dimen>
-    <dimen name="nouveaute_test_desc">200dp</dimen>
-    <dimen name="nouveaute_card_width_height">220dp</dimen>
-    <dimen name="nouveaut_image_height">105dp</dimen>
+    <dimen name="nouveaute_test_desc">290dp</dimen>
+    <dimen name="nouveaute_card_width_height">305dp</dimen>
+    <dimen name="nouveaut_image_height">190dp</dimen>
     <dimen name="profil_place_witdh">100dp</dimen>
     <dimen name="bottom_sheet_profil_top">120dp</dimen>
     <dimen name="bottom_shit_view_height">55dp</dimen>
@@ -259,5 +259,6 @@
     <dimen name="card_text_exit_top">64dp</dimen>
     <dimen name="card_start">40dp</dimen>
     <dimen name="card_top_button">24dp</dimen>
+    <dimen name="open_sart_word">60dp</dimen>
 
 </resources>

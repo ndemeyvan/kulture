@@ -230,7 +230,14 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
         } );
 
         recup();
-        vaTopost ();
+        content_floating_action_btn.setOnClickListener ( new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+                Intent vaTopost =new Intent ( getApplicationContext(),PostActivity.class );
+                startActivity ( vaTopost );
+                finish ();
+            }
+        } );
 
         AnimationDrawable animationDrawableOne = (AnimationDrawable) toolbar.getBackground();
         animationDrawableOne.setEnterFadeDuration(2000);
@@ -416,13 +423,11 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
 
                                     if (notification.equals("true")){
                                         notification_enable.setVisibility(View.VISIBLE);
-                                        Toast.makeText ( getApplicationContext (),"new notification",Toast.LENGTH_LONG ).show ();
 
                                     }else{
                                         notification_enable.setVisibility(View.INVISIBLE);
                                     }
                                     if (message.equals ( "non lu" )){
-                                        Toast.makeText ( getApplicationContext (),"new message",Toast.LENGTH_LONG ).show ();
                                         menu.getItem(1).setIcon(ContextCompat.getDrawable(getApplicationContext (), R.drawable.message_lu));
                                     }else{
 
@@ -513,16 +518,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
 
 
     }
-    public void vaTopost(){
-            content_floating_action_btn.setOnClickListener ( new View.OnClickListener () {
-                @Override
-                public void onClick(View v) {
-                    Intent vaTopost =new Intent ( getApplicationContext(),PostActivity.class );
-                    startActivity ( vaTopost );
-                    finish ();
-                }
-            } );
-    }
+
     public void userstatus(String status){
             DocumentReference user = firebaseFirestore.collection("mes donnees utilisateur" ).document(current_user_id);
             user.update("status", status)
@@ -543,7 +539,6 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
     @Override
     public void onResume() {
             super.onResume ();
-            vaTopost ();
            userstatus("online");
     }
 

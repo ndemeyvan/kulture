@@ -105,35 +105,6 @@ public class TshirtFragment extends Fragment {
 
         return v;
     }
-    public void userstatus(String status){
-        DocumentReference user = firebaseFirestore.collection("mes donnees utilisateur" ).document(curent_user);
-        user.update("status", status)
-                .addOnSuccessListener(new OnSuccessListener<Void> () {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                    }
-                });
-
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume ();
-        userstatus("online");
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause ();
-        userstatus("offline");
-    }
-
-
 
     public void tshirtRecyclerView(){
         Query firstQuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "T-shirts" ).orderBy ( "priority",Query.Direction.DESCENDING );

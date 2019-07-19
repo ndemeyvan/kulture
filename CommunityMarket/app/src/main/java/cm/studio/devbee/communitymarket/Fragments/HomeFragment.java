@@ -612,41 +612,8 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
         chaussureRecyclerView.setAdapter(categoriesAdapte);
     }
 
-    public void userstatus(String status){
-        DocumentReference user = firebaseFirestore.collection("mes donnees utilisateur" ).document(current_user);
-        user.update("status", status)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                    }
-                });
-    }
 
 
-    @Override
-    public void onResume() {
-        super.onResume ();
-        loadRewardedVideo();
-        mInterstitialAd.show();
-        if (!mInterstitialAd.isLoaded()) {
-            mInterstitialAd.show();
-        }
-        userstatus("online");
-
-    }
-
-
-    @Override
-    public void onPause() {
-        super.onPause ();
-        userstatus("offline");
-
-    }
 
     @Override
     public void onRewardedVideoAdLoaded() {
