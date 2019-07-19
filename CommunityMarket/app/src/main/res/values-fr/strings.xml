@@ -120,6 +120,7 @@
     <string name="sell_empty_text">vide</string>
     <string name="user_general_voir_vente">voir ventes</string>
     <string name="cuustum_text">modifier les donnees de votre compte pour poster un article .</string>
+    <string name="new_version_text">une nouvelle version d\'Open Market est disponible , telechargez la .</string>
 
 
     <string-array id="@+id/countries"
