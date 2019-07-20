@@ -12,7 +12,11 @@
     <android.support.constraint.ConstraintLayout
         android:id="@+id/container"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <android.support.v7.widget.CardView
             android:id="@+id/card_nvx"
@@ -77,15 +81,15 @@
                     android:id="@+id/nouveaux_user_name"
                     android:layout_width="@dimen/item_layout_name_widht"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/principal_image_round_start"
+                    android:layout_marginStart="24dp"
                     android:layout_marginTop="4dp"
                     android:layout_marginBottom="16dp"
+                    android:ellipsize="end"
+                    android:lines="1"
                     android:text="open market"
                     android:textColor="@color/black"
                     android:textSize="@dimen/new_detail_desc_text_size"
                     android:textStyle="bold"
-                    android:lines="1"
-                    android:ellipsize="end"
                     android:theme="@style/ToolbarTheme"
                     app:fontFamily="@font/nunito_bold"
                     app:layout_constraintBottom_toBottomOf="@+id/nouveaux_image_profile"
@@ -104,7 +108,7 @@
                     android:textSize="@dimen/new_detail_desc_text_size"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/nouveaux_user_name"
-                    app:layout_constraintHorizontal_bias="0.1"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/nouveaux_user_name"
                     app:layout_constraintTop_toBottomOf="@+id/nouveaux_user_name"
                     app:layout_constraintVertical_bias="0.0" />
@@ -197,10 +201,8 @@
                     android:theme="@style/progress_theme"
                     app:layout_constraintBottom_toBottomOf="@+id/nouveaux_image_profile"
                     app:layout_constraintEnd_toEndOf="@+id/nouveaux_image_profile"
-                    app:layout_constraintHorizontal_bias="0.54"
                     app:layout_constraintStart_toStartOf="@+id/nouveaux_image_profile"
-                    app:layout_constraintTop_toTopOf="@+id/nouveaux_image_profile"
-                    app:layout_constraintVertical_bias="0.588" />
+                    app:layout_constraintTop_toTopOf="@+id/nouveaux_image_profile" />
 
             </android.support.constraint.ConstraintLayout>
         </android.support.v7.widget.CardView>
