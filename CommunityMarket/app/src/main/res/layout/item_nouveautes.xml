@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="6dp"
     android:layout_marginRight="7dp"
     android:clickable="true"
     android:focusable="true"
@@ -76,7 +75,7 @@
 
                 <TextView
                     android:id="@+id/nouveaux_user_name"
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/item_layout_name_widht"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/principal_image_round_start"
                     android:layout_marginTop="4dp"
@@ -85,6 +84,8 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/new_detail_desc_text_size"
                     android:textStyle="bold"
+                    android:lines="1"
+                    android:ellipsize="end"
                     android:theme="@style/ToolbarTheme"
                     app:fontFamily="@font/nunito_bold"
                     app:layout_constraintBottom_toBottomOf="@+id/nouveaux_image_profile"
@@ -145,7 +146,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginBottom="16dp"
                     android:fontFamily="@font/righteous"
                     android:text="5000"
                     android:textColor="@color/orange"
@@ -153,10 +153,8 @@
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/nouveaux_temps"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.78"
-                    app:layout_constraintStart_toEndOf="@+id/nouveaux_user_name"
-                    app:layout_constraintTop_toTopOf="@+id/nouveaux_temps"
-                    app:layout_constraintVertical_bias="1.0" />
+                    app:layout_constraintStart_toEndOf="@+id/nouveaux_temps"
+                    app:layout_constraintTop_toTopOf="@+id/nouveaux_temps" />
 
                 <TextView
                     android:id="@+id/nouveaux_tire"
