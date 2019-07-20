@@ -3,35 +3,41 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="@dimen/nouveaute_card_width_height"
-    android:layout_height="@dimen/nouveaute_card_width_height"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="6dp"
     android:layout_marginRight="7dp"
     android:clickable="true"
     android:focusable="true"
-    android:layout_marginLeft="6dp"
     app:layout_goneMarginRight="6dp">
+
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/container"
         android:layout_width="@dimen/nouveaute_card_width_height"
-        android:layout_height="@dimen/nouveaute_card_width_height"
-        android:id="@+id/container">
+        android:layout_height="wrap_content">
+
         <android.support.v7.widget.CardView
-            android:layout_width="@dimen/nouveaute_card_width_height"
-            android:layout_height="@dimen/nouveaute_card_width_height"
-            android:elevation="5dp"
             android:id="@+id/card_nvx"
+            android:layout_width="@dimen/nouveaute_card_width_height"
+            android:layout_height="wrap_content"
+            android:elevation="5dp"
             app:cardBackgroundColor="@color/blanc"
-            app:cardCornerRadius="5dp">
+            app:cardCornerRadius="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
 
                 <ImageView
-                    android:src="@drawable/t_shirt"
                     android:id="@+id/nouveaute_image"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/nouveaut_image_height"
                     android:scaleType="centerCrop"
+                    android:src="@drawable/t_shirt"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -58,7 +64,7 @@
                     android:id="@+id/nouveaux_image_profile"
                     android:layout_width="@dimen/nvx_item_nvx_image_dim_height_with"
                     android:layout_height="@dimen/nvx_item_nvx_image_dim_height_with"
-                    android:layout_marginTop="36dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="32dp"
                     android:src="@drawable/boy"
@@ -93,13 +99,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginBottom="4dp"
                     android:fontFamily="@font/nunito_bold"
                     android:text="17 juil 2019"
                     android:textSize="@dimen/new_detail_desc_text_size"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/nouveaux_user_name"
-                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintHorizontal_bias="0.1"
                     app:layout_constraintStart_toStartOf="@+id/nouveaux_user_name"
                     app:layout_constraintTop_toBottomOf="@+id/nouveaux_user_name" />
 
@@ -158,7 +164,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:ellipsize="end"
                     android:fontFamily="@font/righteous"

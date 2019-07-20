@@ -250,7 +250,7 @@
     <dimen name="message_activity_height_image">100dp</dimen>
     <dimen name="message_image">120dp</dimen>
     //////////principal
-    <dimen name="principal_card_widht">340dp</dimen>
+    <dimen name="principal_card_widht">350dp</dimen>
     <dimen name="principal_container_height">160dp</dimen>
     <dimen name="principal_desc_text_start">8dp</dimen>
     <dimen name="principal_temps_top">2dp</dimen>

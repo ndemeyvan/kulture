@@ -3,16 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/constraint"
-    android:layout_width="@dimen/principal_card_widht"
-    android:layout_height="@dimen/principal_container_height"
-    android:layout_marginLeft="6dp"
-    app:layout_goneMarginRight="6dp"
-    >
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="6dp">
 
     <android.support.v7.widget.CardView
         android:id="@+id/nouveaux_container"
-        android:layout_width="@dimen/principal_card_widht"
-        android:layout_height="@dimen/principal_container_height"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:cardBackgroundColor="@color/blanc"
         app:cardCornerRadius="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -21,13 +19,13 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <android.support.constraint.ConstraintLayout
-            android:layout_width="@dimen/principal_card_widht"
-            android:layout_height="@dimen/principal_container_height">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/postImage"
                 android:layout_width="@dimen/principal_width_image"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/t_shirt"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -37,12 +35,12 @@
 
             <ImageView
                 android:id="@+id/postImageUtilisateur"
-                android:src="@drawable/boy"
                 android:layout_width="@dimen/nvx_item_nvx_image_dim_height_with"
                 android:layout_height="@dimen/nvx_item_nvx_image_dim_height_with"
                 android:layout_marginStart="@dimen/principal_image_round_start"
                 android:layout_marginTop="@dimen/principal_round_image_top"
                 android:layout_marginEnd="92dp"
+                android:src="@drawable/boy"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/postImage"
@@ -53,6 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/principal_start"
+                android:layout_marginEnd="24dp"
                 android:ellipsize="end"
                 android:fontFamily="@font/righteous"
                 android:lines="1"
@@ -62,6 +61,7 @@
                 android:textStyle="bold"
                 android:theme="@style/ToolbarTheme"
                 app:layout_constraintBottom_toBottomOf="@+id/postImageUtilisateur"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/postImageUtilisateur"
                 app:layout_constraintTop_toTopOf="@+id/postImageUtilisateur"
                 app:layout_constraintVertical_bias="0.0" />
@@ -86,12 +86,14 @@
                 android:layout_height="@dimen/principal_desc_height"
                 android:layout_marginStart="@dimen/principal_image_round_start"
                 android:layout_marginTop="@dimen/principal_prix_top_two"
+                android:layout_marginEnd="8dp"
                 android:ellipsize="end"
                 android:fontFamily="@font/righteous"
                 android:lines="3"
                 android:text=" ma toutes nouvelle sortie de vetement pour homme et femme je compte sur vous et vos achat"
                 android:textColor="@color/black"
                 android:textSize="@dimen/item_principal_desc"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/postImage"
                 app:layout_constraintTop_toBottomOf="@+id/post_userTemps" />
 
@@ -120,7 +122,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/principal_image_round_start"
                 android:layout_marginTop="@dimen/principal_prix_top_two"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="20dp"
                 android:fontFamily="@font/righteous"
                 android:text="@string/item_general"
                 android:textColor="@color/black"

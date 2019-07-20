@@ -59,6 +59,7 @@
                 android:background="@drawable/main_background"
                 android:fontFamily="@font/righteous"
                 android:text="modifier"
+                android:textSize="@dimen/new_detail_desc_text_size"
                 android:textAlignment="center"
                 android:textAllCaps="false"
                 android:textColor="@color/blanc"

@@ -43,6 +43,8 @@
                 android:textAlignment="center"
                 android:textColor="@color/blanc"
                 android:textStyle="bold"
+                android:textSize="@dimen/new_detail_desc_text_size"
+
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/image_pop_up" />
@@ -71,6 +73,7 @@
                 android:text="compris"
                 android:textAllCaps="false"
                 android:textColor="@color/blanc"
+                android:textSize="@dimen/new_detail_desc_text_size"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

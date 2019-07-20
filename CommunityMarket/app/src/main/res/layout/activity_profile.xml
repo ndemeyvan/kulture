@@ -205,7 +205,7 @@
                 android:text="@string/profil_voir_article"
                 android:textAllCaps="false"
                 android:textColor="@color/black"
-                android:textSize="@dimen/button_profil_text_size"
+                android:textSize="@dimen/new_detail_desc_text_size"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

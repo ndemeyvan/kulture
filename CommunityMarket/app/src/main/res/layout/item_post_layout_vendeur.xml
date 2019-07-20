@@ -11,7 +11,7 @@
     <android.support.v7.widget.CardView
         android:id="@+id/profil_container"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/principal_container_height"
+        android:layout_height="wrap_content"
         app:cardBackgroundColor="@color/blanc"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,26 +20,25 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/post_image_vendeur"
                 android:layout_width="@dimen/principal_width_image"
-                android:layout_height="match_parent"
-                android:src="@drawable/t_shirt"
+                android:layout_height="0dp"
                 android:scaleType="centerCrop"
+                android:src="@drawable/t_shirt"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintVertical_bias="1.0" />
 
             <ImageView
                 android:id="@+id/profil_vendeur"
                 android:layout_width="@dimen/nvx_item_nvx_image_dim_height_with"
                 android:layout_height="@dimen/nvx_item_nvx_image_dim_height_with"
-                android:layout_marginStart="@dimen/principal_image_round_start"
+                android:layout_marginStart="32dp"
                 android:layout_marginTop="@dimen/principal_round_image_top"
-                android:layout_marginEnd="92dp"
                 app:layout_constraintStart_toEndOf="@+id/post_image_vendeur"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -48,6 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/principal_start"
+                android:layout_marginEnd="8dp"
                 android:ellipsize="end"
                 android:fontFamily="@font/righteous"
                 android:lines="1"
@@ -56,6 +56,8 @@
                 android:textSize="@dimen/item_principal_name"
                 android:textStyle="bold"
                 android:theme="@style/ToolbarTheme"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/profil_vendeur"
                 app:layout_constraintTop_toBottomOf="@+id/post_userTemps" />
 
@@ -65,10 +67,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/principal_image_round_start"
                 android:layout_marginTop="@dimen/principal_temps_top_two"
-                android:layout_marginEnd="@dimen/principal_end"
+                android:layout_marginEnd="8dp"
                 android:fontFamily="@font/righteous"
                 android:text="17/02/2019"
                 android:textSize="@dimen/item_principal_desc"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/profil_vendeur"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -85,7 +89,6 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/item_principal_desc"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.098"
                 app:layout_constraintStart_toEndOf="@+id/post_image_vendeur"
                 app:layout_constraintTop_toBottomOf="@+id/nom_user" />
 
@@ -111,12 +114,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/principal_image_round_start"
                 android:layout_marginTop="@dimen/principal_prix_top_two"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="24dp"
                 android:fontFamily="@font/righteous"
                 android:text="@string/item_general"
                 android:textColor="@color/black"
                 android:textSize="@dimen/item_principal_desc"
                 android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/post_user_description"
                 app:layout_constraintTop_toBottomOf="@+id/post_user_description" />
 
@@ -150,8 +154,8 @@
                 android:layout_marginBottom="8dp"
                 android:fontFamily="@font/righteous"
                 android:textColor="@color/black"
-                android:textStyle="bold"
                 android:textSize="@dimen/item_principal_desc"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/image_comment"
                 app:layout_constraintStart_toEndOf="@+id/image_comment"
                 app:layout_constraintTop_toTopOf="@+id/image_comment" />

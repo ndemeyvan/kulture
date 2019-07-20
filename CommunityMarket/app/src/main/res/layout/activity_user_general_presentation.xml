@@ -223,7 +223,7 @@
                         android:fontFamily="@font/righteous"
                         android:text="@string/user_general_voir_vente"
                         android:textAllCaps="false"
-
+                        android:textSize="@dimen/new_detail_desc_text_size"
                         android:textColor="@color/black"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"

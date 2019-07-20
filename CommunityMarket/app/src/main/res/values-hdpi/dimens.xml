@@ -230,7 +230,7 @@
     <dimen name="message_activity_height_image">100dp</dimen>
     <dimen name="message_image">120dp</dimen>
     //////////principal
-    <dimen name="principal_card_widht">305dp</dimen>
+    <dimen name="principal_card_widht">310dp</dimen>
     <dimen name="principal_container_height">150dp</dimen>
     <dimen name="principal_desc_text_start">8dp</dimen>
     <dimen name="principal_temps_top">2dp</dimen>
@@ -240,7 +240,7 @@
     <dimen name="principal_image_height">150dp</dimen>
     <dimen name="principal_round_image_top">8dp</dimen>
     <dimen name="principal_image_round_start">6dp</dimen>
-    <dimen name="principal_item_desc_text">140dp</dimen>
+    <dimen name="principal_item_desc_text">150dp</dimen>
     <dimen name="principal_desc_height">60dp</dimen>
     <dimen name="principal_prix_top_two">8dp</dimen>
     <dimen name="principal_start">8dp</dimen>
