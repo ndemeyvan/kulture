@@ -115,7 +115,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/principal_image_round_start"
                 android:layout_marginTop="@dimen/principal_prix_top_two"
-                android:layout_marginBottom="24dp"
+                android:layout_marginBottom="16dp"
                 android:fontFamily="@font/righteous"
                 android:text="@string/item_general"
                 android:textColor="@color/black"

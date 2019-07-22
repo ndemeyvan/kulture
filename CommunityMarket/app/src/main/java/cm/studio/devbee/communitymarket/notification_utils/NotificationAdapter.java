@@ -101,7 +101,7 @@ public class NotificationAdapter extends FirestoreRecyclerAdapter<Model_notifica
                     if (task.getResult ().exists ()){
                          name_user= task.getResult ().getString ( "user_name" );
                          user_prenom= task.getResult ().getString ( "user_prenom" );
-                        String image_user=task.getResult ().getString ( "user_profil_image" );
+                         String image_user=task.getResult ().getString ( "user_profil_image" );
                       holder.nom_du_profil.setText(name_user + " " + user_prenom);
                         Picasso.with(context).load(image_user).into(holder.image_du_profil);
                     }
