@@ -136,4 +136,14 @@
         <item>Buéa</item>
         <item>Maroua</item>
     </string-array>
+    <string name="il_ya_ceci">actuellement il y\'a ceci :</string>
+    <string name="fait_ton_choix">fait ton choix</string>
+    <string name="ici_on_vend_la_sap">ici , on vend la sap. </string>
+    <string name="s_habiller_est_un_art_équilibre">s\'habiller est un art...équilibre.</string>
+    <string name="heureuxdetevoir">heureux de te voir</string>
+    <string name="commentaire"> vous avez commenté</string>
+    <string name="favories">vous avez ajouter à vos favories</string>
+    <string name="ma_publication">ma publication</string>
+    <string name="davantage"> pouvons nous en parler d\'avantage ?</string>
+
 </resources>

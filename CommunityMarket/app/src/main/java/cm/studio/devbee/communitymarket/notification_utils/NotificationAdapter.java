@@ -85,13 +85,13 @@ public class NotificationAdapter extends FirestoreRecyclerAdapter<Model_notifica
             holder.image_des_like.setVisibility(View.INVISIBLE);
             holder.text_des_likes.setVisibility(View.INVISIBLE);
             holder.text_des_commentaires.setText(commentaire);
-            action_faite=" vous avez commenté";
+            action_faite=""+ context.getString(R.string.commentaire);
         }else{
             holder.image_des_like.setVisibility(View.VISIBLE);
             holder.image_des_commentaire.setVisibility(View.INVISIBLE);
             holder.text_des_commentaires.setVisibility(View.INVISIBLE);
             holder.text_des_likes.setVisibility(View.VISIBLE);
-            action_faite=" vous avez ajouter à vos favories";
+            action_faite=context.getString(R.string.favories);
             commentaire="";
         }
         firebaseFirestore.collection("mes donnees utilisateur").document(id_du_profil_qui_notifie).get().addOnCompleteListener((Activity) context,new OnCompleteListener<DocumentSnapshot>() {
@@ -191,10 +191,9 @@ public class NotificationAdapter extends FirestoreRecyclerAdapter<Model_notifica
                 gotoMessage.putExtra ( "id_recepteur",current_user );
                 gotoMessage.putExtra ( "viens_de_detail","vrai" );
                 gotoMessage.putExtra ( "viens_de_notification","vrai" );
-                String mon_post_test="ma publication";
-                String parler_davantage ="pouvons nous en parler d'avantage ?";
-                String je_vous_ferais_un_bon_prix=" je vous ferais un bon prix promis .";
-                gotoMessage.putExtra ( "contenu",name_user + " " + user_prenom + " : "+action_faite+" "+" "+mon_post_test+" :"+  " " + finalCommentaire +" \n"+parler_davantage + "\n" +je_vous_ferais_un_bon_prix);
+                String mon_post_test=context.getString(R.string.ma_publication);
+                String parler_davantage ="";
+                gotoMessage.putExtra ( "contenu",name_user + " " + user_prenom + " : "+action_faite+" "+" "+mon_post_test+" :"+  " " + finalCommentaire +" \n"+parler_davantage + "\n");
                 context.startActivity ( gotoMessage );
 
             }
