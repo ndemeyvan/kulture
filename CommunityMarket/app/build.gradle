@@ -75,4 +75,5 @@ dependencies {
     implementation 'com.firebaseui:firebase-ui-firestore:5.0.0'
     implementation 'com.shobhitpuri.custombuttons:google-signin:1.0.0'
     implementation 'com.android.support:multidex:1.0.3'
+    implementation 'com.google.firebase:firebase-crash:16.2.1'
 }

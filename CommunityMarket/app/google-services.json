@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "537391119843-1rg2s0rf5lmkrio1cjnvn84ks6i3hg3u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "cm.studio.devbee.communitymarket",
+            "certificate_hash": "07a3867a2ab181f53a4d420b74a9ddf2e232bb9b"
+          }
+        },
+        {
           "client_id": "537391119843-kdrrjqfnjlkm4crds6a9flppe32pdhhq.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -33,20 +41,13 @@
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "537391119843-57od5ebvf0va65m2kh7j8v60ttifjuju.apps.googleusercontent.com",
+              "client_id": "537391119843-njqfai8ka55g6doo947bnklqcap3ih8c.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
-        },
-        "ads_service": {
-          "status": 2
         }
       }
     }

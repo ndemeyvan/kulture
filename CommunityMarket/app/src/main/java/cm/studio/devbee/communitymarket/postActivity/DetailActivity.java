@@ -167,7 +167,6 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
                 finish ();
             }
         } );
-        showPopup();
         detail_titre_vente=findViewById ( R.id.detail_titre_vente );
         firebaseAuth = FirebaseAuth.getInstance ();
         utilisateur_actuel = firebaseAuth.getCurrentUser ().getUid ();
@@ -810,7 +809,7 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
                             detail_description.setAnimation ( AnimationUtils.loadAnimation ( getApplicationContext (), R.anim.fade_transition_animation ) );
                             detail_description.setText ( description );
                             detail_progress.setVisibility ( INVISIBLE );
-                            myDialog.dismiss();
+
 
                         }
                     } else {

@@ -46,7 +46,7 @@
     <dimen name="item_principal_image_dim_height_with">35dp</dimen>
     <dimen name="item_principal_name">14sp</dimen>
     <dimen name="item_principal_date">11sp</dimen>
-    <dimen name="item_principal_desc">15sp</dimen>
+    <dimen name="item_principal_desc">14sp</dimen>
     <dimen name="item_principal_prix">14sp</dimen>
     <!-- item layout nvx-->
     <dimen name="nvx_item_nvx_image_dim_height_with">35dp</dimen>
@@ -136,7 +136,7 @@
     <dimen name="new_detail_top_name_date">16dp</dimen>
     <dimen name="new_detail_height_button">40dp</dimen>
     <dimen name="new_detail_desc_margin_top">16dp</dimen>
-    <dimen name="new_detail_desc_text_size">18sp</dimen>
+    <dimen name="new_detail_desc_text_size">16sp</dimen>
     <dimen name="new_detail_height_image">36dp</dimen>
     <dimen name="new_detail_add_button">60dp</dimen>
     <dimen name="new_detail_add_height">40dp</dimen>
