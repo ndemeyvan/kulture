@@ -140,6 +140,8 @@
     <string name="favories"> vous avez ajouter à vos favories</string>
     <string name="ma_publication"> ma publication</string>
     <string name="davantage"> pouvons nous en parler d\'avantage ?</string>
-
-
+    <string name="clik_sur_profil">cliquez sur l\'image de profil pour en savoir plus sur un vendeurs si le produit n\'est pas poste par vous. " suivant " pour continuer</string>
+    <string name="laisser_commentaire">laisser ou voir les commentaires. " suivant " pour continuer"</string>
+    <string name="prix">ici apparait le prix." suivant " pour continuer</string>
+    <string name="supprimer">cliquez ici pour supprimmer un votre article de la vente." suivant " pour continuer</string>
 </resources>

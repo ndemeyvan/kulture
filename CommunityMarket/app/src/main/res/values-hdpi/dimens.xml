@@ -261,6 +261,8 @@
     <dimen name="card_top_button">24dp</dimen>
     <dimen name="open_sart_word">40dp</dimen>
     <dimen name="item_layout_name_widht">190dp</dimen>
+    <dimen name="fragment_slide_height">100dp</dimen>
+
 
 
 

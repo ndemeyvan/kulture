@@ -233,11 +233,10 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
             //config.setDelay(500); // half second between each showcase view
             MaterialShowcaseSequence sequence = new MaterialShowcaseSequence(DetailActivity.this, String.valueOf(10));
             sequence.setConfig(config);
-            sequence.addSequenceItem(detail_profil_image, "cliquez sur l'image de profil pour en savoir plus sur un vendeurs si le produit n'est pas poste par vous. \" ok \" pour continuer", "ok");
-            sequence.addSequenceItem(voir_les_commentaire_btn, "laisser ou voir les commentaires. \" ok \" pour continuer\"", "ok");
-            sequence.addSequenceItem(detail_prix_produit, "ici apparait le prix.\" ok \" pour continuer\"", "ok");
-            sequence.addSequenceItem(supprime_detail_button, "cliquez ici pour supprimmer un votre article de la vente.\" ok \" pour continuer\"", "ok");
-            sequence.addSequenceItem(date_de_publication, "la date et le non du vendeur juste en bas ,c'est tout,fait de bons deal :).\" ok \" pour continuer\"", "ok");
+            sequence.addSequenceItem(detail_profil_image, getString(R.string.clik_sur_profil), getString(R.string.cursor_next));
+            sequence.addSequenceItem(voir_les_commentaire_btn,  getString(R.string.laisser_commentaire),  getString(R.string.cursor_next));
+            sequence.addSequenceItem(detail_prix_produit, getString(R.string.prix),  getString(R.string.cursor_next));
+            sequence.addSequenceItem(supprime_detail_button, getString(R.string.supprimer),  getString(R.string.cursor_next));
             sequence.start();
 
         }

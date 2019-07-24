@@ -11,9 +11,9 @@
     <ViewFlipper
         android:id="@+id/viewFlippertwo"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="@dimen/fragment_slide_height"
         android:autoStart="true"
-        android:flipInterval="4000"
+        android:flipInterval="3000"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,28 +22,28 @@
         <ImageView
             android:id="@+id/pubImage"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="@dimen/fragment_slide_height"
             android:scaleType="centerCrop" />
 
 
         <ImageView
             android:id="@+id/pubImageTwo"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="@dimen/fragment_slide_height"
             android:scaleType="centerCrop" />
 
 
         <ImageView
             android:id="@+id/pubImageThree"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="@dimen/fragment_slide_height"
             android:scaleType="centerCrop" />
 
 
         <ImageView
             android:id="@+id/pubImageFour"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="@dimen/fragment_slide_height"
             android:scaleType="centerCrop" />
 
 

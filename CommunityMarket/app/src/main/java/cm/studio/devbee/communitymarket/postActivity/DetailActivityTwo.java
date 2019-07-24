@@ -158,7 +158,7 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
         current_user_id =getIntent().getExtras().getString("id de l'utilisateur");
         categories=getIntent().getExtras().getString("id_categories");
         detail_image_post=findViewById(R.id.detail_image_post);
-        showPopup();
+
         detail_titre_vente=findViewById ( R.id.detail_titre_vente );
         detail_post_titre_produit=findViewById(R.id.detail_prix_produit );
         detail_prix_produit=findViewById(R.id.detail_prix_produit);
