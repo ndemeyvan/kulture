@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -37,8 +38,8 @@ public class notification_receiver extends BroadcastReceiver {
                             String prenomuser =task.getResult ().getString ("user_prenom");
 
                             //////////////////////////
-                            NotificationManager notificationManager =(NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
                             Intent repeating_intent = new Intent( context , Accueil.class);
+                            NotificationManager notificationManager =(NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
                             repeating_intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             PendingIntent pendingIntent = PendingIntent.getBroadcast(context,100,repeating_intent,PendingIntent.FLAG_UPDATE_CURRENT);
                             NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context)
