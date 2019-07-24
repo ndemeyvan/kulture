@@ -1,8 +1,10 @@
 package cm.studio.devbee.communitymarket;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -256,6 +258,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
             }
         });
         check_version ();
+        broadcastnotification();
     }
 
 
@@ -648,6 +651,18 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
 
 
     }
+
+    public void broadcastnotification(){
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY,14);
+        calendar.set(Calendar.MINUTE,28);
+        calendar.set(Calendar.SECOND,49);
+        Intent intent = new Intent(Accueil.this,notification_receiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(Accueil.this,100,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),AlarmManager.INTERVAL_DAY,pendingIntent);
+    }
+
     public class AsyncTask extends android.os.AsyncTask<Void, Void, Void> {
             @Override
             protected void onPreExecute() {

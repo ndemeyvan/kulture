@@ -11,7 +11,6 @@
         android:id="@+id/image_des_like"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginStart="@dimen/search_profil_start"
         android:layout_marginTop="10dp"
         android:src="@drawable/heart_gif"
         android:visibility="visible"
@@ -34,7 +33,7 @@
         android:id="@+id/image_des_commentaire"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginStart="@dimen/search_profil_start"
+        android:layout_marginStart="4dp"
         android:layout_marginTop="8dp"
         android:src="@drawable/ic_add_coment_blanc"
         android:visibility="invisible"
@@ -47,7 +46,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:fontFamily="@font/righteous"
-        android:text="open market"
         android:textColor="@color/blanc"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/image_du_profil"
@@ -91,7 +89,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:fontFamily="@font/righteous"
-        android:text="17 juin 2019 "
         android:textColor="@color/blanc"
         app:layout_constraintBottom_toBottomOf="@+id/image_du_profil"
         app:layout_constraintStart_toEndOf="@+id/image_du_profil"
@@ -156,12 +153,15 @@
         android:layout_width="15dp"
         android:layout_height="20dp"
         android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:src="@mipmap/ic_launcher"
         android:visibility="invisible"
         app:civ_border_color="#05df29"
         app:civ_border_width="10dp"
         app:layout_constraintBottom_toBottomOf="@+id/cardview_nnotification"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/cardview_nnotification"
         app:layout_constraintTop_toTopOf="@+id/cardview_nnotification" />
+
 
 </android.support.constraint.ConstraintLayout>

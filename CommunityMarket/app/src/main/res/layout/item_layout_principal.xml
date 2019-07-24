@@ -40,7 +40,6 @@
                 android:layout_marginStart="@dimen/principal_image_round_start"
                 android:layout_marginTop="@dimen/principal_round_image_top"
                 android:layout_marginEnd="92dp"
-                android:src="@drawable/boy"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/postImage"
