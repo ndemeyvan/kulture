@@ -654,9 +654,9 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
 
     public void broadcastnotification(){
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY,14);
-        calendar.set(Calendar.MINUTE,28);
-        calendar.set(Calendar.SECOND,49);
+        calendar.set(Calendar.HOUR_OF_DAY,15);
+        calendar.set(Calendar.MINUTE,20);
+        calendar.set(Calendar.SECOND,00);
         Intent intent = new Intent(Accueil.this,notification_receiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(Accueil.this,100,intent,PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);

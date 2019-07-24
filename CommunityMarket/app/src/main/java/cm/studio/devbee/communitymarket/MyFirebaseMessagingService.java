@@ -123,14 +123,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             Uri notificationSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
             NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, ADMIN_CHANNEL_ID)
                     .setSmallIcon(R.mipmap.ic_launcher_logo_two)
-                   .setLargeIcon(icon)
+                    .setLargeIcon(icon)
                     .setContentTitle(title)
-                   .setContentText(message)
+                    .setContentText(message)
                     .setAutoCancel(true)
                     .setPriority(2)
                     .setWhen(System.currentTimeMillis())
-                    .setStyle(new NotificationCompat.BigTextStyle()
-                            .bigText(message))
+                    .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
                     .setSound(notificationSoundUri)
                     .setContentIntent(pendingIntent);
                 Notification n = notificationBuilder.getNotification();
