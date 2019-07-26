@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import cm.studio.devbee.communitymarket.Fragments.DecouvrirFragment;
 import cm.studio.devbee.communitymarket.Fragments.ModeFragment;
 
 public class TabsAdapter extends FragmentPagerAdapter {
@@ -33,7 +34,7 @@ public class TabsAdapter extends FragmentPagerAdapter {
 
         switch (i){
             case 0:
-                ModeFragment home =new ModeFragment();
+                DecouvrirFragment home =new DecouvrirFragment();
                 return home;
         }
         return (Fragment) fragmentList.get(i);

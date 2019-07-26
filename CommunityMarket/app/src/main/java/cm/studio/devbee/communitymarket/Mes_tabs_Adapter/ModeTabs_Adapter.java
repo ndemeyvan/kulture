@@ -34,7 +34,7 @@ public class ModeTabs_Adapter extends FragmentPagerAdapter {
 
         switch (i){
             case 0:
-                DecouvrirFragment home =new DecouvrirFragment();
+                Vetementragment home =new Vetementragment();
                 return home;
         }
         return (Fragment) fragmentList.get(i);
