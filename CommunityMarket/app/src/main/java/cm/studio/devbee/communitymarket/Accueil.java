@@ -50,6 +50,7 @@ import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import cm.studio.devbee.communitymarket.Fragments.DecouvrirFragment;
 import cm.studio.devbee.communitymarket.Fragments.ElectroniqueFragment;
 import cm.studio.devbee.communitymarket.Fragments.InformatiqueFragment;
 import cm.studio.devbee.communitymarket.Fragments.ModeFragment;
@@ -208,6 +209,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
 
     public void setupViewPager(ViewPager viewPager){
         TabsAdapter tabsAdapter=new TabsAdapter(getSupportFragmentManager());
+        tabsAdapter.addFragment(new DecouvrirFragment(),"Home");
         tabsAdapter.addFragment(new ModeFragment(),getString(R.string.decouvrir).toLowerCase());
         tabsAdapter.addFragment(new Tablette_TabFragment(),"Phone/Tablette");
         tabsAdapter.addFragment(new ElectroniqueFragment(),"Electronique");

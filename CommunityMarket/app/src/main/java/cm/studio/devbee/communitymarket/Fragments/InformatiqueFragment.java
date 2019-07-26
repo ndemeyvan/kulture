@@ -37,8 +37,8 @@ public class InformatiqueFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_informatique, container, false);
-        tabLayout=v.findViewById(R.id.tabLayoutInfo);
-        tabsviewpager=v.findViewById(R.id.tabsviewInfo);
+        tabLayout=v.findViewById(R.id.tabLayoutJeux);
+        tabsviewpager=v.findViewById(R.id.tabsviewJeux);
         setupViewPager(tabsviewpager);
         tabLayout.setupWithViewPager(tabsviewpager);
         return v;
