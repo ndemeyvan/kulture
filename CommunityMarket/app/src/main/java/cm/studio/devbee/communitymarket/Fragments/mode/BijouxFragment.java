@@ -1,12 +1,10 @@
-package cm.studio.devbee.communitymarket.Fragments;
+package cm.studio.devbee.communitymarket.Fragments.mode;
 
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,24 +19,16 @@ import android.widget.ViewFlipper;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.annotation.Nullable;
 
 import cm.studio.devbee.communitymarket.PublicityActivity;
 import cm.studio.devbee.communitymarket.R;
@@ -48,12 +38,18 @@ import cm.studio.devbee.communitymarket.gridView_post.ModelGridView;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TshirtFragment extends Fragment {
+public class BijouxFragment extends Fragment {
+
+    private View v;
+    private static RecyclerView pullRecyclerView;
     private static FirebaseFirestore firebaseFirestore;
-    private static View v;
-    private static RecyclerView tshirtRecyclerView;
-    private static GridViewAdapter categoriesAdapteTshirt;
-    private static List<ModelGridView> categoriesModelTshirtList;
+    private static ProgressDialog progressDialog;
+    private static AsyncTask asyncTask;
+    private static GridViewAdapter categoriesAdaptepull;
+    private static List<ModelGridView> categoriesModelpullList;
+    private static WeakReference<BijouxFragment> pullFragmentWeakReference;
+    private static FirebaseAuth firebaseAuth;
+    String curent_user;
     ViewFlipper viewFlippertwo;
     ImageView pubImageTwo,pubImage;
     ImageView pubImageThree;
@@ -62,13 +58,7 @@ public class TshirtFragment extends Fragment {
     TextView pubImageTextTwo;
     TextView pubImageTextThree;
     TextView pubImageTextFour;
-    private static ProgressDialog progressDialog;
-    private static WeakReference<TshirtFragment> tshirtFragmentWeakReference;
-    private  AsyncTask asyncTask;
-    private static FirebaseAuth firebaseAuth;
-    String curent_user;
-
-    public TshirtFragment() {
+    public BijouxFragment() {
         // Required empty public constructor
     }
 
@@ -77,8 +67,8 @@ public class TshirtFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        v=inflater.inflate(R.layout.fragment_tshirt, container, false);
-        firebaseFirestore=FirebaseFirestore.getInstance();
+        v= inflater.inflate ( R.layout.fragment_pull, container, false );
+        firebaseFirestore=FirebaseFirestore.getInstance ();
         pubImageTextTwo=v.findViewById ( R.id.pubImageTextTwo );
         pubImageTextThree=v.findViewById ( R.id.pubImageTextThree );
         pubImageTextFour=v.findViewById ( R.id.pubImageTextFour );
@@ -88,51 +78,53 @@ public class TshirtFragment extends Fragment {
         pubImageThree=v.findViewById ( R.id.pubImageThree);
         pubImageFour=v.findViewById ( R.id.pubImageFour );
         imagePubText=v.findViewById ( R.id.imagePubText );
-        asyncTask=new AsyncTask ();
-        asyncTask.execute (  );
         firebaseAuth=FirebaseAuth.getInstance ();
         curent_user=firebaseAuth.getCurrentUser ().getUid ();
-        tshirtFragmentWeakReference=new WeakReference<>(this);
+        pullFragmentWeakReference=new WeakReference<>(this);
+        asyncTask=new AsyncTask();
+        asyncTask.execute();
+        viewFlippertwo.setOutAnimation(getActivity(),android.R.anim.slide_out_right);
+        viewFlippertwo.setInAnimation(getActivity(),android.R.anim.slide_in_left);
 
         getActivity ().runOnUiThread
                 (new Runnable() {
-            @Override
-            public void run() {
-                tshirtRecyclerView();
-                imagePub();
-            }
-        });
-
+                    @Override
+                    public void run() {
+                        pullRecyclerView ();
+                        imagePub ();
+                    }
+                });
         return v;
     }
 
-    public void tshirtRecyclerView(){
-        Query firstQuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "T-shirts" ).orderBy ( "priority",Query.Direction.DESCENDING );
+    public void pullRecyclerView(){
+
+        Query firstQuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "pull" ).orderBy ( "priority",Query.Direction.DESCENDING );
+
         FirestoreRecyclerOptions<ModelGridView> options = new FirestoreRecyclerOptions.Builder<ModelGridView>()
                 .setQuery(firstQuery, ModelGridView.class)
                 .build();
-        categoriesAdapteTshirt  = new GridViewAdapter (options,getActivity());
-        tshirtRecyclerView = v.findViewById(R.id.tshirtRecyclerView);
-        tshirtRecyclerView.setHasFixedSize(true);
-        tshirtRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
-        tshirtRecyclerView.setAdapter(categoriesAdapteTshirt);
-    }
+        categoriesAdaptepull  = new GridViewAdapter (options,getActivity());
+        pullRecyclerView = v.findViewById(R.id.pullRecyclerView);
+        pullRecyclerView.setHasFixedSize(true);
+        pullRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
+        pullRecyclerView.setAdapter(categoriesAdaptepull);
 
+    }
     @Override
     public void onStart() {
         super.onStart();
-        categoriesAdapteTshirt.startListening();
+        categoriesAdaptepull.startListening();
     }
+
     public void imagePub(){
         DocumentReference user_two = firebaseFirestore.collection("sliders").document("images");
         user_two.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()){
-                    viewFlippertwo.setOutAnimation(getActivity(),android.R.anim.slide_out_right);
-                    viewFlippertwo.setInAnimation(getActivity(),android.R.anim.slide_in_left);
                     //image_one
-                    firebaseFirestore.collection("slider_tshirt").document("imageOne").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
+                    firebaseFirestore.collection("slider_pull").document("image_One").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             if (task.isSuccessful()){
@@ -165,7 +157,7 @@ public class TshirtFragment extends Fragment {
                     });
 
                     //image_two
-                    firebaseFirestore.collection("slider_tshirt").document("imageTwo").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
+                    firebaseFirestore.collection("slider_pull").document("imageTwo").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             if (task.isSuccessful()){
@@ -197,7 +189,7 @@ public class TshirtFragment extends Fragment {
                         }
                     });
                     //image_three
-                    firebaseFirestore.collection("slider_tshirt").document("imageThree").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
+                    firebaseFirestore.collection("slider_pull").document("imageThree").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             if (task.isSuccessful()){
@@ -230,7 +222,7 @@ public class TshirtFragment extends Fragment {
                     });
 
                     //image_four
-                    firebaseFirestore.collection("slider_tshirt").document("imageFour").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
+                    firebaseFirestore.collection("slider_pull").document("imageFour").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             if (task.isSuccessful()){
@@ -274,7 +266,8 @@ public class TshirtFragment extends Fragment {
             }
         });
     }
-    public class AsyncTask extends android.os.AsyncTask<Void, Void, Void> {
+
+    public  class AsyncTask extends android.os.AsyncTask<Void, Void, Void> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute ();
@@ -282,6 +275,7 @@ public class TshirtFragment extends Fragment {
 
         @Override
         protected Void doInBackground(Void... voids) {
+
             return null;
         }
 
@@ -297,10 +291,11 @@ public class TshirtFragment extends Fragment {
         asyncTask.cancel(true);
         super.onDestroy();
         asyncTask.cancel(true);
+        pullRecyclerView=null;
         firebaseFirestore=null;
-        tshirtRecyclerView=null;
-         v=null;
-         categoriesAdapteTshirt=null;
-         progressDialog=null;
+        progressDialog=null;
+        pullRecyclerView=null;
+        categoriesAdaptepull=null;
+        categoriesModelpullList=null;
     }
 }

@@ -1,14 +1,11 @@
-package cm.studio.devbee.communitymarket.Fragments;
+package cm.studio.devbee.communitymarket.Fragments.mode;
 
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -22,24 +19,16 @@ import android.widget.ViewFlipper;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.annotation.Nullable;
 
 import cm.studio.devbee.communitymarket.PublicityActivity;
 import cm.studio.devbee.communitymarket.R;
@@ -49,15 +38,16 @@ import cm.studio.devbee.communitymarket.gridView_post.ModelGridView;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PantalonFragment extends Fragment {
-    private View v;
-    private static RecyclerView pantalonsRecyclerView;
+public class LocationFragment extends Fragment {
+
+    private  static View v;
+    private static RecyclerView location_recycler;
     private static FirebaseFirestore firebaseFirestore;
     private static ProgressDialog progressDialog;
     private static AsyncTask asyncTask;
-    private static GridViewAdapter categoriesAdaptepantalons;
-    private static List<ModelGridView> categoriesModelpantalonsList;
-    private static WeakReference<PantalonFragment> pantalonsFragmentWeakReference;
+    private static GridViewAdapter categoriesAdaptechemise;
+    private static List<ModelGridView> categoriesModelchemiseList;
+    private static WeakReference<LocationFragment> chemiseFragmentWeakReference;
     private static FirebaseAuth firebaseAuth;
     String curent_user;
     ViewFlipper viewFlippertwo;
@@ -68,8 +58,7 @@ public class PantalonFragment extends Fragment {
     TextView pubImageTextTwo;
     TextView pubImageTextThree;
     TextView pubImageTextFour;
-
-    public PantalonFragment() {
+    public LocationFragment() {
         // Required empty public constructor
     }
 
@@ -77,9 +66,9 @@ public class PantalonFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        v= inflater.inflate ( R.layout.fragment_pantalon, container, false );
+        v= inflater.inflate ( R.layout.fragment_location, container, false );
         firebaseFirestore=FirebaseFirestore.getInstance ();
+        ///////
         pubImageTextTwo=v.findViewById ( R.id.pubImageTextTwo );
         pubImageTextThree=v.findViewById ( R.id.pubImageTextThree );
         pubImageTextFour=v.findViewById ( R.id.pubImageTextFour );
@@ -89,13 +78,18 @@ public class PantalonFragment extends Fragment {
         pubImageThree=v.findViewById ( R.id.pubImageThree);
         pubImageFour=v.findViewById ( R.id.pubImageFour );
         imagePubText=v.findViewById ( R.id.imagePubText );
-
+        //
+        asyncTask=new AsyncTask();
+        asyncTask.execute();
         firebaseAuth=FirebaseAuth.getInstance ();
         curent_user=firebaseAuth.getCurrentUser ().getUid ();
-        asyncTask=new AsyncTask ();
-        asyncTask.execute();
-        pantalonsFragmentWeakReference=new WeakReference<> ( this );
+        chemiseFragmentWeakReference=new WeakReference<> ( this );
 
+/*        ConstraintLayout constraintLayout=v.findViewById(R.id.layout);
+        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
+        animationDrawable.setEnterFadeDuration(2000);
+        animationDrawable.setExitFadeDuration(4000);
+        animationDrawable.start();*/
         getActivity ().runOnUiThread
                 (new Runnable() {
                     @Override
@@ -107,24 +101,27 @@ public class PantalonFragment extends Fragment {
         return v;
     }
 
-    public void RecyclerView(){
 
-        Query firstQuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "Pantalons" ).orderBy ( "priority",Query.Direction.DESCENDING );
-        FirestoreRecyclerOptions<ModelGridView> options = new FirestoreRecyclerOptions.Builder<ModelGridView>()
-                .setQuery(firstQuery, ModelGridView.class)
-                .build();
-        categoriesAdaptepantalons  = new GridViewAdapter (options,getActivity());
-        pantalonsRecyclerView = v.findViewById(R.id.pantalonRecyclerView);
-        pantalonsRecyclerView.setHasFixedSize(true);
-        pantalonsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
-        pantalonsRecyclerView.setAdapter(categoriesAdaptepantalons);
-
-    }
     @Override
     public void onStart() {
         super.onStart();
-        categoriesAdaptepantalons.startListening();
+        categoriesAdaptechemise.startListening();
     }
+
+    public void RecyclerView(){
+
+        Query firstQuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "location" ).orderBy ( "priority",Query.Direction.DESCENDING );
+        FirestoreRecyclerOptions<ModelGridView> options = new FirestoreRecyclerOptions.Builder<ModelGridView>()
+                .setQuery(firstQuery, ModelGridView.class)
+                .build();
+        categoriesAdaptechemise  = new GridViewAdapter (options,getActivity());
+        location_recycler = v.findViewById(R.id.locationRecyclerView);
+        location_recycler.setHasFixedSize(true);
+        location_recycler.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
+        location_recycler.setAdapter(categoriesAdaptechemise);
+    }
+
+
     public void imagePub(){
         DocumentReference user_two = firebaseFirestore.collection("sliders").document("images");
         user_two.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -134,7 +131,7 @@ public class PantalonFragment extends Fragment {
                     viewFlippertwo.setOutAnimation(getActivity(),android.R.anim.slide_out_right);
                     viewFlippertwo.setInAnimation(getActivity(),android.R.anim.slide_in_left);
                     //image_one
-                    firebaseFirestore.collection("slider_pantalons").document("imageOne").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
+                    firebaseFirestore.collection("slider_locations").document("imageOne").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             if (task.isSuccessful()){
@@ -167,7 +164,7 @@ public class PantalonFragment extends Fragment {
                     });
 
                     //image_two
-                    firebaseFirestore.collection("slider_pantalons").document("imageTwo").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
+                    firebaseFirestore.collection("slider_locations").document("imageTwo").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             if (task.isSuccessful()){
@@ -199,7 +196,7 @@ public class PantalonFragment extends Fragment {
                         }
                     });
                     //image_three
-                    firebaseFirestore.collection("slider_pantalons").document("imageThree").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
+                    firebaseFirestore.collection("slider_locations").document("imageThree").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             if (task.isSuccessful()){
@@ -232,7 +229,7 @@ public class PantalonFragment extends Fragment {
                     });
 
                     //image_four
-                    firebaseFirestore.collection("slider_pantalons").document("imageFour").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
+                    firebaseFirestore.collection("slider_locations").document("imageFour").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             if (task.isSuccessful()){
@@ -276,7 +273,9 @@ public class PantalonFragment extends Fragment {
             }
         });
     }
+
     public  class AsyncTask extends android.os.AsyncTask<Void, Void, Void> {
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute ();
@@ -293,17 +292,22 @@ public class PantalonFragment extends Fragment {
             super.onPostExecute ( aVoid );
 
         }
+
     }
+
     @Override
     public void onDestroy() {
+
         asyncTask.cancel(true);
         super.onDestroy();
         asyncTask.cancel(true);
-        pantalonsRecyclerView=null;
         firebaseFirestore=null;
         progressDialog=null;
-        categoriesAdaptepantalons=null;
-        categoriesModelpantalonsList=null;
+        categoriesAdaptechemise=null;
+        categoriesModelchemiseList=null;
     }
+
+
+
 
 }

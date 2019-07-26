@@ -1,15 +1,8 @@
 package cm.studio.devbee.communitymarket;
 
 import android.annotation.SuppressLint;
-import android.app.AlarmManager;
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
@@ -21,7 +14,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
@@ -38,11 +30,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
+
 import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -56,40 +44,26 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.messaging.FirebaseMessaging;
-import com.google.firebase.messaging.FirebaseMessagingService;
-import com.microsoft.projectoxford.vision.VisionServiceClient;
-import com.microsoft.projectoxford.vision.VisionServiceRestClient;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import cm.studio.devbee.communitymarket.Fragments.AccesoireFragment;
-import cm.studio.devbee.communitymarket.Fragments.ChaussureFragment;
-import cm.studio.devbee.communitymarket.Fragments.ChemiseFragment;
-import cm.studio.devbee.communitymarket.Fragments.CulloteFragment;
-import cm.studio.devbee.communitymarket.Fragments.HomeFragment;
-import cm.studio.devbee.communitymarket.Fragments.JupesFragment;
-import cm.studio.devbee.communitymarket.Fragments.LingerieFragment;
-import cm.studio.devbee.communitymarket.Fragments.LocationFragment;
-import cm.studio.devbee.communitymarket.Fragments.PantalonFragment;
-import cm.studio.devbee.communitymarket.Fragments.PullFragment;
-import cm.studio.devbee.communitymarket.Fragments.RobeFragment;
-import cm.studio.devbee.communitymarket.Fragments.TshirtFragment;
+
+import cm.studio.devbee.communitymarket.Fragments.ElectroniqueFragment;
+import cm.studio.devbee.communitymarket.Fragments.ModeFragment;
+import cm.studio.devbee.communitymarket.Fragments.Tablette_TabFragment;
+import cm.studio.devbee.communitymarket.Mes_tabs_Adapter.TabsAdapter;
 import cm.studio.devbee.communitymarket.a_propos.AproposActivity;
 import cm.studio.devbee.communitymarket.messagerie.ChatMessageActivity;
-import cm.studio.devbee.communitymarket.messagerie.MessageActivity;
-import cm.studio.devbee.communitymarket.postActivity.DetailActivity;
 import cm.studio.devbee.communitymarket.postActivity.PostActivity;
 import cm.studio.devbee.communitymarket.profile.FavoriesActivity;
 import cm.studio.devbee.communitymarket.profile.NotificationActivity;
 import cm.studio.devbee.communitymarket.profile.ParametrePorfilActivity;
 import cm.studio.devbee.communitymarket.profile.ProfileActivity;
 import cm.studio.devbee.communitymarket.search.ChoiceSearchActivity;
-import cm.studio.devbee.communitymarket.search.SearchActivity;
 import de.hdodenhof.circleimageview.CircleImageView;
 import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence;
-import uk.co.deanwild.materialshowcaseview.MaterialShowcaseView;
 import uk.co.deanwild.materialshowcaseview.ShowcaseConfig;
 
 public class Accueil extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, RewardedVideoAdListener  {
@@ -104,7 +78,6 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
         private static AsyncTask asyncTask;
         private static WeakReference<Accueil> accueilWeakReference;
         private Menu menu;
-        private AdView mAdView;
         private String name;
         private Dialog myDialog;
         private  CircleImageView image_user;
@@ -162,44 +135,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
 
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.getMenu().getItem(0).setChecked(true);
-        // my id ca-app-pub-4353172129870258~6890094527
-        // leur id ca-app-pub-3940256099942544~3347511713
-        MobileAds.initialize(this, "ca-app-pub-4353172129870258~6890094527");
-        mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
         name= (String) drawer_user_name.getText();
-        mAdView.setAdListener(new AdListener() {
-            @Override
-            public void onAdLoaded() {
-
-                //Toast.makeText(getApplicationContext(), name +" "+ getString(R.string.soutenir),Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void onAdFailedToLoad(int errorCode) {
-
-            }
-
-            @Override
-            public void onAdOpened() {
-                //Toast.makeText(getApplicationContext(),getString(R.string.soutiens_effectif)+" " + name,Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void onAdLeftApplication() {
-                // Code to be executed when the user has left the app.
-            }
-
-            @Override
-            public void onAdClosed() {
-                // Code to be executed when when the user is about to return
-                // to the app after tapping on an ad.
-            }
-        });
-
-
-
 
         myDialog = new Dialog (this);
         asyncTask=new AsyncTask();
@@ -258,7 +194,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
             }
         });
         check_version ();
-        broadcastnotification();
+        //broadcastnotification();
     }
 
 
@@ -271,18 +207,9 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
 
     public void setupViewPager(ViewPager viewPager){
         TabsAdapter tabsAdapter=new TabsAdapter(getSupportFragmentManager());
-        tabsAdapter.addFragment(new HomeFragment(),getString(R.string.decouvrir).toLowerCase());
-        tabsAdapter.addFragment(new TshirtFragment(),getString(R.string.T_shirts).toLowerCase());
-        tabsAdapter.addFragment(new PullFragment () ,getString(R.string.Pulls));
-        tabsAdapter.addFragment(new JupesFragment () ,getString(R.string.jupes));
-        tabsAdapter.addFragment(new ChaussureFragment (),getString(R.string.chaussures));
-        tabsAdapter.addFragment(new PantalonFragment (),getString(R.string.pantalons));
-        tabsAdapter.addFragment(new CulloteFragment (),getString(R.string.cullotes));
-        tabsAdapter.addFragment(new ChemiseFragment (),getString(R.string.chemises));
-        tabsAdapter.addFragment(new RobeFragment (),getString(R.string.robes));
-        tabsAdapter.addFragment(new AccesoireFragment (),getString(R.string.accessoire));
-        tabsAdapter.addFragment(new LingerieFragment (),"lingeries");
-        tabsAdapter.addFragment(new LocationFragment(),getString(R.string.location));
+        tabsAdapter.addFragment(new ModeFragment(),getString(R.string.decouvrir).toLowerCase());
+        tabsAdapter.addFragment(new Tablette_TabFragment(),"Phone/Tablette");
+        tabsAdapter.addFragment(new ElectroniqueFragment(),"Electronique");
         viewPager.setAdapter(tabsAdapter);
 
     }
@@ -652,7 +579,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
 
     }
 
-    public void broadcastnotification(){
+    /*public void broadcastnotification(){
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY,15);
         calendar.set(Calendar.MINUTE,20);
@@ -661,7 +588,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
         PendingIntent pendingIntent = PendingIntent.getBroadcast(Accueil.this,100,intent,PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),AlarmManager.INTERVAL_DAY,pendingIntent);
-    }
+    }*/
 
     public class AsyncTask extends android.os.AsyncTask<Void, Void, Void> {
             @Override

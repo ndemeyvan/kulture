@@ -36,7 +36,6 @@ public class notification_receiver extends BroadcastReceiver {
                         if (task.getResult ().exists ()){
                             String nom_user = task.getResult ().getString ("user_name");
                             String prenomuser =task.getResult ().getString ("user_prenom");
-
                             //////////////////////////
                             Intent repeating_intent = new Intent( context , Accueil.class);
                             NotificationManager notificationManager =(NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);

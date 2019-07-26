@@ -1,12 +1,9 @@
-package cm.studio.devbee.communitymarket.Fragments;
+package cm.studio.devbee.communitymarket.Fragments.mode;
 
 
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,24 +18,15 @@ import android.widget.ViewFlipper;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.Nullable;
 
 import cm.studio.devbee.communitymarket.PublicityActivity;
 import cm.studio.devbee.communitymarket.R;
@@ -48,16 +36,13 @@ import cm.studio.devbee.communitymarket.gridView_post.ModelGridView;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class LocationFragment extends Fragment {
-
-    private  static View v;
-    private static RecyclerView location_recycler;
+public class ChaussureFragment extends Fragment {
     private static FirebaseFirestore firebaseFirestore;
-    private static ProgressDialog progressDialog;
-    private static AsyncTask asyncTask;
-    private static GridViewAdapter categoriesAdaptechemise;
-    private static List<ModelGridView> categoriesModelchemiseList;
-    private static WeakReference<LocationFragment> chemiseFragmentWeakReference;
+    private static View v;
+    private static RecyclerView chaussuresRecyclerView;
+    private static GridViewAdapter categoriesAdaptechaussures;
+    private static WeakReference<ChaussureFragment> chaussuresFragmentWeakReference;
+    private AsyncTask asyncTask;
     private static FirebaseAuth firebaseAuth;
     String curent_user;
     ViewFlipper viewFlippertwo;
@@ -68,7 +53,8 @@ public class LocationFragment extends Fragment {
     TextView pubImageTextTwo;
     TextView pubImageTextThree;
     TextView pubImageTextFour;
-    public LocationFragment() {
+
+    public ChaussureFragment() {
         // Required empty public constructor
     }
 
@@ -76,9 +62,8 @@ public class LocationFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        v= inflater.inflate ( R.layout.fragment_location, container, false );
-        firebaseFirestore=FirebaseFirestore.getInstance ();
-        ///////
+        // Inflate the layout for this fragment
+        v= inflater.inflate ( R.layout.fragment_chaussure, container, false );
         pubImageTextTwo=v.findViewById ( R.id.pubImageTextTwo );
         pubImageTextThree=v.findViewById ( R.id.pubImageTextThree );
         pubImageTextFour=v.findViewById ( R.id.pubImageTextFour );
@@ -89,49 +74,23 @@ public class LocationFragment extends Fragment {
         pubImageFour=v.findViewById ( R.id.pubImageFour );
         imagePubText=v.findViewById ( R.id.imagePubText );
         //
-        asyncTask=new AsyncTask();
-        asyncTask.execute();
+        chaussuresFragmentWeakReference=new WeakReference<> ( this );
+        firebaseFirestore=FirebaseFirestore.getInstance();
+        asyncTask=new AsyncTask ();
+        asyncTask.execute (  );
         firebaseAuth=FirebaseAuth.getInstance ();
         curent_user=firebaseAuth.getCurrentUser ().getUid ();
-        chemiseFragmentWeakReference=new WeakReference<> ( this );
 
-/*        ConstraintLayout constraintLayout=v.findViewById(R.id.layout);
-        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
-        animationDrawable.setEnterFadeDuration(2000);
-        animationDrawable.setExitFadeDuration(4000);
-        animationDrawable.start();*/
         getActivity ().runOnUiThread
                 (new Runnable() {
                     @Override
                     public void run() {
-                        RecyclerView ();
-                        imagePub ();
+                        imagePub();
+                        chaussureRecyclerView ();
                     }
                 });
         return v;
     }
-
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        categoriesAdaptechemise.startListening();
-    }
-
-    public void RecyclerView(){
-
-        Query firstQuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "location" ).orderBy ( "priority",Query.Direction.DESCENDING );
-        FirestoreRecyclerOptions<ModelGridView> options = new FirestoreRecyclerOptions.Builder<ModelGridView>()
-                .setQuery(firstQuery, ModelGridView.class)
-                .build();
-        categoriesAdaptechemise  = new GridViewAdapter (options,getActivity());
-        location_recycler = v.findViewById(R.id.locationRecyclerView);
-        location_recycler.setHasFixedSize(true);
-        location_recycler.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
-        location_recycler.setAdapter(categoriesAdaptechemise);
-    }
-
-
     public void imagePub(){
         DocumentReference user_two = firebaseFirestore.collection("sliders").document("images");
         user_two.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -141,7 +100,7 @@ public class LocationFragment extends Fragment {
                     viewFlippertwo.setOutAnimation(getActivity(),android.R.anim.slide_out_right);
                     viewFlippertwo.setInAnimation(getActivity(),android.R.anim.slide_in_left);
                     //image_one
-                    firebaseFirestore.collection("slider_locations").document("imageOne").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
+                    firebaseFirestore.collection("slide_chaussure").document("imageOne").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             if (task.isSuccessful()){
@@ -174,7 +133,7 @@ public class LocationFragment extends Fragment {
                     });
 
                     //image_two
-                    firebaseFirestore.collection("slider_locations").document("imageTwo").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
+                    firebaseFirestore.collection("slide_chaussure").document("imageTwo").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             if (task.isSuccessful()){
@@ -206,7 +165,7 @@ public class LocationFragment extends Fragment {
                         }
                     });
                     //image_three
-                    firebaseFirestore.collection("slider_locations").document("imageThree").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
+                    firebaseFirestore.collection("slide_chaussure").document("imageThree").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             if (task.isSuccessful()){
@@ -239,7 +198,7 @@ public class LocationFragment extends Fragment {
                     });
 
                     //image_four
-                    firebaseFirestore.collection("slider_locations").document("imageFour").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
+                    firebaseFirestore.collection("slide_chaussure").document("imageFour").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             if (task.isSuccessful()){
@@ -284,8 +243,26 @@ public class LocationFragment extends Fragment {
         });
     }
 
-    public  class AsyncTask extends android.os.AsyncTask<Void, Void, Void> {
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        categoriesAdaptechaussures.startListening();
+    }
+
+    public void chaussureRecyclerView(){
+        Query firstQuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "Chaussures" ).orderBy ( "priority",Query.Direction.DESCENDING );
+        FirestoreRecyclerOptions<ModelGridView> options = new FirestoreRecyclerOptions.Builder<ModelGridView>()
+                .setQuery(firstQuery, ModelGridView.class)
+                .build();
+        categoriesAdaptechaussures  = new GridViewAdapter (options,getActivity());
+        chaussuresRecyclerView = v.findViewById(R.id.chaussureRecyclerView);
+        chaussuresRecyclerView.setHasFixedSize(true);
+        chaussuresRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
+        chaussuresRecyclerView.setAdapter(categoriesAdaptechaussures);
+    }
+
+    public class AsyncTask extends android.os.AsyncTask<Void, Void, Void> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute ();
@@ -293,31 +270,27 @@ public class LocationFragment extends Fragment {
 
         @Override
         protected Void doInBackground(Void... voids) {
-
             return null;
         }
+
 
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute ( aVoid );
 
         }
-
     }
-
     @Override
     public void onDestroy() {
-
         asyncTask.cancel(true);
         super.onDestroy();
         asyncTask.cancel(true);
         firebaseFirestore=null;
-        progressDialog=null;
-        categoriesAdaptechemise=null;
-        categoriesModelchemiseList=null;
+        chaussuresRecyclerView=null;
+        v=null;
+        categoriesAdaptechaussures=null;
     }
 
-
-
-
 }
+
+//Chaussures

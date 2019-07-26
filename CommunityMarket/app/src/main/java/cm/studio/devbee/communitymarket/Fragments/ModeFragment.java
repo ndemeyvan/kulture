@@ -1,79 +1,57 @@
 package cm.studio.devbee.communitymarket.Fragments;
 
 
-import android.app.AlertDialog;
-import android.content.Intent;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ViewFlipper;
-import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
+
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
-import com.google.android.gms.ads.reward.RewardedVideoAdListener;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentChange;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.squareup.picasso.Picasso;
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import javax.annotation.Nullable;
 
-import cm.studio.devbee.communitymarket.Accueil;
-import cm.studio.devbee.communitymarket.PublicityActivity;
+import java.lang.ref.WeakReference;
+
+import cm.studio.devbee.communitymarket.Fragments.mode.AccesoireFragment;
+import cm.studio.devbee.communitymarket.Fragments.mode.AfritudeFragment;
+import cm.studio.devbee.communitymarket.Fragments.mode.BijouxFragment;
+import cm.studio.devbee.communitymarket.Fragments.mode.ChaussureFragment;
+import cm.studio.devbee.communitymarket.Fragments.mode.JupesFragment;
+import cm.studio.devbee.communitymarket.Fragments.mode.MontreFragment;
+import cm.studio.devbee.communitymarket.Fragments.mode.PantalonFragment;
+import cm.studio.devbee.communitymarket.Fragments.mode.PoloFragment;
+import cm.studio.devbee.communitymarket.Fragments.mode.Sous_vetement;
+import cm.studio.devbee.communitymarket.Fragments.mode.Vetementragment;
+import cm.studio.devbee.communitymarket.Mes_tabs_Adapter.ModeTabs_Adapter;
 import cm.studio.devbee.communitymarket.R;
-import cm.studio.devbee.communitymarket.utilsForNouveautes.CategoriesAdapteNouveaux;
-import cm.studio.devbee.communitymarket.utilsForNouveautes.CategoriesModelNouveaux;
-import cm.studio.devbee.communitymarket.utilsForPostPrincipal.PrincipalAdapte;
-import cm.studio.devbee.communitymarket.utilsForPostPrincipal.PrincipalModel;
-import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragment extends Fragment implements RewardedVideoAdListener {
+public class ModeFragment extends Fragment  {
+    //implements RewardedVideoAdListener
     private static FirebaseAuth firebaseAuth;
     private static FirebaseFirestore firebaseFirestore;
     private static ImageView imageOne,imageTwo,imageThree,imageFour;
     private static TextView img1,img2,img3,img4;
     private static ProgressBar content_progresbar;
-    private static CategoriesAdapteNouveaux categoriesAdapte;
     private static ViewFlipper viewFlipper;
     private static RecyclerView chaussureRecyclerView;
     private static DocumentSnapshot lastVisible;
     private static View v;
-    private  static WeakReference<HomeFragment> homeFragmentWeakReference;
-    private static PrincipalAdapte adapter;
+    private  static WeakReference<ModeFragment> homeFragmentWeakReference;
     private RecyclerView principalRecyclerView;
     private static  String current_user;
     private AdView mAdView;
@@ -89,13 +67,14 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
     TextView pubImageTextTwo;
     TextView pubImageTextThree;
     TextView pubImageTextFour;
+    private TabLayout tabLayout;
+    private ViewPager tabsviewpager;
     private TextView textView16;
-    boolean isfirstload =true;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     CollectionReference notebookRef = db.collection("publication").document("categories").collection("nouveaux");
     private String viens_detail;
 
-    public HomeFragment() {
+    public ModeFragment() {
         // Required empty public constructor
     }
 
@@ -104,7 +83,7 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         v= inflater.inflate(R.layout.fragment_home, container, false);
-        pubImageTextTwo=v.findViewById ( R.id.pubImageTextTwo );
+        /*pubImageTextTwo=v.findViewById ( R.id.pubImageTextTwo );
         pubImageTextThree=v.findViewById ( R.id.pubImageTextThree );
         pubImageTextFour=v.findViewById ( R.id.pubImageTextFour );
         pubImage=v.findViewById ( R.id.pubImage );
@@ -131,8 +110,8 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
         AsyncTask asyncTask=new AsyncTask ();
         asyncTask.execute (  );
         homeFragmentWeakReference=new WeakReference<>(this);
-        firebaseAuth=FirebaseAuth.getInstance();
-        current_user=firebaseAuth.getCurrentUser().getUid();
+        firebaseAuth=FirebaseAuth.getInstance();*/
+        /*current_user=firebaseAuth.getCurrentUser().getUid();
 
         /* alertDialogBuilder = new AlertDialog.Builder(getActivity());
          alertDialogBuilder.setMessage("chargement ...");
@@ -146,7 +125,7 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
 
         // my id ca-app-pub-4353172129870258~6890094527
         // leur id ca-app-pub-3940256099942544~3347511713
-        MobileAds.initialize(getApplicationContext(), "ca-app-pub-4353172129870258~6890094527");
+       /* MobileAds.initialize(getApplicationContext(), "ca-app-pub-4353172129870258~6890094527");
         mAdView = v.findViewById(R.id.adView);
         mAdViewTwo=v.findViewById(R.id.adViewTwo);
         AdRequest adRequest = new AdRequest.Builder().build();
@@ -230,20 +209,24 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
         mad=MobileAds.getRewardedVideoAdInstance(getActivity());
         mad.setRewardedVideoAdListener(this);
         loadRewardedVideo();
-        nouveautes();
+        nouveautes();*/
+        tabLayout=v.findViewById(R.id.tabLayoutMode);
+        tabsviewpager=v.findViewById(R.id.tabsviewMode);
+        setupViewPager(tabsviewpager);
+        tabLayout.setupWithViewPager(tabsviewpager);
         return v;
     }
-    public void loadRewardedVideo(){
+    /*public void loadRewardedVideo(){
         if (!mad.isLoaded()){
             // ca-app-pub-3940256099942544/5224354917
             // my pub id : ca-app-pub-4353172129870258/9670857450
             mad.loadAd("ca-app-pub-4353172129870258/9670857450",new AdRequest.Builder().build());
         }
-    }
+    }*/
 
 
 
-    public void uptdate(){
+    /*public void uptdate(){
         DocumentReference user = firebaseFirestore.collection("sliders").document("images");
         user.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -550,9 +533,9 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
                 //Toast.makeText(getActivity(),getString(R.string.erreur_slider),Toast.LENGTH_LONG).show();
             }
         });
-    }
+    }*/
 
- public void nouveautes(){
+ /*public void nouveautes(){
          Query firstQuery =notebookRef.orderBy ( "priority",Query.Direction.DESCENDING );
          FirestoreRecyclerOptions<PrincipalModel> options = new FirestoreRecyclerOptions.Builder<PrincipalModel>()
                  .setQuery(firstQuery, PrincipalModel.class)
@@ -582,18 +565,18 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
                  }
              }
          } );
- }
+ }*/
 
-    @Override
+   /* @Override
     public void onStart() {
         super.onStart();
         adapter.startListening();
         categoriesAdapte.startListening ();
-    }
+    }*/
 
 
 
-    public void chaussuresRecycler(){
+    /*/public void chaussuresRecycler(){
        int i ;
        Random ran = new Random();
        i= ran.nextInt(11);
@@ -610,12 +593,12 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
         chaussureRecyclerView.setHasFixedSize(true);
         chaussureRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
         chaussureRecyclerView.setAdapter(categoriesAdapte);
-    }
+    }*/
 
 
 
 
-    @Override
+    /*@Override
     public void onRewardedVideoAdLoaded() {
 
     }
@@ -655,7 +638,7 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
 
     }
 
-    public class AsyncTask extends android.os.AsyncTask<Void, Void, Void> {
+   /* public class AsyncTask extends android.os.AsyncTask<Void, Void, Void> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute ();
@@ -675,6 +658,21 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
             super.onPostExecute ( aVoid );
 
         }
+    }*/
+
+    public void setupViewPager(ViewPager viewPager){
+        ModeTabs_Adapter tabsAdapter=new ModeTabs_Adapter(getActivity().getSupportFragmentManager());
+        tabsAdapter.addFragment(new Vetementragment(),"Vetements");
+        tabsAdapter.addFragment(new ChaussureFragment(),"Chaussures");
+        tabsAdapter.addFragment(new AccesoireFragment(),"Accessoires");
+        tabsAdapter.addFragment(new PantalonFragment(),"Pantalons");
+        tabsAdapter.addFragment(new BijouxFragment() ,"Bijouxs");
+        tabsAdapter.addFragment(new JupesFragment() ,"Afritudes");
+        tabsAdapter.addFragment(new MontreFragment(),"Montres");
+        tabsAdapter.addFragment(new PoloFragment(),"Polos");
+        tabsAdapter.addFragment(new Sous_vetement(),"Sous vetements");
+        viewPager.setAdapter(tabsAdapter);
+
     }
 
     @Override
@@ -682,7 +680,6 @@ public class HomeFragment extends Fragment implements RewardedVideoAdListener {
         super.onDestroy();
         firebaseFirestore=null;
         content_progresbar=null;
-        categoriesAdapte=null;
          chaussureRecyclerView=null;
         lastVisible=null;
 

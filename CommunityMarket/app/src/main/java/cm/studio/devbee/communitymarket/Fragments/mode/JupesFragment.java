@@ -1,4 +1,4 @@
-package cm.studio.devbee.communitymarket.Fragments;
+package cm.studio.devbee.communitymarket.Fragments.mode;
 
 
 import android.app.ProgressDialog;
@@ -49,14 +49,13 @@ import cm.studio.devbee.communitymarket.gridView_post.ModelGridView;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RobeFragment extends Fragment {
-    private  static View v;
-    private static RecyclerView robeRecyclerView;
+public class JupesFragment extends Fragment {
+    private View v;
+    private static RecyclerView jupeRecyclerView;
     private static FirebaseFirestore firebaseFirestore;
     private static ProgressDialog progressDialog;
     private static AsyncTask asyncTask;
-    private static GridViewAdapter categoriesAdapterobe;
-    private static WeakReference<RobeFragment> robeFragmentWeakReference;
+    private static GridViewAdapter categoriesAdaptejupe;
     private static FirebaseAuth firebaseAuth;
     String curent_user;
     ViewFlipper viewFlippertwo;
@@ -67,7 +66,8 @@ public class RobeFragment extends Fragment {
     TextView pubImageTextTwo;
     TextView pubImageTextThree;
     TextView pubImageTextFour;
-    public RobeFragment() {
+
+    public JupesFragment() {
         // Required empty public constructor
     }
 
@@ -76,8 +76,7 @@ public class RobeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        v= inflater.inflate ( R.layout.fragment_robe, container, false );
-        firebaseFirestore=FirebaseFirestore.getInstance ();
+        v= inflater.inflate ( R.layout.fragment_jupes, container, false );
         pubImageTextTwo=v.findViewById ( R.id.pubImageTextTwo );
         pubImageTextThree=v.findViewById ( R.id.pubImageTextThree );
         pubImageTextFour=v.findViewById ( R.id.pubImageTextFour );
@@ -87,40 +86,43 @@ public class RobeFragment extends Fragment {
         pubImageThree=v.findViewById ( R.id.pubImageThree);
         pubImageFour=v.findViewById ( R.id.pubImageFour );
         imagePubText=v.findViewById ( R.id.imagePubText );
-        /////////
-       ////////pull
+        firebaseFirestore=FirebaseFirestore.getInstance ();
         firebaseAuth=FirebaseAuth.getInstance ();
         curent_user=firebaseAuth.getCurrentUser ().getUid ();
         asyncTask=new AsyncTask ();
         asyncTask.execute();
-        robeFragmentWeakReference=new WeakReference<> ( this );
+
         getActivity ().runOnUiThread
                 (new Runnable() {
                     @Override
                     public void run() {
-                        RecyclerView ();
-                        imagePub ();
+                        jupeRecyclerView ();
+                        imagePub();
                     }
                 });
         return v;
     }
 
+
     @Override
     public void onStart() {
         super.onStart();
-        categoriesAdapterobe.startListening();
+        categoriesAdaptejupe.startListening();
     }
 
-    public void RecyclerView(){
-        Query firstQuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "robe" ).orderBy ( "priority",Query.Direction.DESCENDING );
+
+    public void jupeRecyclerView(){
+
+        Query firstQuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "jupes" ).orderBy ( "priority",Query.Direction.DESCENDING );
         FirestoreRecyclerOptions<ModelGridView> options = new FirestoreRecyclerOptions.Builder<ModelGridView>()
                 .setQuery(firstQuery, ModelGridView.class)
                 .build();
-        categoriesAdapterobe  = new GridViewAdapter (options,getActivity());
-        robeRecyclerView = v.findViewById(R.id.robeRecyclerView);
-        robeRecyclerView.setHasFixedSize(true);
-        robeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
-        robeRecyclerView.setAdapter(categoriesAdapterobe);
+        categoriesAdaptejupe  = new GridViewAdapter (options,getActivity());
+        jupeRecyclerView = v.findViewById(R.id.jupeRecyclerView);
+        jupeRecyclerView.setHasFixedSize(true);
+        jupeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
+        jupeRecyclerView.setAdapter(categoriesAdaptejupe);
+
     }
 
     public void imagePub(){
@@ -132,7 +134,7 @@ public class RobeFragment extends Fragment {
                     viewFlippertwo.setOutAnimation(getActivity(),android.R.anim.slide_out_right);
                     viewFlippertwo.setInAnimation(getActivity(),android.R.anim.slide_in_left);
                     //image_one
-                    firebaseFirestore.collection("slider_robes").document("imageOne").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
+                    firebaseFirestore.collection("slider_jupe").document("imageOne").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             if (task.isSuccessful()){
@@ -165,7 +167,7 @@ public class RobeFragment extends Fragment {
                     });
 
                     //image_two
-                    firebaseFirestore.collection("slider_robes").document("imageTwo").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
+                    firebaseFirestore.collection("slider_jupe").document("imageTwo").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             if (task.isSuccessful()){
@@ -197,7 +199,7 @@ public class RobeFragment extends Fragment {
                         }
                     });
                     //image_three
-                    firebaseFirestore.collection("slider_robes").document("imageThree").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
+                    firebaseFirestore.collection("slider_jupe").document("imageThree").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             if (task.isSuccessful()){
@@ -230,7 +232,7 @@ public class RobeFragment extends Fragment {
                     });
 
                     //image_four
-                    firebaseFirestore.collection("slider_robes").document("imageFour").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
+                    firebaseFirestore.collection("slider_jupe").document("imageFour").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             if (task.isSuccessful()){
@@ -274,7 +276,7 @@ public class RobeFragment extends Fragment {
             }
         });
     }
-    
+
     public  class AsyncTask extends android.os.AsyncTask<Void, Void, Void> {
         @Override
         protected void onPreExecute() {
@@ -293,15 +295,16 @@ public class RobeFragment extends Fragment {
 
         }
     }
+
     @Override
     public void onDestroy() {
         asyncTask.cancel(true);
         super.onDestroy();
         asyncTask.cancel(true);
-        robeRecyclerView=null;
+        jupeRecyclerView=null;
         firebaseFirestore=null;
         progressDialog=null;
-        categoriesAdapterobe=null;
+        categoriesAdaptejupe=null;
     }
 
 }

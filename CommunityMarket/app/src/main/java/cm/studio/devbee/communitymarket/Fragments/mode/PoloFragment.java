@@ -1,12 +1,10 @@
-package cm.studio.devbee.communitymarket.Fragments;
+package cm.studio.devbee.communitymarket.Fragments.mode;
 
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,23 +19,15 @@ import android.widget.ViewFlipper;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.Nullable;
+import java.lang.ref.WeakReference;
 
 import cm.studio.devbee.communitymarket.PublicityActivity;
 import cm.studio.devbee.communitymarket.R;
@@ -47,13 +37,14 @@ import cm.studio.devbee.communitymarket.gridView_post.ModelGridView;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class LingerieFragment extends Fragment {
+public class PoloFragment extends Fragment {
+    private  static View v;
+    private static RecyclerView robeRecyclerView;
     private static FirebaseFirestore firebaseFirestore;
-    private static RecyclerView lingerie_shirt;
-    private static GridViewAdapter categoriesAdaptelingeries;
-    private static List<ModelGridView> categoriesModelTshirtList;
     private static ProgressDialog progressDialog;
-    private AsyncTask asyncTask;
+    private static AsyncTask asyncTask;
+    private static GridViewAdapter categoriesAdapterobe;
+    private static WeakReference<PoloFragment> robeFragmentWeakReference;
     private static FirebaseAuth firebaseAuth;
     String curent_user;
     ViewFlipper viewFlippertwo;
@@ -64,11 +55,7 @@ public class LingerieFragment extends Fragment {
     TextView pubImageTextTwo;
     TextView pubImageTextThree;
     TextView pubImageTextFour;
-    View v;
-
-
-
-    public LingerieFragment() {
+    public PoloFragment() {
         // Required empty public constructor
     }
 
@@ -77,7 +64,8 @@ public class LingerieFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        v= inflater.inflate ( R.layout.fragment_lingerie, container, false );
+        v= inflater.inflate ( R.layout.fragment_robe, container, false );
+        firebaseFirestore=FirebaseFirestore.getInstance ();
         pubImageTextTwo=v.findViewById ( R.id.pubImageTextTwo );
         pubImageTextThree=v.findViewById ( R.id.pubImageTextThree );
         pubImageTextFour=v.findViewById ( R.id.pubImageTextFour );
@@ -87,15 +75,18 @@ public class LingerieFragment extends Fragment {
         pubImageThree=v.findViewById ( R.id.pubImageThree);
         pubImageFour=v.findViewById ( R.id.pubImageFour );
         imagePubText=v.findViewById ( R.id.imagePubText );
-        asyncTask=new AsyncTask ();
-        asyncTask.execute (  );
+        /////////
+       ////////pull
         firebaseAuth=FirebaseAuth.getInstance ();
         curent_user=firebaseAuth.getCurrentUser ().getUid ();
+        asyncTask=new AsyncTask ();
+        asyncTask.execute();
+        robeFragmentWeakReference=new WeakReference<> ( this );
         getActivity ().runOnUiThread
                 (new Runnable() {
                     @Override
                     public void run() {
-                        tshirtRecyclerView();
+                        RecyclerView ();
                         imagePub ();
                     }
                 });
@@ -105,22 +96,19 @@ public class LingerieFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        categoriesAdaptelingeries.startListening();
+        categoriesAdapterobe.startListening();
     }
 
-    public void tshirtRecyclerView(){
-        firebaseFirestore=FirebaseFirestore.getInstance ();
-        Query firstQuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "lingeries" ).orderBy ( "priority",Query.Direction.DESCENDING );
+    public void RecyclerView(){
+        Query firstQuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "robe" ).orderBy ( "priority",Query.Direction.DESCENDING );
         FirestoreRecyclerOptions<ModelGridView> options = new FirestoreRecyclerOptions.Builder<ModelGridView>()
                 .setQuery(firstQuery, ModelGridView.class)
                 .build();
-        categoriesAdaptelingeries  = new GridViewAdapter (options,getActivity());
-        lingerie_shirt = v.findViewById(R.id.lingerie_recycler);
-        lingerie_shirt.setHasFixedSize(true);
-        lingerie_shirt.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
-        lingerie_shirt.setAdapter(categoriesAdaptelingeries);
-
-
+        categoriesAdapterobe  = new GridViewAdapter (options,getActivity());
+        robeRecyclerView = v.findViewById(R.id.robeRecyclerView);
+        robeRecyclerView.setHasFixedSize(true);
+        robeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
+        robeRecyclerView.setAdapter(categoriesAdapterobe);
     }
 
     public void imagePub(){
@@ -132,7 +120,7 @@ public class LingerieFragment extends Fragment {
                     viewFlippertwo.setOutAnimation(getActivity(),android.R.anim.slide_out_right);
                     viewFlippertwo.setInAnimation(getActivity(),android.R.anim.slide_in_left);
                     //image_one
-                    firebaseFirestore.collection("slider_lingeries").document("imageOne").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
+                    firebaseFirestore.collection("slider_robes").document("imageOne").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             if (task.isSuccessful()){
@@ -165,7 +153,7 @@ public class LingerieFragment extends Fragment {
                     });
 
                     //image_two
-                    firebaseFirestore.collection("slider_lingeries").document("imageTwo").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
+                    firebaseFirestore.collection("slider_robes").document("imageTwo").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             if (task.isSuccessful()){
@@ -197,7 +185,7 @@ public class LingerieFragment extends Fragment {
                         }
                     });
                     //image_three
-                    firebaseFirestore.collection("slider_lingeries").document("imageThree").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
+                    firebaseFirestore.collection("slider_robes").document("imageThree").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             if (task.isSuccessful()){
@@ -230,7 +218,7 @@ public class LingerieFragment extends Fragment {
                     });
 
                     //image_four
-                    firebaseFirestore.collection("slider_lingeries").document("imageFour").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
+                    firebaseFirestore.collection("slider_robes").document("imageFour").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             if (task.isSuccessful()){
@@ -274,12 +262,10 @@ public class LingerieFragment extends Fragment {
             }
         });
     }
-
-
-    public class AsyncTask extends android.os.AsyncTask<Void, Void, Void> {
+    
+    public  class AsyncTask extends android.os.AsyncTask<Void, Void, Void> {
         @Override
         protected void onPreExecute() {
-
             super.onPreExecute ();
         }
 
@@ -295,17 +281,15 @@ public class LingerieFragment extends Fragment {
 
         }
     }
-
     @Override
     public void onDestroy() {
         asyncTask.cancel(true);
         super.onDestroy();
         asyncTask.cancel(true);
+        robeRecyclerView=null;
         firebaseFirestore=null;
-        lingerie_shirt=null;
-        v=null;
-        categoriesAdaptelingeries=null;
         progressDialog=null;
+        categoriesAdapterobe=null;
     }
 
 }

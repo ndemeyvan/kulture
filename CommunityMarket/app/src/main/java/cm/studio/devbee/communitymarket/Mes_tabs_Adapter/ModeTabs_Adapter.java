@@ -1,26 +1,24 @@
-package cm.studio.devbee.communitymarket;
+package cm.studio.devbee.communitymarket.Mes_tabs_Adapter;
 
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentStatePagerAdapter;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
-import cm.studio.devbee.communitymarket.Fragments.HomeFragment;
+import cm.studio.devbee.communitymarket.Fragments.mode.Vetementragment;
 
-public class TabsAdapter extends FragmentPagerAdapter {
-
+public class ModeTabs_Adapter extends FragmentPagerAdapter {
     List fragmentList =new ArrayList();
     List fragmentTitleList=new ArrayList();
-   public void addFragment(Fragment fragment,String title){
+
+    public void addFragment(Fragment fragment, String title){
         fragmentList.add(fragment);
         fragmentTitleList.add(title);
-   }
-    public TabsAdapter(FragmentManager fm) {
+    }
+    public ModeTabs_Adapter(FragmentManager fm) {
         super(fm);
     }
     @Nullable
@@ -35,7 +33,7 @@ public class TabsAdapter extends FragmentPagerAdapter {
 
         switch (i){
             case 0:
-                HomeFragment home =new HomeFragment();
+                Vetementragment home =new Vetementragment();
                 return home;
         }
         return (Fragment) fragmentList.get(i);
@@ -47,3 +45,4 @@ public class TabsAdapter extends FragmentPagerAdapter {
     }
 
 }
+

@@ -5,13 +5,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".Fragments.HomeFragment"
+    tools:context=".Fragments.ModeFragment"
     android:id="@+id/layout"
-    android:background="@color/black"    >
+    android:background="@color/black" >
 
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabLayoutMode"
+        app:tabTextColor="@color/blanc"
+        android:background="@drawable/gradient_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        app:tabGravity="fill"
+        app:tabMode="scrollable"
+        android:layout_marginEnd="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></android.support.design.widget.TabLayout>
 
+    <android.support.v4.view.ViewPager
+        android:id="@+id/tabsviewMode"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tabLayoutMode"></android.support.v4.view.ViewPager>
 
-    <ScrollView
+   <!-- <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -46,8 +68,8 @@
                     ads:layout_constraintEnd_toEndOf="parent"
                     ads:layout_constraintStart_toStartOf="parent"
                     ads:layout_constraintTop_toBottomOf="@+id/viewFlipper"></com.google.android.gms.ads.AdView>
-                <!-- my id ca-app-pub-4353172129870258/3649563954-->
-                <!-- pour eux id ca-app-pub-3940256099942544/6300978111-->
+                my id ca-app-pub-4353172129870258/3649563954
+                pour eux id ca-app-pub-3940256099942544/6300978111
 
                 <ViewFlipper
                     android:id="@+id/viewFlipper"
@@ -205,8 +227,8 @@
                     ads:layout_constraintEnd_toEndOf="parent"
                     ads:layout_constraintStart_toStartOf="parent"
                     ads:layout_constraintTop_toBottomOf="@+id/chaussureRecyclerView"></com.google.android.gms.ads.AdView>
-                <!-- my id ca-app-pub-4353172129870258/3649563954-->
-                <!-- pour eux id ca-app-pub-3940256099942544/6300978111-->
+                my id ca-app-pub-4353172129870258/3649563954
+                 pour eux id ca-app-pub-3940256099942544/6300978111
 
 
                 <ViewFlipper
@@ -273,11 +295,9 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:visibility="invisible" />
-
-
             </android.support.constraint.ConstraintLayout>
         </LinearLayout>
-    </ScrollView>
+    </ScrollView> -->
 
 
 

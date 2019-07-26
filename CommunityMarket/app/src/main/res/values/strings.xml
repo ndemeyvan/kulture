@@ -87,7 +87,7 @@
     <string name="soutiens_effectif">merci de soutemir l\'appli</string>
     <string name="redirection">vous serez rediriger a l\'acceuil dans quelques seconde</string>
 
-    <string name="decouvrir">Decouvrir</string>
+    <string name="decouvrir">Mode</string>
     <string name="T_shirts">T_shirts</string>
     <string name="Pulls">Pulls</string>
     <string name="jupes">jupes</string>
@@ -131,7 +131,7 @@
         <item>Buéa</item>
         <item>Maroua</item>
     </string-array>
-<string name="il_ya_ceci">actuellement il y\'a ceci :</string>
+    <string name="il_ya_ceci">actuellement il y\'a ceci :</string>
     <string name="fait_ton_choix">fait ton choix</string>
     <string name="ici_on_vend_la_sap">ici , on vend la sap. </string>
     <string name="s_habiller_est_un_art_équilibre">s\'habiller est un art...équilibre.</string>

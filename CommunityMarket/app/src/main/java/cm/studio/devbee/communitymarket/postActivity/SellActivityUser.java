@@ -36,10 +36,6 @@ import javax.annotation.Nullable;
 import cm.studio.devbee.communitymarket.Accueil;
 import cm.studio.devbee.communitymarket.R;
 import cm.studio.devbee.communitymarket.gridView_post.ModelGridView;
-import cm.studio.devbee.communitymarket.profile.FavoriesActivity;
-import cm.studio.devbee.communitymarket.utilsForPostPrincipal.PrincipalAdapte;
-import cm.studio.devbee.communitymarket.utilsForPostPrincipal.PrincipalModel;
-import cm.studio.devbee.communitymarket.utilsForVendeur.ProfilAdapteur;
 import cm.studio.devbee.communitymarket.utilsForVendeur.VendeurAdapteur;
 
 public class SellActivityUser extends AppCompatActivity {

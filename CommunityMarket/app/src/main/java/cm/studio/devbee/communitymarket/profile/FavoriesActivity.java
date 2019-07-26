@@ -24,11 +24,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import javax.annotation.Nullable;
 
 import cm.studio.devbee.communitymarket.R;
-import cm.studio.devbee.communitymarket.gridView_post.GridViewAdapter;
 import cm.studio.devbee.communitymarket.gridView_post.ModelGridView;
-import cm.studio.devbee.communitymarket.utilsForPostPrincipal.PrincipalAdapte;
-import cm.studio.devbee.communitymarket.utilsForPostPrincipal.PrincipalModel;
-
 public class FavoriesActivity extends AppCompatActivity {
     private  static RecyclerView favorite_recycler;
     private FirebaseFirestore firebaseFirestore;

@@ -1,14 +1,11 @@
-package cm.studio.devbee.communitymarket.Fragments;
+package cm.studio.devbee.communitymarket.Fragments.mode;
 
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -22,24 +19,16 @@ import android.widget.ViewFlipper;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.annotation.Nullable;
 
 import cm.studio.devbee.communitymarket.PublicityActivity;
 import cm.studio.devbee.communitymarket.R;
@@ -49,13 +38,15 @@ import cm.studio.devbee.communitymarket.gridView_post.ModelGridView;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class JupesFragment extends Fragment {
+public class PantalonFragment extends Fragment {
     private View v;
-    private static RecyclerView jupeRecyclerView;
+    private static RecyclerView pantalonsRecyclerView;
     private static FirebaseFirestore firebaseFirestore;
     private static ProgressDialog progressDialog;
     private static AsyncTask asyncTask;
-    private static GridViewAdapter categoriesAdaptejupe;
+    private static GridViewAdapter categoriesAdaptepantalons;
+    private static List<ModelGridView> categoriesModelpantalonsList;
+    private static WeakReference<PantalonFragment> pantalonsFragmentWeakReference;
     private static FirebaseAuth firebaseAuth;
     String curent_user;
     ViewFlipper viewFlippertwo;
@@ -67,7 +58,7 @@ public class JupesFragment extends Fragment {
     TextView pubImageTextThree;
     TextView pubImageTextFour;
 
-    public JupesFragment() {
+    public PantalonFragment() {
         // Required empty public constructor
     }
 
@@ -76,7 +67,8 @@ public class JupesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        v= inflater.inflate ( R.layout.fragment_jupes, container, false );
+        v= inflater.inflate ( R.layout.fragment_pantalon, container, false );
+        firebaseFirestore=FirebaseFirestore.getInstance ();
         pubImageTextTwo=v.findViewById ( R.id.pubImageTextTwo );
         pubImageTextThree=v.findViewById ( R.id.pubImageTextThree );
         pubImageTextFour=v.findViewById ( R.id.pubImageTextFour );
@@ -86,45 +78,42 @@ public class JupesFragment extends Fragment {
         pubImageThree=v.findViewById ( R.id.pubImageThree);
         pubImageFour=v.findViewById ( R.id.pubImageFour );
         imagePubText=v.findViewById ( R.id.imagePubText );
-        firebaseFirestore=FirebaseFirestore.getInstance ();
+
         firebaseAuth=FirebaseAuth.getInstance ();
         curent_user=firebaseAuth.getCurrentUser ().getUid ();
         asyncTask=new AsyncTask ();
         asyncTask.execute();
+        pantalonsFragmentWeakReference=new WeakReference<> ( this );
 
         getActivity ().runOnUiThread
                 (new Runnable() {
                     @Override
                     public void run() {
-                        jupeRecyclerView ();
-                        imagePub();
+                        RecyclerView ();
+                        imagePub ();
                     }
                 });
         return v;
     }
 
+    public void RecyclerView(){
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        categoriesAdaptejupe.startListening();
-    }
-
-
-    public void jupeRecyclerView(){
-
-        Query firstQuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "jupes" ).orderBy ( "priority",Query.Direction.DESCENDING );
+        Query firstQuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "Pantalons" ).orderBy ( "priority",Query.Direction.DESCENDING );
         FirestoreRecyclerOptions<ModelGridView> options = new FirestoreRecyclerOptions.Builder<ModelGridView>()
                 .setQuery(firstQuery, ModelGridView.class)
                 .build();
-        categoriesAdaptejupe  = new GridViewAdapter (options,getActivity());
-        jupeRecyclerView = v.findViewById(R.id.jupeRecyclerView);
-        jupeRecyclerView.setHasFixedSize(true);
-        jupeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
-        jupeRecyclerView.setAdapter(categoriesAdaptejupe);
+        categoriesAdaptepantalons  = new GridViewAdapter (options,getActivity());
+        pantalonsRecyclerView = v.findViewById(R.id.pantalonRecyclerView);
+        pantalonsRecyclerView.setHasFixedSize(true);
+        pantalonsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
+        pantalonsRecyclerView.setAdapter(categoriesAdaptepantalons);
 
     }
-
+    @Override
+    public void onStart() {
+        super.onStart();
+        categoriesAdaptepantalons.startListening();
+    }
     public void imagePub(){
         DocumentReference user_two = firebaseFirestore.collection("sliders").document("images");
         user_two.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -134,7 +123,7 @@ public class JupesFragment extends Fragment {
                     viewFlippertwo.setOutAnimation(getActivity(),android.R.anim.slide_out_right);
                     viewFlippertwo.setInAnimation(getActivity(),android.R.anim.slide_in_left);
                     //image_one
-                    firebaseFirestore.collection("slider_jupe").document("imageOne").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
+                    firebaseFirestore.collection("slider_pantalons").document("imageOne").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             if (task.isSuccessful()){
@@ -167,7 +156,7 @@ public class JupesFragment extends Fragment {
                     });
 
                     //image_two
-                    firebaseFirestore.collection("slider_jupe").document("imageTwo").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
+                    firebaseFirestore.collection("slider_pantalons").document("imageTwo").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             if (task.isSuccessful()){
@@ -199,7 +188,7 @@ public class JupesFragment extends Fragment {
                         }
                     });
                     //image_three
-                    firebaseFirestore.collection("slider_jupe").document("imageThree").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
+                    firebaseFirestore.collection("slider_pantalons").document("imageThree").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             if (task.isSuccessful()){
@@ -232,7 +221,7 @@ public class JupesFragment extends Fragment {
                     });
 
                     //image_four
-                    firebaseFirestore.collection("slider_jupe").document("imageFour").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
+                    firebaseFirestore.collection("slider_pantalons").document("imageFour").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             if (task.isSuccessful()){
@@ -276,7 +265,6 @@ public class JupesFragment extends Fragment {
             }
         });
     }
-
     public  class AsyncTask extends android.os.AsyncTask<Void, Void, Void> {
         @Override
         protected void onPreExecute() {
@@ -295,16 +283,16 @@ public class JupesFragment extends Fragment {
 
         }
     }
-
     @Override
     public void onDestroy() {
         asyncTask.cancel(true);
         super.onDestroy();
         asyncTask.cancel(true);
-        jupeRecyclerView=null;
+        pantalonsRecyclerView=null;
         firebaseFirestore=null;
         progressDialog=null;
-        categoriesAdaptejupe=null;
+        categoriesAdaptepantalons=null;
+        categoriesModelpantalonsList=null;
     }
 
 }

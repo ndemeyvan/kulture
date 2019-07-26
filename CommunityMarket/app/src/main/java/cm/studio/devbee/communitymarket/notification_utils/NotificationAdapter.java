@@ -192,7 +192,7 @@ public class NotificationAdapter extends FirestoreRecyclerAdapter<Model_notifica
                 gotoMessage.putExtra ( "viens_de_detail","vrai" );
                 gotoMessage.putExtra ( "viens_de_notification","vrai" );
                 String mon_post_test=context.getString(R.string.ma_publication);
-                String parler_davantage ="";
+                String parler_davantage =context.getString(R.string.davantage);
                 gotoMessage.putExtra ( "contenu",name_user + " " + user_prenom + " : "+action_faite+" "+" "+mon_post_test+" :"+  " " + finalCommentaire +" \n"+parler_davantage + "\n");
                 context.startActivity ( gotoMessage );
 
