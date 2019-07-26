@@ -51,6 +51,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import cm.studio.devbee.communitymarket.Fragments.ElectroniqueFragment;
+import cm.studio.devbee.communitymarket.Fragments.InformatiqueFragment;
 import cm.studio.devbee.communitymarket.Fragments.ModeFragment;
 import cm.studio.devbee.communitymarket.Fragments.Tablette_TabFragment;
 import cm.studio.devbee.communitymarket.Mes_tabs_Adapter.TabsAdapter;
@@ -210,6 +211,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
         tabsAdapter.addFragment(new ModeFragment(),getString(R.string.decouvrir).toLowerCase());
         tabsAdapter.addFragment(new Tablette_TabFragment(),"Phone/Tablette");
         tabsAdapter.addFragment(new ElectroniqueFragment(),"Electronique");
+        tabsAdapter.addFragment(new InformatiqueFragment(),"Informatique");
         viewPager.setAdapter(tabsAdapter);
 
     }
