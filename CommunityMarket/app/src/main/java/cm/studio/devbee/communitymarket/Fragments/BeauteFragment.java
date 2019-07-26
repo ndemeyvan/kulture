@@ -15,6 +15,7 @@ import cm.studio.devbee.communitymarket.Fragments.Beaute.ParfumFragment;
 import cm.studio.devbee.communitymarket.Fragments.Electronique.Audio;
 import cm.studio.devbee.communitymarket.Fragments.Electronique.Photo_CameraFragment;
 import cm.studio.devbee.communitymarket.Fragments.Electronique.TelevisonFragment;
+import cm.studio.devbee.communitymarket.Mes_tabs_Adapter.Beaute_Tabs_Adapter;
 import cm.studio.devbee.communitymarket.Mes_tabs_Adapter.Electronique_tabs_Adapter;
 import cm.studio.devbee.communitymarket.R;
 
@@ -43,7 +44,7 @@ public class BeauteFragment extends Fragment {
         return v;
     }
     public void setupViewPager(ViewPager viewPager){
-        Electronique_tabs_Adapter tabsAdapter=new Electronique_tabs_Adapter(getActivity().getSupportFragmentManager());
+        Beaute_Tabs_Adapter tabsAdapter=new Beaute_Tabs_Adapter(getActivity().getSupportFragmentManager());
         tabsAdapter.addFragment(new ParfumFragment(),"Parfum");
         tabsAdapter.addFragment(new LaitDeBeauteFragment(),"Lait de beaute");
         tabsAdapter.addFragment(new MaquillageFragment(),"Maquillage");
