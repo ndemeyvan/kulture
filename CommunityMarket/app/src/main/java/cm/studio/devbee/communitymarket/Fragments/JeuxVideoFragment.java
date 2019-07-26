@@ -37,7 +37,7 @@ public class JeuxVideoFragment extends Fragment {
         tabLayout.setupWithViewPager(tabsviewpager);
         return v;
     }
-    
+
     public void setupViewPager(ViewPager viewPager){
         Jeux_Tabs_Adapter tabsAdapter=new Jeux_Tabs_Adapter(getActivity().getSupportFragmentManager());
         tabsAdapter.addFragment(new ConsoleFragment(),"Console");
