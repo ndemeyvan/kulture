@@ -117,12 +117,12 @@
 
             <Spinner
                 android:id="@+id/mode_list"
+                android:spinnerMode="dropdown"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:background="@color/blanc"
                 android:dropDownWidth="match_parent"
                 android:entries="@array/mode_list"
                 android:padding="15dp"
@@ -131,13 +131,13 @@
                 app:layout_constraintTop_toBottomOf="@+id/post_production_prix" />
 
             <Spinner
+                android:spinnerMode="dropdown"
                 android:id="@+id/phone_tablet"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:background="@color/blanc"
                 android:dropDownWidth="match_parent"
                 android:entries="@array/mode_list"
                 android:padding="15dp"
@@ -146,12 +146,12 @@
                 app:layout_constraintTop_toBottomOf="@+id/post_production_prix" />
             <Spinner
                 android:id="@+id/electronique"
+                android:spinnerMode="dropdown"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:background="@color/blanc"
                 android:dropDownWidth="match_parent"
                 android:entries="@array/mode_list"
                 android:padding="15dp"
@@ -160,12 +160,12 @@
                 app:layout_constraintTop_toBottomOf="@+id/post_production_prix" />
             <Spinner
                 android:id="@+id/informatique"
+                android:spinnerMode="dropdown"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:background="@color/blanc"
                 android:dropDownWidth="match_parent"
                 android:entries="@array/mode_list"
                 android:padding="15dp"
@@ -176,10 +176,10 @@
                 android:id="@+id/beaute"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:spinnerMode="dropdown"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:background="@color/blanc"
                 android:dropDownWidth="match_parent"
                 android:entries="@array/mode_list"
                 android:padding="15dp"
