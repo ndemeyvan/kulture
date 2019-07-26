@@ -16,6 +16,7 @@ import cm.studio.devbee.communitymarket.Fragments.Telephone_tablette.AccessoireP
 import cm.studio.devbee.communitymarket.Fragments.informatique.OrdinateurFragment;
 import cm.studio.devbee.communitymarket.Fragments.informatique.StockageFragment;
 import cm.studio.devbee.communitymarket.Mes_tabs_Adapter.Electronique_tabs_Adapter;
+import cm.studio.devbee.communitymarket.Mes_tabs_Adapter.Informatique_Tabs_Adapter;
 import cm.studio.devbee.communitymarket.R;
 
 /**
@@ -43,10 +44,10 @@ public class InformatiqueFragment extends Fragment {
         return v;
     }
     public void setupViewPager(ViewPager viewPager){
-        Electronique_tabs_Adapter tabsAdapter=new Electronique_tabs_Adapter(getActivity().getSupportFragmentManager());
+        Informatique_Tabs_Adapter tabsAdapter=new Informatique_Tabs_Adapter(getActivity().getSupportFragmentManager());
         tabsAdapter.addFragment(new OrdinateurFragment(),"Ordinateur");
-        tabsAdapter.addFragment(new AccessoirePhoneFragment(),"App.Photo/camera");
-        tabsAdapter.addFragment(new StockageFragment(),"Audio");
+        tabsAdapter.addFragment(new AccessoirePhoneFragment(),"Accessoire");
+        tabsAdapter.addFragment(new StockageFragment(),"stockage");
         viewPager.setAdapter(tabsAdapter);
 
     }
