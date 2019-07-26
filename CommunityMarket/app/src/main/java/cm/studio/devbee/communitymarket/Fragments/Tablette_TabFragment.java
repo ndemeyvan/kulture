@@ -22,6 +22,7 @@ import cm.studio.devbee.communitymarket.Fragments.mode.PoloFragment;
 import cm.studio.devbee.communitymarket.Fragments.mode.Sous_vetement;
 import cm.studio.devbee.communitymarket.Fragments.mode.Vetementragment;
 import cm.studio.devbee.communitymarket.Mes_tabs_Adapter.ModeTabs_Adapter;
+import cm.studio.devbee.communitymarket.Mes_tabs_Adapter.Telephone_tab_adapter;
 import cm.studio.devbee.communitymarket.R;
 
 /**
@@ -49,7 +50,7 @@ public class Tablette_TabFragment extends Fragment {
     }
 
     public void setupViewPager(ViewPager viewPager){
-        ModeTabs_Adapter tabsAdapter=new ModeTabs_Adapter(getActivity().getSupportFragmentManager());
+        Telephone_tab_adapter tabsAdapter=new Telephone_tab_adapter(getActivity().getSupportFragmentManager());
         tabsAdapter.addFragment(new TelephoneFragment(),"Telephones");
         tabsAdapter.addFragment(new TabletFragment(),"Tablette");
         tabsAdapter.addFragment(new AccessoirePhoneFragment(),"Accessoires");
