@@ -131,6 +131,18 @@
         <item>Buéa</item>
         <item>Maroua</item>
     </string-array>
+    <string-array name="mode_list" id="@+id/mode_list">
+        <item> Categories ? </item>
+        <item>vetements</item>
+        <item>Chaussures</item>
+        <item>Accessoires</item>
+        <item>Pantalons</item>
+        <item>Bijoux</item>
+        <item>Afritudes</item>
+        <item>Montres</item>
+        <item>Polos</item>
+        <item>Sous_vetement</item>
+    </string-array>
     <string name="il_ya_ceci">actuellement il y\'a ceci :</string>
     <string name="fait_ton_choix">fait ton choix</string>
     <string name="ici_on_vend_la_sap">ici , on vend la sap. </string>
