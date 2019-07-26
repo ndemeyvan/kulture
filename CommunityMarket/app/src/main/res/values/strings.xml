@@ -143,6 +143,32 @@
         <item>Polos</item>
         <item>Sous_vetement</item>
     </string-array>
+    <string-array name="phone_tablet" id="@+id/phone_tablet">
+        <item> Categories ? </item>
+        <item>Telephone</item>
+        <item>Tablettes</item>
+        <item>Accessoires</item>
+    </string-array>
+    <string-array name="electronique" id="@+id/electronique">
+        <item> Categories ? </item>
+        <item>Television</item>
+        <item>App.photo/camera</item>
+        <item>Audio</item>
+    </string-array>
+    <string-array name="informatique" id="@+id/informatique">
+        <item> Categories ? </item>
+        <item>Ordinateur</item>
+        <item>Accessoires</item>
+        <item>Stockage</item>
+    </string-array>
+    <string-array name="beaute" id="@+id/beaute">
+        <item> Categories ? </item>
+        <item>Parfum</item>
+        <item>Lait_De_Beautes</item>
+        <item>Maquillages</item>
+    </string-array>
+
+
     <string name="il_ya_ceci">actuellement il y\'a ceci :</string>
     <string name="fait_ton_choix">fait ton choix</string>
     <string name="ici_on_vend_la_sap">ici , on vend la sap. </string>
