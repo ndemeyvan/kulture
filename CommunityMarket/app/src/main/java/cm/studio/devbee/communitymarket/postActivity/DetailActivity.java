@@ -607,7 +607,7 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
                                                 @Override
                                                 public void onClick(DialogInterface arg0, int arg1) {
                                                     showPopup();
-                                                    firebaseFirestore.collection ( "publication" ).document ( "categories" ).collection ( categories ).document ( iddupost ).delete ();
+                                                    firebaseFirestore.collection ( "publication" ).document ("categories").collection (categories ).document("dans").collection ( choix ).document ( iddupost ).delete ();
                                                     firebaseFirestore.collection ( "publication" ).document ( "categories" ).collection ( "nouveaux" ).document ( iddupost ).delete ();
                                                     firebaseFirestore.collection ( "publication" ).document ( "post utilisateur" ).collection ( current_user_id ).document ( iddupost ).delete ();
                                                     firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user_id).collection ( "mes notification" ).document ( iddupost ).delete ();                                                   myDialog.dismiss();
