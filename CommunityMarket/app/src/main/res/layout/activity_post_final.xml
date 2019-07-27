@@ -2,11 +2,11 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/layout"
-    tools:context=".postActivity.PostActivityFinal"
-   android:background="@color/blanc">
+    android:background="@color/blanc"
+    tools:context=".postActivity.PostActivityFinal">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/final_toolbar"
@@ -52,7 +52,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:alpha="0.5"
                 android:elevation="1dp"
@@ -68,7 +68,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageProduit" />
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
 
             <EditText
                 android:id="@+id/post_product_description"
@@ -117,7 +117,6 @@
 
             <Spinner
                 android:id="@+id/mode_list"
-                android:spinnerMode="dropdown"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -126,12 +125,14 @@
                 android:dropDownWidth="match_parent"
                 android:entries="@array/mode_list"
                 android:padding="15dp"
+                android:spinnerMode="dropdown"
+                android:theme="@style/edit_theme"
+                android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/post_production_prix" />
 
             <Spinner
-                android:spinnerMode="dropdown"
                 android:id="@+id/phone_tablet"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -139,50 +140,62 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:dropDownWidth="match_parent"
-                android:entries="@array/mode_list"
+                android:entries="@array/phone_tablet"
                 android:padding="15dp"
+                android:spinnerMode="dropdown"
+                android:theme="@style/edit_theme"
+                android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/post_production_prix" />
+
             <Spinner
                 android:id="@+id/electronique"
-                android:spinnerMode="dropdown"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:dropDownWidth="match_parent"
-                android:entries="@array/mode_list"
+                android:entries="@array/electronique"
                 android:padding="15dp"
+                android:spinnerMode="dropdown"
+                android:theme="@style/edit_theme"
+                android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/post_production_prix" />
+
             <Spinner
                 android:id="@+id/informatique"
-                android:spinnerMode="dropdown"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:dropDownWidth="match_parent"
-                android:entries="@array/mode_list"
+                android:entries="@array/informatique"
                 android:padding="15dp"
+                android:spinnerMode="dropdown"
+                android:theme="@style/edit_theme"
+                android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/post_production_prix" />
+
             <Spinner
                 android:id="@+id/beaute"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:spinnerMode="dropdown"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:dropDownWidth="match_parent"
-                android:entries="@array/mode_list"
+                android:entries="@array/beaute"
                 android:padding="15dp"
+                android:spinnerMode="dropdown"
+                android:theme="@style/edit_theme"
+                android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/post_production_prix" />
@@ -224,7 +237,6 @@
                 android:layout_marginStart="@dimen/new_button_add_button_end"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="@dimen/new_button_add_button_end"
-                android:layout_marginBottom="70dp"
                 android:background="@drawable/main_background"
                 android:text="mettre en vendre"
                 android:textAllCaps="false"
@@ -232,12 +244,41 @@
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:visibility="visible"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/mode_list"
-                app:layout_constraintVertical_bias="1.0" />
+                app:layout_constraintTop_toBottomOf="@+id/mode_list" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="@dimen/text_choice_widht"
+                android:layout_height="17dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/righteous"
+                android:text=" remplir toutes les informations"
+                android:textAlignment="center"
+                android:textSize="@dimen/new_detail_desc_text_size"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageProduit" />
+
+            <TextView
+                android:layout_width="@dimen/text_choice_widht"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="70dp"
+                android:fontFamily="@font/righteous"
+                android:text="nb : toutes publications dans la mauvaise categorie , sera supprimé"
+                android:textAlignment="center"
+                android:textSize="@dimen/new_detail_desc_text_size"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/post_button" />
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
 

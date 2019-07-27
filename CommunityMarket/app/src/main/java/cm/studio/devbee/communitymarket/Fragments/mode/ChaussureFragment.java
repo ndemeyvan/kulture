@@ -41,8 +41,6 @@ public class ChaussureFragment extends Fragment {
     private static View v;
     private static RecyclerView chaussuresRecyclerView;
     private static GridViewAdapter categoriesAdaptechaussures;
-    private static WeakReference<ChaussureFragment> chaussuresFragmentWeakReference;
-    private AsyncTask asyncTask;
     private static FirebaseAuth firebaseAuth;
     String curent_user;
     ViewFlipper viewFlippertwo;
@@ -74,10 +72,7 @@ public class ChaussureFragment extends Fragment {
         pubImageFour=v.findViewById ( R.id.pubImageFour );
         imagePubText=v.findViewById ( R.id.imagePubText );
         //
-        chaussuresFragmentWeakReference=new WeakReference<> ( this );
         firebaseFirestore=FirebaseFirestore.getInstance();
-        asyncTask=new AsyncTask ();
-        asyncTask.execute (  );
         firebaseAuth=FirebaseAuth.getInstance ();
         curent_user=firebaseAuth.getCurrentUser ().getUid ();
 
@@ -251,7 +246,7 @@ public class ChaussureFragment extends Fragment {
     }
 
     public void chaussureRecyclerView(){
-        Query firstQuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "Chaussures" ).orderBy ( "priority",Query.Direction.DESCENDING );
+        Query firstQuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "Mode" ).document("dans").collection ( "Chaussures").orderBy ( "priority",Query.Direction.DESCENDING );
         FirestoreRecyclerOptions<ModelGridView> options = new FirestoreRecyclerOptions.Builder<ModelGridView>()
                 .setQuery(firstQuery, ModelGridView.class)
                 .build();
@@ -262,29 +257,10 @@ public class ChaussureFragment extends Fragment {
         chaussuresRecyclerView.setAdapter(categoriesAdaptechaussures);
     }
 
-    public class AsyncTask extends android.os.AsyncTask<Void, Void, Void> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute ();
-        }
 
-        @Override
-        protected Void doInBackground(Void... voids) {
-            return null;
-        }
-
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute ( aVoid );
-
-        }
-    }
     @Override
     public void onDestroy() {
-        asyncTask.cancel(true);
         super.onDestroy();
-        asyncTask.cancel(true);
         firebaseFirestore=null;
         chaussuresRecyclerView=null;
         v=null;

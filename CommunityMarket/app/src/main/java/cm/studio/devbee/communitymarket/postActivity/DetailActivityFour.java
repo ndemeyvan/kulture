@@ -89,6 +89,8 @@ public class  DetailActivityFour extends AppCompatActivity {
     FloatingActionButton voir_les_commentaire_btn;
     String categories;
     private static  TextView detail_titre_vente;
+    private String choix;
+
 
 
     private static WeakReference<DetailActivityFour> detailActivityFourWeakReference;
@@ -103,6 +105,8 @@ public class  DetailActivityFour extends AppCompatActivity {
         current_user_id =getIntent().getExtras().getString("id de l'utilisateur");
         lien_image =getIntent().getExtras().getString("image_en_vente");
         categories=getIntent().getExtras().getString("id_categories");
+        choix=getIntent ().getExtras ().getString ( "collection" );
+
         detail_image_post=findViewById(R.id.detail_image_post);
         detail_post_titre_produit=findViewById(R.id.detail_prix_produit );
         detail_prix_produit=findViewById(R.id.detail_prix_produit);
@@ -303,7 +307,7 @@ public class  DetailActivityFour extends AppCompatActivity {
                                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                             if (task.getResult ().exists ()){
                                                 if (task.isSuccessful ()){
-                                                    firebaseFirestore.collection ( "publication" ).document ("categories").collection ( categories ).document (iddupost).delete ();
+                                                    firebaseFirestore.collection ( "publication" ).document ("categories").collection (categories ).document("dans").collection ( choix ).document (iddupost).delete ();
                                                     firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "nouveaux" ).document (iddupost).delete ();
                                                     firebaseFirestore.collection ( "publication" ).document ("post utilisateur").collection ( current_user_id ).document(iddupost).delete ();
                                                     firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user_id).collection ( "mes notification" ).document ( iddupost ).delete ();

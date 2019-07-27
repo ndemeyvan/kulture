@@ -135,6 +135,7 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
     private Menu menu;
     private boolean is_exist=false;
     private TextView detail_titre_vente;
+    private String choix;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -157,6 +158,7 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
         iddupost =getIntent().getExtras().getString("id du post");
         current_user_id =getIntent().getExtras().getString("id de l'utilisateur");
         categories=getIntent().getExtras().getString("id_categories");
+        choix=getIntent ().getExtras ().getString ( "collection" );
         detail_image_post=findViewById(R.id.detail_image_post);
 
         detail_titre_vente=findViewById ( R.id.detail_titre_vente );
@@ -178,12 +180,12 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
         post_detail_currentuser_img=findViewById(R.id.post_detail_user_image);
         asyncTask=new AsyncTask ();
         asyncTask.execute();
-        firebaseFirestore.collection ( "publication" ).document ("categories").collection (categories ).document (iddupost).addSnapshotListener ( this,new EventListener<DocumentSnapshot> () {
+        firebaseFirestore.collection ( "publication" ).document ("categories").collection (categories ).document("dans").collection ( choix ).document (iddupost).addSnapshotListener ( this,new EventListener<DocumentSnapshot> () {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                 if (!documentSnapshot.exists ()){
                     Toast.makeText ( DetailActivityTwo.this, getString(R.string.vente_retire), Toast.LENGTH_SHORT ).show ();
-                    myDialog.dismiss ();
+                    //myDialog.dismiss ();
                     finish ();
                 }else {
 
@@ -232,7 +234,7 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
 
 
     public void commentaire(){
-        Query firstQuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( categories ).document (iddupost).collection("commentaires").orderBy ( "heure",Query.Direction.ASCENDING );;
+        Query firstQuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection (categories ).document("dans").collection ( choix ).document (iddupost).collection("commentaires").orderBy ( "heure",Query.Direction.ASCENDING );;
         firstQuery.addSnapshotListener(DetailActivityTwo.this,new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
@@ -306,7 +308,7 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
                                                 @Override
                                                 public void onClick(DialogInterface arg0, int arg1) {
                                                     showPopup();
-                                                    firebaseFirestore.collection ( "publication" ).document ( "categories" ).collection ( categories ).document ( iddupost ).delete ();
+                                                    firebaseFirestore.collection ( "publication" ).document ("categories").collection (categories ).document("dans").collection ( choix ).document ( iddupost ).delete ();
                                                     firebaseFirestore.collection ( "publication" ).document ( "categories" ).collection ( "nouveaux" ).document ( iddupost ).delete ();
                                                     firebaseFirestore.collection ( "publication" ).document ( "post utilisateur" ).collection ( current_user_id ).document ( iddupost ).delete ();
                                                     firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user_id).collection ( "mes notification" ).document ( iddupost ).delete ();
@@ -355,16 +357,17 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
                                             }
                                         }
                                     } );
-                                    firebaseFirestore.collection ( "publication" ).document ("categories").collection (categories).document (iddupost).get ().addOnCompleteListener ( DetailActivityTwo.this,new OnCompleteListener<DocumentSnapshot> () {
+                                    firebaseFirestore.collection ( "publication" ).document ("categories").collection (categories ).document("dans").collection ( choix ).document (iddupost).get ().addOnCompleteListener ( DetailActivityTwo.this,new OnCompleteListener<DocumentSnapshot> () {
                                         @Override
                                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                             if (task.getResult ().exists ()){
                                                 if (task.isSuccessful ()){
                                                     detail_progress.setVisibility ( View.VISIBLE );
-                                                    firebaseFirestore.collection ( "publication" ).document ("categories").collection ( categories ).document (iddupost).delete ();
+                                                    firebaseFirestore.collection ( "publication" ).document ("categories").collection (categories ).document("dans").collection ( choix ).document (iddupost).delete ();
                                                     firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "nouveaux" ).document (iddupost).delete ();
                                                     firebaseFirestore.collection ( "publication" ).document ("post utilisateur").collection ( current_user_id ).document(iddupost).delete ();
-                                                    firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user_id).collection ( "mes notification" ).document ( iddupost ).delete ();                                                   myDialog.dismiss();
+                                                    firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user_id).collection ( "mes notification" ).document ( iddupost ).delete ();
+                                                    //myDialog.dismiss();
 
                                                     finish ();
                                                 }else {
@@ -420,7 +423,7 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
     @Override
     public void onRewarded(RewardItem rewardItem) {
        // mad.destroy(getApplicationContext());
-        Toast.makeText(getApplicationContext(),getString(R.string.video_seen_thank),Toast.LENGTH_LONG).show();
+       // Toast.makeText(getApplicationContext(),getString(R.string.video_seen_thank),Toast.LENGTH_LONG).show();
         //Toast.makeText(getApplicationContext(),getString(R.string.wait),Toast.LENGTH_LONG).show();
     }
 
@@ -480,7 +483,7 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
         commentaire_adapter=new Commentaire_Adapter(commentaires_modelList,DetailActivityTwo.this);
         rv_comment.setAdapter(commentaire_adapter);
         rv_comment.setLayoutManager(new LinearLayoutManager(DetailActivityTwo.this,LinearLayoutManager.VERTICAL,false));
-        firebaseFirestore.collection ( "publication" ).document ("categories").collection (categories ).document (iddupost).collection("commentaires").addSnapshotListener ( DetailActivityTwo.this,new EventListener<QuerySnapshot> () {
+        firebaseFirestore.collection ( "publication" ).document ("categories").collection (categories ).document("dans").collection ( choix ).document (iddupost).collection("commentaires").addSnapshotListener ( DetailActivityTwo.this,new EventListener<QuerySnapshot> () {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                 if (queryDocumentSnapshots.isEmpty ()){
@@ -603,7 +606,7 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
                     user_comment.put ( "heure",saveCurrentDate );
                     user_comment.put ( "id_user",utilisateur_actuel );
                     user_comment.put ( "id du post",iddupost );
-                    firebaseFirestore.collection ( "publication" ).document ("categories").collection (categories ).document (iddupost).collection("commentaires").add(user_comment).addOnSuccessListener(DetailActivityTwo.this, new OnSuccessListener<DocumentReference>() {
+                    firebaseFirestore.collection ( "publication" ).document ("categories").collection (categories ).document("dans").collection ( choix ).document (iddupost).collection("commentaires").add(user_comment).addOnSuccessListener(DetailActivityTwo.this, new OnSuccessListener<DocumentReference>() {
                         @Override
                         public void onSuccess(DocumentReference documentReference) {
                             String id_commentaire = documentReference.getId();
@@ -687,7 +690,7 @@ public class DetailActivityTwo extends AppCompatActivity implements RewardedVide
 
         @Override
         protected Void doInBackground(Void... voids) {
-            firebaseFirestore.collection ( "publication" ).document ("categories").collection ( categories ).document (iddupost).get().addOnCompleteListener(DetailActivityTwo.this,new OnCompleteListener<DocumentSnapshot>() {
+            firebaseFirestore.collection ( "publication" ).document ("categories").collection (categories ).document("dans").collection ( choix ).document (iddupost).get().addOnCompleteListener(DetailActivityTwo.this,new OnCompleteListener<DocumentSnapshot>() {
                 @SuppressLint("RestrictedApi")
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {

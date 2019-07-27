@@ -43,7 +43,7 @@ public class PostActivity extends AppCompatActivity {
         post_cat_recycler=findViewById ( R.id.post_cat_recycler );
         categoriesModelPostList=new ArrayList<> (  );
         categoriesModelPostList.add ( new CategoriesModelPost ( "Mode",R.drawable.shoes ) );
-        categoriesModelPostList.add ( new CategoriesModelPost ( "Phone/Tablette",R.drawable.jupes ) );
+        categoriesModelPostList.add ( new CategoriesModelPost ( "Phone et Tablette",R.drawable.jupes ) );
         categoriesModelPostList.add ( new CategoriesModelPost ( "Electronique",R.drawable.accessoires ) );
         categoriesModelPostList.add ( new CategoriesModelPost ( "Informatique",R.drawable.cullotes ) );
         categoriesModelPostList.add ( new CategoriesModelPost ( "Beaute",R.drawable.pantalons ) );

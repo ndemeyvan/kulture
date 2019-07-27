@@ -13,12 +13,23 @@ public class ModelGridView extends PostId {
     private String date_de_publication;
     private String user_image;
     private String like;
+    private String collection;
+
     String post_id;
 
     public ModelGridView() {
     }
 
-    public ModelGridView(String nom_du_produit, String image_du_produit, String prix_du_produit, String user_profil_image, String utilisateur, String categories, String decription_du_produit, String date_de_publication, String user_image, String like, String post_id) {
+    public String getCollection() {
+        return collection;
+    }
+
+    public void setCollection(String collection) {
+        this.collection = collection;
+    }
+
+    public ModelGridView(String nom_du_produit, String image_du_produit, String prix_du_produit, String user_profil_image, String utilisateur, String categories, String decription_du_produit, String date_de_publication, String user_image, String like, String collection, String post_id) {
+
         this.nom_du_produit = nom_du_produit;
         this.image_du_produit = image_du_produit;
         this.prix_du_produit = prix_du_produit;
@@ -29,6 +40,7 @@ public class ModelGridView extends PostId {
         this.date_de_publication = date_de_publication;
         this.user_image = user_image;
         this.like = like;
+        this.collection = collection;
         this.post_id = post_id;
     }
 

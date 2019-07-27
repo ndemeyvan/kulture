@@ -38,9 +38,9 @@
     </style>
     <style name="edit_theme" parent="ThemeOverlay.AppCompat.Light">
         <item name="android:fontFamily">@font/righteous</item>
-        <item name="colorPrimary">@color/blanc</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="colorPrimaryDark">@color/blanc</item>
+        <item name="colorPrimary">@color/black</item>
+        <item name="colorAccent">@color/black</item>
+        <item name="colorPrimaryDark">@color/black</item>
     </style>
     <style name="progress_theme" parent="ThemeOverlay.AppCompat.Light">
         <item name="android:fontFamily">@font/righteous</item>

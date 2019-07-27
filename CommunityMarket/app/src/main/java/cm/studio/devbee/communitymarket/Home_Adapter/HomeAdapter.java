@@ -1,4 +1,4 @@
-package cm.studio.devbee.communitymarket.utilsForVendeur;
+package cm.studio.devbee.communitymarket.Home_Adapter;
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,7 +8,6 @@ import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -38,21 +37,17 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import cm.studio.devbee.communitymarket.R;
-import cm.studio.devbee.communitymarket.gridView_post.GridViewAdapter;
 import cm.studio.devbee.communitymarket.gridView_post.ModelGridView;
-import cm.studio.devbee.communitymarket.postActivity.DetailActivityFour;
-import cm.studio.devbee.communitymarket.postActivity.DetailActivityThree;
+import cm.studio.devbee.communitymarket.postActivity.DetailActivity;
 import cm.studio.devbee.communitymarket.postActivity.DetailActivityTwo;
 
-import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
-
-public class ProfilAdapteur extends FirestoreRecyclerAdapter<ModelGridView,ProfilAdapteur.ViewHolder> {
-    List<ModelGridView> modelGridViewList;
+public class HomeAdapter extends FirestoreRecyclerAdapter<ModelGridView,HomeAdapter.ViewHolder> {
     Context context;
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
 
-    public ProfilAdapteur(@NonNull FirestoreRecyclerOptions<ModelGridView> options,Context context) {
+
+    public HomeAdapter(@NonNull FirestoreRecyclerOptions<ModelGridView> options, Context context) {
         super ( options );
         this.context=context;
     }
@@ -63,13 +58,13 @@ public class ProfilAdapteur extends FirestoreRecyclerAdapter<ModelGridView,Profi
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         firebaseFirestore=FirebaseFirestore.getInstance();
         firebaseAuth=FirebaseAuth.getInstance();
-        View v=LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_post_layout_vendeur,viewGroup,false);
-        return new ViewHolder(v);
+        View v=LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_home,viewGroup,false);
+        return new ViewHolder (v);
     }
 
 
     @Override
-    protected void onBindViewHolder(@NonNull final ViewHolder viewHolder, int position, @NonNull ModelGridView model) {
+    protected void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i, @NonNull ModelGridView model) {
         String produit_image =model.getImage_du_produit();
         String nom=model.getNom_du_produit();
         String desc =model.getDecription_du_produit();
@@ -102,7 +97,7 @@ public class ProfilAdapteur extends FirestoreRecyclerAdapter<ModelGridView,Profi
         viewHolder.profil_container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent gotoDetail =new Intent(context,DetailActivityFour.class);
+                Intent gotoDetail =new Intent(context,DetailActivity.class);
                 gotoDetail.putExtra("id du post",idDuPost);
                 gotoDetail.putExtra("id de l'utilisateur",nom_utilisateur);
                 gotoDetail.putExtra("id_categories",categorie);
@@ -111,7 +106,7 @@ public class ProfilAdapteur extends FirestoreRecyclerAdapter<ModelGridView,Profi
 
             }
         });
-        firebaseFirestore.collection("mes donnees utilisateur").document(nom_utilisateur).get().addOnCompleteListener((Activity) context,new OnCompleteListener<DocumentSnapshot>() {
+        firebaseFirestore.collection("mes donnees utilisateur").document(nom_utilisateur).get().addOnCompleteListener((Activity) context,new OnCompleteListener<DocumentSnapshot> () {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()){
@@ -120,9 +115,6 @@ public class ProfilAdapteur extends FirestoreRecyclerAdapter<ModelGridView,Profi
                         String user_nom=task.getResult ().getString ( "user_name" );
                         String user_prenom=task.getResult ().getString ( "user_prenom" );
                         viewHolder.nom_user.setText(user_nom+" "+user_prenom);
-                        if (firebaseAuth.getCurrentUser().getUid()==nom_utilisateur){
-                            viewHolder.nom_user.setText(" ");
-                        }
                         viewHolder.profil_post ( image_user );
                     }
                 }else {
@@ -132,7 +124,6 @@ public class ProfilAdapteur extends FirestoreRecyclerAdapter<ModelGridView,Profi
             }
         });
     }
-
 
 
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -181,6 +172,7 @@ public class ProfilAdapteur extends FirestoreRecyclerAdapter<ModelGridView,Profi
             text_prix.setVisibility ( View.VISIBLE );
             image_comment.setVisibility (  View.VISIBLE  );
             comment_number.setVisibility (  View.VISIBLE  );
+            nom_user.setVisibility (  View.VISIBLE  );
         }
        /* public void setCatrogies_name(String cat){
             catrogies_name.setText(cat);

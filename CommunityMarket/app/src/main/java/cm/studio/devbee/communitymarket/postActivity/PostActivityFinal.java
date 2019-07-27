@@ -25,9 +25,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -52,6 +54,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -72,6 +75,7 @@ import java.util.Map;
 import java.util.Random;
 import cm.studio.devbee.communitymarket.Accueil;
 import cm.studio.devbee.communitymarket.R;
+import cm.studio.devbee.communitymarket.profile.ParametrePorfilActivity;
 import id.zelory.compressor.Compressor;
 import android.app.ProgressDialog;
 import android.widget.TextView;
@@ -116,6 +120,17 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
     public VisionServiceClient visionServiceClient ;
     private String apilink="https://westcentralus.api.cognitive.microsoft.com/vision/v1.0/analyze?visualFeatures=Categories,Tags,Description&language=en";
     //private String apilink="https://openmarket.cognitiveservices.azure.com/";
+    private Spinner mode_list;
+    private Spinner phone_tablet;
+    private Spinner electronique;
+    private Spinner informatique;
+    private Spinner beaute;
+    private String categorie_choisi;
+    private String categorie_choisi_beaute;
+    private String categorie_choisi_informatique;
+    private String categorie_choisi_phone;
+    private String categorie_choisi_electroique;
+    private String choix;
 
 
     @Override
@@ -187,6 +202,110 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
         animationDrawableOne.setEnterFadeDuration(2000);
         animationDrawableOne.setExitFadeDuration(4000);
         animationDrawableOne.start();
+        mode_list=findViewById ( R.id.mode_list );
+        phone_tablet=findViewById ( R.id.phone_tablet );
+        electronique=findViewById ( R.id.electronique );
+        informatique=findViewById ( R.id.informatique );
+        beaute=findViewById ( R.id.beaute );
+        if (categoryName.equals ( "Mode" )){
+            mode_list.setVisibility ( View.VISIBLE );
+        }
+        if (categoryName.equals ( "Phone et Tablette" )){
+            phone_tablet.setVisibility ( View.VISIBLE );
+        }
+        if (categoryName.equals ( "Electronique" )){
+            electronique.setVisibility ( View.VISIBLE );
+        }
+        if (categoryName.equals ( "Informatique" )){
+            informatique.setVisibility ( View.VISIBLE );
+        }
+        if (categoryName.equals ( "Beaute" )){
+            beaute.setVisibility ( View.VISIBLE );
+        }
+
+        ////////////////////
+        mode_list.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(final AdapterView<?> parent, View view, final int position, long id) {
+                categorie_choisi=parent.getItemAtPosition(position).toString();
+                choix=categorie_choisi;
+                toast ( categorie_choisi );
+
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        ///////////////
+        ////////////////////
+        phone_tablet.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(final AdapterView<?> parent, View view, final int position, long id) {
+                categorie_choisi_phone=parent.getItemAtPosition(position).toString();
+                choix=categorie_choisi_phone;
+                toast ( categorie_choisi_phone );
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        ///////////////
+        ////////////////////
+        informatique.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(final AdapterView<?> parent, View view, final int position, long id) {
+                categorie_choisi_informatique=parent.getItemAtPosition(position).toString();
+                choix=categorie_choisi_informatique;
+
+                toast ( categorie_choisi_informatique );
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        ///////////////
+        ////////////////////
+        beaute.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(final AdapterView<?> parent, View view, final int position, long id) {
+                categorie_choisi_beaute=parent.getItemAtPosition(position).toString();
+                choix=categorie_choisi_beaute;
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        ///////////////
+        ////////////////////
+        electronique.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(final AdapterView<?> parent, View view, final int position, long id) {
+                categorie_choisi_electroique=parent.getItemAtPosition(position).toString();
+                choix=categorie_choisi_electroique;
+                toast ( categorie_choisi_electroique );
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        ///////////////
+
+
     }
 
     public void loadRewardedVideo(){
@@ -217,8 +336,8 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
         int id = item.getItemId ();
         if (id == R.id.send_article) {
 
-            if (TextUtils.isEmpty ( nom_du_produit )&&TextUtils.isEmpty ( decription_du_produit )&&TextUtils.isEmpty ( prix_du_produit )&&mImageUri==null){
-                Toast.makeText ( getApplicationContext(),getString(R.string.renplir_tous),Toast.LENGTH_LONG ).show ();
+            if (TextUtils.isEmpty ( nom_du_produit )&&TextUtils.isEmpty ( decription_du_produit )&&TextUtils.isEmpty ( prix_du_produit )&&mImageUri==null&&choix.equals ( "Dans quel categories ?" )){
+                toast ( getString(R.string.renplir_tous) );
 
             }else{
                 showPopup();
@@ -259,8 +378,6 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
             if (resultCode == RESULT_OK) {
                 mImageUri = result.getUri();
                 final File actualImage = new File(mImageUri.getPath());
-
-
                 //visionTask.execute(inputStream);
                 ///// debut de reconnaissance
                /* final AsyncTask<Void,Void,Void> asyncTask = new AsyncTask<Void, Void, Void> () {
@@ -418,11 +535,13 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
         nom_du_produit=nomProduit.getText ().toString ();
         decription_du_produit=descriptionProduit.getText ().toString ();
         prix_du_produit=(prixPorduit.getText ().toString ()+" fcfa");
-        if (!TextUtils.isEmpty ( nom_du_produit )&&!TextUtils.isEmpty ( decription_du_produit )&&!TextUtils.isEmpty ( prix_du_produit )&&mImageUri!=null){
+
+        if (!TextUtils.isEmpty ( nom_du_produit )&&!TextUtils.isEmpty ( decription_du_produit )&&!TextUtils.isEmpty ( prix_du_produit )&&mImageUri!=null&&!choix.equals ( "Dans quel categories ?" )){
             showPopup();
             stocker();
         }else{
-            Toast.makeText ( getApplicationContext(),getString(R.string.renplir_tous),Toast.LENGTH_LONG ).show ();
+            toast ( getString(R.string.renplir_tous) );
+            toast ( "specifier la bonne categorie" );
         }
     }
     public void stocker(){
@@ -460,8 +579,9 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
                                         user_post.put ( "image_du_produit",downloadUri.toString() );
                                         user_post.put("search",decription_du_produit);
                                         user_post.put("categories",categoryName);
+                                        user_post.put("collection",choix);
                                         user_post.put("priority",randomKey);
-                                        DocumentReference post_reference =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( categoryName ).document();
+                                        DocumentReference post_reference =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( categoryName ).document("dans").collection ( choix ).document ();
                                         final String post_id = post_reference.getId();
                                         user_post.put("post_id",post_id);
                                         post_reference.set(user_post).addOnSuccessListener(PostActivityFinal.this,new OnSuccessListener<Void>() {
@@ -488,8 +608,7 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
                                             public void onFailure(@NonNull Exception e) {
 
                                                 String error = task.getException().getMessage();
-                                                Toast.makeText(getApplicationContext(),error,Toast.LENGTH_LONG).show();
-
+                                                toast ( error );
                                             }
                                         });
 
@@ -634,5 +753,9 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
             firebaseAuth=null;
             compressedImageFile=null;
             mad.destroy(this);
+    }
+
+    public void toast(String s){
+        Toast.makeText ( getApplicationContext (),s,Toast.LENGTH_LONG ).show ();
     }
 }

@@ -1,7 +1,6 @@
 package cm.studio.devbee.communitymarket.Fragments.mode;
 
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -26,10 +25,6 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.squareup.picasso.Picasso;
-
-import java.lang.ref.WeakReference;
-import java.util.List;
-
 import cm.studio.devbee.communitymarket.PublicityActivity;
 import cm.studio.devbee.communitymarket.R;
 import cm.studio.devbee.communitymarket.gridView_post.GridViewAdapter;
@@ -42,11 +37,7 @@ public class AfritudeFragment extends Fragment {
     private  static View v;
     private static RecyclerView chemiseRecyclerView;
     private static FirebaseFirestore firebaseFirestore;
-    private static ProgressDialog progressDialog;
-    private static AsyncTask asyncTask;
     private static GridViewAdapter categoriesAdaptechemise;
-    private static List<ModelGridView> categoriesModelchemiseList;
-    private static WeakReference<AfritudeFragment>chemiseFragmentWeakReference;
     private static FirebaseAuth firebaseAuth;
     String curent_user;
     ViewFlipper viewFlippertwo;
@@ -64,8 +55,7 @@ public class AfritudeFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         v= inflater.inflate ( R.layout.fragment_chemise, container, false );
         firebaseFirestore=FirebaseFirestore.getInstance ();
@@ -79,35 +69,33 @@ public class AfritudeFragment extends Fragment {
         pubImageThree=v.findViewById ( R.id.pubImageThree);
         pubImageFour=v.findViewById ( R.id.pubImageFour );
         imagePubText=v.findViewById ( R.id.imagePubText );
-        asyncTask=new AsyncTask ();
-        asyncTask.execute();
         firebaseAuth=FirebaseAuth.getInstance ();
         curent_user=firebaseAuth.getCurrentUser ().getUid ();
-        chemiseFragmentWeakReference=new WeakReference<> ( this );
-
         getActivity ().runOnUiThread
                 (new Runnable() {
                     @Override
                     public void run() {
-                        RecyclerView ();
+                        pullRecyclerView ();
                         imagePub ();
                     }
                 });
         return v;
     }
 
-    public void RecyclerView(){
-
-        Query firstQuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "Chemises" ).orderBy ( "priority",Query.Direction.DESCENDING );
+    public void pullRecyclerView(){
+        Query firstQuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "Mode" ).document("dans").collection ( "Afritudes").orderBy ( "priority",Query.Direction.DESCENDING );
         FirestoreRecyclerOptions<ModelGridView> options = new FirestoreRecyclerOptions.Builder<ModelGridView>()
                 .setQuery(firstQuery, ModelGridView.class)
                 .build();
         categoriesAdaptechemise  = new GridViewAdapter (options,getActivity());
-        chemiseRecyclerView = v.findViewById(R.id.chemiseRecyclerView);
+        chemiseRecyclerView = v.findViewById(R.id.afrotudeRecyclerView);
         chemiseRecyclerView.setHasFixedSize(true);
         chemiseRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
         chemiseRecyclerView.setAdapter(categoriesAdaptechemise);
+
     }
+
+
     @Override
     public void onStart() {
         super.onStart();
@@ -264,34 +252,11 @@ public class AfritudeFragment extends Fragment {
             }
         });
     }
-    public  class AsyncTask extends android.os.AsyncTask<Void, Void, Void> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute ();
-        }
 
-        @Override
-        protected Void doInBackground(Void... voids) {
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute ( aVoid );
-
-        }
-    }
     @Override
     public void onDestroy() {
-        asyncTask.cancel(true);
         super.onDestroy();
-        asyncTask.cancel(true);
-        chemiseRecyclerView=null;
         firebaseFirestore=null;
-        progressDialog=null;
-        categoriesAdaptechemise=null;
-        categoriesModelchemiseList=null;
     }
 
 }

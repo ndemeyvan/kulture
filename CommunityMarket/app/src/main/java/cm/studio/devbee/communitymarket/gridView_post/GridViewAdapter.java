@@ -73,6 +73,7 @@ public class GridViewAdapter extends FirestoreRecyclerAdapter<ModelGridView,Grid
         String desc =model.getDecription_du_produit();
         String prix_produit=model.getPrix_du_produit();
         String tempsdepub=model.getDate_de_publication ();
+        final String collection =model.getCollection ();
         final String nom_utilisateur=model.getUtilisateur();
         final String idDuPost=model.getPost_id();
         final String categorie=model.getCategories();
@@ -103,6 +104,7 @@ public class GridViewAdapter extends FirestoreRecyclerAdapter<ModelGridView,Grid
                 gotoDetail.putExtra("id du post",idDuPost);
                 gotoDetail.putExtra("id de l'utilisateur",nom_utilisateur);
                 gotoDetail.putExtra("id_categories",categorie);
+                gotoDetail.putExtra("collection",collection);
                 context.startActivity(gotoDetail);
 
             }
@@ -116,9 +118,6 @@ public class GridViewAdapter extends FirestoreRecyclerAdapter<ModelGridView,Grid
                         String user_nom=task.getResult ().getString ( "user_name" );
                         String user_prenom=task.getResult ().getString ( "user_prenom" );
                         viewHolder.nom_user.setText(user_nom+" "+user_prenom);
-                        if (firebaseAuth.getCurrentUser().getUid()==nom_utilisateur){
-                            viewHolder.nom_user.setText(" ");
-                        }
                         viewHolder.profil_post ( image_user );
                     }
                 }else {
@@ -176,6 +175,8 @@ public class GridViewAdapter extends FirestoreRecyclerAdapter<ModelGridView,Grid
             text_prix.setVisibility ( View.VISIBLE );
             image_comment.setVisibility (  View.VISIBLE  );
             comment_number.setVisibility (  View.VISIBLE  );
+            nom_user.setVisibility (  View.VISIBLE  );
+
         }
        /* public void setCatrogies_name(String cat){
             catrogies_name.setText(cat);

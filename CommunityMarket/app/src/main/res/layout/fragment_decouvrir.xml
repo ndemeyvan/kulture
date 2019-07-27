@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.DecouvrirFragment"
-    android:background="@color/black">
+    android:background="@color/blanc">
 
     <ScrollView
         android:id="@+id/scrollView2"
@@ -134,12 +134,12 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:ellipsize="end"
-                    android:lines="1"
                     android:fontFamily="@font/righteous"
+                    android:lines="1"
                     android:text="@string/actu"
-                    android:textColor="@color/blanc"
-                    android:textSize="17sp"
                     android:textAllCaps="false"
+                    android:textColor="@color/black"
+                    android:textSize="17sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.03"
@@ -164,7 +164,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
-                    android:textColor="@color/blanc"
+                    android:textColor="@color/black"
                     android:textSize="17sp"
                     android:textStyle="bold"
                     android:fontFamily="@font/righteous"
@@ -204,47 +204,6 @@
                 my id ca-app-pub-4353172129870258/3649563954
                 pour eux id ca-app-pub-3940256099942544/6300978111
 
-
-                <ViewFlipper
-                    android:id="@+id/viewFlippertwo"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/fragment_home_image_slider"
-                    android:layout_marginTop="8dp"
-                    android:autoStart="true"
-                    android:flipInterval="3000"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/adViewTwo">
-
-                    <ImageView
-                        android:id="@+id/pubImage"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/fragment_home_image_slider"
-                        android:scaleType="centerCrop" />
-
-
-                    <ImageView
-                        android:id="@+id/pubImageTwo"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/fragment_home_image_slider"
-                        android:scaleType="centerCrop" />
-
-
-                    <ImageView
-                        android:id="@+id/pubImageThree"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/fragment_home_image_slider"
-                        android:scaleType="centerCrop" />
-
-
-                    <ImageView
-                        android:id="@+id/pubImageFour"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/fragment_home_image_slider"
-                        android:scaleType="centerCrop" />
-
-
-                </ViewFlipper>
 
                 <TextView
                     android:id="@+id/pubImageText"

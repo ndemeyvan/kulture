@@ -150,6 +150,7 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
     private static  TextView detail_titre_vente;
     private String is_master;
     private Button is_master_button;
+    private String choix;
 
 
     @Override
@@ -174,6 +175,7 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
         iddupost = getIntent ().getExtras ().getString ( "id du post" );
         current_user_id = getIntent ().getExtras ().getString ( "id de l'utilisateur" );
         categories = getIntent ().getExtras ().getString ( "id_categories" );
+        choix=getIntent ().getExtras ().getString ( "collection" );
         detail_image_post = findViewById ( R.id.detail_image_post );
         //detail_post_titre_produit=findViewById(R.id.detail_prix_produit );
         detail_prix_produit = findViewById ( R.id.detail_prix_produit );
@@ -664,7 +666,7 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
                                             if (task.getResult ().exists ()) {
                                                 if (task.isSuccessful ()) {
                                                     detail_progress.setVisibility ( View.VISIBLE );
-                                                    firebaseFirestore.collection ( "publication" ).document ( "categories" ).collection ( categories ).document ( iddupost ).delete ();
+                                                    firebaseFirestore.collection ( "publication" ).document ("categories").collection (categories ).document("dans").collection ( choix ).document ( iddupost ).delete ();
                                                     firebaseFirestore.collection ( "publication" ).document ( "categories" ).collection ( "nouveaux" ).document ( iddupost ).delete ();
                                                     firebaseFirestore.collection ( "publication" ).document ( "post utilisateur" ).collection ( current_user_id ).document ( iddupost ).delete ();
                                                     firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user_id).collection ( "mes notification" ).document ( iddupost ).delete ();                                                   myDialog.dismiss();

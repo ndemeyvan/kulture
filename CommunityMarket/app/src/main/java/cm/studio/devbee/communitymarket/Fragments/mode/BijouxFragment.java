@@ -44,7 +44,6 @@ public class BijouxFragment extends Fragment {
     private static RecyclerView pullRecyclerView;
     private static FirebaseFirestore firebaseFirestore;
     private static ProgressDialog progressDialog;
-    private static AsyncTask asyncTask;
     private static GridViewAdapter categoriesAdaptepull;
     private static List<ModelGridView> categoriesModelpullList;
     private static WeakReference<BijouxFragment> pullFragmentWeakReference;
@@ -81,11 +80,8 @@ public class BijouxFragment extends Fragment {
         firebaseAuth=FirebaseAuth.getInstance ();
         curent_user=firebaseAuth.getCurrentUser ().getUid ();
         pullFragmentWeakReference=new WeakReference<>(this);
-        asyncTask=new AsyncTask();
-        asyncTask.execute();
         viewFlippertwo.setOutAnimation(getActivity(),android.R.anim.slide_out_right);
         viewFlippertwo.setInAnimation(getActivity(),android.R.anim.slide_in_left);
-
         getActivity ().runOnUiThread
                 (new Runnable() {
                     @Override
@@ -99,8 +95,7 @@ public class BijouxFragment extends Fragment {
 
     public void pullRecyclerView(){
 
-        Query firstQuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "pull" ).orderBy ( "priority",Query.Direction.DESCENDING );
-
+        Query firstQuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "Mode" ).document("dans").collection ( "Bijoux").orderBy ( "priority",Query.Direction.DESCENDING );
         FirestoreRecyclerOptions<ModelGridView> options = new FirestoreRecyclerOptions.Builder<ModelGridView>()
                 .setQuery(firstQuery, ModelGridView.class)
                 .build();
@@ -267,30 +262,11 @@ public class BijouxFragment extends Fragment {
         });
     }
 
-    public  class AsyncTask extends android.os.AsyncTask<Void, Void, Void> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute ();
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute ( aVoid );
-
-        }
-    }
 
     @Override
     public void onDestroy() {
-        asyncTask.cancel(true);
+
         super.onDestroy();
-        asyncTask.cancel(true);
         pullRecyclerView=null;
         firebaseFirestore=null;
         progressDialog=null;

@@ -81,7 +81,6 @@ public class AccesoireFragment extends Fragment {
         pubImageThree=v.findViewById ( R.id.pubImageThree);
         pubImageFour=v.findViewById ( R.id.pubImageFour );
         imagePubText=v.findViewById ( R.id.imagePubText );
-        //
         asyncTask=new AsyncTask ();
         asyncTask.execute();
         acessoireFragmentWeakReference=new WeakReference<> ( this );
@@ -236,15 +235,11 @@ public class AccesoireFragment extends Fragment {
                             }
                         }
                     });
-
-
-
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-
                 Toast.makeText(getActivity(),getString(R.string.erreur_slider),Toast.LENGTH_LONG).show();
             }
         });
@@ -257,7 +252,7 @@ public class AccesoireFragment extends Fragment {
     }
     public void RecyclerView(){
         firebaseFirestore=FirebaseFirestore.getInstance ();
-        Query firstQuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "accessoires" ).orderBy ( "priority",Query.Direction.DESCENDING );
+        Query firstQuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "Mode" ).document("dans").collection ( "Accessoires").orderBy ( "priority",Query.Direction.DESCENDING );
         FirestoreRecyclerOptions<ModelGridView> options = new FirestoreRecyclerOptions.Builder<ModelGridView>()
                 .setQuery(firstQuery, ModelGridView.class)
                 .build();
