@@ -93,7 +93,7 @@ public class Audio extends Fragment {
         return  v;
     }
     public void pullRecyclerView(){
-        Query firstQuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "Electronique" ).document("dans").collection ( "App.photo et camera").orderBy ( "priority",Query.Direction.DESCENDING );
+        Query firstQuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "Electronique" ).document("dans").collection ( "Audio").orderBy ( "priority",Query.Direction.DESCENDING );
         FirestoreRecyclerOptions<ModelGridView> options = new FirestoreRecyclerOptions.Builder<ModelGridView>()
                 .setQuery(firstQuery, ModelGridView.class)
                 .build();
