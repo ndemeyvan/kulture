@@ -115,16 +115,6 @@ public class SearchActivity extends AppCompatActivity {
                 }
             }
         } );
-       /* Query firstQuery =db.collection ( "publication" ).document ("categories").collection ("nouveaux" ).orderBy( "decription_du_produit").startAt(s).endAt(s+"\uf8ff");
-        FirestoreRecyclerOptions<ModelGridView> options = new FirestoreRecyclerOptions.Builder<ModelGridView>()
-                .setQuery(firstQuery, ModelGridView.class)
-                .build();
-        searchAdapter  = new UserAdapter (listUsers,SearchActivity.this);
-        search_recyclerview = findViewById(R.id.search_recyclerview);
-        search_recyclerview.setHasFixedSize(true);
-        search_recyclerview.setLayoutManager(new LinearLayoutManager(SearchActivity.this,LinearLayoutManager.VERTICAL,false));
-        search_recyclerview.setAdapter(searchAdapter);
-        search_progress.setVisibility(View.INVISIBLE);*/
     }
 
     public void userstatus(String status){

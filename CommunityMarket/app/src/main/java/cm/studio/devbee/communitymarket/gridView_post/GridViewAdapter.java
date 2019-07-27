@@ -45,6 +45,7 @@ import cm.studio.devbee.communitymarket.postActivity.DetailActivityTwo;
 
 public class GridViewAdapter extends FirestoreRecyclerAdapter<ModelGridView,GridViewAdapter.ViewHolder> {
     List<ModelGridView> modelGridViewList;
+
     Context context;
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;

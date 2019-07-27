@@ -12,6 +12,16 @@
     <!-- my id ca-app-pub-4353172129870258/3649563954-->
     <!-- pour eux id ca-app-pub-3940256099942544/6300978111-->
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/Acceuil_recyclerview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/content_floating_action_btn"
         android:layout_width="wrap_content"
