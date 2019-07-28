@@ -168,6 +168,12 @@
         <item>Maquillages</item>
     </string-array>
 
+    <string-array name="jeux" id="@+id/jeux">
+    <item> Dans quel categories ? </item>
+    <item>jeux</item>
+    <item>console</item>
+    </string-array>
+
 
     <string name="il_ya_ceci">actuellement il y\'a ceci :</string>
     <string name="fait_ton_choix">fait ton choix</string>

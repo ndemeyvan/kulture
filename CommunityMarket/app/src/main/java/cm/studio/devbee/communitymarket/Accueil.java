@@ -55,6 +55,7 @@ import cm.studio.devbee.communitymarket.Fragments.BeauteFragment;
 import cm.studio.devbee.communitymarket.Fragments.DecouvrirFragment;
 import cm.studio.devbee.communitymarket.Fragments.ElectroniqueFragment;
 import cm.studio.devbee.communitymarket.Fragments.InformatiqueFragment;
+import cm.studio.devbee.communitymarket.Fragments.JeuxVideoFragment;
 import cm.studio.devbee.communitymarket.Fragments.ModeFragment;
 import cm.studio.devbee.communitymarket.Fragments.Tablette_TabFragment;
 import cm.studio.devbee.communitymarket.Mes_tabs_Adapter.TabsAdapter;
@@ -213,6 +214,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
         TabsAdapter tabsAdapter=new TabsAdapter(getSupportFragmentManager());
         tabsAdapter.addFragment(new DecouvrirFragment(),"Home");
         tabsAdapter.addFragment(new ModeFragment(),getString(R.string.decouvrir).toLowerCase());
+        tabsAdapter.addFragment(new JeuxVideoFragment (),"Jeux/Console");
         tabsAdapter.addFragment(new Tablette_TabFragment(),"Phone/Tablette");
         tabsAdapter.addFragment(new ElectroniqueFragment(),"Electronique");
         tabsAdapter.addFragment(new InformatiqueFragment(),"Informatique");

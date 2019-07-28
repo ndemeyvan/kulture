@@ -88,10 +88,12 @@ public class Photo_CameraFragment extends Fragment {
                 (new Runnable() {
                     @Override
                     public void run() {
-                        pullRecyclerView ();
-                        imagePub ();
+
                     }
                 });
+        pullRecyclerView ();
+        imagePub ();
+        categoriesAdaptepull.startListening ();
         return  v;
     }
     public void pullRecyclerView(){

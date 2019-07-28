@@ -54,7 +54,6 @@ public class Tablette_TabFragment extends Fragment {
         tabsAdapter.addFragment(new TelephoneFragment(),"Telephones");
         tabsAdapter.addFragment(new AccessoirePhoneFragment(),"Accessoires");
         tabsAdapter.addFragment(new TabletFragment(),"Tablette");
-
         viewPager.setAdapter(tabsAdapter);
 
     }

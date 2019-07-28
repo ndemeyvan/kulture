@@ -199,6 +199,22 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/post_production_prix" />
+            <Spinner
+                android:id="@+id/jeux"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:dropDownWidth="match_parent"
+                android:entries="@array/jeux"
+                android:padding="15dp"
+                android:spinnerMode="dropdown"
+                android:theme="@style/edit_theme"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/post_production_prix" />
 
 
             <ProgressBar

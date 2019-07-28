@@ -87,10 +87,11 @@ public class MaquillageFragment extends Fragment {
                 (new Runnable() {
                     @Override
                     public void run() {
-                        pullRecyclerView ();
-                        imagePub ();
+
                     }
                 });
+        pullRecyclerView ();
+        imagePub ();
         return  v;
     }
 

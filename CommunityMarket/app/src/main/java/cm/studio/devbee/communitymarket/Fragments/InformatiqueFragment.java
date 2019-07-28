@@ -48,7 +48,6 @@ public class InformatiqueFragment extends Fragment {
         tabsAdapter.addFragment(new OrdinateurFragment(),"Ordinateur");
         tabsAdapter.addFragment(new StockageFragment(),"stockage");
         tabsAdapter.addFragment(new AccessoirePhoneFragment(),"Accessoire");
-
         viewPager.setAdapter(tabsAdapter);
 
     }

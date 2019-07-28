@@ -44,9 +44,11 @@ public class PostActivity extends AppCompatActivity {
         categoriesModelPostList=new ArrayList<> (  );
         categoriesModelPostList.add ( new CategoriesModelPost ( "Mode",R.drawable.shoes ) );
         categoriesModelPostList.add ( new CategoriesModelPost ( "Phone et Tablette",R.drawable.jupes ) );
+        categoriesModelPostList.add ( new CategoriesModelPost ( "Jeux et console",R.drawable.pantalons ) );
         categoriesModelPostList.add ( new CategoriesModelPost ( "Electronique",R.drawable.accessoires ) );
         categoriesModelPostList.add ( new CategoriesModelPost ( "Informatique",R.drawable.cullotes ) );
         categoriesModelPostList.add ( new CategoriesModelPost ( "Beaute",R.drawable.pantalons ) );
+
         postActivityWeakReference=new WeakReference<>(this);
         categoriesAdaptePost=new CategoriesAdaptePost (categoriesModelPostList,PostActivity.this);
         post_cat_recycler.setAdapter ( categoriesAdaptePost );

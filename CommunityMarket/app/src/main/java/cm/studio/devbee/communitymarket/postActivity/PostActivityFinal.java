@@ -125,6 +125,8 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
     private Spinner electronique;
     private Spinner informatique;
     private Spinner beaute;
+    private Spinner jeux;
+
     private String categorie_choisi;
     private String categorie_choisi_beaute;
     private String categorie_choisi_informatique;
@@ -207,6 +209,8 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
         electronique=findViewById ( R.id.electronique );
         informatique=findViewById ( R.id.informatique );
         beaute=findViewById ( R.id.beaute );
+        jeux=findViewById ( R.id.jeux );
+
         if (categoryName.equals ( "Mode" )){
             mode_list.setVisibility ( View.VISIBLE );
         }
@@ -221,6 +225,9 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
         }
         if (categoryName.equals ( "Beaute" )){
             beaute.setVisibility ( View.VISIBLE );
+        }
+        if (categoryName.equals ( "Jeux et console" )){
+            jeux.setVisibility ( View.VISIBLE );
         }
 
         ////////////////////

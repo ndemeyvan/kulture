@@ -87,10 +87,11 @@ public class AccessoirePhoneFragment extends Fragment {
                 (new Runnable() {
                     @Override
                     public void run() {
-                        pullRecyclerView ();
-                        imagePub ();
+
                     }
                 });
+        pullRecyclerView ();
+        imagePub ();
         return v;
     }
     public void pullRecyclerView(){
