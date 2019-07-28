@@ -5,9 +5,8 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "cm.studio.devbee.communitymarket"
-        minSdkVersion 17
+        minSdkVersion 21
         targetSdkVersion 28
-        multiDexEnabled true
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -74,6 +73,5 @@ dependencies {
     implementation 'com.android.volley:volley:1.1.1'
     implementation 'com.firebaseui:firebase-ui-firestore:5.0.0'
     implementation 'com.shobhitpuri.custombuttons:google-signin:1.0.0'
-    implementation 'com.android.support:multidex:1.0.3'
     implementation 'com.google.firebase:firebase-crash:16.2.1'
 }
