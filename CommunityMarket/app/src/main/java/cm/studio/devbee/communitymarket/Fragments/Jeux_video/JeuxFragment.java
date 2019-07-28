@@ -54,7 +54,6 @@ public class JeuxFragment extends Fragment {
     private static TextView textPubacessoire;
     private static FirebaseFirestore firebaseFirestore;
     private static ProgressDialog progressDialog;
-    private static AccesoireFragment.AsyncTask asyncTask;
     private static GridViewAdapter categoriesAdapteacessoire;
     private static List<ModelGridView> categoriesModelacessoireList;
     private static WeakReference<AccesoireFragment> acessoireFragmentWeakReference;
@@ -271,9 +270,7 @@ public class JeuxFragment extends Fragment {
 
     @Override
     public void onDestroy() {
-        asyncTask.cancel(true);
         super.onDestroy();
-        asyncTask.cancel(true);
         acessoireRecyclerView =null;
         imagePubacessoire=null;
         textPubacessoire=null;

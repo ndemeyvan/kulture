@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import cm.studio.devbee.communitymarket.Fragments.Jeux_video.Accssoire_Jeux_Fragment;
 import cm.studio.devbee.communitymarket.Fragments.Jeux_video.ConsoleFragment;
 import cm.studio.devbee.communitymarket.Fragments.Jeux_video.JeuxFragment;
 import cm.studio.devbee.communitymarket.Mes_tabs_Adapter.Jeux_Tabs_Adapter;
@@ -40,8 +41,10 @@ public class JeuxVideoFragment extends Fragment {
 
     public void setupViewPager(ViewPager viewPager){
         Jeux_Tabs_Adapter tabsAdapter=new Jeux_Tabs_Adapter(getActivity().getSupportFragmentManager());
-        tabsAdapter.addFragment(new ConsoleFragment(),"Console");
+        tabsAdapter.addFragment(new ConsoleFragment(),"Consoles");
         tabsAdapter.addFragment(new JeuxFragment(),"Jeux");
+        tabsAdapter.addFragment(new Accssoire_Jeux_Fragment (),"Accessoires");
+
         viewPager.setAdapter(tabsAdapter);
 
     }

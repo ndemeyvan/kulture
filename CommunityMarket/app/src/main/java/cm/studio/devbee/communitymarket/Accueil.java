@@ -598,17 +598,5 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
     }*/
 
 
-
-    @Override
-    protected void onDestroy() {
-            super.onDestroy();
-            recup();
-            mAuth=null;
-            firebaseFirestore=null;
-            content_floating_action_btn=null;
-            tabLayout=null;
-            tabsviewpager=null;
-            accueilWeakReference=null;
-    }
 }
 
