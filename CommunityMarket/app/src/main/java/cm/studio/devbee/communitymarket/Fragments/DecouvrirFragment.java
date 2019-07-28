@@ -158,7 +158,7 @@ public class DecouvrirFragment extends Fragment implements RewardedVideoAdListen
         String [] liste = {"vetements","Chaussures","Accessoires","Pantalons","Bijoux","Afritudes","Montres","Polos","Sous_vetement"};
         a_charger = liste[i];
         String text = liste[i];
-        textChausure.setText(  text.replaceAll("(?!^)([A-Z])", " $1").toUpperCase());
+        textChausure.setText(  text.replaceAll("(?!^)([A-Z])", " $1").toLowerCase ());
         Query queryuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ("Mode" ).document("dans").collection ( a_charger ).orderBy ( "priority",Query.Direction.DESCENDING );
         FirestoreRecyclerOptions<ModelGridView> optionsTwo = new FirestoreRecyclerOptions.Builder<ModelGridView>()
                 .setQuery(queryuery, ModelGridView.class)
