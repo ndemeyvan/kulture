@@ -50,6 +50,8 @@ public class Search_user_adapter extends RecyclerView.Adapter<Search_user_adapte
     private String image_profil;
     private String id_utilisateur;
 
+    public Search_user_adapter() {
+    }
 
     public Search_user_adapter(List<Seach_user_model> modelGridViewList, Context context) {
         this.modelGridViewList = modelGridViewList;

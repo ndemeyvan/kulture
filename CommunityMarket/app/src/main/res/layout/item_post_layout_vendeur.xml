@@ -37,7 +37,7 @@
                 android:id="@+id/profil_vendeur"
                 android:layout_width="@dimen/nvx_item_nvx_image_dim_height_with"
                 android:layout_height="@dimen/nvx_item_nvx_image_dim_height_with"
-                android:layout_marginStart="32dp"
+                android:layout_marginStart="24dp"
                 android:layout_marginTop="@dimen/principal_round_image_top"
                 app:layout_constraintStart_toEndOf="@+id/post_image_vendeur"
                 app:layout_constraintTop_toTopOf="parent" />

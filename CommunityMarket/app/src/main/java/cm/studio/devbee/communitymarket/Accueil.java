@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
-
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.AnimationDrawable;
@@ -18,7 +17,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.SearchView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -31,7 +29,6 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -50,7 +47,6 @@ import com.squareup.picasso.Transformation;
 import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-
 import cm.studio.devbee.communitymarket.Fragments.BeauteFragment;
 import cm.studio.devbee.communitymarket.Fragments.DecouvrirFragment;
 import cm.studio.devbee.communitymarket.Fragments.ElectroniqueFragment;
@@ -66,7 +62,7 @@ import cm.studio.devbee.communitymarket.profile.FavoriesActivity;
 import cm.studio.devbee.communitymarket.profile.NotificationActivity;
 import cm.studio.devbee.communitymarket.profile.ParametrePorfilActivity;
 import cm.studio.devbee.communitymarket.profile.ProfileActivity;
-import cm.studio.devbee.communitymarket.search.ChoiceSearchActivity;
+import cm.studio.devbee.communitymarket.search.SearchActivity;
 import de.hdodenhof.circleimageview.CircleImageView;
 import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence;
 import uk.co.deanwild.materialshowcaseview.ShowcaseConfig;
@@ -394,7 +390,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
     public boolean onOptionsItemSelected(MenuItem item) {
             int id = item.getItemId ();
             if (id == R.id.search) {
-                Intent gogotoSearch = new Intent(getApplicationContext(),ChoiceSearchActivity.class);
+                Intent gogotoSearch = new Intent(getApplicationContext(),SearchActivity.class);
                 startActivity(gogotoSearch);
                 //finish ();
                 return true;

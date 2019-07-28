@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".search.SearchActivity"
     android:id="@+id/layout"
-    android:background="@color/black"
+    android:background="@color/blanc"
     >
 
     <EditText
@@ -24,10 +24,10 @@
         android:hint="search ... "
         android:inputType="textPersonName"
         android:padding="@dimen/post_padding_edit_text"
-        android:textColor="@color/blanc"
-        android:textColorHint="@color/blanc"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
         android:theme="@style/edit_theme"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/search_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_search" />
 
@@ -50,12 +50,11 @@
         android:id="@+id/search_recyclerview"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_edit_text" />
+        app:layout_constraintTop_toBottomOf="@+id/recherche" />
 
 
     <android.support.v7.widget.Toolbar
@@ -68,5 +67,37 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/search_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/background_message_button"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/search_edit_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/search_edit_text"
+        app:srcCompat="@drawable/ic_search" />
+
+    <Spinner
+        android:id="@+id/recherche"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:dropDownWidth="match_parent"
+        android:entries="@array/recherche"
+        android:padding="15dp"
+        android:spinnerMode="dropdown"
+        android:theme="@style/edit_theme"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_edit_text" />
+
+
 
 </android.support.constraint.ConstraintLayout>
