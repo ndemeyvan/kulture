@@ -75,9 +75,8 @@ public class JeuxFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_jeux, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+         v = inflater.inflate(R.layout.fragment_jeux, container, false);
         pubImageTextTwo=v.findViewById ( R.id.pubImageTextTwo );
         pubImageTextThree=v.findViewById ( R.id.pubImageTextThree );
         pubImageTextFour=v.findViewById ( R.id.pubImageTextFour );
@@ -87,7 +86,6 @@ public class JeuxFragment extends Fragment {
         pubImageThree=v.findViewById ( R.id.pubImageThree);
         pubImageFour=v.findViewById ( R.id.pubImageFour );
         imagePubText=v.findViewById ( R.id.imagePubText );
-
         firebaseAuth=FirebaseAuth.getInstance ();
         curent_user=firebaseAuth.getCurrentUser ().getUid ();
 
@@ -251,11 +249,6 @@ public class JeuxFragment extends Fragment {
         });
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        categoriesAdapteacessoire.startListening();
-    }
     public void RecyclerView(){
         firebaseFirestore=FirebaseFirestore.getInstance ();
         Query firstQuery =firebaseFirestore.collection ( "publication" ).document ("categories").collection ( "Jeux et console" ).document("dans").collection ( "jeux").orderBy ( "priority",Query.Direction.DESCENDING );
@@ -267,6 +260,12 @@ public class JeuxFragment extends Fragment {
         acessoireRecyclerView.setHasFixedSize(true);
         acessoireRecyclerView.setLayoutManager(new LinearLayoutManager (getActivity(),LinearLayoutManager.VERTICAL,false));
         acessoireRecyclerView.setAdapter(categoriesAdapteacessoire);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        categoriesAdapteacessoire.startListening();
     }
 
 
