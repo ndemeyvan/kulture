@@ -667,7 +667,7 @@ public class ModeFragment extends Fragment  {
         tabsAdapter.addFragment(new AccesoireFragment(),"Accessoires");
         tabsAdapter.addFragment(new PantalonFragment(),"Pantalons");
         tabsAdapter.addFragment(new BijouxFragment() ,"Bijouxs");
-        tabsAdapter.addFragment(new JupesFragment() ,"Afritudes");
+        tabsAdapter.addFragment(new AfritudeFragment () ,"Afritudes");
         tabsAdapter.addFragment(new MontreFragment(),"Montres");
         tabsAdapter.addFragment(new PoloFragment(),"Polos");
         tabsAdapter.addFragment(new Sous_vetement(),"Sous vetements");

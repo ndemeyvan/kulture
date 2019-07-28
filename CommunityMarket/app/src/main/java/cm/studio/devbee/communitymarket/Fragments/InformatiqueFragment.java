@@ -46,8 +46,9 @@ public class InformatiqueFragment extends Fragment {
     public void setupViewPager(ViewPager viewPager){
         Informatique_Tabs_Adapter tabsAdapter=new Informatique_Tabs_Adapter(getActivity().getSupportFragmentManager());
         tabsAdapter.addFragment(new OrdinateurFragment(),"Ordinateur");
-        tabsAdapter.addFragment(new AccessoirePhoneFragment(),"Accessoire");
         tabsAdapter.addFragment(new StockageFragment(),"stockage");
+        tabsAdapter.addFragment(new AccessoirePhoneFragment(),"Accessoire");
+
         viewPager.setAdapter(tabsAdapter);
 
     }

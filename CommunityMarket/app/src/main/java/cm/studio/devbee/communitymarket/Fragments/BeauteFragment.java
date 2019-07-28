@@ -46,8 +46,8 @@ public class BeauteFragment extends Fragment {
     public void setupViewPager(ViewPager viewPager){
         Beaute_Tabs_Adapter tabsAdapter=new Beaute_Tabs_Adapter(getActivity().getSupportFragmentManager());
         tabsAdapter.addFragment(new ParfumFragment(),"Parfum");
-        tabsAdapter.addFragment(new LaitDeBeauteFragment(),"Lait de beaute");
         tabsAdapter.addFragment(new MaquillageFragment(),"Maquillage");
+        tabsAdapter.addFragment(new LaitDeBeauteFragment(),"Lait de beaute");
 
         viewPager.setAdapter(tabsAdapter);
 

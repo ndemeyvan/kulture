@@ -83,6 +83,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> im
         final String nom_utilisateur=modelGridViewListTwoFiltered.get ( i ).getUtilisateur();
         final String idDuPost=modelGridViewListTwoFiltered.get ( i ).getPost_id();
         final String categorie=modelGridViewListTwoFiltered.get ( i ).getCategories();
+        final String collection =modelGridViewListTwoFiltered.get ( i ).getCollection ();
+
         //viewHolder.setCatrogies_name(categorie);
         viewHolder.prix_produit(prix_produit);
         viewHolder.image_produit(produit_image);
@@ -110,6 +112,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> im
                 gotoDetail.putExtra("id du post",idDuPost);
                 gotoDetail.putExtra("id de l'utilisateur",nom_utilisateur);
                 gotoDetail.putExtra("id_categories",categorie);
+                gotoDetail.putExtra("collection",collection);
                 context.startActivity(gotoDetail);
 
             }

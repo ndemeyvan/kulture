@@ -74,6 +74,7 @@ public class VendeurAdapteur extends FirestoreRecyclerAdapter<ModelGridView,Vend
         String desc =model.getDecription_du_produit();
         String prix_produit=model.getPrix_du_produit();
         String tempsdepub=model.getDate_de_publication ();
+        final String collection =model.getCollection ();
         final String nom_utilisateur=model.getUtilisateur();
         final String idDuPost=model.getPost_id();
         final String categorie=model.getCategories();
@@ -104,6 +105,8 @@ public class VendeurAdapteur extends FirestoreRecyclerAdapter<ModelGridView,Vend
                 gotoDetail.putExtra("id du post",idDuPost);
                 gotoDetail.putExtra("id de l'utilisateur",nom_utilisateur);
                 gotoDetail.putExtra("id_categories",categorie);
+                gotoDetail.putExtra("collection",collection);
+
                 context.startActivity(gotoDetail);
 
             }
