@@ -169,9 +169,10 @@
     </string-array>
 
     <string-array name="jeux" id="@+id/jeux">
-    <item> Dans quel categories ? </item>
-    <item>jeux</item>
-    <item>console</item>
+        <item> Dans quel categories ? </item>
+        <item>jeux</item>
+        <item>console</item>
+        <item>Accessoires</item>
     </string-array>
 
 

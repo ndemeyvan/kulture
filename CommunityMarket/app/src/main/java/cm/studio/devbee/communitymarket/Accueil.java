@@ -80,7 +80,6 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
         private FloatingActionButton content_floating_action_btn;
         private TabLayout tabLayout;
         private ViewPager tabsviewpager;
-        private static AsyncTask asyncTask;
         private static WeakReference<Accueil> accueilWeakReference;
         private Menu menu;
         private String name;
@@ -143,8 +142,7 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
         name= (String) drawer_user_name.getText();
 
         myDialog = new Dialog (this);
-        asyncTask=new AsyncTask();
-        asyncTask.execute();
+
         firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user_id).get ().addOnCompleteListener ( Accueil.this,new OnCompleteListener<DocumentSnapshot>() {
             @SuppressLint("RestrictedApi")
             @Override
@@ -599,30 +597,12 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),AlarmManager.INTERVAL_DAY,pendingIntent);
     }*/
 
-    public class AsyncTask extends android.os.AsyncTask<Void, Void, Void> {
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute ();
-            }
 
-            @Override
-            protected Void doInBackground(Void... voids) {
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void aVoid) {
-                super.onPostExecute ( aVoid );
-
-            }
-    }
 
     @Override
     protected void onDestroy() {
-            asyncTask.cancel(true);
             super.onDestroy();
             recup();
-            asyncTask.cancel(true);
             mAuth=null;
             firebaseFirestore=null;
             content_floating_action_btn=null;

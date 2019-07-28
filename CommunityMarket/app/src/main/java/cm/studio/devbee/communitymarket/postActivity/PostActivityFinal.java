@@ -133,6 +133,7 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
     private String categorie_choisi_phone;
     private String categorie_choisi_electroique;
     private String choix;
+    private String categorie_choisi_jeux;
 
 
     @Override
@@ -254,6 +255,22 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
             public void onItemSelected(final AdapterView<?> parent, View view, final int position, long id) {
                 categorie_choisi_phone=parent.getItemAtPosition(position).toString();
                 choix=categorie_choisi_phone;
+                toast ( categorie_choisi_phone );
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        ///////////////
+        ////////////////////
+        jeux.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(final AdapterView<?> parent, View view, final int position, long id) {
+                categorie_choisi_jeux=parent.getItemAtPosition(position).toString();
+                choix=categorie_choisi_jeux;
                 toast ( categorie_choisi_phone );
 
             }
