@@ -14,7 +14,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -43,16 +42,10 @@ public class SearchActivity extends AppCompatActivity {
     private static FirebaseAuth firebaseAuth;
     private static String current_user;
     private List<ModelGridView> listUsers;
-    private List<Seach_user_model> listUserstwo;
-
     private UserAdapter searchAdapter;
-    private Search_user_adapter searchAdaptertwo;
-
     private Toolbar toolbar_search;
     private ProgressBar search_progress;
     private ImageButton search_button;
-    private Spinner recherche;
-    private String choix;
 
 
     @Override
@@ -63,8 +56,6 @@ public class SearchActivity extends AppCompatActivity {
         search_recyclerview=findViewById ( R.id.search_recyclerview );
         listUsers = new ArrayList<>();
         searchAdapter= new UserAdapter ( listUsers,SearchActivity.this );
-        searchAdaptertwo= new Search_user_adapter ( listUserstwo,SearchActivity.this);
-
         search_recyclerview.setLayoutManager ( new LinearLayoutManager ( getApplicationContext (),LinearLayoutManager.VERTICAL,false ) );
         search_recyclerview.setAdapter ( searchAdapter );
         db = FirebaseFirestore.getInstance();
@@ -77,44 +68,37 @@ public class SearchActivity extends AppCompatActivity {
         setSupportActionBar(toolbar_search);
         getSupportActionBar().setTitle("search");
         getSupportActionBar ().setDisplayHomeAsUpEnabled ( true );
-        recherche=findViewById ( R.id.recherche );
         toolbar_search.setNavigationOnClickListener ( new View.OnClickListener () {
             @Override
             public void onClick(View v) {
-                //startActivity ( new Intent ( getApplicationContext (),Accueil.class ).setFlags ( Intent.FLAG_ACTIVITY_CLEAR_TOP ) );
                 finish ();
             }
         } );
-
-        search_button.setOnClickListener ( new View.OnClickListener () {
+        search_edit_text.addTextChangedListener ( new TextWatcher () {
             @Override
-            public void onClick(View v) {
-                recherche.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(final AdapterView<?> parent, View view, final int position, long id) {
-                        choix=parent.getItemAtPosition(position).toString();
-                        if (choix.equals ( "articles" )){
-                            searchOne ();
-                        }else{
-                            searchTwo ();
-                        }
-                    }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
-                        toas ( "choisir une categories" );
-                    }
-                });
-                searchAdapter.getFilter ().filter (  search_edit_text.getText ().toString () );
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                searchAdapter.getFilter ().filter ( s );
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         } );
 
+
+        search();
         AnimationDrawable animationDrawableOne = (AnimationDrawable) toolbar_search.getBackground();
         animationDrawableOne.setEnterFadeDuration(2000);
         animationDrawableOne.setExitFadeDuration(4000);
         animationDrawableOne.start();
 
-        ///////////////
     }
 
     @Override
@@ -123,8 +107,8 @@ public class SearchActivity extends AppCompatActivity {
         finish ();
     }
 
-    private void searchOne() {
-        db.collection ( "publication" ).document ("categories").collection (choix ).addSnapshotListener ( SearchActivity.this, new EventListener<QuerySnapshot> () {
+    private void search() {
+        db.collection ( "publication" ).document ("categories").collection ("nouveaux" ).addSnapshotListener ( SearchActivity.this, new EventListener<QuerySnapshot> () {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                 for (DocumentChange doc : queryDocumentSnapshots.getDocumentChanges () ){
@@ -132,22 +116,6 @@ public class SearchActivity extends AppCompatActivity {
                         ModelGridView modelGridView = doc.getDocument ().toObject ( ModelGridView.class );
                         listUsers.add ( modelGridView);
                         searchAdapter.notifyDataSetChanged ();
-                    }
-                }
-            }
-        } );
-    }
-    private void searchTwo() {
-        db.collection ( "mes donnees utilisateur" ).addSnapshotListener ( this, new EventListener<QuerySnapshot> () {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                for (DocumentChange doc : queryDocumentSnapshots.getDocumentChanges () ){
-                    if (doc.getType ()==DocumentChange.Type.ADDED){
-                        Seach_user_model modelGridView = doc.getDocument ().toObject ( Seach_user_model.class );
-                        if (!modelGridView.getId_utilisateur ().equals ( current_user )){
-                            listUserstwo.add ( modelGridView);
-                        }
-                        searchAdaptertwo.notifyDataSetChanged ();
                     }
                 }
             }
@@ -179,10 +147,6 @@ public class SearchActivity extends AppCompatActivity {
     public void onPause() {
         super.onPause ();
         userstatus("offline");
-    }
-
-    public void toas(String s){
-        Toast.makeText ( getApplicationContext (), s, Toast.LENGTH_SHORT ).show ();
     }
 
 
