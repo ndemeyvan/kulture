@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="16dp"
         android:alpha="0.5"
         android:drawableLeft="@drawable/ic_search"
         android:drawablePadding="8dp"
@@ -26,8 +26,8 @@
         android:padding="@dimen/post_padding_edit_text"
         android:textColor="@color/blanc"
         android:textColorHint="@color/blanc"
-        android:theme="@style/edit_theme"
-        app:layout_constraintEnd_toStartOf="@+id/search_button"
+        android:theme="@style/edit_themetwo"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_search" />
 
@@ -67,18 +67,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageButton
-        android:id="@+id/search_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/background_message_button"
-        android:padding="10dp"
-        app:layout_constraintBottom_toBottomOf="@+id/search_edit_text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/search_edit_text"
-        app:srcCompat="@drawable/ic_search" />
 
 
 </android.support.constraint.ConstraintLayout>
