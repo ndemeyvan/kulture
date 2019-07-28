@@ -465,7 +465,7 @@ public class MessageActivity extends AppCompatActivity {
         reference.child ( "Chats" ).push ().setValue ( mesageMap );
         ///////////////////////////////////////////
         Calendar calendar=Calendar.getInstance ();
-        SimpleDateFormat currentDate=new SimpleDateFormat (" dd MMM yyyy" );
+        SimpleDateFormat currentDate=new SimpleDateFormat (" dd MMM yyyy H:mm" );
         saveCurrentDate=currentDate.format ( calendar.getTime () );
         randomKey=saveCurrentDate;
 
