@@ -335,6 +335,7 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
                     notification_map.put("action","commantaire");
                     notification_map.put("commantaire",post_detail_comment.getText().toString());
                     notification_map.put("is_new_notification","true");
+                    notification_map.put("collection",choix);
 
                     /////
                     firebaseFirestore.collection("mes donnees utilisateur").document(current_user_id).get().addOnCompleteListener(DetailActivity.this,new OnCompleteListener<DocumentSnapshot> () {
@@ -1077,6 +1078,7 @@ public class DetailActivity extends AppCompatActivity implements RewardedVideoAd
                 notification_map.put("action","a liker");
                 notification_map.put("commantaire","");
                 notification_map.put("is_new_notification","true");
+                notification_map.put("collection",choix);
                 /////
 
                 final Map <String,Object> user_post = new HashMap ();

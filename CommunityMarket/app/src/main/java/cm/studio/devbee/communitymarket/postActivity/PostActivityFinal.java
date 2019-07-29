@@ -237,7 +237,7 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
             public void onItemSelected(final AdapterView<?> parent, View view, final int position, long id) {
                 categorie_choisi=parent.getItemAtPosition(position).toString();
                 choix=categorie_choisi;
-                toast ( categorie_choisi );
+                ///toast ( categorie_choisi );
 
 
 
@@ -255,7 +255,7 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
             public void onItemSelected(final AdapterView<?> parent, View view, final int position, long id) {
                 categorie_choisi_phone=parent.getItemAtPosition(position).toString();
                 choix=categorie_choisi_phone;
-                toast ( categorie_choisi_phone );
+               // toast ( categorie_choisi_phone );
 
             }
 
@@ -271,7 +271,7 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
             public void onItemSelected(final AdapterView<?> parent, View view, final int position, long id) {
                 categorie_choisi_jeux=parent.getItemAtPosition(position).toString();
                 choix=categorie_choisi_jeux;
-                toast ( categorie_choisi_phone );
+                //toast ( categorie_choisi_phone );
 
             }
 
@@ -288,7 +288,7 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
                 categorie_choisi_informatique=parent.getItemAtPosition(position).toString();
                 choix=categorie_choisi_informatique;
 
-                toast ( categorie_choisi_informatique );
+               // toast ( categorie_choisi_informatique );
 
             }
 
@@ -319,7 +319,7 @@ public class PostActivityFinal extends AppCompatActivity implements RewardedVide
             public void onItemSelected(final AdapterView<?> parent, View view, final int position, long id) {
                 categorie_choisi_electroique=parent.getItemAtPosition(position).toString();
                 choix=categorie_choisi_electroique;
-                toast ( categorie_choisi_electroique );
+               // toast ( categorie_choisi_electroique );
             }
 
             @Override

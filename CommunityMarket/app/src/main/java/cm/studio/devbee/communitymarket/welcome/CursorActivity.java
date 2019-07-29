@@ -105,7 +105,7 @@ public class CursorActivity extends AppCompatActivity {
                 }
             }
         });
-        Toast.makeText(getApplicationContext(),getString(R.string.glisser),Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(),getString(R.string.glisser),Toast.LENGTH_LONG).show();
     }
     private void addBottomDots(int currentPage) {
         dots = new TextView[layouts.length];

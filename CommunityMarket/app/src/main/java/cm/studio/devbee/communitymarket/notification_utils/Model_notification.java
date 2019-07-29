@@ -13,11 +13,21 @@ public class Model_notification {
     String post_id;
     String action;
     String commantaire;
+    private String collection;
 
-    public Model_notification() {
+    public String getCollection() {
+        return collection;
     }
 
-    public Model_notification(String nom_du_produit, String decription_du_produit, String prix_du_produit, String date_du_like, String image_du_produit, String categories, String id_de_utilisateur, String id_du_post, String post_id, String action, String commantaire) {
+    public void setCollection(String collection) {
+        this.collection = collection;
+    }
+
+    public Model_notification() {
+
+    }
+
+    public Model_notification(String nom_du_produit, String decription_du_produit, String prix_du_produit, String date_du_like, String image_du_produit, String categories, String id_de_utilisateur, String id_du_post, String post_id, String action, String commantaire, String collection) {
         this.nom_du_produit = nom_du_produit;
         this.decription_du_produit = decription_du_produit;
         this.prix_du_produit = prix_du_produit;
@@ -29,6 +39,7 @@ public class Model_notification {
         this.post_id = post_id;
         this.action = action;
         this.commantaire = commantaire;
+        this.collection = collection;
     }
 
     public String getNom_du_produit() {

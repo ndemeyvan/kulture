@@ -122,6 +122,7 @@ public class DetailActivityThree extends AppCompatActivity {
     private Menu menu;
     private boolean is_exist=false;
     private TextView detail_titre_vente;
+    private String choix;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,6 +135,7 @@ public class DetailActivityThree extends AppCompatActivity {
         categories=getIntent().getExtras().getString("id_categories");
         current_user_id =getIntent().getExtras().getString("id de l'utilisateur");
         lien_image =getIntent().getExtras().getString("image_en_vente");
+        choix=getIntent ().getExtras ().getString ( "collection" );
         detail_image_post=findViewById(R.id.detail_image_post);
         detail_post_titre_produit=findViewById(R.id.detail_prix_produit );
         detail_prix_produit=findViewById(R.id.detail_prix_produit);
@@ -353,7 +355,7 @@ public class DetailActivityThree extends AppCompatActivity {
                                     } catch (JSONException e) {
                                         Log.e(TAG, "onCreate: " + e.getMessage() );
                                     }
-                                    sendNotification(notification);
+                                    //sendNotification(notification);
 
                                     ////end test noti
                                 }
@@ -525,12 +527,35 @@ public class DetailActivityThree extends AppCompatActivity {
         return true;
     }
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId ();
         if (id == R.id.ic_like) {
             if (!utilisateur_actuel.equals ( current_user_id )){
+                ////////
+                Date date=new Date();
+                SimpleDateFormat sdf= new SimpleDateFormat("d/MM/y H:mm:ss");
+                final String date_avec_seconde=sdf.format(date);
+                Calendar calendar=Calendar.getInstance ();
+                SimpleDateFormat currentDate=new SimpleDateFormat (" dd MMM yyyy hh:mm" );
+                String saveCurrentDate=currentDate.format ( calendar.getTime () );
+                String randomKey=saveCurrentDate;
+                final Map <String,Object> notification_map = new HashMap ();
+                notification_map.put ( "nom_du_produit",titreDuProduit );
+                notification_map.put ( "decription_du_produit",description );
+                notification_map.put ( "prix_du_produit",prix_produit );
+                notification_map.put ( "date_du_like",randomKey );
+                notification_map.put ( "image_du_produit",lien_image);
+                notification_map.put("categories",categories);
+                notification_map.put("id_de_utilisateur",utilisateur_actuel);
+                notification_map.put("id_du_post",iddupost);
+                notification_map.put("post_id",iddupost);
+                notification_map.put("action","a liker");
+                notification_map.put("commantaire","");
+                notification_map.put("is_new_notification","true");
+                notification_map.put("collection",choix);
+                /////
+
                 final Map <String,Object> user_post = new HashMap ();
                 user_post.put ( "nom_du_produit",titreDuProduit );
                 user_post.put ( "decription_du_produit",description );
@@ -545,12 +570,38 @@ public class DetailActivityThree extends AppCompatActivity {
                 user_post.put("id_du_favorie",iddupost);
                 user_post.put("post_id",iddupost);
                 if (is_exist==false){
-                    is_exist=true;
                     firebaseFirestore.collection ( "mes donnees utilisateur" ).document (utilisateur_actuel).collection ( "mes favories" ).document(iddupost).set(user_post).addOnSuccessListener(DetailActivityThree.this,new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void documentReference) {
+                            is_exist=true;
                             menu.getItem(0).setIcon(ContextCompat.getDrawable(getApplicationContext (), R.mipmap.ic_like_accent));
                             Toast.makeText ( getApplicationContext (),"ajouter a vos favories",Toast.LENGTH_LONG ).show ();
+                            //////////////////////////////
+                            firebaseFirestore.collection ( "mes donnees utilisateur" ).document (current_user_id).collection ( "mes notification" ).document(iddupost).set(notification_map).addOnSuccessListener(DetailActivityThree.this,new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void documentReference) {
+
+                                }
+
+                            }).addOnFailureListener ( DetailActivityThree.this, new OnFailureListener () {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                }
+                            } );
+
+                            DocumentReference user = firebaseFirestore.collection("mes donnees utilisateur" ).document(current_user_id);
+                            user.update("has_notification", "true")
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                        }
+                                    });
+                            ///////////////////////////
                         }
 
                     }).addOnFailureListener ( DetailActivityThree.this, new OnFailureListener () {
@@ -567,7 +618,6 @@ public class DetailActivityThree extends AppCompatActivity {
                 }
 
             }else {
-
                 Toast.makeText ( getApplicationContext (),"you can not add your own article to favories",Toast.LENGTH_LONG ).show ();
             }
 

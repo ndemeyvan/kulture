@@ -78,6 +78,8 @@ public class NotificationAdapter extends FirestoreRecyclerAdapter<Model_notifica
         final String image_du_produit =model.getImage_du_produit();
         final String categories =model.getCategories ();
         final String id_du_post=model.getId_du_post ();
+        final String collection =model.getCollection ();
+
         Picasso.with(context).load(image_du_produit).into(holder.image_du_produit);
         if (action.equals("commantaire")){
             holder.text_des_commentaires.setVisibility(View.VISIBLE);
@@ -136,6 +138,8 @@ public class NotificationAdapter extends FirestoreRecyclerAdapter<Model_notifica
                 intent.putExtra ( "id du post",id_du_post );
                 intent.putExtra ( "id de l'utilisateur",current_user );
                 intent.putExtra ( "id_categories",categories );
+                intent.putExtra("collection",collection);
+
                 context.startActivity ( intent );
             }
         } );
