@@ -12,16 +12,6 @@ import android.view.ViewGroup;
 import cm.studio.devbee.communitymarket.Fragments.Telephone_tablette.AccessoirePhoneFragment;
 import cm.studio.devbee.communitymarket.Fragments.Telephone_tablette.TabletFragment;
 import cm.studio.devbee.communitymarket.Fragments.Telephone_tablette.TelephoneFragment;
-import cm.studio.devbee.communitymarket.Fragments.mode.AccesoireFragment;
-import cm.studio.devbee.communitymarket.Fragments.mode.BijouxFragment;
-import cm.studio.devbee.communitymarket.Fragments.mode.ChaussureFragment;
-import cm.studio.devbee.communitymarket.Fragments.mode.JupesFragment;
-import cm.studio.devbee.communitymarket.Fragments.mode.MontreFragment;
-import cm.studio.devbee.communitymarket.Fragments.mode.PantalonFragment;
-import cm.studio.devbee.communitymarket.Fragments.mode.PoloFragment;
-import cm.studio.devbee.communitymarket.Fragments.mode.Sous_vetement;
-import cm.studio.devbee.communitymarket.Fragments.mode.Vetementragment;
-import cm.studio.devbee.communitymarket.Mes_tabs_Adapter.ModeTabs_Adapter;
 import cm.studio.devbee.communitymarket.Mes_tabs_Adapter.Telephone_tab_adapter;
 import cm.studio.devbee.communitymarket.R;
 

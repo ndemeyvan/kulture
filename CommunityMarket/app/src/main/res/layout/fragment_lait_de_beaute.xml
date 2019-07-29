@@ -20,7 +20,6 @@
         app:layout_constraintTop_toBottomOf="@+id/adViewTwo">
 
         <ImageView
-            android:src="@drawable/t_shirt"
             android:id="@+id/pubImage"
             android:layout_width="match_parent"
             android:layout_height="@dimen/fragment_slide_height"

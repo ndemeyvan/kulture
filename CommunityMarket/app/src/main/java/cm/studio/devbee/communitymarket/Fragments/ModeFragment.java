@@ -28,7 +28,6 @@ import cm.studio.devbee.communitymarket.Fragments.mode.AccesoireFragment;
 import cm.studio.devbee.communitymarket.Fragments.mode.AfritudeFragment;
 import cm.studio.devbee.communitymarket.Fragments.mode.BijouxFragment;
 import cm.studio.devbee.communitymarket.Fragments.mode.ChaussureFragment;
-import cm.studio.devbee.communitymarket.Fragments.mode.JupesFragment;
 import cm.studio.devbee.communitymarket.Fragments.mode.MontreFragment;
 import cm.studio.devbee.communitymarket.Fragments.mode.PantalonFragment;
 import cm.studio.devbee.communitymarket.Fragments.mode.PoloFragment;

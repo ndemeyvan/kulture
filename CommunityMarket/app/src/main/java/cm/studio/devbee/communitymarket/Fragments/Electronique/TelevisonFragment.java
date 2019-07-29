@@ -113,7 +113,7 @@ public class TelevisonFragment extends Fragment {
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()){
                     //image_one
-                    firebaseFirestore.collection("slider_pull").document("image_One").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
+                    firebaseFirestore.collection("Slider_Television").document("image_One").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             if (task.isSuccessful()){
@@ -146,7 +146,7 @@ public class TelevisonFragment extends Fragment {
                     });
 
                     //image_two
-                    firebaseFirestore.collection("slider_pull").document("imageTwo").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
+                    firebaseFirestore.collection("Slider_Television").document("imageTwo").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             if (task.isSuccessful()){
@@ -178,7 +178,7 @@ public class TelevisonFragment extends Fragment {
                         }
                     });
                     //image_three
-                    firebaseFirestore.collection("slider_pull").document("imageThree").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
+                    firebaseFirestore.collection("Slider_Television").document("imageThree").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             if (task.isSuccessful()){
@@ -211,7 +211,7 @@ public class TelevisonFragment extends Fragment {
                     });
 
                     //image_four
-                    firebaseFirestore.collection("slider_pull").document("imageFour").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
+                    firebaseFirestore.collection("Slider_Television").document("imageFour").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             if (task.isSuccessful()){

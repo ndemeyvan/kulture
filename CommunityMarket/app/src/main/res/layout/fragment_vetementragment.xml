@@ -19,7 +19,6 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:src="@drawable/t_shirt"
             android:id="@+id/pubImage"
             android:layout_width="match_parent"
             android:layout_height="@dimen/fragment_slide_height"
