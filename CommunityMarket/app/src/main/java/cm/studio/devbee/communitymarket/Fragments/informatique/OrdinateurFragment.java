@@ -114,7 +114,7 @@ public class OrdinateurFragment extends Fragment {
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()){
                     //image_one
-                    firebaseFirestore.collection("Slider_Ordinateur").document("image_One").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
+                    firebaseFirestore.collection("Slider_Ordinateur").document("imageOne").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             if (task.isSuccessful()){

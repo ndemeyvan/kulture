@@ -112,7 +112,7 @@ public class LaitDeBeauteFragment extends Fragment {
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()){
                     //image_one
-                    firebaseFirestore.collection("Slider_laid_de_beaute").document("image_One").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
+                    firebaseFirestore.collection("Slider_laid_de_beaute").document("imageOne").get().addOnCompleteListener(getActivity (),new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             if (task.isSuccessful()){
