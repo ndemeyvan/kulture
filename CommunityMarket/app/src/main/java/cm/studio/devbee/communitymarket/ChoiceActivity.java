@@ -121,7 +121,9 @@ public class ChoiceActivity extends AppCompatActivity {
         }
         else{
 
-            Toast.makeText(getApplicationContext (),getString(R.string.tost_erreur_de_connexion),Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext (),getString(R.string.tost_erreur_de_connexion),Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(getApplicationContext(),NoConnecTionActivity.class);
+            startActivity(intent);
             finish();
         }
 

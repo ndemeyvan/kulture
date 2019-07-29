@@ -150,7 +150,9 @@
     <string name="laisser_commentaire">leave or see the comments. "next" to continue </string>
     <string name="prix">ici apparait le prix." next " pour continuer</string>
     <string name="supprimer">click here to delete one item from the sale. "next" to continue</string>
-
+    <string name="no_connexion">Make sure you activate your Internet connection and restart Open Market</string>
+    <string name="remplir_tout">fill in all the information</string>
+    <string name="attention">nb: all publications in the wrong category, will be deleted</string>
 
 
 

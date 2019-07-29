@@ -193,4 +193,7 @@
     <string name="laisser_commentaire">laisser ou voir les commentaires. " suivant " pour continuer"</string>
     <string name="prix">ici apparait le prix." suivant " pour continuer</string>
     <string name="supprimer">cliquez ici pour supprimmer un votre article de la vente." suivant " pour continuer</string>
+    <string name="no_connexion">Veillez Activer votre Connexion internet puis relancer Open Market</string>
+    <string name="remplir_tout">remplir toutes les informations</string>
+    <string name="attention">nb : toutes publications dans la mauvaise categorie , sera supprimé</string>
 </resources>
