@@ -1,6 +1,9 @@
 package cm.studio.devbee.communitymarket.Fragments;
 
 
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -48,9 +51,9 @@ public class BeauteFragment extends Fragment {
         tabsAdapter.addFragment(new ParfumFragment(),"Parfum");
         tabsAdapter.addFragment(new MaquillageFragment(),"Maquillage");
         tabsAdapter.addFragment(new LaitDeBeauteFragment(),"Lait de beaute");
-
         viewPager.setAdapter(tabsAdapter);
 
     }
+
 
 }

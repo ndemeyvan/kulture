@@ -147,7 +147,6 @@ public class Accueil extends AppCompatActivity implements NavigationView.OnNavig
                     if (task.getResult ().exists ()){
                         String pop_up= task.getResult ().getString ( "user_residence" );
                         if (pop_up.equals ( "" )){
-                            content_floating_action_btn.setVisibility(View.INVISIBLE);
                             paramDialog();
                         }else{
                             ShowcaseConfig config = new ShowcaseConfig();

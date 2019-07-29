@@ -1,8 +1,11 @@
 package cm.studio.devbee.communitymarket.Fragments.mode;
 
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -50,6 +53,7 @@ public class AccesoireFragment extends Fragment {
     private static List<ModelGridView> categoriesModelacessoireList;
     private static WeakReference<AccesoireFragment> acessoireFragmentWeakReference;
     private static FirebaseAuth firebaseAuth;
+    private Dialog myDialog;
 
     String curent_user;
     ViewFlipper viewFlippertwo;
@@ -281,6 +285,14 @@ public class AccesoireFragment extends Fragment {
 
         }
     }
+    public void showPopup() {
+        myDialog=new Dialog(getContext ());
+        myDialog.setContentView(R.layout.load_pop_pup);
+        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        myDialog.setCancelable(false);
+        myDialog.show();
+    }
+
     @Override
     public void onDestroy() {
         asyncTask.cancel(true);
