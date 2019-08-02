@@ -65,7 +65,6 @@ public class DecouvrirFragment extends Fragment implements RewardedVideoAdListen
     private RecyclerView principalRecyclerView;
     private static  String current_user;
     private AdView mAdView;
-    private AdView mAdViewTwo;
     private RewardedVideoAd mad;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     CollectionReference notebookRef = db.collection("publication").document("categories").collection("nouveaux");
@@ -173,10 +172,8 @@ public class DecouvrirFragment extends Fragment implements RewardedVideoAdListen
         // leur id ca-app-pub-3940256099942544~3347511713
         MobileAds.initialize(getApplicationContext(), "ca-app-pub-4353172129870258~6890094527");
         mAdView = v.findViewById(R.id.adView);
-        mAdViewTwo=v.findViewById(R.id.adViewTwo);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
-        mAdViewTwo.loadAd(adRequest);
         mAdView.setAdListener(new AdListener () {
             @Override
             public void onAdLoaded() {
