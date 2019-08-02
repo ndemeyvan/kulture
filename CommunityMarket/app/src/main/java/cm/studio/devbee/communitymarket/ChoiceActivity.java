@@ -77,10 +77,8 @@ public class ChoiceActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate ( savedInstanceState );
         //Twitter.initialize(this);
-
         setContentView ( R.layout.activity_choice );
         gotoLogin=findViewById ( R.id.gotoLogin );
-
         firebaseAuth=FirebaseAuth.getInstance();
         facebook_button=findViewById(R.id.facebook_button);
         //image_de_choix=findViewById(R.id.image_de_choix);
@@ -88,8 +86,6 @@ public class ChoiceActivity extends AppCompatActivity {
                 .requestIdToken("537391119843-njqfai8ka55g6doo947bnklqcap3ih8c.apps.googleusercontent.com")
                 .requestEmail()
                 .build();
-
-
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         choiceActivityWeakReference=new WeakReference<>(this);
         login ();
@@ -232,7 +228,7 @@ public class ChoiceActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Exception e) {
                 myDialog.dismiss();
-                Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),"connexion error",Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -348,18 +344,21 @@ public class ChoiceActivity extends AppCompatActivity {
                                     }
                                 }else{
 
-                                    Toast.makeText ( getApplicationContext (),"failed",Toast.LENGTH_LONG ).show ();
+                                    Toast.makeText(getApplicationContext(),"connexion error",Toast.LENGTH_LONG).show();
+
                                 }
                             }
                         } );
                 }else{
-                    Toast.makeText ( getApplicationContext (),"failed",Toast.LENGTH_LONG ).show ();
+                    Toast.makeText(getApplicationContext(),"connexion error",Toast.LENGTH_LONG).show();
+
                 }
             }
         } ).addOnFailureListener ( new OnFailureListener () {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText ( getApplicationContext (),"failed",Toast.LENGTH_LONG ).show ();
+                Toast.makeText(getApplicationContext(),"connexion error",Toast.LENGTH_LONG).show();
+
             }
         } );
     }
