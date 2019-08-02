@@ -4,10 +4,12 @@ package cm.studio.devbee.communitymarket.Fragments.Jeux_video;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -42,6 +44,7 @@ import cm.studio.devbee.communitymarket.PublicityActivity;
 import cm.studio.devbee.communitymarket.R;
 import cm.studio.devbee.communitymarket.gridView_post.GridViewAdapter;
 import cm.studio.devbee.communitymarket.gridView_post.ModelGridView;
+import cm.studio.devbee.communitymarket.welcome.CursorActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -68,6 +71,7 @@ public class JeuxFragment extends Fragment {
     TextView pubImageTextTwo;
     TextView pubImageTextThree;
     TextView pubImageTextFour;
+    SwipeRefreshLayout swip;
     public JeuxFragment() {
         // Required empty public constructor
     }
@@ -96,6 +100,18 @@ public class JeuxFragment extends Fragment {
                         imagePub ();
                     }
                 });
+        swip=v.findViewById(R.id.swip);
+        swip.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Handler(  ).postDelayed (new Runnable () {
+                    @Override
+                    public void run() {
+                        swip.setRefreshing(false);
+                    }
+                }, 3000 );
+            }
+        });
 
         return v;
     }
